@@ -26,7 +26,6 @@ clean:
 #	$(RM) ../md/*
 #	$(RM) -rf ../tmp/*.md
 #	$(RM) -rf ../tmp/*.Rmd
-#	$(RM) ../_posts/*
 #	$(RM) ../content/posts/*
 #	$(RM) ../content/assets/figure/*
 	cmd /c del /q ..\R\\*.*
@@ -34,6 +33,5 @@ clean:
 	cmd /c for /d %f in (..\tmp\\*) do rmdir /s /q %f
 	cmd /c del /q ..\tmp\\*.md
 	cmd /c del /q ..\tmp\\*.Rmd
-	cmd /c del /q ..\_posts\\*.*
 	cmd /c del /q ..\content\posts\\*.*
 	cmd /c del /q ..\content\assets\figure\\*.*
