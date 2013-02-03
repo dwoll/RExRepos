@@ -12,7 +12,7 @@ The examples assume a reader who is already familiar with the statistical underp
 
 ### Reproducible documents
 
-The posts on this site were created automatically from within R, using a workflow that makes use of [knitr](http://yihui.name/knitr/), [Jekyll](http://jekyllrb.com/), and the [Bootstrap framework](http://twitter.github.com/bootstrap/). For details, see this [page explaining the workflow](http://www.uni-kiel.de/psychologie/rexrepos/rerWorkflow.html). This website, including all examples (R markdown, markdown, and plain R code files), is [available on GitHub](https://github.com/dwoll/RExRepos). The repository also contains the Makefiles and an R-script necessary for automatically building the website.
+The posts on this site were created automatically from within R, using a workflow that makes use of [knitr](http://yihui.name/knitr/), [nanoc](http://nanoc.ws/), and the [Bootstrap framework](http://twitter.github.com/bootstrap/). For details, see this [page explaining the workflow](http://www.uni-kiel.de/psychologie/rexrepos/rerWorkflow.html). This website, including all examples (R markdown, markdown, and plain R code files), is [available on GitHub](https://github.com/dwoll/RExRepos). The repository also contains the Makefiles and an R-script necessary for automatically building the website.
 
 ### Topics
 
