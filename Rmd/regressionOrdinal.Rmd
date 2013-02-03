@@ -1,0 +1,297 @@
+---
+layout: post
+title: "Ordinal regression"
+categories: [Univariate, Regression]
+rerCat: Univariate
+tags: [Regression, GLM]
+---
+
+Ordinal regression
+=========================
+
+```{r echo=FALSE}
+library(knitr)
+opts_knit$set(self.contained=FALSE)
+opts_chunk$set(tidy=FALSE, message=FALSE, warning=FALSE, comment=NA)
+# render_jekyll()
+```
+
+TODO
+-------------------------
+
+ - link to regressionLogistic, regressionMultinom
+
+Install required packages
+-------------------------
+
+[`MASS`](http://cran.r-project.org/package=MASS), [`ordinal`](http://cran.r-project.org/package=ordinal), [`rms`](http://cran.r-project.org/package=rms), [`VGAM`](http://cran.r-project.org/package=VGAM)
+
+```{r}
+wants <- c("MASS", "ordinal", "rms", "VGAM")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Ordinal regression (proportional odds model)
+-------------------------
+    
+### Simulate data
+
+Dependent variable \( Y_{\text{ord}} \) with \( k=4 \) groups, \(p=2 \) predictor variables
+
+```{r regressionOrdinalDf, cache=TRUE}
+set.seed(2.234)
+N     <- 100
+X1    <- rnorm(N, 175, 7)
+X2    <- rnorm(N,  30, 8)
+Ycont <- 0.5*X1 - 0.3*X2 + 10 + rnorm(N, 0, 6)
+Yord  <- cut(Ycont, breaks=quantile(Ycont), include.lowest=TRUE,
+             labels=c("--", "-", "+", "++"), ordered=TRUE)
+dfOrd <- data.frame(X1, X2, Yord)
+```
+
+### Using `vglm()` from package `VGAM`
+
+Model using cumulative logits: \( \text{logit}(p(Y \geq g)) = \ln \frac{P(Y \geq g)}{1 - P(Y \geq g)} = \beta_{0_{g}} + \beta_{1} X_{1} + \dots + \beta_{p} X_{p} \quad(g = 2, \ldots, k) \) 
+
+```{r}
+library(VGAM)
+(vglmFit <- vglm(Yord ~ X1 + X2, family=propodds, data=dfOrd))
+```
+
+Equivalent:
+
+```{r results='hide'}
+vglm(Yord ~ X1 + X2, family=cumulative(parallel=TRUE, reverse=TRUE), data=dfOrd)
+# not shown
+```
+
+Adjacent category logits \( \ln \frac{P(Y=g)}{P(Y=g-1)} \) with proportional odds assumption
+
+```{r results='hide'}
+vglm(Yord ~ X1 + X2, family=acat(parallel=TRUE), data=dfOrd)
+# not shown
+```
+
+Continuation ratio logits \( \ln \frac{P(Y=g)}{P(Y < g)} \) with proportional odds assumption (discrete version of Cox proportional hazards model for survival data)
+
+```{r results='hide'}
+vglm(Yord ~ X1 + X2, family=sratio(parallel=TRUE), data=dfOrd)
+# not shown
+```
+
+### Using `lrm()` from package `rms`
+
+Model \( \text{logit}(p(Y \geq g)) = \beta_{0_{g}} + \beta_{1} X_{1} + \dots + \beta_{p} X_{p} \quad(g = 2, \ldots, k) \)
+
+```{r}
+library(rms)
+(lrmFit <- lrm(Yord ~ X1 + X2, data=dfOrd))
+```
+
+### Using `polr()` from package `MASS`
+
+Model \( \text{logit}(p(Y \leq g)) = \beta_{0_{g}} - (\beta_{1} X_{1} + \dots + \beta_{p} X_{p}) \quad(g = 1, \ldots, k-1) \)
+
+```{r regressionOrdinalPolrFit, results='hide', cache=TRUE}
+library(MASS)
+(polrFit <- polr(Yord ~ X1 + X2, method="logistic", data=dfOrd))
+# not shown
+```
+
+Profile likelihood based confidence intervals
+
+```{r dependson=c("regressionOrdinalDf", "regressionOrdinalPolrFit")}
+exp(confint(polrFit))
+```
+
+### Using `clm()` from package `ordinal`
+
+Model \( \text{logit}(p(Y \leq g)) = \beta_{0_{g}} - (\beta_{1} X_{1} + \dots + \beta_{p} X_{p}) \quad(g = 1, \ldots, k-1) \)
+
+```{r results='hide'}
+library(ordinal)
+(clmFit <- clm(Yord ~ X1 + X2, link="logit", data=dfOrd))
+# not shown
+```
+
+Predicted category membership
+-------------------------
+
+### Predicted category probabilities
+
+```{r}
+PhatCateg <- predict(vglmFit, type="response")
+head(PhatCateg)
+```
+
+```{r results='hide'}
+predict(lrmFit, type="fitted.ind")
+predict(clmFit, subset(dfOrd, select=c("X1", "X2"), type="prob"))$fit
+predict(polrFit, type="probs")
+# not shown
+```
+
+### Predicted categories
+
+```{r}
+categHat <- levels(dfOrd$Yord)[max.col(PhatCateg)]
+head(categHat)
+```
+
+```{r results='hide'}
+predict(clmFit, type="class")
+predict(polrFit, type="class")
+# not shown
+```
+
+Apply regression model to new data
+-------------------------
+
+### Simulate new data
+
+```{r}
+Nnew  <- 3
+dfNew <- data.frame(X1=rnorm(Nnew, 175, 7),
+                    X2=rnorm(Nnew,  30, 8))
+```
+
+### Predicted class probabilities
+
+```{r}
+predict(vglmFit, dfNew, type="response")
+```
+
+```{r results='hide'}
+predict(lrmFit,  dfNew, type="fitted.ind")
+predict(polrFit, dfNew, type="probs")
+predict(clmFit,  subset(dfNew, select=c("X1", "X2"), type="prob"))$fit
+# not shown
+```
+
+Assess model fit
+-------------------------
+
+### Classification table
+
+```{r}
+facHat <- factor(categHat, levels=levels(dfOrd$Yord))
+cTab   <- table(dfOrd$Yord, facHat, dnn=c("Yord", "facHat"))
+addmargins(cTab)
+```
+
+Correct classification rate
+
+```{r}
+(CCR <- sum(diag(cTab)) / sum(cTab))
+```
+
+### Deviance, log-likelihood and AIC
+
+```{r}
+deviance(vglmFit)
+logLik(vglmFit)
+AIC(vglmFit)
+```
+
+### McFadden, Cox & Snell and Nagelkerke pseudo \(R^{2}\)
+
+Log-likelihoods for full model and 0-model without predictors X1, X2
+
+```{r}
+vglm0 <- vglm(Yord ~ 1, family=propodds, data=dfOrd)
+LLf   <- logLik(vglmFit)
+LL0   <- logLik(vglm0)
+```
+
+McFadden pseudo-\(R^2\)
+
+```{r}
+as.vector(1 - (LLf / LL0))
+```
+
+Cox & Snell
+
+```{r}
+as.vector(1 - exp((2/N) * (LL0 - LLf)))
+```
+
+Nagelkerke
+
+```{r}
+as.vector((1 - exp((2/N) * (LL0 - LLf))) / (1 - exp(LL0)^(2/N)))
+```
+
+Coefficient tests and overall model test
+-------------------------
+
+### Individual coefficient tests
+
+Estimated standard deviations and z-values for parameters
+
+```{r}
+sumOrd   <- summary(vglmFit)
+(coefOrd <- coef(sumOrd))
+```
+
+Approximative Wald-based confidence intervals
+
+```{r}
+zCrit   <- qnorm(c(0.05/2, 1 - 0.05/2))
+(ciCoef <- t(apply(coefOrd, 1, function(x) x["Estimate"] - zCrit*x["Std. Error"] )))
+```
+
+p-values for two-sided paramter tests based on assumption that z-values are asymptotically \(N(0, 1)\) distributed
+
+```{r}
+2*(1 - pnorm(abs(coefOrd[ , "z value"])))
+```
+
+```{r results='hide', dependson=c("regressionOrdinalDf", "regressionOrdinalPolrFit")}
+summary(polrFit)
+summary(clmFit)
+# not shown
+```
+
+### Model comparisons - likelihood-ratio tests
+
+Likelihood-ratio-test for predictor `X2`
+
+```{r}
+vglmR <- vglm(Yord ~ X1, family=propodds, data=dfOrd)
+VGAM::lrtest(vglmFit, vglmR)
+```
+
+Likelihood-ratio-test for the full model against the 0-model without predictors (just intercept)
+
+```{r}
+VGAM::lrtest(vglmFit, vglm0)
+```
+
+Test assumption of proportional odds (=parallel logits)
+
+```{r}
+vglmP <- vglm(Yord ~ X1 + X2, family=cumulative(parallel=TRUE,  reverse=TRUE),
+              data=dfOrd)
+
+vglmNP <- vglm(Yord ~ X1 + X2, family=cumulative(parallel=FALSE, reverse=TRUE),
+                data=dfOrd)
+VGAM::lrtest(vglmP, vglmNP)
+```
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:ordinal))
+try(detach(package:ucminf))
+try(detach(package:Matrix))
+try(detach(package:lattice))
+try(detach(package:MASS))
+try(detach(package:rms))
+try(detach(package:Hmisc))
+try(detach(package:survival))
+try(detach(package:VGAM))
+try(detach(package:splines))
+try(detach(package:stats4))
+```

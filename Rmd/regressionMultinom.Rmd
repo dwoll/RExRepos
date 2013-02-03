@@ -1,0 +1,251 @@
+---
+layout: post
+title: "Multinomial regression"
+categories: [Univariate, Regression]
+rerCat: Univariate
+tags: [Regression, GLM]
+---
+
+Multinomial regression
+=========================
+
+TODO
+-------------------------
+
+ - link to regressionLogistic, regressionOrdinal
+
+Install required packages
+-------------------------
+
+[`mlogit`](http://cran.r-project.org/package=mlogit), [`nnet`](http://cran.r-project.org/package=nnet), [`VGAM`](http://cran.r-project.org/package=VGAM)
+
+```{r}
+wants <- c("mlogit", "nnet", "VGAM")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Multinomial regression
+----------------------
+
+### Simulate data
+    
+```{r}
+set.seed(1.234)
+N      <- 100
+X1     <- rnorm(N, 175, 7)
+X2     <- rnorm(N,  30, 8)
+Ycont  <- 0.5*X1 - 0.3*X2 + 10 + rnorm(N, 0, 6)
+Ycateg <- cut(Ycont, breaks=quantile(Ycont), include.lowest=TRUE,
+              labels=c("--", "-", "+", "++"), ordered=FALSE)
+dfMN   <- data.frame(X1, X2, Ycateg)
+```
+
+### Using `vglm()` from package `VGAM`
+
+Estimator based on likelihood-inference
+
+```{r}
+library(VGAM)
+vglmFitMN <- vglm(Ycateg ~ X1 + X2, family=multinomial(refLevel=1), data=dfMN)
+```
+
+Odds ratios
+
+```{r}
+exp(coef(vglmFitMN))
+```
+
+### Using `multinom()` from package `nnet`
+
+Estimator based on neural networks -> slightly different results than `vglm()`, `mlogit()`
+
+```{r results='hide'}
+library(nnet)
+(mnFit <- multinom(Ycateg ~ X1 + X2, data=dfMN))
+# not shown
+```
+
+### Using `mlogit()` from package `mlogit`
+
+Uses person-choice (long) format, so data frame has to be reshaped with `mlogit.data()`
+
+```{r results='hide'}
+library(mlogit)
+dfMNL <- mlogit.data(dfMN, choice="Ycateg", shape="wide", varying=NULL)
+(mlogitFit <- mlogit(Ycateg ~ 0 | X1 + X2, reflevel="--", data=dfMNL))
+# not shown
+```
+
+Predicted category membership
+-------------------------
+
+### Predicted category probabilities
+
+```{r}
+PhatCateg <- predict(vglmFitMN, type="response")
+head(PhatCateg)
+```
+
+```{r results='hide'}
+predict(mnFit, type="probs")
+fitted(mlogitFit, outcome=FALSE)
+# not shown
+```
+
+### Predicted categories
+
+```{r}
+categHat <- levels(dfMN$Ycateg)[max.col(PhatCateg)]
+head(categHat)
+```
+
+```{r results='hide'}
+predCls <- predict(mnFit, type="class")
+head(predCls)
+# not shown
+```
+
+Assess model fit
+-------------------------
+
+### Classification table
+
+```{r}
+facHat <- factor(categHat, levels=levels(dfMN$Ycateg))
+cTab   <- table(dfMN$Ycateg, facHat, dnn=c("Ycateg", "facHat"))
+addmargins(cTab)
+```
+
+Correct classification rate
+
+```{r}
+(CCR <- sum(diag(cTab)) / sum(cTab))
+```
+
+### Deviance, log-likelihood and AIC
+
+```{r}
+deviance(vglmFitMN)
+logLik(vglmFitMN)
+AIC(vglmFitMN)
+```
+
+### McFadden, Cox & Snell and Nagelkerke pseudo \(R^{2}\)
+
+Log-likelihoods for full model and 0-model without predictors X1, X2
+
+```{r}
+vglm0 <- vglm(Ycateg ~ 1, family=multinomial(refLevel=1), data=dfMN)
+LLf   <- logLik(vglmFitMN)
+LL0   <- logLik(vglm0)
+```
+
+McFadden pseudo-\(R^2\)
+
+```{r}
+as.vector(1 - (LLf / LL0))
+```
+
+Cox & Snell
+
+```{r}
+as.vector(1 - exp((2/N) * (LL0 - LLf)))
+```
+
+Nagelkerke
+
+```{r}
+as.vector((1 - exp((2/N) * (LL0 - LLf))) / (1 - exp(LL0)^(2/N)))
+```
+
+Apply regression model to new data
+-------------------------
+
+### Simulate new data
+
+`predict.mlogit()` requires a new data frame in long format. Therefore also add new (irrelevant) categorical responses to enable reshaping the data frame with `mlogit.data()`.
+
+```{r}
+Nnew  <- 3
+dfNew <- data.frame(X1=rnorm(Nnew, 175, 7),
+                    X2=rnorm(Nnew,  30, 8),
+                    Ycateg=factor(sample(c("--", "-", "+", "++"), Nnew, TRUE),
+                                  levels=c("--", "-", "+", "++")))
+```
+
+### Predicted class probabilities
+
+```{r}
+predict(vglmFitMN, dfNew, type="response")
+```
+
+```{r results='hide'}
+predict(mnFit, dfNew, type="probs")
+
+dfNewL <- mlogit.data(dfNew, choice="Ycateg", shape="wide", varying=NULL)
+predict(mlogitFit, dfNewL)
+# not shown
+```
+
+Coefficient tests and overall model test
+-------------------------
+
+### Individual coefficient tests
+
+Estimated standard deviations and z-values for parameters
+
+```{r}
+sumMN   <- summary(vglmFitMN)
+(coefMN <- coef(sumMN))
+```
+
+Approximative Wald-based confidence intervals
+
+```{r}
+zCrit   <- qnorm(c(0.05/2, 1 - 0.05/2))
+(ciCoef <- t(apply(coefMN, 1, function(x) x["Estimate"] - zCrit*x["Std. Error"] )))
+```
+
+p-values for two-sided paramter tests based on assumption that z-values are asymptotically \(N(0, 1)\) distributed
+
+```{r}
+2*(1 - pnorm(abs(coefMN[ , "z value"])))
+```
+
+```{r results='hide'}
+summary(mnFit)
+summary(mlogitFit)
+# not shown
+```
+
+### Model comparisons - likelihood-ratio tests
+
+Likelihood-ratio-test for predictor `X2`
+
+```{r}
+vglmFitR <- vglm(Ycateg ~ X1, family=multinomial(refLevel=1), data=dfMN)
+VGAM::lrtest(vglmFitMN, vglmFitR)
+```
+
+Likelihood-ratio-test for the full model against the 0-model without predictors (just intercept)
+
+```{r}
+VGAM::lrtest(vglmFitMN, vglm0)
+```
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:mlogit))
+try(detach(package:MASS))
+try(detach(package:Formula))
+try(detach(package:statmod))
+try(detach(package:maxLik))
+try(detach(package:miscTools))
+try(detach(package:nnet))
+try(detach(package:VGAM))
+try(detach(package:splines))
+try(detach(package:stats4))
+```

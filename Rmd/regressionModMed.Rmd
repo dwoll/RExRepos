@@ -1,0 +1,123 @@
+---
+layout: post
+title: "Moderated and mediated linear regression"
+categories: [Univariate, Regression]
+rerCat: Univariate
+tags: [Regression]
+---
+
+Moderated and mediated linear regression
+=========================
+
+TODO
+-------------------------
+
+ - link to regression, regressionDiag
+
+Install required packages
+-------------------------
+
+[`mediation`](http://cran.r-project.org/package=mediation), [`multilevel`](http://cran.r-project.org/package=multilevel), [`QuantPsyc`](http://cran.r-project.org/package=QuantPsyc)
+
+```{r}
+wants <- c("mediation", "multilevel", "QuantPsyc")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+    
+Moderated regression
+-------------------------
+
+```{r}
+set.seed(1.234)
+N <- 100
+X <- rnorm(N, 175, 7)
+M <- rnorm(N,  30, 8)
+Y <- 0.5*X - 0.3*M + 10 + rnorm(N, 0, 3)
+dfRegr <- data.frame(X, M, Y)
+```
+
+```{r}
+Xc <- c(scale(dfRegr$X, center=TRUE, scale=FALSE))
+Mc <- c(scale(dfRegr$M, center=TRUE, scale=FALSE))
+fitMod <- lm(Y ~ Xc + Mc + Xc:Mc, data=dfRegr)
+summary(fitMod)
+```
+
+Only valid for models with exactly one predictor, one moderator, and one predicted variable. Function will appear to work in more complex models, but results will then be wrong.
+
+```{r}
+library(QuantPsyc)
+sim.slopes(fitMod, Mc)
+```
+
+Mediation analysis
+-------------------------
+
+### Simulate data
+
+```{r}
+N <- 100
+X <- rnorm(N, 175, 7)
+M <- 0.7*X + rnorm(N, 0, 5)
+Y <- 0.4*M + rnorm(N, 0, 5)
+dfMed <- data.frame(X, M, Y)
+```
+
+```{r}
+fit <- lm(Y ~ X + M, data=dfMed)
+summary(fit)
+```
+
+### Sobel test
+
+```{r}
+library(multilevel)
+sobel(dfMed$X, dfMed$M, dfMed$Y)
+```
+
+### Using package `mediation`
+
+Also useful for much more complicated situations.
+
+#### Estimation via quasi-Bayesian approximation
+
+```{r}
+fitM <- lm(M ~ X,     data=dfMed)
+fitY <- lm(Y ~ X + M, data=dfMed)
+
+library(mediation)
+fitMed <- mediate(fitM, fitY, sims=999, treat="X", mediator="M")
+summary(fitMed)
+```
+
+```{r rerRegressionModMed01}
+plot(fitMed)
+```
+
+#### Estimation via nonparametric bootstrap
+
+```{r}
+fitMedBoot <- mediate(fitM, fitY, boot=TRUE, sims=999, treat="X", mediator="M")
+summary(fitMedBoot)
+```
+
+Useful packages
+-------------------------
+
+More complex structural equation models are supported by packages [`sem`](http://cran.r-project.org/package=sem), [`OpenMx`](http://openmx.psyc.virginia.edu/), and [`lavaan`](http://cran.r-project.org/package=lavaan). More packages can be found in CRAN task view [Psychometric Models](http://cran.r-project.org/web/views/Psychometrics.html).
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:QuantPsyc))
+try(detach(package:boot))
+try(detach(package:mediation))
+try(detach(package:Matrix))
+try(detach(package:lpSolve))
+try(detach(package:lattice))
+try(detach(package:multilevel))
+try(detach(package:MASS))
+try(detach(package:nlme))
+```

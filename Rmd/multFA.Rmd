@@ -1,0 +1,109 @@
+---
+layout: post
+title: "Exploratory factor analysis"
+categories: [Multivariate]
+rerCat: Multivariate
+tags: [FactorAnalysis]
+---
+
+Exploratory factor analysis
+=========================
+
+Install required packages
+-------------------------
+
+[`GPArotation`](http://cran.r-project.org/package=GPArotation), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm), [`psych`](http://cran.r-project.org/package=psych)
+
+```{r}
+wants <- c("GPArotation", "mvtnorm", "psych")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Factor analysis
+-------------------------
+
+### Simulate data
+
+True matrix of loadings
+
+```{r}
+N <- 200
+P <- 6
+Q <- 2
+(Lambda <- matrix(c(0.7,-0.4, 0.8,0, -0.2,0.9, -0.3,0.4, 0.3,0.7, -0.8,0.1),
+                  nrow=P, ncol=Q, byrow=TRUE))
+```
+
+Non correlated factors
+
+```{r}
+set.seed(1.234)
+library(mvtnorm)
+Kf <- diag(Q)
+mu <- c(5, 15)
+FF <- rmvnorm(N, mean=mu,        sigma=Kf)
+E  <- rmvnorm(N, mean=rep(0, P), sigma=diag(P))
+X  <- FF %*% t(Lambda) + E
+```
+
+### Using `factanal()`
+
+```{r}
+(fa <- factanal(X, factors=2, scores="regression"))
+```
+
+### Using `fa()` from package `psych` with rotation
+
+Rotation uses package `GPArotation`
+
+```{r}
+library(psych)
+corMat <- cor(X)
+(faPC  <- fa(r=corMat, nfactors=2, n.obs=N, rotate="varimax"))
+```
+
+Factor scores
+-------------------------
+
+```{r}
+bartlett <- fa$scores
+head(bartlett)
+```
+
+```{r}
+anderson <- factor.scores(x=X, f=faPC, method="Anderson")
+head(anderson$scores)
+```
+
+Visualize loadings
+-------------------------
+
+```{r rerMultFA01}
+factor.plot(faPC, cut=0.5)
+fa.diagram(faPC)
+```
+
+Determine number of factors
+-------------------------
+
+Parallel analysis and a "very simple structure" analysis provide help in selecting the number of factors. Again, package `psych` has the required functions. `vss()` takes the polychoric correlation matrix as an argument.
+
+```{r rerMultFA02}
+fa.parallel(X)                     # parallel analysis
+vss(X, n.obs=N, rotate="varimax")  # very simple structure
+```
+
+Useful packages
+-------------------------
+
+For confirmatory factor analysis (CFA), see packages [`sem`](http://cran.r-project.org/package=sem), [`OpenMx`](http://openmx.psyc.virginia.edu/), and [`lavaan`](http://cran.r-project.org/package=lavaan) which implement structural equation models. More packages can be found in CRAN task view [Psychometric Models](http://cran.r-project.org/web/views/Psychometrics.html).
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:psych))
+try(detach(package:GPArotation))
+try(detach(package:mvtnorm))
+```

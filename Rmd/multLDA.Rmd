@@ -1,0 +1,114 @@
+---
+layout: post
+title: "Linear discriminant analysis (LDA)"
+categories: [Multivariate]
+rerCat: Multivariate
+tags: [LDA, QDA]
+---
+
+Linear discriminant analysis (LDA)
+=========================
+
+TODO
+-------------------------
+
+ - link to regressionLogistic, regressionOrdinal, regressionMultinom
+
+Install required packages
+-------------------------
+
+[`mvtnorm`](http://cran.r-project.org/package=mvtnorm), [`MASS`](http://cran.r-project.org/package=MASS)
+
+```{r}
+wants <- c("mvtnorm", "MASS")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Conventional LDA
+-------------------------
+
+### Simulate data
+
+```{r}
+set.seed(1.234)
+library(mvtnorm)
+Nj    <- c(15, 25, 20)
+Sigma <- matrix(c(16,-2, -2,9), byrow=TRUE, ncol=2)
+mu1   <- c(-4,  4)
+mu2   <- c( 3,  3)
+mu3   <- c( 1, -1)
+Y1    <- rmvnorm(Nj[1], mean=mu1, sigma=Sigma)
+Y2    <- rmvnorm(Nj[2], mean=mu2, sigma=Sigma)
+Y3    <- rmvnorm(Nj[3], mean=mu3, sigma=Sigma)
+Y     <- rbind(Y1, Y2, Y3)
+IV    <- factor(rep(1:length(Nj), Nj))
+Ydf   <- data.frame(IV, DV1=Y[ , 1], DV2=Y[ , 2])
+```
+
+### Run the analysis
+
+```{r}
+library(MASS)
+(ldaRes <- lda(IV ~ DV1 + DV2, data=Ydf))
+```
+
+```{r}
+ldaP <- lda(IV ~ DV1 + DV2, CV=TRUE, data=Ydf)
+head(ldaP$posterior)
+```
+
+```{r}
+ldaPred <- predict(ldaRes, Ydf)
+ld      <- ldaPred$x
+head(ld)
+```
+
+### Predicted classification
+
+```{r}
+cls <- ldaPred$class
+head(cls)
+```
+
+```{r}
+cTab <- table(IV, cls, dnn=c("IV", "ldaPred"))
+addmargins(cTab)
+sum(diag(cTab)) / sum(cTab)
+```
+
+```{r}
+anova(lm(ld[ , 1] ~ IV))
+anova(lm(ld[ , 2] ~ IV))
+```
+
+```{r}
+priorP <- rep(1/nlevels(IV), nlevels(IV))
+ldaEq  <- lda(IV ~ DV1 + DV2, prior=priorP, data=Ydf)
+```
+
+Robust LDA
+-------------------------
+
+```{r}
+library(MASS)
+(ldaRob <- lda(IV ~ DV1 + DV2, method="mve", data=Ydf))
+predict(ldaRob)$class
+```
+
+Quadratic Discriminant Analysis
+-------------------------
+
+```{r}
+library(MASS)
+(qdaRes <- qda(IV ~ DV1 + DV2, data=Ydf))
+predict(qdaRes)$class
+```
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:MASS))
+try(detach(package:mvtnorm))
+```

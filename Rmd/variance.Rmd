@@ -1,0 +1,127 @@
+---
+layout: post
+title: "Variance, robust spread measures, skewness and kurtosis"
+categories: [Descriptive]
+rerCat: Descriptive
+tags: [Descriptive]
+---
+
+Variance, robust spread measures, skewness and kurtosis
+=========================
+
+TODO
+-------------------------
+
+ - link to diagDistributions, varianceHom
+
+Install required packages
+-------------------------
+
+[`e1071`](http://cran.r-project.org/package=e1071), [`psych`](http://cran.r-project.org/package=psych), [`robustbase`](http://cran.r-project.org/package=robustbase), [`vegan`](http://cran.r-project.org/package=vegan)
+
+```{r}
+wants <- c("e1071", "psych", "robustbase", "vegan")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Variance and standard deviation
+-------------------------
+
+### Corrected (sample) variance and standard deviation
+
+```{r}
+age <- c(17, 30, 30, 25, 23, 21)
+N   <- length(age)
+M   <- mean(age)
+var(age)
+sd(age)
+```
+
+### Uncorrected (population) variance and standard deviation
+
+```{r}
+(cML <- cov.wt(as.matrix(age), method="ML"))
+(vML <- diag(cML$cov))
+sqrt(vML)
+```
+
+Robust spread measures
+-------------------------
+
+### Winsorized variance and standard deviation
+
+```{r}
+library(psych)
+ageWins <- winsor(age, trim=0.2)
+var(ageWins)
+sd(ageWins)
+```
+
+### Inter-quartile-range
+
+```{r}
+quantile(age)
+IQR(age)
+```
+### Mean absolute difference to the median
+
+```{r}
+mean(abs(age-median(age)))
+```
+
+### Median absolute difference to the median (MAD)
+
+```{r}
+mad(age)
+```
+
+### \(Q_{n}\): more efficient alternative to MAD
+
+```{r}
+library(robustbase)
+Qn(age)
+```
+
+### \(\tau\) estimate of scale
+
+```{r}
+scaleTau2(age)
+```
+
+Diversity of categorical data
+-------------------------
+
+```{r}
+fac <- factor(c("C", "D", "A", "D", "E", "D", "C", "E", "E", "B", "E"),
+              levels=c(LETTERS[1:5], "Q"))
+P   <- nlevels(fac)
+(Fj <- prop.table(table(fac)))
+```
+
+```{r}
+library(vegan)
+shannonIdx <- diversity(Fj, index="shannon")
+(H <- (1/log(P)) * shannonIdx)
+```
+
+Higher moments: skewness and kurtosis
+-------------------------
+
+```{r}
+library(e1071)
+skewness(age)
+kurtosis(age)
+```
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:psych))
+try(detach(package:robustbase))
+try(detach(package:vegan))
+try(detach(package:permute))
+try(detach(package:e1071))
+try(detach(package:class))
+```

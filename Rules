@@ -1,0 +1,79 @@
+#!/usr/bin/env ruby
+
+## A few helpful tips about the Rules file:
+##
+## * The string given to #compile and #route are matching patterns for
+##   identifiers--not for paths. Therefore, you can’t match on extension.
+##
+## * The order of rules is important: for each item, only the first matching
+##   rule is applied.
+##
+## * Item identifiers start and end with a slash (e.g. “/about/” for the file
+##   “content/about.html”). To select all children, grandchildren, … of an
+##   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
+##   because “*” matches zero or more characters.
+
+preprocess do
+  ## helper: copy all static assets (css, images) to output directory
+  copy_static
+  ## make the files articles if they are in the posts directory
+  # items.each do |item|
+  #     if item.identifier =~ %r{^/posts/(.*)$}
+  #     item[:kind] = 'article'
+  #   end
+  # end
+end
+
+compile '/assets/*' do
+  ## don’t filter or layout
+end
+
+## compile the markdown-formatted posts
+compile '/posts/*' do
+  filter :erb
+  # filter :kramdown
+  ## custom pandoc filter (see lib/helpers.rb) that allows setting multiple options
+  filter :pandoc_dw
+  ## requires filter from this pull request: <https://github.com/nanoc/nanoc/pull/200>
+  # filter :redcarpet_toc, :with_toc => true, :renderer => ::Redcarpet::Render::XHTML,
+  #                        :options => {
+  #                          :fenced_code_blocks => true,
+  #                          :no_intra_emphasis => true
+  #                        }
+  layout 'post'
+end
+
+compile '*' do
+  if item.binary?
+    # don’t filter binary items
+  else
+    filter :erb
+    if item[:extension] == 'md'
+    #  filter :kramdown
+      filter :pandoc
+   end
+    layout 'default'
+  end
+end
+
+route '/assets/*' do
+  ## nothing - everything is copied in pre-processing
+end
+
+route '*' do
+  if item.binary?
+    ## Write item with identifier /foo/ to /foo.ext
+    item.identifier.chop + '.' + item[:extension]
+  else
+    ## Write item with identifier /foo/ to /foo/index.html
+    ## item.identifier + 'index.html'
+    ## Write item with identifier /foo/ to /foo.html
+    if item.identifier.chop.empty?
+      '/index.html'
+    else
+      item.identifier.chop + '.html'
+    end
+  end
+end
+
+layout '*', :erb

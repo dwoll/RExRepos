@@ -1,0 +1,206 @@
+---
+layout: post
+title: "Two-way ANOVA (CRF-pq design)"
+categories: [Univariate, ANOVA]
+rerCat: Univariate
+tags: [ANOVA]
+---
+
+Two-way ANOVA (CRF-pq design)
+=========================
+
+TODO
+-------------------------
+
+ - link to anovaSStypes, normality, varianceHom, regressionDiag
+ - use `model.tables()`
+
+Install required packages
+-------------------------
+
+[`car`](http://cran.r-project.org/package=car), [`multcomp`](http://cran.r-project.org/package=multcomp)
+
+```{r}
+wants <- c("car", "multcomp")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+CRF-\(pq\) ANOVA
+-------------------------
+
+### Using `aov()` (SS type I)
+
+```{r}
+set.seed(1.234)
+Njk  <- 8
+P    <- 2
+Q    <- 3
+muJK <- c(rep(c(1, -1), Njk), rep(c(2, 1), Njk), rep(c(3, 3), Njk))
+dfCRFpq <- data.frame(IV1=factor(rep(1:P, times=Njk*Q)),
+                      IV2=factor(rep(1:Q,  each=Njk*P)),
+                      DV =rnorm(Njk*P*Q, muJK, 2))
+```
+
+```{r}
+dfCRFpq$IVcomb <- interaction(dfCRFpq$IV1, dfCRFpq$IV2)
+```
+
+```{r}
+summary(aov(DV ~ IV1*IV2, data=dfCRFpq))
+```
+
+### Using `Anova()` from package `car` (SS type II or III)
+
+Since this design has equal cell sizes, all SS types give the same result.
+
+```{r}
+fitIII <- lm(DV ~ IV1 + IV2 + IV1:IV2, data=dfCRFpq,
+             contrasts=list(IV1=contr.sum, IV2=contr.sum))
+library(car)
+Anova(fitIII, type="III")
+```
+
+### Plot marginal and cell means
+
+```{r rerAnovaCRFpq01}
+plot.design(DV ~ IV1*IV2, data=dfCRFpq, main="Marginal means")
+interaction.plot(dfCRFpq$IV1, dfCRFpq$IV2, dfCRFpq$DV,
+                 main="Cell means", col=c("red", "blue", "green"), lwd=2)
+```
+
+Effect size estimate: partial \(\hat{\eta}_{p}^{2}\)
+-------------------------
+
+```{r}
+anRes <- anova(lm(DV ~ IV1*IV2, data=dfCRFpq))
+SS1   <- anRes["IV1",       "Sum Sq"]
+SS2   <- anRes["IV2",       "Sum Sq"]
+SSI   <- anRes["IV1:IV2",   "Sum Sq"]
+SSE   <- anRes["Residuals", "Sum Sq"]
+```
+
+```{r}
+(pEtaSq1 <- SS1 / (SS1 + SSE))
+(pEtaSq2 <- SS2 / (SS2 + SSE))
+(pEtaSqI <- SSI / (SSI + SSE))
+```
+
+Or from function `ezANOVA()` from package [`ez`](http://cran.r-project.org/package=ez)
+
+Simple effects
+-------------------------
+
+```{r}
+CRFp1 <- anova(lm(DV ~ IV1, data=dfCRFpq, subset=(IV2==1)))
+CRFp2 <- anova(lm(DV ~ IV1, data=dfCRFpq, subset=(IV2==2)))
+CRFp3 <- anova(lm(DV ~ IV1, data=dfCRFpq, subset=(IV2==3)))
+```
+
+```{r}
+SSp1 <- CRFp1["IV1", "Sum Sq"]
+SSp2 <- CRFp2["IV1", "Sum Sq"]
+SSp3 <- CRFp3["IV1", "Sum Sq"]
+```
+
+```{r}
+CRFpq <- anova(lm(DV ~ IV1*IV2, data=dfCRFpq))
+SSA   <- CRFpq["IV1",       "Sum Sq"]
+SSI   <- CRFpq["IV1:IV2",   "Sum Sq"]
+SSE   <- CRFpq["Residuals", "Sum Sq"]
+dfSSA <- CRFpq["IV1",       "Df"]
+dfSSE <- CRFpq["Residuals", "Df"]
+```
+
+```{r}
+all.equal(SSp1 + SSp2 + SSp3, SSA + SSI)
+```
+
+```{r}
+Fp1 <- (SSp1/dfSSA) / (SSE/dfSSE)
+Fp2 <- (SSp2/dfSSA) / (SSE/dfSSE)
+Fp3 <- (SSp3/dfSSA) / (SSE/dfSSE)
+```
+
+```{r}
+(pP1 <- 1-pf(Fp1, dfSSA, dfSSE))
+(pP2 <- 1-pf(Fp2, dfSSA, dfSSE))
+(pP3 <- 1-pf(Fp3, dfSSA, dfSSE))
+```
+
+Planned comparisons
+-------------------------
+
+### Main effects only
+
+#### Free comparisons of marginal means
+
+```{r}
+aovCRFpq <- aov(DV ~ IV1*IV2, data=dfCRFpq)
+cMat     <- rbind("c1"=c( 1/2, 1/2, -1),
+                  "c2"=c(  -1,   0,  1))
+
+library(multcomp)
+summary(glht(aovCRFpq, linfct=mcp(IV2=cMat), alternative="two.sided"),
+        test=adjusted("bonferroni"))
+```
+
+#### Tukey simultaneous confidence intervals
+
+```{r}
+TukeyHSD(aovCRFpq, which="IV2")
+```
+
+### Cell comparisons using the associated one-way ANOVA
+
+```{r}
+(aovCRFpqA <- aov(DV ~ IVcomb, data=dfCRFpq))
+cntrMat <- rbind("c1"=c(-1/2,  1/4, -1/2, 1/4, 1/4, 1/4),
+                 "c2"=c(   0,    0,   -1,   0,   1,   0),
+                 "c3"=c(-1/2, -1/2,  1/4, 1/4, 1/4, 1/4))
+```
+
+```{r}
+library(multcomp)
+summary(glht(aovCRFpqA, linfct=mcp(IVcomb=cntrMat), alternative="greater"),
+        test=adjusted("none"))
+```
+
+Assess test assumptions
+-------------------------
+
+### Normality
+
+```{r rerAnovaCRFpq02}
+Estud <- rstudent(aovCRFpq)
+qqnorm(Estud, pch=20, cex=2)
+qqline(Estud, col="gray60", lwd=2)
+```
+
+```{r}
+shapiro.test(Estud)
+```
+
+### Variance homogeneity
+
+```{r rerAnovaCRFpq03}
+plot(Estud ~ dfCRFpq$IVcomb, main="Residuals per group")
+```
+
+```{r}
+library(car)
+leveneTest(aovCRFpq)
+```
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:car))
+try(detach(package:nnet))
+try(detach(package:MASS))
+try(detach(package:multcomp))
+try(detach(package:survival))
+try(detach(package:mvtnorm))
+try(detach(package:splines))
+```

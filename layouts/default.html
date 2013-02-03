@@ -1,0 +1,16 @@
+<%= render 'top' %>
+<div class="page-header">
+  <h1><small><%= @config[:tagline] %></small><br /></h1>
+</div> <!-- /page-header -->
+
+<div class="row">
+  <div class="span9">
+    <h1><%= @item[:title] %></h1>
+    <%= yield %>
+  </div> <!-- /span9 -->
+
+  <div class="span3">
+    <%= render 'rerCategTagList' %>
+  </div> <!-- /span3 -->
+</div> <!-- /row -->
+<%= render 'bottom' %>

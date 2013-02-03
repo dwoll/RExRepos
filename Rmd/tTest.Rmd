@@ -1,0 +1,98 @@
+---
+layout: post
+title: "t-tests"
+categories: [Univariate]
+rerCat: Univariate
+tags: [tTests]
+---
+
+t-tests
+=========================
+
+TODO
+-------------------------
+
+ - link to resamplingPerm
+
+One-sample \(t\)-test
+-------------------------
+
+### Test
+
+```{r}
+set.seed(1.234)
+N    <- 100
+DV   <- rnorm(N, 5, 20)
+muH0 <- 0
+t.test(DV, alternative="two.sided", mu=muH0)
+```
+
+### Effect size estimate (Cohen's \(d\))
+
+```{r}
+(d <- (mean(DV) - muH0) / sd(DV))
+```
+
+Two-sample \(t\)-test for independent samples
+-------------------------
+
+### \(t\)-Test
+
+```{r}
+Nj     <- c(18, 21)
+DVm    <- rnorm(Nj[1], 180, 10)
+DVf    <- rnorm(Nj[2], 175, 6)
+tIndDf <- data.frame(DV=c(DVm, DVf),
+                     IV=factor(rep(c("f", "m"), Nj)))
+```
+
+```{r results='hide'}
+t.test(DVf, DVm, alternative="less", var.equal=TRUE)
+```
+
+```{r}
+t.test(DV ~ IV, alternative="greater", var.equal=TRUE, data=tIndDf)
+```
+
+### Welch \(t\)-Test
+
+```{r}
+t.test(DV ~ IV, alternative="greater", var.equal=FALSE, data=tIndDf)
+```
+
+### Effect size estimate (Cohen's \(d\))
+
+```{r}
+n1 <- Nj[1]
+n2 <- Nj[2]
+sdPool <- sqrt(((n1-1)*var(DVm) + (n2-1)*var(DVf)) / (n1+n2-2))
+(d     <- (mean(DVm) - mean(DVf)) / sdPool)
+```
+
+Two-sample \(t\)-test for dependent samples
+-------------------------
+
+### Test
+
+```{r}
+N      <- 20
+DVpre  <- rnorm(N, mean=90,  sd=15)
+DVpost <- rnorm(N, mean=100, sd=15)
+tDepDf <- data.frame(DV=c(DVpre, DVpost),
+                     IV=factor(rep(0:1, each=N), labels=c("pre", "post")))
+```
+
+```{r}
+t.test(DV ~ IV, alternative="less", paired=TRUE, data=tDepDf)
+```
+
+```{r results='hide'}
+DVdiff <- DVpre - DVpost
+t.test(DVdiff, alternative="less")
+```
+
+### Effect size estimate (Cohen's \(d\))
+
+```{r}
+(d <- mean(DVdiff) / sd(DVdiff))
+```

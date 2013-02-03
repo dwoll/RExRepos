@@ -1,0 +1,70 @@
+---
+layout: post
+title: "Binomial test and chi^2-test for proportions"
+categories: [Nonparametric, ClassicalNonparametric]
+rerCat: Nonparametric
+tags: [Nonparametric, ClassicalNonparametric]
+---
+
+Binomial test and chi^2-test for proportions
+=========================
+
+Install required packages
+-------------------------
+
+[`binom`](http://cran.r-project.org/package=binom)
+
+```{r}
+wants <- c("binom")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Binomial test
+-------------------------
+    
+### One-sided
+
+```{r}
+DV   <- factor(c("+", "+", "-", "+", "-", "+", "+"), levels=c("+", "-"))
+N    <- length(DV)
+(tab <- table(DV))
+pH0 <- 0.25
+binom.test(tab, p=pH0, alternative="greater", conf.level=0.95)
+```
+
+### Two-sided
+
+```{r}
+N    <- 20
+hits <- 10
+binom.test(hits, N, p=pH0, alternative="two.sided")
+```
+
+```{r}
+sum(dbinom(hits:N, N, p=pH0)) + sum(dbinom(0, N, p=pH0))
+```
+
+### Confidence intervals
+
+```{r}
+library(binom)
+binom.confint(tab[1], sum(tab))
+```
+
+\(\chi^{2}\)-test for proportions
+-------------------------
+
+```{r}
+total <- c(4000, 5000, 3000)
+hits  <- c( 585,  610,  539)
+prop.test(hits, total)
+```
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:binom))
+try(detach(package:lattice))
+```

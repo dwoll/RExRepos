@@ -1,0 +1,352 @@
+---
+layout: post
+title: "Mixed-effects models for repeated-measures ANOVA"
+categories: [Univariate, ANOVA]
+rerCat: Univariate
+tags: [ANOVA]
+---
+
+Mixed-effects models for repeated-measures ANOVA
+=========================
+
+TODO
+-------------------------
+
+ - RBF-\(pq\): `lme()` with compound symmetry
+ - SPF-\(p \cdot qr\): `lme()` with compound symmetry
+
+Install required packages
+-------------------------
+
+[`lme4`](http://cran.r-project.org/package=lme4), [`nlme`](http://cran.r-project.org/package=nlme)
+
+```{r}
+wants <- c("lme4", "nlme")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Simulate data for all designs
+-------------------------
+
+Two between-subjects factors, two within-subjects factors.
+
+```{r}
+set.seed(1.234)
+P     <- 2               # Xb1
+Q     <- 2               # Xb2
+R     <- 3               # Xw1
+S     <- 3               # Xw2
+Njklm <- 20              # obs per cell
+Njk   <- Njklm*P*Q       # number of subjects
+N     <- Njklm*P*Q*R*S   # number of observations
+id    <- gl(Njk,         R*S, N, labels=c(paste("s", 1:Njk, sep="")))
+Xb1   <- gl(P,   Njklm*Q*R*S, N, labels=c("CG", "T"))
+Xb2   <- gl(Q,   Njklm  *R*S, N, labels=c("f", "m"))
+Xw1   <- gl(R,             S, N, labels=c("A", "B", "C"))
+Xw2   <- gl(S,   1,           N, labels=c("-", "o", "+"))
+```
+
+Theoretical main effects and interactions
+
+```{r}
+mu      <- 100
+eB1     <- c(-5, 5)
+eB2     <- c(-5, 5)
+eW1     <- c(-5, 0, 5)
+eW2     <- c(-5, 0, 5)
+eB1B2   <- c(-5, 5, 5, -5)
+eB1W1   <- c(-5, 5, 2, -2, 3, -3)
+eB1W2   <- c(-5, 5, 2, -2, 3, -3)
+eB2W1   <- c(-5, 5, 2, -2, 3, -3)
+eB2W2   <- c(-5, 5, 2, -2, 3, -3)
+eW1W2   <- c(-5, 2, 3, 2, 3, -5, 2, -5, 3)
+eB1B2W1 <- c(-5, 5, 5, -5, 2, -2, -2, 2, 3, -3, -3, 3)
+eB1B2W2 <- c(-5, 5, 5, -5, 2, -2, -2, 2, 3, -3, -3, 3)
+eB1W1W2 <- c(-5, 5, 2, -2, 3, -3, 3, -3, -5, 5, 2, -2, 2, -2, 3, -3, -5, 5)
+eB2W1W2 <- c(-5, 5, 2, -2, 3, -3, 3, -3, -5, 5, 2, -2, 2, -2, 3, -3, -5, 5)
+# no 3rd-order interaction B1xB2xW1xW2
+```
+
+Name values according to the corresponding cell in the experimental design
+
+```{r}
+names(eB1)     <- levels(Xb1)
+names(eB2)     <- levels(Xb2)
+names(eW1)     <- levels(Xw1)
+names(eW2)     <- levels(Xw2)
+names(eB1B2)   <- levels(interaction(Xb1, Xb2))
+names(eB1W1)   <- levels(interaction(Xb1, Xw1))
+names(eB1W2)   <- levels(interaction(Xb1, Xw2))
+names(eB2W1)   <- levels(interaction(Xb2, Xw1))
+names(eB2W2)   <- levels(interaction(Xb2, Xw2))
+names(eW1W2)   <- levels(interaction(Xw1, Xw2))
+names(eB1B2W1) <- levels(interaction(Xb1, Xb2, Xw1))
+names(eB1B2W2) <- levels(interaction(Xb1, Xb2, Xw2))
+names(eB1W1W2) <- levels(interaction(Xb1, Xw1, Xw2))
+names(eB2W1W2) <- levels(interaction(Xb2, Xw1, Xw2))
+```
+
+Simulate data given the effects defined above
+
+```{r}
+muJKLM <- mu +
+          eB1[Xb1] + eB2[Xb2] + eW1[Xw1] + eW2[Xw2] +
+          eB1B2[interaction(Xb1, Xb2)] +
+          eB1W1[interaction(Xb1, Xw1)] +
+          eB1W2[interaction(Xb1, Xw2)] +
+          eB2W1[interaction(Xb2, Xw1)] +
+          eB2W2[interaction(Xb2, Xw2)] +
+          eW1W2[interaction(Xw1, Xw2)] +
+          eB1B2W1[interaction(Xb1, Xb2, Xw1)] +
+          eB1B2W2[interaction(Xb1, Xb2, Xw2)] +
+          eB1W1W2[interaction(Xb1, Xw1, Xw2)] +
+          eB2W1W2[interaction(Xb2, Xw1, Xw2)]
+muId  <- rep(rnorm(Njk, 0, 3), each=R*S)
+mus   <- muJKLM + muId
+sigma <- 50
+
+Y  <- round(rnorm(N, mus, sigma), 1)
+d2 <- data.frame(id, Xb1, Xb2, Xw1, Xw2, Y)
+```
+
+Data frame with just one within-subjects factor (average over levels of `Xw2`)
+
+```{r}
+d1 <- aggregate(Y ~ id + Xw1 + Xb1 + Xb2, data=d2, FUN=mean)
+```
+
+One-way repeated measures ANOVA (RB-\(p\) design)
+-------------------------
+
+### Conventional analysis using `aov()`
+
+```{r}
+summary(aov(Y ~ Xw1 + Error(id/Xw1), data=d1))
+```
+
+### Mixed-effects analysis
+
+#### Using `lme()` from package `nlme`
+
+no explicit assumption of compound symmetry, but
+random intercept model equivalent to compound symmetry
+iff all var comps positive (id > id:Xw1 and IV > id:Xw1)
+
+```{r}
+library(nlme)
+anova(lme(Y ~ Xw1, random=~1 | id, method="ML", data=d1))
+```
+
+assume compound symmetry
+
+```{r}
+lmeFit <- lme(Y ~ Xw1, random=~1 | id, correlation=corCompSymm(form=~1|id),
+              method="ML", data=d1)
+anova(lmeFit)
+```
+
+```{r}
+anova(lme(Y ~ Xw1, random=list(id=pdCompSymm(~Xw1-1)), method="REML", data=d1))
+```
+
+#### Using `lmer()` from package `lme4`
+
+```{r}
+library(lme4)
+anova(lmer(Y ~ Xw1 + (1|id), data=d1))
+```
+
+### Multiple comparisons using `glht()` from package `multcomp`
+
+```{r}
+library(multcomp)
+contr <- glht(lmeFit, linfct=mcp(Xw1="Tukey"))
+summary(contr)
+confint(contr)
+```
+
+Two-way repeated measures ANOVA (RBF-\(pq\) design)
+-------------------------
+
+### Conventional analysis using `aov()`
+
+```{r}
+summary(aov(Y ~ Xw1*Xw2 + Error(id/(Xw1*Xw2)), data=d2))
+```
+
+### Mixed-effects analysis
+
+#### Using `lme()` from package `nlme`
+
+```{r}
+anova(lme(Y ~ Xw1*Xw2, random=list(id=pdBlocked(list(~1, pdIdent(~Xw1-1), pdIdent(~Xw2-1)))),
+          method="ML", data=d2))
+```
+
+assume compound symmetry
+
+```{r}
+anova(lme(Y ~ Xw1*Xw2,
+          random=list(id=pdBlocked(list(~1, pdCompSymm(~Xw1-1), pdCompSymm(~Xw2-1)))),
+          method="ML", data=d2))
+```
+
+#### Using `lmer()` from package `lme4`
+
+```{r}
+anova(lmer(Y ~ Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
+```
+
+Two-way split-plot-factorial ANOVA (SPF-\(p \cdot q\) design)
+-------------------------
+
+### Conventional analysis using `aov()`
+
+```{r}
+summary(aov(Y ~ Xb1*Xw1 + Error(id/Xw1), data=d1))
+```
+
+### Mixed-effects
+
+#### Using `lme()` from package `nlme`
+
+random intercept model equivalent to compound symmetry
+iff all var comps positive
+
+no explicit assumption of compound symmetry
+
+```{r}
+anova(lme(Y ~ Xb1*Xw1, random=~1 | id, method="ML", data=d1))
+```
+
+assume compound symmetry
+
+```{r}
+anova(lme(Y ~ Xb1*Xw1, random=~1 | id, correlation=corCompSymm(form=~1|id),
+          method="ML", data=d1))
+```
+
+```{r}
+anova(lme(Y ~ Xb1*Xw1, random=list(id=pdCompSymm(~Xw1-1)), method="REML", data=d1))
+```
+
+#### Using `lmer()` from package `lme4`
+
+```{r}
+anova(lmer(Y ~ Xb1*Xw1 + (1|id), data=d1))
+```
+
+Three-way split-plot-factorial ANOVA (SPF-\(pq \cdot r\) design)
+-------------------------
+
+### Conventional analysis using `aov()`
+
+```{r}
+summary(aov(Y ~ Xb1*Xb2*Xw1 + Error(id/Xw1), data=d1))
+```
+
+### Mixed-effects analysis
+
+#### Using `lme()` from package `nlme`
+
+```{r}
+anova(lme(Y ~ Xb1*Xb2*Xw1, random=~1 | id, method="ML", data=d1))
+```
+
+assume compound symmetry
+
+```{r}
+anova(lme(Y ~ Xb1*Xb2*Xw1, random=~1 | id,
+          correlation=corCompSymm(form=~1 | id), method="ML", data=d1))
+```
+
+```{r}
+anova(lme(Y ~ Xb1*Xb2*Xw1,
+          random=list(id=pdBlocked(list(~1, pdCompSymm(~Xw1-1)))),
+          method="ML", data=d1))
+```
+
+#### Using `lmer()` from package `lme4`
+
+```{r}
+anova(lmer(Y ~ Xb1*Xb2*Xw1 + (1|id), data=d1))
+```
+
+Three-way split-plot-factorial ANOVA (SPF-\(p \cdot qr\) design)
+-------------------------
+
+### Conventional analysis using `aov()`
+
+```{r}
+summary(aov(Y ~ Xb1*Xw1*Xw2 + Error(id/(Xw1*Xw2)), data=d2))
+```
+
+### Mixed-effects analysis
+
+#### Using `lme()` from package `nlme`
+
+```{r}
+anova(lme(Y ~ Xb1*Xw1*Xw2,
+          random=list(id=pdBlocked(list(~1, pdIdent(~Xw1-1), pdIdent(~Xw2-1)))),
+          method="ML", data=d2))
+```
+
+assume compound symmetry
+
+```{r}
+anova(lme(Y ~ Xb1*Xw1*Xw2,
+          random=list(id=pdBlocked(list(~1, pdCompSymm(~Xw1-1), pdCompSymm(~Xw2-1)))),
+          method="ML", data=d2))
+```
+
+#### Using `lmer()` from package `lme4`
+
+```{r}
+anova(lmer(Y ~ Xb1*Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
+```
+
+Four-way split-plot-factorial ANOVA (SPF-\(pq \cdot rs\) design)
+-------------------------
+
+### Conventional analysis using `aov()`
+
+```{r}
+summary(aov(Y ~ Xb1*Xb2*Xw1*Xw2 + Error(id/(Xw1*Xw2)), data=d2))
+```
+
+### Mixed-effects analysis
+
+#### Using `lme()` from package `nlme`
+
+no explicit assumption of compound symmetry
+
+```{r}
+anova(lme(Y ~ Xb1*Xb2*Xw1*Xw2,
+          random=list(id=pdBlocked(list(~1, pdIdent(~Xw1-1), pdIdent(~Xw2-1)))),
+          method="ML", data=d2))
+```
+
+assume compound symmetry
+
+```{r}
+anova(lme(Y ~ Xb1*Xb2*Xw1*Xw2,
+          random=list(id=pdBlocked(list(~1, pdCompSymm(~Xw1-1), pdCompSymm(~Xw2-1)))),
+          method="ML", data=d2))
+```
+
+#### Using `lmer()` from package `lme4`
+
+```{r}
+anova(lmer(Y ~ Xb1*Xb2*Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
+```
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:lme4))
+try(detach(package:nlme))
+try(detach(package:Matrix))
+try(detach(package:lattice))
+```

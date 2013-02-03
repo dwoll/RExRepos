@@ -1,0 +1,92 @@
+---
+layout: post
+title: "Split and merge data frames"
+categories: [DataFrames]
+rerCat: Data_Frames
+tags: [DataFrames]
+---
+
+Split and merge data frames
+=========================
+
+TODO
+-------------------------
+
+ - link to dfTransform
+
+Split a data frame according to group membership
+-------------------------
+
+```{r}
+set.seed(1.234)
+N      <- 12
+sex    <- sample(c("f", "m"), N, replace=TRUE)
+group  <- sample(rep(c("CG", "WL", "T"), 4), N, replace=FALSE)
+age    <- sample(18:35, N, replace=TRUE)
+IQ     <- round(rnorm(N, mean=100, sd=15))
+rating <- round(runif(N, min=0, max=6))
+(myDf  <- data.frame(id=1:N, sex, group, age, IQ, rating))
+```
+
+```{r}
+(lDf <- split(myDf, myDf$group))
+split(myDf, list(myDf$group, myDf$sex))
+unsplit(lDf, myDf$group)
+```
+
+Merge data frames
+-------------------------
+
+### Different cases for the same variables
+
+```{r}
+(dfNew <- data.frame(id=13:15,
+                     group=c("CG", "WL", "T"),
+                     sex=c("f", "f", "m"),
+                     age=c(18, 31, 21),
+                     IQ=c(116, 101, 99),
+                     rating=c(4, 4, 1)))
+dfComb <- rbind(myDf, dfNew)
+dfComb[11:15, ]
+```
+
+Check with `duplicated()` and `unique()` for duplicate cases.
+
+### Different variables from the same cases
+
+```{r}
+(dfA <- data.frame(id=1:4,
+                   initials=c("AB", "CD", "EF", "GH"),
+                   IV1=c("-", "-", "+", "+"),
+                   DV1=c(10, 10, 11, 14)))
+(dfB <- data.frame(id=1:4,
+                   initials=c("AB", "CD", "EF", "GH"),
+                   IV2=c("A", "B", "A", "B"),
+                   DV2=c(91, 89, 92, 79)))
+```
+
+```{r}
+merge(dfA, dfB)
+merge(dfA, dfB, by.x=c(TRUE, FALSE, FALSE, FALSE),
+                by.y=c(TRUE, FALSE, FALSE, FALSE))
+```
+
+### Keep cases with partial data
+
+```{r}
+(dfC <- data.frame(id=3:6,
+                   initials=c("EF", "GH", "IJ", "KL"),
+                   IV2=c("A", "B", "A", "B"),
+                   DV2=c(92, 79, 101, 81)))
+```
+
+```{r}
+merge(dfA, dfC)
+merge(dfA, dfC, all.y=TRUE)
+merge(dfA, dfC, all.x=TRUE, all.y=TRUE)
+```
+
+Useful packages
+-------------------------
+
+Package [`plyr`](http://cran.r-project.org/package=plyr) provides very handy functions for the split-apply-combine approach to aggregating data frames.

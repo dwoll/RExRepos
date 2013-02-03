@@ -1,0 +1,212 @@
+---
+layout: post
+title: "Binary logistic regression"
+categories: [Univariate, Regression]
+rerCat: Univariate
+tags: [Regression, GLM]
+---
+
+Binary logistic regression
+=========================
+
+TODO
+-------------------------
+
+ - link to associationOrder for `pROC`, regressionOrdinal, regressionMultinom, regressionDiag for outliers, collinearity, crossvalidation
+
+Install required packages
+-------------------------
+
+[`rms`](http://cran.r-project.org/package=rms)
+
+```{r}
+wants <- c("rms")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Descriptive model fit
+-------------------------
+
+### Simulate data
+    
+```{r}
+set.seed(1.234)
+N     <- 100
+X1    <- rnorm(N, 175, 7)
+X2    <- rnorm(N,  30, 8)
+Y     <- 0.5*X1 - 0.3*X2 + 10 + rnorm(N, 0, 6)
+Yfac  <- cut(Y, breaks=c(-Inf, median(Y), Inf), labels=c("lo", "hi"))
+dfLog <- data.frame(X1, X2, Yfac)
+```
+
+```{r rerRegressionLogistic01}
+cdplot(Yfac ~ X1, data=dfLog)
+cdplot(Yfac ~ X2, data=dfLog)
+```
+
+### Fit the model
+
+```{r}
+(glmFit <- glm(Yfac ~ X1 + X2,
+               family=binomial(link="logit"), data=dfLog))
+```
+
+Odds ratios
+
+```{r}
+exp(coef(glmFit))
+```
+
+Profile likelihood based confidence intervals for odds ratios
+
+```{r}
+exp(confint(glmFit))
+```
+
+### Fit the model based on a matrix of counts
+
+```{r}
+N      <- 100
+x1     <- rnorm(N, 100, 15)
+x2     <- rnorm(N, 10, 3)
+total  <- sample(40:60, N, replace=TRUE)
+hits   <- rbinom(N, total, prob=0.4)
+hitMat <- cbind(hits, total-hits)
+glm(hitMat ~ X1 + X2, family=binomial(link="logit"))
+```
+
+### Fit the model based on relative frequencies
+
+```{r}
+relHits <- hits/total
+glm(relHits ~ X1 + X2, weights=total, family=binomial(link="logit"))
+```
+
+### Fitted logits and probabilities
+
+```{r rerRegressionLogistic02}
+logitHat <- predict(glmFit, type="link")
+plot(logitHat, pch=16, col=c("red", "blue")[unclass(dfLog$Yfac)])
+abline(h=0)
+```
+
+```{r}
+Phat <- fitted(glmFit)
+Phat <- predict(glmFit, type="response")
+head(Phat)
+mean(Phat)
+prop.table(table(dfLog$Yfac))
+```
+
+Assess model fit
+-------------------------
+
+### Classification table
+
+```{r}
+thresh <- 0.5
+Yhat   <- cut(Phat, breaks=c(-Inf, thresh, Inf), labels=c("lo", "hi"))
+cTab   <- table(Yfac, Yhat)
+addmargins(cTab)
+```
+
+Correct classification rate
+
+```{r}
+sum(diag(cTab)) / sum(cTab)
+```
+
+### log-Likelihood, AUC, Somers' \(D_{xy}\), Nagelkerke's pseudo \(R^{2}\)
+
+Deviance, log-likelihood and AIC
+
+```{r}
+deviance(glmFit)
+logLik(glmFit)
+AIC(glmFit)
+```
+
+Nagelkerke's pseudo-\(R^{2}\) (R2), area under the ROC-Kurve (C), Somers' \(D_{xy}\) (Dxy), Goodman & Kruskal's \(\gamma\) (gamma), Kendall's \(\tau\) (tau-a)
+
+```{r}
+library(rms)
+lrm(Yfac ~ X1 + X2, data=dfLog)
+```
+
+For plotting the ROC-curve, see `pROC` in associationOrder
+
+### McFadden, Cox & Snell and Nagelkerke pseudo \(R^{2}\)
+
+Log-likelihoods for full model and 0-model without predictors X1, X2
+
+```{r}
+glm0 <- update(glmFit, . ~ 1)
+LLf  <- logLik(glmFit)
+LL0  <- logLik(glm0)
+```
+
+McFadden pseudo-\(R^2\)
+
+```{r}
+as.vector(1 - (LLf / LL0))
+```
+
+Cox & Snell
+
+```{r}
+as.vector(1 - exp((2/N) * (LL0 - LLf)))
+```
+
+Nagelkerke
+
+```{r}
+as.vector((1 - exp((2/N) * (LL0 - LLf))) / (1 - exp(LL0)^(2/N)))
+```
+
+### Crossvalidation
+
+`cv.glm()` function from package `boot`, see crossvalidation
+
+### Apply model to new data
+
+```{r}
+Nnew  <- 3
+dfNew <- data.frame(X1=rnorm(Nnew, 175, 7), X2=rnorm(Nnew, 100, 15))
+predict(glmFit, newdata=dfNew, type="response")
+```
+
+Coefficient tests and overall model test
+-------------------------
+
+### Individual coefficient tests
+
+Wald-tests for parameters
+
+```{r}
+summary(glmFit)
+```
+
+Or see `lrm()` above
+
+### Model comparisons - likelihood-ratio tests
+
+```{r}
+anova(glm0, glmFit, test="Chisq")
+```
+
+```{r}
+drop1(glmFit, test="Chi")
+```
+
+Or see `lrm()` above
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:rms))
+try(detach(package:Hmisc))
+try(detach(package:survival))
+try(detach(package:splines))
+```

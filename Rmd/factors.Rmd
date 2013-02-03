@@ -1,0 +1,154 @@
+---
+layout: post
+title: "Factors: Representing categorical data"
+categories: [RBasics]
+rerCat: R_Basics
+tags: [RBasics]
+---
+
+Factors: Representing categorical data
+=========================
+
+TODO
+-------------------------
+
+ - link to recode for changing factor levels and for transforming continuous variables into factors
+
+Install required packages
+-------------------------
+
+[`car`](http://cran.r-project.org/package=car), [`gdata`](http://cran.r-project.org/package=gdata)
+
+```{r}
+wants <- c("car", "gdata")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Unordered factors
+-------------------------
+
+### Create factors from existing variables
+    
+```{r}
+sex     <- c("m", "f", "f", "m", "m", "m", "f", "f")
+(sexFac <- factor(sex))
+```
+
+```{r}
+factor(c(1, 1, 3, 3, 4, 4), levels=1:5)
+(sexNum <- rbinom(10, size=1, prob=0.5))
+factor(sexNum, labels=c("man", "woman"))
+levels(sexFac) <- c("female", "male")
+sexFac
+```
+
+### Generate factors
+
+```{r}
+(fac1 <- factor(rep(c("A", "B"), c(5, 5))))
+(fac2 <- gl(2, 5, labels=c("less", "more"), ordered=TRUE))
+sample(fac2, length(fac2), replace=FALSE)
+```
+
+```{r}
+expand.grid(IV1=gl(2, 2, labels=c("a", "b")), IV2=gl(3, 1))
+```
+
+### Information about factors
+
+```{r}
+nlevels(sexFac)
+summary(sexFac)
+levels(sexFac)
+str(sexFac)
+```
+
+```{r}
+unclass(sexFac)
+unclass(factor(10:15))
+as.character(sexFac)
+```
+
+Joining factors
+-------------------------
+
+### Concatenating factors
+
+```{r}
+(fac1 <- factor(sample(LETTERS, 5)))
+(fac2 <- factor(sample(letters, 3)))
+(charVec1 <- levels(fac1)[fac1])
+(charVec2 <- levels(fac2)[fac2])
+factor(c(charVec1, charVec2))
+```
+
+### Repeating factors
+
+```{r}
+rep(fac1, times=2)
+```
+
+### Crossing two factors
+
+```{r}
+Njk  <- 2
+P    <- 2
+Q    <- 3
+(IV1 <- factor(rep(c("lo", "hi"), each=Njk*Q)))
+(IV2 <- factor(rep(1:Q, times=Njk*P)))
+interaction(IV1, IV2)
+```
+
+Ordered factors
+-------------------------
+
+```{r}
+(status <- factor(c("hi", "lo", "hi", "mid")))
+(ordStat <- ordered(status, levels=c("lo", "mid", "hi")))
+ordStat[1] > ordStat[2]
+```
+
+Control the order of factor levels
+-------------------------
+
+### Free ordering of group levels
+
+```{r}
+(chars <- rep(LETTERS[1:3], each=5))
+(fac1 <- factor(chars))
+factor(chars, levels=c("C", "A", "B"))
+```
+
+### Using `reorder.factor()` from package `gdata`
+
+```{r}
+library(gdata)
+(facRe <- reorder.factor(fac1, new.order=c("C", "B", "A")))
+```
+
+### Reorder group levels according to group statistics
+
+```{r}
+vec <- rnorm(15, rep(c(10, 5, 15), each=5), 3)
+tapply(vec, fac1, FUN=mean)
+reorder(fac1, vec, FUN=mean)
+```
+
+### Relevance of level order for sorting factors
+
+```{r}
+(fac2 <- factor(sample(1:2, 10, replace=TRUE), labels=c("B", "A")))
+sort(fac2)
+sort(as.character(fac2))
+```
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:car))
+try(detach(package:nnet))
+try(detach(package:MASS))
+try(detach(package:gdata))
+```

@@ -1,0 +1,161 @@
+---
+layout: post
+title: "Assess univariate and multivariate normality"
+categories: [Univariate]
+rerCat: Univariate
+tags: [ANOVA, tTests]
+---
+
+Assess univariate and multivariate normality
+=========================
+
+Install required packages
+-------------------------
+
+[`energy`](http://cran.r-project.org/package=energy), [`ICS`](http://cran.r-project.org/package=ICS), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm), [`nortest`](http://cran.r-project.org/package=nortest), [`QuantPsyc`](http://cran.r-project.org/package=QuantPsyc), [`tseries`](http://cran.r-project.org/package=tseries)
+
+```{r}
+wants <- c("energy", "ICS", "mvtnorm", "nortest", "QuantPsyc", "tseries")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Univariate normality
+-------------------------
+
+### QQ-plot
+
+```{r rerNormality01}
+set.seed(1.234)
+DV <- rnorm(20, mean=1.5, sd=3)
+qqnorm(DV, pch=20, cex=2)
+qqline(DV, col="gray60", lwd=2)
+```
+
+### Shapiro-Wilk-test
+
+Composite null hypothesis: any normal distribution
+
+```{r}
+shapiro.test(DV)
+```
+
+### Anderson-Darling-test
+
+Composite null hypothesis: any normal distribution
+
+```{r}
+library(nortest)
+ad.test(DV)
+```
+
+### Cramer-von-Mises-test
+
+Composite null hypothesis: any normal distribution
+
+```{r}
+library(nortest)
+cvm.test(DV)
+```
+
+### Shapiro-Francia-test
+
+Composite null hypothesis: any normal distribution
+
+```{r}
+library(nortest)
+sf.test(DV)
+```
+
+### Jarque-Bera-test
+
+Composite null hypothesis: any normal distribution
+
+```{r}
+library(tseries)
+jarque.bera.test(DV)
+```
+
+### Kolmogorov-Smirnov-test
+
+Exact null hypothesis: fully specified normal distribution
+
+```{r}
+ks.test(DV, "pnorm", mean=1, sd=2, alternative="two.sided")
+```
+
+### Lilliefors-test
+
+Composite null hypothesis: any normal distribution
+
+```{r}
+library(nortest)
+lillie.test(DV)
+```
+
+### Pearson \(\chi^{2}\)-test
+
+Tests weaker null hypothesis (any distribution with the same probabilities for the given class intervals).
+
+Wrong: `pearson.test()` does not use grouped ML-estimate or maximum \(\chi^{2}\)-estimate
+
+```{r}
+library(nortest)
+pearson.test(DV, n.classes=6, adjust=TRUE)
+```
+
+Multivariate normality
+-------------------------
+
+### Energy-test
+
+```{r}
+mu    <- c(2, 4, 5)
+Sigma <- matrix(c(4,2,-3, 2,16,-1, -3,-1,9), byrow=TRUE, ncol=3)
+library(mvtnorm)
+X <- rmvnorm(100, mu, Sigma)
+```
+
+```{r}
+library(energy)                    # for mvnorm.etest()
+mvnorm.etest(X)
+```
+
+### Mardia-Kurtosis-test
+
+```{r}
+library(QuantPsyc)                 # for mult.norm()
+mn <- mult.norm(X, chicrit=0.001)
+mn$mult.test
+```
+
+### Kurtosis- and skew-test
+
+#### Kurtosis-test
+
+```{r}
+library(ICS)
+mvnorm.kur.test(X)
+```
+
+#### Skew-test
+```{r}
+library(ICS)
+X <- rmvnorm(100, c(2, 4, 5))
+mvnorm.skew.test(X)
+```
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:nortest))
+try(detach(package:QuantPsyc))
+try(detach(package:tseries))
+try(detach(package:energy))
+try(detach(package:boot))
+try(detach(package:MASS))
+try(detach(package:ICS))
+try(detach(package:mvtnorm))
+try(detach(package:survey))
+```

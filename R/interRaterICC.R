@@ -1,0 +1,97 @@
+
+## @knitr 
+wants <- c("irr", "psych")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+
+
+## @knitr 
+categ <- c("V", "N", "P")
+lvls  <- factor(categ, levels=categ)
+rtr1  <- rep(lvls, c(60, 30, 10))
+rtr2  <- rep(rep(lvls, nlevels(lvls)), c(53,5,2, 11,14,5, 1,6,3))
+cTab  <- table(rtr1, rtr2)
+addmargins(cTab)
+
+
+## @knitr 
+library(irr)
+agree(cbind(rtr1, rtr2))
+
+
+## @knitr 
+rtr3 <- rep(rep(lvls, nlevels(lvls)), c(48,8,3, 15,10,7, 3,4,2))
+agree(cbind(rtr1, rtr2, rtr3))
+
+
+## @knitr 
+library(irr)
+kappa2(cbind(rtr1, rtr2))
+
+
+## @knitr 
+categ <- c("<10%", "11-20%", "21-30%", "31-40%", "41-50%", ">50%")
+lvls  <- factor(categ, levels=categ)
+tv1   <- rep(lvls, c(22, 21, 23, 16, 10, 8))
+tv2   <- rep(rep(lvls, nlevels(lvls)), c(5,8,1,2,4,2, 3,5,3,5,5,0, 1,2,6,11,2,1,
+                                         0,1,5,4,3,3, 0,0,1,2,5,2, 0,0,1, 2,1,4))
+cTab  <- table(tv1, tv2)
+addmargins(cTab)
+
+
+## @knitr 
+library(irr)
+kappa2(cbind(tv1, tv2), weight="equal")
+
+
+## @knitr 
+rtr1 <- letters[c(4,2,2,5,2, 1,3,1,1,5, 1,1,2,1,2, 3,1,1,2,1, 5,2,2,1,1, 2,1,2,1,5)]
+rtr2 <- letters[c(4,2,3,5,2, 1,3,1,1,5, 4,2,2,4,2, 3,1,1,2,3, 5,4,2,1,4, 2,1,2,3,5)]
+rtr3 <- letters[c(4,2,3,5,2, 3,3,3,4,5, 4,4,2,4,4, 3,1,1,4,3, 5,4,4,4,4, 2,1,4,3,5)]
+rtr4 <- letters[c(4,5,3,5,4, 3,3,3,4,5, 4,4,3,4,4, 3,4,1,4,5, 5,4,5,4,4, 2,1,4,3,5)]
+rtr5 <- letters[c(4,5,3,5,4, 3,5,3,4,5, 4,4,3,4,4, 3,5,1,4,5, 5,4,5,4,4, 2,5,4,3,5)]
+rtr6 <- letters[c(4,5,5,5,4, 3,5,4,4,5, 4,4,3,4,5, 5,5,2,4,5, 5,4,5,4,5, 4,5,4,3,5)]
+ratings <- cbind(rtr1, rtr2, rtr3, rtr4, rtr5, rtr6)
+
+
+## @knitr 
+library(irr)
+kappam.fleiss(ratings)
+
+
+## @knitr 
+library(irr)
+kripp.alpha(ratings, method="ordinal")
+
+
+## @knitr 
+rtr1 <- c(1, 6, 3, 2, 5, 4)
+rtr2 <- c(1, 5, 6, 2, 4, 3)
+rtr3 <- c(2, 3, 6, 5, 4, 1)
+ratings <- cbind(rtr1, rtr2, rtr3)
+
+
+## @knitr 
+library(irr)
+kendall(ratings)
+
+
+## @knitr 
+rtr1 <- c(9, 6, 8, 7, 10, 6)
+rtr2 <- c(2, 1, 4, 1,  5, 2)
+rtr3 <- c(5, 3, 6, 2,  6, 4)
+rtr4 <- c(8, 2, 8, 6,  9, 7)
+ratings <- cbind(rtr1, rtr2, rtr3, rtr4)
+
+
+## @knitr 
+library(psych)
+ICC(ratings)
+
+
+## @knitr 
+try(detach(package:psych))
+try(detach(package:irr))
+try(detach(package:lpSolve))
+
+

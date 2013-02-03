@@ -1,0 +1,106 @@
+---
+layout: post
+title: "Time and date"
+categories: [RBasics]
+rerCat: R_Basics
+tags: [TimeDate]
+---
+
+Time and date
+=========================
+
+Create and format date values
+-------------------------
+
+### Class `Date`
+
+```{r}
+Sys.Date()
+(myDate <- as.Date("01.11.1974", format="%d.%m.%Y"))
+format(myDate, format="%d.%m.%Y")
+```
+
+### Internal representation
+
+```{r}
+(negDate <- as.Date(-374, "1910-12-16"))
+as.numeric(negDate)
+```
+
+Time values
+-------------------------
+
+### Class `POSIXct`
+
+```{r}
+Sys.time()
+date()
+```
+
+```{r}
+(myTime <- as.POSIXct("2009-02-07 09:23:02"))
+ISOdate(2010, 6, 30, 17, 32, 10, tz="CET")
+```
+
+```{r}
+format(myTime, "%H:%M:%S")
+format(myTime, "%d.%m.%Y")
+```
+
+### Class `POSIXlt`
+
+```{r}
+charDates <- c("05.08.1972, 03:37", "02.04.1981, 12:44")
+(lDates   <- strptime(charDates, format="%d.%m.%Y, %H:%M"))
+```
+
+```{r}
+lDates$mday
+lDates$hour
+```
+
+```{r}
+weekdays(lDates)
+months(lDates)
+```
+
+Time and date arithmetic
+-------------------------
+
+### Sum and difference of time-date values
+
+```{r}
+(myDate <- as.Date("01.11.1974", format="%d.%m.%Y"))
+myDate + 365
+```
+
+```{r}
+(diffDate <- as.Date("1976-06-19") - myDate)
+as.numeric(diffDate)
+myDate + diffDate
+```
+
+```{r}
+lDates + c(60, 120)
+(diff21 <- lDates[2] - lDates[1])
+lDates[1] + diff21
+```
+
+### Systematically and randomly generate time-date values
+
+```{r}
+seq(ISOdate(2010, 5, 1), ISOdate(2013, 5, 1), by="years")
+seq(ISOdate(1997, 10, 22), by="2 weeks", length.out=4)
+```
+
+```{r}
+secsPerDay <- 60 * 60 * 24
+randDates  <- ISOdate(1995, 6, 13) + sample(0:(28*secsPerDay), 100, replace=TRUE)
+randWeeks  <- cut(randDates, breaks="week")
+summary(randWeeks)
+```
+
+Useful packages
+-------------------------
+
+Packages [`timeDate`](http://cran.r-project.org/package=timeDate) and [`lubridate`](http://cran.r-project.org/package=lubridate) provide more functions for efficiently and consistently handling times and dates. More packages can be found in CRAN task view [Time Series](http://cran.r-project.org/web/views/TimeSeries.html).
