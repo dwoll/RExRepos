@@ -1,7 +1,6 @@
-## call make jekyll or make nanoc to build the website
-## currently configured for Windows7
-## get make for Windows here:
-## http://gnuwin32.sourceforge.net/packages/make.htm
+## call make nanoc to build the website
+## currently configured for Windows 7
+## make for Windows <http://gnuwin32.sourceforge.net/packages/make.htm>
 all: knit
 
 knit: 
@@ -19,7 +18,9 @@ nanocKramdown:
 
 .PHONY: clean
 clean:
+## uncomment if on Linux
 #	$(RM) -rf output/*
+## comment if on Linux
 	cmd /c for /d %f in (output\\*) do rmdir /s /q %f
 	cmd /c del /q output\\*.*
 	$(MAKE) clean -C Rmd

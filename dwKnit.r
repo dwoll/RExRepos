@@ -9,9 +9,9 @@ dwKnit <- function(dirIn, dirOut,
     require(stringr)
 
     ## set some directories and list Rmd-files
-    dirTmp <- "tmp"
-    dirMd  <- "md"
-    dirR   <- "R"
+    dirTmp <- "../tmp"
+    dirMd  <- "../md"
+    dirR   <- "../R"
     fIn    <- list.files(dirIn, pattern="Rmd", full.names=TRUE)
 
     ## configure knitr chunk options
@@ -97,7 +97,7 @@ postProcess <- function(fIn, fOutPre,
 
     ## determine names for new files
     fName   <- basename(tools::file_path_sans_ext(fIn))
-    fInTmp  <- paste("tmp/", fName, "Tmp.md", sep="")
+    fInTmp  <- paste("../tmp/", fName, "Tmp.md", sep="")
     tocRepl <- c("", "")
 
     fCont <- sanitizeMath(fIn, markdEngine)  ## replace math delimiters \( and \)
