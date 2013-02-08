@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Bootstrapping linear models"
 categories: [Nonparametric, Resampling]
 rerCat: Nonparametric

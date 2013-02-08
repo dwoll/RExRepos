@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Reshape data frames: wide and long format"
 categories: [DataFrames]
 rerCat: Data_Frames

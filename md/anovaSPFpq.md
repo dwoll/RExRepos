@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Split-plot-factorial ANOVA (SPF-p.q design)"
 categories: [Univariate, ANOVA]
 rerCat: Univariate

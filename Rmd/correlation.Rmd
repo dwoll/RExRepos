@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Covariance, correlation, association measures for continuous variables"
 categories: [Descriptive]
 rerCat: Descriptive

@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Graphics devices: Opening and saving diagrams"
 categories: [Diagrams, BasicDiagrams]
 rerCat: Diagrams

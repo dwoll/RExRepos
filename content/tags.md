@@ -1,5 +1,4 @@
 ---
-layout: page
 title: Tags
 header: Posts by tags
 ---

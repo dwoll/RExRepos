@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Mixed-effects models for repeated-measures ANOVA"
 categories: [Univariate, ANOVA]
 rerCat: Univariate

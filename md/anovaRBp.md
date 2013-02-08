@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "One-way repeated measures ANOVA (RB-p design)"
 categories: [Univariate, ANOVA]
 rerCat: Univariate

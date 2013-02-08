@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Time and date"
 categories: [RBasics]
 rerCat: R_Basics

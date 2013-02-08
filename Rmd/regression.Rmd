@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Multiple linear regression"
 categories: [Univariate, Regression]
 rerCat: Univariate

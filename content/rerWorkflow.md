@@ -1,5 +1,4 @@
 ---
-layout: page
 title: "Workflow: Reproducible websites using R"
 rerCat: Workflow
 ---

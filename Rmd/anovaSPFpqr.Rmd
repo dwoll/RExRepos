@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Three-way split-plot-factorial ANOVA (SPF-pq.r and SPF-p.qr design)"
 categories: [Univariate, ANOVA]
 rerCat: Univariate

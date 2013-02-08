@@ -11,6 +11,9 @@
 
   <div class="span3">
     <%= render 'rerCategTagList' %>
+    <%= if @item[:rerCat] == 'Index'
+          render 'book'
+        end %>
   </div> <!-- /span3 -->
 </div> <!-- /row -->
 <%= render 'bottom' %>

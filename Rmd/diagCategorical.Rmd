@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Diagrams for categorical data"
 categories: [Diagrams, SpecificDiagrams]
 rerCat: Diagrams

@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Multivariate analysis of variance (MANOVA)"
 categories: [Multivariate]
 rerCat: Multivariate

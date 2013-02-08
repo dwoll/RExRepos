@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Binomial test and chi^2-test for proportions"
 categories: [Nonparametric, ClassicalNonparametric]
 rerCat: Nonparametric

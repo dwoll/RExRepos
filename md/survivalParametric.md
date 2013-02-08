@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Survival analysis: Parametric proportional hazards models"
 categories: [Univariate, Survival]
 rerCat: Univariate

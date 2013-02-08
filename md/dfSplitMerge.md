@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Split and merge data frames"
 categories: [DataFrames]
 rerCat: Data_Frames

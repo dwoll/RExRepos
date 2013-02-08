@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Linear discriminant analysis (LDA)"
 categories: [Multivariate]
 rerCat: Multivariate

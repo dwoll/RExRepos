@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Sum of squares type I, II, and III"
 categories: [Univariate, ANOVA]
 rerCat: Univariate

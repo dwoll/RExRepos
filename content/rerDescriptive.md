@@ -1,5 +1,4 @@
 ---
-layout: page
 title: "Descriptive statistics"
 rerCat: Descriptive
 ---

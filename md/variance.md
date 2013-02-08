@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Variance, robust spread measures, skewness and kurtosis"
 categories: [Descriptive]
 rerCat: Descriptive

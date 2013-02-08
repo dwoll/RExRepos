@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Inter-rater-reliability and Intra-class-correlation"
 categories: [Descriptive]
 rerCat: Descriptive

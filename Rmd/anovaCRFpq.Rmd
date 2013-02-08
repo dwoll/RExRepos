@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Two-way ANOVA (CRF-pq design)"
 categories: [Univariate, ANOVA]
 rerCat: Univariate

@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Customize diagrams: Formatting"
 categories: [Diagrams, BasicDiagrams]
 rerCat: Diagrams

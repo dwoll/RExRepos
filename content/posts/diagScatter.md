@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Scatter plots and line diagrams"
 categories: [Diagrams, BasicDiagrams]
 rerCat: Diagrams

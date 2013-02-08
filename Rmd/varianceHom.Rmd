@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Variance homogeneity in two or more groups"
 categories: [Univariate]
 rerCat: Univariate

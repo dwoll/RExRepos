@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Generate systematic and random data"
 categories: [RBasics]
 rerCat: R_Basics

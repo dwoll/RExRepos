@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Crossvalidation for linear and generalized linear models"
 categories: [Univariate]
 rerCat: Univariate

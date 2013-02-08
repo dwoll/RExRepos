@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "The mean and other location measures"
 categories: [Descriptive]
 rerCat: Descriptive

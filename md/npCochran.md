@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Cochran-Q-test"
 categories: [Nonparametric, ClassicalNonparametric]
 rerCat: Nonparametric

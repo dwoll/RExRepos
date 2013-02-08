@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Assess univariate and multivariate normality"
 categories: [Univariate]
 rerCat: Univariate

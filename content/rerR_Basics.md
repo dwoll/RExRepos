@@ -1,5 +1,4 @@
 ---
-layout: page
 title: "R basics"
 rerCat: R_Basics
 ---

@@ -77,8 +77,8 @@ watcher:
   notify_on_compilation_failure: true
 
  # The base URL for this site. This is required for XML sitemap generation. 
-#base_url: "http://www.uni-kiel.de/psychologie/rexrepos"
-base_url: "http://localhost:3000"
+base_url: "http://www.uni-kiel.de/psychologie/rexrepos"
+#base_url: "http://localhost:3000"
 
 ## global variables used in YAML front matter and includes
 title: RExRepos

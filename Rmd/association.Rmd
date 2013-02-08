@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Association tests and measures for unordered categorical variables"
 categories: [Descriptive]
 rerCat: Descriptive

@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Runs-test"
 categories: [Nonparametric, ClassicalNonparametric]
 rerCat: Nonparametric

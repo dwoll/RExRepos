@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Survival analysis: Cox proportional hazards model"
 categories: [Univariate, Survival]
 rerCat: Univariate

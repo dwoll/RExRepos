@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Multidimensional scaling (MDS)"
 categories: [Multivariate]
 rerCat: Multivariate

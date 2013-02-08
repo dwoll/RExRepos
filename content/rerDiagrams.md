@@ -1,6 +1,5 @@
 ---
-layout: page
-title: "Diagrams"
+title: Diagrams
 rerCat: Diagrams
 ---
 

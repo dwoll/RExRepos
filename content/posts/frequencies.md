@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Frequency tables"
 categories: [Descriptive]
 rerCat: Descriptive

@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Customize diagrams: Add additional elements"
 categories: [Diagrams, BasicDiagrams]
 rerCat: Diagrams

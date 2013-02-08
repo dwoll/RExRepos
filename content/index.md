@@ -1,6 +1,6 @@
 ---
-layout: page
-title: "RExRepos"
+rerCat: Index
+title: RExRepos
 ---
 
 ### R code examples for a number of common data analysis tasks

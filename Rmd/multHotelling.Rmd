@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Hotelling's T^2-test"
 categories: [Multivariate]
 rerCat: Multivariate

@@ -93,16 +93,16 @@ h4 {
 
 /* dropdown menu */
 .dropdown-menu li.active {
-    color: rgb(255, 255, 255);
-    display: block;
-    padding: 3px 20px;
-    clear: both;
-    font-weight: normal;
-    line-height: 20px;
-    white-space: nowrap;
-    background-color: rgb(39, 160, 229);
-    background-image: linear-gradient(to bottom, rgb(47, 164, 231), rgb(26, 153, 226));
-    background-repeat: repeat-x;
+  color: rgb(255, 255, 255);
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 20px;
+  white-space: nowrap;
+  background-color: rgb(39, 160, 229);
+  background-image: linear-gradient(to bottom, rgb(47, 164, 231), rgb(26, 153, 226));
+  background-repeat: repeat-x;
 }
 
 .dropdown-menu li.active a {
@@ -158,7 +158,21 @@ div.markdown-toc {
 
 /* code boxes with horizontal scrollbars */
 .highlight pre {
-   white-space: pre; overflow: auto;
+  white-space: pre; overflow: auto;
+}
+
+pre.sourceCode {
+  white-space: pre;
+  overflow: auto;
+}
+
+/* footer */
+p.footer {
+  background-color:rgb(200, 200, 200);
+  text-color:rgb(120, 120, 120);
+  margin:0px -20px 0px -20px;
+  padding:10px 10px 10px 10px;
+  font-size:12px;
 }
 
 /* tag_box */

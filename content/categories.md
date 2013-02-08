@@ -1,5 +1,4 @@
 ---
-layout: page
 title: Categories
 header: Posts by category
 ---

@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Nonparametric location tests for one and two samples"
 categories: [Nonparametric, ClassicalNonparametric]
 rerCat: Nonparametric

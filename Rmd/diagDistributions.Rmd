@@ -1,5 +1,6 @@
 ---
-layout: post
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
 title: "Visualize univariate and bivariate distributions"
 categories: [Diagrams, SpecificDiagrams]
 rerCat: Diagrams
