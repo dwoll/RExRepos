@@ -1,10 +1,8 @@
 <ul class="nav nav-list">
-  <li class="nav-header">Find posts</li>
-  <li><a href="<%= @config[:base_url] + @config[:rer][:categoriesPath] %>">Categories</a></li>
+  <li class="nav-header">Tags</li>
   <% if @item[:tags].nil? %>
-  <li><a href="<%= @config[:base_url] + @config[:rer][:tagsPath] %>">Tags</a></li>
+  <li><a href="<%= @config[:base_url] + @config[:rer][:tagsPath] %>">Tag-list</a></li>
   <% else %>
-  <li>Tags:</li>
   <li><ul class="nav nav-list">
     <% for @tag in @item[:tags] %>
     <li><a href="<%= @config[:base_url] + @config[:rer][:tagsPath] %>#<%= @tag %>-ref"><%= @tag %></a></li>

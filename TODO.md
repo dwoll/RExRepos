@@ -4,10 +4,6 @@ TODO
 Workflow
 -------------------------
 
-### Jekyll
-
- * Fix figure path (one figure directory for all posts)
-
 ### R-Markdown
 
 These posts currently need manual knitting in RStudio -> fix

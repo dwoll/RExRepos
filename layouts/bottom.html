@@ -6,7 +6,16 @@
       <div class="row" style="margin-left:-20px; margin-right:-20px;">
         <div class="span12">
           <p class="footer">
-          Daniel Wollschlaeger - license: <a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="<%= @config[:base_url] + @config[:rer][:assetPath] %>/img/cc-by-sa80x15.png" width="80" height="15" alt="Creative Commons BY-SA" /></a>
+          <%= unless @item[:author].nil?
+                if @item[:author].class.name == "Array"
+                  @item[:author].join(", ") + " -"
+                else
+                  @item[:author] + " -"
+                end
+              end %>
+          <% unless @item[:license].nil? %>
+          content licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="<%= @config[:base_url] + @config[:rer][:assetPath] %>/img/cc-by-sa80x15.png" width="80" height="15" alt="Creative Commons BY-SA" /></a>
+          <% end %>
           </p>
         </div> <!-- /span12 -->
       </div> <!-- /row -->
