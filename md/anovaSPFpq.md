@@ -7,8 +7,8 @@ rerCat: Univariate
 tags: [ANOVA]
 ---
 
-
-
+Split-plot-factorial ANOVA (SPF-p.q design)
+=========================
 
 TODO
 -------------------------
@@ -37,7 +37,7 @@ Two-way SPF-$p \cdot q$ ANOVA
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 Nj   <- 10
 P    <- 3
 Q    <- 3
@@ -58,16 +58,16 @@ summary(aov(DV ~ IVbtw*IVwth + Error(id/IVwth), data=dfSPFpqL))
 
 Error: id
           Df Sum Sq Mean Sq F value  Pr(>F)    
-IVbtw      2    226   113.2    11.4 0.00026 ***
-Residuals 27    268     9.9                    
+IVbtw      2    178    89.2    14.9 4.3e-05 ***
+Residuals 27    162     6.0                    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Error: id:IVwth
             Df Sum Sq Mean Sq F value  Pr(>F)    
-IVwth        2    114    56.8    9.00 0.00042 ***
-IVbtw:IVwth  4     23     5.8    0.91 0.46327    
-Residuals   54    341     6.3                    
+IVwth        2    131    65.5    8.45 0.00064 ***
+IVbtw:IVwth  4     43    10.9    1.40 0.24659    
+Residuals   54    419     7.8                    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -96,10 +96,10 @@ summary(AnovaSPFpq, multivariate=FALSE, univariate=TRUE)
 Univariate Type II Repeated-Measures ANOVA Assuming Sphericity
 
                SS num Df Error SS den Df     F  Pr(>F)    
-(Intercept)  88.6      1      268     27  8.92 0.00593 ** 
-IVbtw       226.4      2      268     27 11.40 0.00026 ***
-IVwth       113.7      2      341     54  9.00 0.00042 ***
-IVbtw:IVwth  23.1      4      341     54  0.91 0.46327    
+(Intercept)  60.9      1      161     27 10.18 0.00359 ** 
+IVbtw       178.4      2      161     27 14.92 4.3e-05 ***
+IVwth       131.0      2      419     54  8.45 0.00064 ***
+IVbtw:IVwth  43.4      4      419     54  1.40 0.24659    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
@@ -107,22 +107,22 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Mauchly Tests for Sphericity
 
             Test statistic p-value
-IVwth                0.842   0.107
-IVbtw:IVwth          0.842   0.107
+IVwth                0.981   0.779
+IVbtw:IVwth          0.981   0.779
 
 
 Greenhouse-Geisser and Huynh-Feldt Corrections
  for Departure from Sphericity
 
             GG eps Pr(>F[GG])    
-IVwth        0.863    0.00086 ***
-IVbtw:IVwth  0.863    0.45322    
+IVwth        0.981     0.0007 ***
+IVbtw:IVwth  0.981     0.2474    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
             HF eps Pr(>F[HF])    
-IVwth        0.917    0.00065 ***
-IVbtw:IVwth  0.917    0.45737    
+IVwth         1.06    0.00064 ***
+IVbtw:IVwth   1.06    0.24659    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -149,10 +149,10 @@ Contrasts spanned by
 Greenhouse-Geisser epsilon: 1
 Huynh-Feldt epsilon:        1
 
-            Df     F num Df den Df  Pr(>F)  G-G Pr  H-F Pr
-(Intercept)  1  8.92      1     27 0.00593 0.00593 0.00593
-IVbtw        2 11.40      2     27 0.00026 0.00026 0.00026
-Residuals   27                                            
+            Df    F num Df den Df  Pr(>F)  G-G Pr  H-F Pr
+(Intercept)  1 10.2      1     27 0.00359 0.00359 0.00359
+IVbtw        2 14.9      2     27 0.00004 0.00004 0.00004
+Residuals   27                                           
 ```
 
 ```r
@@ -170,12 +170,12 @@ Contrasts orthogonal to
 Contrasts spanned by
 ~IVwth
 
-Greenhouse-Geisser epsilon: 0.8634
-Huynh-Feldt epsilon:        0.9170
+Greenhouse-Geisser epsilon: 0.9813
+Huynh-Feldt epsilon:        1.0575
 
             Df    F num Df den Df Pr(>F) G-G Pr H-F Pr
-(Intercept)  1 9.00      2     54  0.000  0.001  0.001
-IVbtw        2 0.91      4     54  0.463  0.453  0.457
+(Intercept)  1 8.45      2     54 0.0006 0.0007 0.0006
+IVbtw        2 1.40      4     54 0.2466 0.2474 0.2466
 Residuals   27                                        
 ```
 
@@ -196,7 +196,7 @@ mauchly.test(fitSPFpq, M=~IVwth, X=~1, idata=inSPFpq)
 
 
 data:  SSD matrix from lm(formula = cbind(DV.1, DV.2, DV.3) ~ IVbtw, data = dfSPFpqW) 
-W = 0.8418, p-value = 0.1067
+W = 0.981, p-value = 0.7789
 ```
 
 
@@ -213,11 +213,11 @@ Analysis of Variance Table
 
 Response: DV
             Df Sum Sq Mean Sq F value Pr(>F)
-IVbtw        2    226   113.2               
-IVwth        2    114    56.8               
-id          27    268     9.9               
-IVbtw:IVwth  4     23     5.8               
-IVwth:id    54    341     6.3               
+IVbtw        2    178    89.2               
+IVwth        2    131    65.5               
+id          27    161     6.0               
+IVbtw:IVwth  4     43    10.9               
+IVwth:id    54    419     7.8               
 Residuals    0      0                       
 ```
 
@@ -237,7 +237,7 @@ SSI    <- anRes["IVbtw:IVwth", "Sum Sq"]
 ```
 
 ```
-[1] 0.2709
+[1] 0.2352
 ```
 
 ```r
@@ -245,7 +245,7 @@ SSI    <- anRes["IVbtw:IVwth", "Sum Sq"]
 ```
 
 ```
-[1] 0.1573
+[1] 0.1842
 ```
 
 ```r
@@ -253,7 +253,7 @@ SSI    <- anRes["IVbtw:IVwth", "Sum Sq"]
 ```
 
 ```
-[1] 0.03648
+[1] 0.0696
 ```
 
 
@@ -273,8 +273,8 @@ summary(aov(DV ~ IVbtw, data=dfSPFpqL, subset=(IVwth==1)))
 
 ```
             Df Sum Sq Mean Sq F value Pr(>F)  
-IVbtw        2   53.4   26.69    3.24  0.055 .
-Residuals   27  222.7    8.25                 
+IVbtw        2   81.8    40.9    4.69  0.018 *
+Residuals   27  235.3     8.7                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -284,9 +284,9 @@ summary(aov(DV ~ IVbtw, data=dfSPFpqL, subset=(IVwth==2)))
 ```
 
 ```
-            Df Sum Sq Mean Sq F value Pr(>F)   
-IVbtw        2   71.6    35.8    6.04 0.0068 **
-Residuals   27  160.1     5.9                  
+            Df Sum Sq Mean Sq F value Pr(>F)  
+IVbtw        2   37.2    18.6    2.81  0.078 .
+Residuals   27  178.2     6.6                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -297,8 +297,8 @@ summary(aov(DV ~ IVbtw, data=dfSPFpqL, subset=(IVwth==3)))
 
 ```
             Df Sum Sq Mean Sq F value Pr(>F)   
-IVbtw        2    124    62.3    7.42 0.0027 **
-Residuals   27    226     8.4                  
+IVbtw        2    103    51.4    8.33 0.0015 **
+Residuals   27    167     6.2                  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -316,12 +316,14 @@ summary(aov(DV ~ IVwth + Error(id/IVwth), data=dfSPFpqL,
 
 Error: id
           Df Sum Sq Mean Sq F value Pr(>F)
-Residuals  9    102    11.4               
+Residuals  9   22.6    2.51               
 
 Error: id:IVwth
-          Df Sum Sq Mean Sq F value Pr(>F)
-IVwth      2   40.4    20.2    2.52   0.11
-Residuals 18  144.0     8.0               
+          Df Sum Sq Mean Sq F value Pr(>F)  
+IVwth      2     47   23.49    3.51  0.052 .
+Residuals 18    120    6.69                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
 
 ```r
@@ -333,12 +335,12 @@ summary(aov(DV ~ IVwth + Error(id/IVwth), data=dfSPFpqL,
 
 Error: id
           Df Sum Sq Mean Sq F value Pr(>F)
-Residuals  9   72.8    8.08               
+Residuals  9   23.1    2.57               
 
 Error: id:IVwth
           Df Sum Sq Mean Sq F value Pr(>F)   
-IVwth      2   87.6    43.8    6.83 0.0062 **
-Residuals 18  115.5     6.4                  
+IVwth      2    111    55.7    8.15  0.003 **
+Residuals 18    123     6.8                  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -352,12 +354,12 @@ summary(aov(DV ~ IVwth + Error(id/IVwth), data=dfSPFpqL,
 
 Error: id
           Df Sum Sq Mean Sq F value Pr(>F)
-Residuals  9   92.8    10.3               
+Residuals  9    116    12.9               
 
 Error: id:IVwth
           Df Sum Sq Mean Sq F value Pr(>F)
-IVwth      2    8.8    4.38    0.96    0.4
-Residuals 18   81.7    4.54               
+IVwth      2     16    8.00    0.82   0.46
+Residuals 18    175    9.74               
 ```
 
 
@@ -394,8 +396,8 @@ Fit: aov(formula = DV ~ IVbtw, data = mDf)
 
 Linear Hypotheses:
                   Estimate Std. Error t value Pr(>t)
--0.5*(A+B)+C <= 0   -3.207      0.705   -4.55      1
-A-C <= 0            -3.795      0.814   -4.66      1
+-0.5*(A+B)+C <= 0   -2.375      0.547   -4.34      1
+A-C <= 0            -3.421      0.631   -5.42      1
 (Adjusted p values reported -- none method)
 ```
 

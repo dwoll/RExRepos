@@ -69,7 +69,7 @@ kruskal_test(DV ~ IV, distribution=approximate(B=9999), data=KWdf)
 	Approximative Kruskal-Wallis Test
 
 data:  DV by IV (I, II, III, IV) 
-chi-squared = 6.059, p-value = 0.1073
+chi-squared = 6.059, p-value = 0.1068
 ```
 
 
@@ -107,7 +107,7 @@ oneway_test(DV ~ IV, distribution=approximate(B=9999), data=KWdf)
 	Approximative K-Sample Permutation Test
 
 data:  DV by IV (I, II, III, IV) 
-maxT = 2.206, p-value = 0.09231
+maxT = 2.206, p-value = 0.09711
 ```
 
 
@@ -118,7 +118,7 @@ Independent samples - ordered groups
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 P    <- 4
 Nj   <- c(41, 37, 42, 40)
 muJ  <- rep(c(-1, 0, 1, 2), Nj)
@@ -138,7 +138,7 @@ kruskal_test(DV ~ IV, distribution=approximate(B=9999), data=JTdf)
 	Approximative Linear-by-Linear Association Test
 
 data:  DV by IV (A < B < C < D) 
-chi-squared = 0.0215, p-value = 0.883
+chi-squared = 1.903, p-value = 0.1701
 ```
 
 
@@ -191,7 +191,7 @@ friedman_test(DV ~ IV | id, distribution=approximate(B=9999), data=Fdf)
 
 data:  DV by IV (A, B, C, D) 
 	 stratified by id 
-chi-squared = 8.265, p-value = 0.0309
+chi-squared = 8.265, p-value = 0.0296
 ```
 
 
@@ -208,7 +208,7 @@ oneway_test(DV ~ IV | id, distribution=approximate(B=9999), data=Fdf)
 
 data:  DV by IV (A, B, C, D) 
 	 stratified by id 
-maxT = 2.023, p-value = 0.194
+maxT = 2.023, p-value = 0.1891
 ```
 
 
@@ -240,7 +240,7 @@ friedman_test(DV ~ IV | id, distribution=approximate(B=9999), data=Pdf)
 data:  DV by
 	 IV (A < B < C < D) 
 	 stratified by id 
-chi-squared = 6.912, p-value = 0.009501
+chi-squared = 2.028, p-value = 0.1735
 ```
 
 

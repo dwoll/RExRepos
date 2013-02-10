@@ -50,7 +50,7 @@ text(X[1:26]-0.3, Y[1:26], labels=0:25)
 text(0.2, 3, labels="symbols for pch", srt=90, cex=1.2)
 ```
 
-![plot of chunk rerDiagFormat01](../content/assets/figure/rerDiagFormat01.png) 
+![plot of chunk rerDiagFormat01](content/assets/figure/rerDiagFormat01.png) 
 
 
 Line types are chosen with option `lty`, line widths with option `lwd`, and round vs. square line ends with `lend`.
@@ -72,14 +72,14 @@ text(0.32, 9, labels="line ending: lend=1", srt=90, cex=1.2)
 text(0.32, 3, labels="line ending: lend=0", srt=90, cex=1.2)
 ```
 
-![plot of chunk rerDiagFormat02](../content/assets/figure/rerDiagFormat02.png) 
+![plot of chunk rerDiagFormat02](content/assets/figure/rerDiagFormat02.png) 
 
 
 ### Diagram title, axis labels, axis limits, aspect ratio
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N <- 100
 x <- rnorm(N, 100, 15)
 y <- 0.3*x + rnorm(N, 0, 7)
@@ -88,7 +88,7 @@ plot(x, y, main="Scatter plot", sub="aspect ratio = 1",
      xlim=c(60, 140), asp=1, pch=16, col="blue")
 ```
 
-![plot of chunk rerDiagFormat03](../content/assets/figure/rerDiagFormat03.png) 
+![plot of chunk rerDiagFormat03](content/assets/figure/rerDiagFormat03.png) 
 
 
 Setting parameters with `par()`
@@ -115,7 +115,7 @@ par(op)
 plot(rnorm(10), main="Standard format")
 ```
 
-![plot of chunk rerDiagFormat04](../content/assets/figure/rerDiagFormat04.png) 
+![plot of chunk rerDiagFormat04](content/assets/figure/rerDiagFormat04.png) 
 
 
 Colors
@@ -138,7 +138,8 @@ N <- 6
 ```
 
 ```
-[1] "blue2"     "gray40"    "grey68"    "lightblue" "gray20"    "grey15"   
+[1] "gray33"         "khaki2"         "mistyrose1"     "darkslategray1"
+[5] "royalblue4"     "mediumorchid"  
 ```
 
 
@@ -169,7 +170,7 @@ text(-0.05, seq(0, 1-len, length.out=N) + len/2, adj=1,
      labels=c("default", "sample", "rainbow", "topo", "cm", "heat"))
 ```
 
-![plot of chunk rerDiagFormat05](../content/assets/figure/rerDiagFormat05.png) 
+![plot of chunk rerDiagFormat05](content/assets/figure/rerDiagFormat05.png) 
 
 
 ### RGB colors and transparency
@@ -212,7 +213,7 @@ points(xx-20, yy-20, pch=16, cex=3.5, col=rgb(1, 0, 0, 0.3))
 points(xx+20, yy-20, pch=16, cex=3.5, col=rgb(0, 1, 0, 0.3))
 ```
 
-![plot of chunk rerDiagFormat06](../content/assets/figure/rerDiagFormat06.png) 
+![plot of chunk rerDiagFormat06](content/assets/figure/rerDiagFormat06.png) 
 
 
 ### Other color spaces
@@ -300,7 +301,7 @@ rect(xLeft, yBot, xRight, yTop, border=NA,
      col=c(b1, b2, b3, b4, b5, b6))
 ```
 
-![plot of chunk rerDiagFormat07](../content/assets/figure/rerDiagFormat07.png) 
+![plot of chunk rerDiagFormat07](content/assets/figure/rerDiagFormat07.png) 
 
 
 Useful packages

@@ -37,7 +37,7 @@ $T = (-\ln(U) \, b \, e^{-\bf{X} \bf{\beta}})^{\frac{1}{a}}$, where $U \sim \mat
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N      <- 180
 P      <- 3
 sex    <- factor(sample(c("f", "m"), N, replace=TRUE))
@@ -84,11 +84,11 @@ Call:
 coxph(formula = Surv(obsT, status) ~ X + IV, data = dfSurv)
 
       coef exp(coef) se(coef)     z       p
-X    0.346     1.413   0.0845  4.09 4.3e-05
-IVB -0.697     0.498   0.2065 -3.38 7.3e-04
-IVC  0.325     1.384   0.1895  1.72 8.6e-02
+X    0.493     1.637   0.0937  5.26 1.4e-07
+IVB -0.822     0.439   0.2108 -3.90 9.6e-05
+IVC  0.377     1.457   0.1934  1.95 5.1e-02
 
-Likelihood ratio test=37.1  on 3 df, p=4.33e-08  n= 180, number of events= 157 
+Likelihood ratio test=51.6  on 3 df, p=3.62e-11  n= 180, number of events= 157 
 ```
 
 ```r
@@ -102,22 +102,22 @@ coxph(formula = Surv(obsT, status) ~ X + IV, data = dfSurv)
   n= 180, number of events= 157 
 
        coef exp(coef) se(coef)     z Pr(>|z|)    
-X    0.3456    1.4128   0.0845  4.09  4.3e-05 ***
-IVB -0.6973    0.4979   0.2065 -3.38  0.00073 ***
-IVC  0.3252    1.3843   0.1895  1.72  0.08618 .  
+X    0.4930    1.6373   0.0937  5.26  1.4e-07 ***
+IVB -0.8224    0.4394   0.2108 -3.90  9.6e-05 ***
+IVC  0.3767    1.4575   0.1934  1.95    0.051 .  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
     exp(coef) exp(-coef) lower .95 upper .95
-X       1.413      0.708     1.197     1.667
-IVB     0.498      2.008     0.332     0.746
-IVC     1.384      0.722     0.955     2.007
+X       1.637      0.611     1.362     1.967
+IVB     0.439      2.276     0.291     0.664
+IVC     1.457      0.686     0.998     2.129
 
-Concordance= 0.652  (se = 0.027 )
-Rsquare= 0.186   (max possible= 1 )
-Likelihood ratio test= 37.1  on 3 df,   p=4.33e-08
-Wald test            = 35.5  on 3 df,   p=9.7e-08
-Score (logrank) test = 36.7  on 3 df,   p=5.25e-08
+Concordance= 0.68  (se = 0.027 )
+Rsquare= 0.249   (max possible= 1 )
+Likelihood ratio test= 51.6  on 3 df,   p=3.62e-11
+Wald test            = 51  on 3 df,   p=4.92e-11
+Score (logrank) test = 53.3  on 3 df,   p=1.55e-11
 ```
 
 
@@ -133,7 +133,7 @@ extractAIC(fitCPH)
 ```
 
 ```
-[1]    3 1382
+[1]    3 1368
 ```
 
 
@@ -156,7 +156,7 @@ as.vector(1 - (LLf / LL0))
 ```
 
 ```
-[1] 0.02627
+[1] 0.03652
 ```
 
 
@@ -168,7 +168,7 @@ as.vector(1 - exp((2/N) * (LL0 - LLf)))
 ```
 
 ```
-[1] 0.1864
+[1] 0.2493
 ```
 
 
@@ -180,7 +180,7 @@ as.vector((1 - exp((2/N) * (LL0 - LLf))) / (1 - exp(LL0)^(2/N)))
 ```
 
 ```
-[1] 0.1864
+[1] 0.2494
 ```
 
 
@@ -200,8 +200,8 @@ Analysis of Deviance Table
  Model 1: ~ X
  Model 2: ~ X + IV
   loglik Chisq Df P(>|Chi|)    
-1   -701                       
-2   -688    26  2   2.3e-06 ***
+1   -699                       
+2   -681  35.9  2   1.6e-08 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -224,7 +224,7 @@ library(survival)                # for survfit()
 Call: survfit(formula = fitCPH)
 
 records   n.max n.start  events  median 0.95LCL 0.95UCL 
-    180     180     180     157      14      10      17 
+    180     180     180     157      14      11      19 
 ```
 
 ```r
@@ -252,7 +252,7 @@ legend(x="topright", lwd=2, col=c("black", "blue", "red"),
        legend=c("pseudo-observation", "sex=f, X=-2, IV=A", "sex=f, X=-2, IV=C"))
 ```
 
-![plot of chunk rerSurvivalCoxPH01](../content/assets/figure/rerSurvivalCoxPH01.png) 
+![plot of chunk rerSurvivalCoxPH01](content/assets/figure/rerSurvivalCoxPH01.png) 
 
 
 ### Cumulative baseline hazard
@@ -271,7 +271,7 @@ lines(Lambda0A$time, Lambda0C, lwd=2, col="green")
 legend(x="bottomright", lwd=2, col=1:3, legend=LETTERS[1:3])
 ```
 
-![plot of chunk rerSurvivalCoxPH02](../content/assets/figure/rerSurvivalCoxPH02.png) 
+![plot of chunk rerSurvivalCoxPH02](content/assets/figure/rerSurvivalCoxPH02.png) 
 
 
 Model diagnostics
@@ -288,11 +288,11 @@ library(survival)                      # for cox.zph()
 ```
 
 ```
-           rho chisq     p
-X      -0.1249 2.402 0.121
-IVB    -0.0434 0.301 0.583
-IVC    -0.0559 0.489 0.484
-GLOBAL      NA 3.242 0.356
+           rho chisq      p
+X      -0.1039 2.073 0.1500
+IVB     0.1559 4.006 0.0453
+IVC     0.0406 0.265 0.6069
+GLOBAL      NA 5.053 0.1680
 ```
 
 
@@ -304,7 +304,7 @@ par(mfrow=c(2, 2), cex.main=1.4, cex.lab=1.4)
 plot(czph)
 ```
 
-![plot of chunk rerSurvivalCoxPH03](../content/assets/figure/rerSurvivalCoxPH03.png) 
+![plot of chunk rerSurvivalCoxPH03](content/assets/figure/rerSurvivalCoxPH03.png) 
 
 
 ### Influential observations
@@ -319,7 +319,7 @@ plot(dfbetas[ , 2], type="h", main="DfBETAS for IV-B", ylab="DfBETAS", lwd=2)
 plot(dfbetas[ , 3], type="h", main="DfBETAS for IV-C", ylab="DfBETAS", lwd=2)
 ```
 
-![plot of chunk rerSurvivalCoxPH04](../content/assets/figure/rerSurvivalCoxPH04.png) 
+![plot of chunk rerSurvivalCoxPH04](content/assets/figure/rerSurvivalCoxPH04.png) 
 
 
 ### Linearity of log hazard
@@ -335,7 +335,7 @@ lines(loess.smooth(dfSurv$X, resMart), lwd=2, col="blue")
 legend(x="bottomleft", col="blue", lwd=2, legend="LOESS fit", cex=1.4)
 ```
 
-![plot of chunk rerSurvivalCoxPH05](../content/assets/figure/rerSurvivalCoxPH05.png) 
+![plot of chunk rerSurvivalCoxPH05](content/assets/figure/rerSurvivalCoxPH05.png) 
 
 
 Predicted hazard ratios
@@ -351,7 +351,7 @@ head(hazRat)
 ```
 
 ```
-[1] 0.9454 1.7310 1.7029 1.4525 1.9732 1.3831
+[1] 1.9166 1.5390 1.3211 0.8617 2.2970 0.8735
 ```
 
 

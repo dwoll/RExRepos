@@ -7,8 +7,8 @@ rerCat: Multivariate
 tags: [PCA]
 ---
 
-
-
+Principal components analysis
+=========================
 
 Install required packages
 -------------------------
@@ -30,7 +30,7 @@ PCA
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 library(mvtnorm)
 Sigma <- matrix(c(4, 2, 2, 3), ncol=2)
 mu    <- c(1, 2)
@@ -46,12 +46,12 @@ X     <- rmvnorm(N, mean=mu, sigma=Sigma)
 
 ```
 Standard deviations:
-[1] 2.184 1.042
+[1] 2.115 1.100
 
 Rotation:
         PC1     PC2
-[1,] 0.7685  0.6399
-[2,] 0.6399 -0.7685
+[1,] 0.6877 -0.7259
+[2,] 0.7259  0.6877
 ```
 
 
@@ -63,9 +63,9 @@ summary(pca)
 ```
 Importance of components:
                          PC1   PC2
-Standard deviation     2.184 1.042
-Proportion of Variance 0.815 0.185
-Cumulative Proportion  0.815 1.000
+Standard deviation     2.115 1.100
+Proportion of Variance 0.787 0.213
+Cumulative Proportion  0.787 1.000
 ```
 
 ```r
@@ -73,7 +73,7 @@ pca$sdev^2 / sum(diag(cov(X)))
 ```
 
 ```
-[1] 0.8146 0.1854
+[1] 0.7871 0.2129
 ```
 
 
@@ -82,7 +82,7 @@ pca$sdev^2 / sum(diag(cov(X)))
 plot(pca)
 ```
 
-![plot of chunk rerMultPCA01](../content/assets/figure/rerMultPCA01.png) 
+![plot of chunk rerMultPCA01](content/assets/figure/rerMultPCA01.png) 
 
 
 For rotated principal components, see `principal()` from package [`psych`](http://cran.r-project.org/package=psych).
@@ -100,7 +100,7 @@ princomp(x = X)
 
 Standard deviations:
 Comp.1 Comp.2 
- 2.162  1.032 
+ 2.094  1.089 
 
  2  variables and  50 observations.
 ```
@@ -113,8 +113,8 @@ Comp.1 Comp.2
 
 Loadings:
      Comp.1 Comp.2
-[1,] -0.768  0.640
-[2,] -0.640 -0.768
+[1,]  0.688 -0.726
+[2,]  0.726  0.688
 
                Comp.1 Comp.2
 SS loadings       1.0    1.0
@@ -128,13 +128,13 @@ head(pc)
 ```
 
 ```
-      Comp.1  Comp.2
-[1,]  1.2692 -0.7996
-[2,] -0.4368 -2.2355
-[3,]  1.0017  0.8645
-[4,] -1.5956 -0.4115
-[5,] -0.2126  0.5974
-[6,] -2.9591  0.7175
+     Comp.1  Comp.2
+[1,] -1.633  0.4595
+[2,]  2.503 -1.4578
+[3,]  2.625  1.1630
+[4,] -1.499 -1.3124
+[5,] -2.191  0.4319
+[6,]  2.381 -0.9130
 ```
 
 
@@ -164,7 +164,7 @@ legend(x="topleft", legend=c("data", "PC axes", "SDs of PC", "centroid"),
        col=c("black", "gray", "blue", "red"), bg="white")
 ```
 
-![plot of chunk rerMultPCA02](../content/assets/figure/rerMultPCA02.png) 
+![plot of chunk rerMultPCA02](content/assets/figure/rerMultPCA02.png) 
 
 
 ### Approximate data by their principal components
@@ -188,7 +188,7 @@ sum((X-repr)^2)
 ```
 
 ```
-[1] 6.644e-30
+[1] 1.925e-29
 ```
 
 
@@ -202,7 +202,7 @@ sum((X-repr1)^2)
 ```
 
 ```
-[1] 53.22
+[1] 59.28
 ```
 
 ```r
@@ -227,7 +227,7 @@ legend(x="topleft", legend=c("data", "PC axes", "centroid", "approximation"),
        col=c("black", "gray", "red", "blue"), bg="white")
 ```
 
-![plot of chunk rerMultPCA03](../content/assets/figure/rerMultPCA03.png) 
+![plot of chunk rerMultPCA03](content/assets/figure/rerMultPCA03.png) 
 
 
 ### Approximate the covariance matrix using principal components
@@ -239,8 +239,8 @@ Gscl %*% t(Gscl)
 
 ```
       [,1]  [,2]
-[1,] 3.262 1.812
-[2,] 1.812 2.595
+[1,] 2.753 1.629
+[2,] 1.629 2.930
 ```
 
 ```r
@@ -249,8 +249,8 @@ cov(X)
 
 ```
       [,1]  [,2]
-[1,] 3.262 1.812
-[2,] 1.812 2.595
+[1,] 2.753 1.629
+[2,] 1.629 2.930
 ```
 
 ```r
@@ -259,8 +259,8 @@ Gscl[ , 1] %*% t(Gscl[ , 1])
 
 ```
       [,1]  [,2]
-[1,] 2.817 2.346
-[2,] 2.346 1.953
+[1,] 2.116 2.233
+[2,] 2.233 2.357
 ```
 
 
@@ -279,7 +279,7 @@ princomp(x = X, covmat = covMcd(X))
 
 Standard deviations:
 Comp.1 Comp.2 
- 2.463  0.993 
+ 2.467  1.047 
 
  2  variables and  50 observations.
 ```
@@ -297,7 +297,7 @@ PCAproj(x = X, k = ncol(X), method = "qn")
 
 Standard deviations:
 Comp.1 Comp.2 
- 2.415  1.073 
+ 2.101  1.171 
 
  2  variables and  50 observations.
 ```

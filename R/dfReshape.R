@@ -1,6 +1,6 @@
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 Nj     <- 4
 cond1  <- sample(1:10, Nj, replace=TRUE)
 cond2  <- sample(1:10, Nj, replace=TRUE)

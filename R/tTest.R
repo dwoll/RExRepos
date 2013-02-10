@@ -1,6 +1,6 @@
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 N    <- 100
 DV   <- rnorm(N, 5, 20)
 muH0 <- 0

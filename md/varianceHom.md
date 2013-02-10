@@ -7,8 +7,8 @@ rerCat: Univariate
 tags: [ANOVA, tTests]
 ---
 
-
-
+Variance homogeneity in two or more groups
+=========================
 
 TODO
 -------------------------
@@ -35,7 +35,7 @@ Compare two groups
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 P     <- 2
 Nj    <- c(50, 40)
 DV1   <- rnorm(Nj[1], mean=100, sd=15)
@@ -51,7 +51,7 @@ boxplot(DV ~ IV, data=varDf)
 stripchart(DV ~ IV, data=varDf, pch=16, vert=TRUE, add=TRUE)
 ```
 
-![plot of chunk rerVarHom01](../content/assets/figure/rerVarHom01.png) 
+![plot of chunk rerVarHom01](content/assets/figure/rerVarHom01.png) 
 
 
 ### $F$-test for variance ratio in two groups
@@ -72,13 +72,13 @@ var.test(DV ~ IV, data=varDf)
 	F test to compare two variances
 
 data:  DV by IV 
-F = 0.9965, num df = 49, denom df = 39, p-value = 0.9816
+F = 1.544, num df = 49, denom df = 39, p-value = 0.1632
 alternative hypothesis: true ratio of variances is not equal to 1 
 95 percent confidence interval:
- 0.5397 1.8019 
+ 0.8361 2.7914 
 sample estimates:
 ratio of variances 
-            0.9965 
+             1.544 
 ```
 
 
@@ -94,7 +94,7 @@ mood.test(DV ~ IV, alternative="greater", data=varDf)
 	Mood two-sample test of scale
 
 data:  DV by IV 
-Z = 0.1659, p-value = 0.4341
+Z = 1.806, p-value = 0.03542
 alternative hypothesis: greater 
 ```
 
@@ -111,7 +111,7 @@ ansari.test(DV ~ IV, alternative="greater", exact=FALSE, data=varDf)
 	Ansari-Bradley test
 
 data:  DV by IV 
-AB = 1110, p-value = 0.2579
+AB = 1025, p-value = 0.02116
 alternative hypothesis: true ratio of scales is greater than 1 
 ```
 
@@ -127,7 +127,7 @@ ansari_test(DV ~ IV, alternative="greater", distribution="exact", data=varDf)
 	Exact Ansari-Bradley Test
 
 data:  DV by IV (1, 2) 
-Z = -0.6497, p-value = 0.2615
+Z = -2.03, p-value = 0.02138
 alternative hypothesis: true mu is less than 1 
 ```
 
@@ -153,7 +153,7 @@ boxplot(DV ~ IV, data=levDf)
 stripchart(DV ~ IV, data=levDf, pch=20, vert=TRUE, add=TRUE)
 ```
 
-![plot of chunk rerVarHom02](../content/assets/figure/rerVarHom02.png) 
+![plot of chunk rerVarHom02](content/assets/figure/rerVarHom02.png) 
 
 
 ### Levene-test
@@ -166,11 +166,9 @@ leveneTest(DV ~ IV, center=median, data=levDf)
 
 ```
 Levene's Test for Homogeneity of Variance (center = median)
-      Df F value Pr(>F)  
-group  2    2.48  0.093 .
-      57                 
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+      Df F value Pr(>F)
+group  2    0.15   0.86
+      57               
 ```
 
 ```r
@@ -179,11 +177,9 @@ leveneTest(DV ~ IV, center=mean, data=levDf)
 
 ```
 Levene's Test for Homogeneity of Variance (center = mean)
-      Df F value Pr(>F)  
-group  2    2.43  0.097 .
-      57                 
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+      Df F value Pr(>F)
+group  2     0.1   0.91
+      57               
 ```
 
 
@@ -199,7 +195,7 @@ fligner.test(DV ~ IV, data=levDf)
 	Fligner-Killeen test of homogeneity of variances
 
 data:  DV by IV 
-Fligner-Killeen:med chi-squared = 2.719, df = 2, p-value = 0.2568
+Fligner-Killeen:med chi-squared = 0.0936, df = 2, p-value = 0.9543
 ```
 
 
@@ -214,7 +210,7 @@ fligner_test(DV ~ IV, distribution=approximate(B=9999), data=levDf)
 	Approximative Fligner-Killeen Test
 
 data:  DV by IV (1, 2, 3) 
-chi-squared = 2.719, p-value = 0.2567
+chi-squared = 0.0936, p-value = 0.9546
 ```
 
 

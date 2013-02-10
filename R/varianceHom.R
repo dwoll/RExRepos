@@ -6,7 +6,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 P     <- 2
 Nj    <- c(50, 40)
 DV1   <- rnorm(Nj[1], mean=100, sd=15)

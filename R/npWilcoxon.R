@@ -6,7 +6,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 medH0 <- 30
 DV    <- sample(0:100, 20, replace=TRUE)
 DV    <- DV[DV != medH0]

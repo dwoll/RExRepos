@@ -7,8 +7,8 @@ rerCat: Nonparametric
 tags: [PermutationTests]
 ---
 
-
-
+Permutation tests
+=========================
 
 TODO
 -------------------------
@@ -37,7 +37,7 @@ Not limited to just two independent samples.
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 Nj     <- c(7, 8)
 sigma  <- 20
 DVa    <- rnorm(Nj[1], 100, sigma)
@@ -58,7 +58,7 @@ oneway_test(DV ~ IV, alternative="less", distribution="exact", data=tIndDf)
 	Exact 2-Sample Permutation Test
 
 data:  DV by IV (A, B) 
-Z = -1.1, p-value = 0.142
+Z = 0.1369, p-value = 0.5549
 alternative hypothesis: true mu is less than 0 
 ```
 
@@ -70,7 +70,7 @@ tRes$p.value
 ```
 
 ```
-[1] 0.1438
+[1] 0.5515
 ```
 
 
@@ -87,7 +87,7 @@ diffM <- diff(tapply(tIndDf$DV, tIndDf$IV, mean))
 ```
 
 ```
-[1] 0.142
+[1] 0.5549
 ```
 
 
@@ -101,7 +101,7 @@ curve(dnorm(x, 0, sigma/sqrt(Nj[1]) + sigma/sqrt(Nj[2])), lwd=2, add=TRUE)
 legend(x="topright", lty=1, lwd=2, legend=expression(paste("N(0, ", sigma[1]^2 / n[1] + sigma[2]^2 / n[2], ")")))
 ```
 
-![plot of chunk rerResamplingPerm01](../content/assets/figure/rerResamplingPerm01.png) 
+![plot of chunk rerResamplingPerm01](content/assets/figure/rerResamplingPerm01.png) 
 
 
 
@@ -116,7 +116,7 @@ legend(x="bottomright", lty=c(NA, 1), pch=c(16, NA), lwd=c(1, 2),
        expression(paste("N(0, ", sigma[1]^2 / n[1] + sigma[2]^2 / n[2], ")"))))
 ```
 
-![plot of chunk rerResamplingPerm02](../content/assets/figure/rerResamplingPerm02.png) 
+![plot of chunk rerResamplingPerm02](content/assets/figure/rerResamplingPerm02.png) 
 
 
 Two-sample $t$-test / one-way ANOVA for dependent groups
@@ -149,7 +149,7 @@ oneway_test(DV ~ IV | id, alternative="less", distribution=approximate(B=9999), 
 
 data:  DV by IV (pre, post) 
 	 stratified by id 
-Z = -0.7336, p-value = 0.2389
+Z = -2.123, p-value = 0.0138
 alternative hypothesis: true mu is less than 0 
 ```
 
@@ -160,7 +160,7 @@ t.test(DV ~ IV, alternative="less", paired=TRUE, data=tDepDf)$p.value
 ```
 
 ```
-[1] 0.2437
+[1] 0.01296
 ```
 
 
@@ -177,7 +177,7 @@ resMD  <- apply(sgnMat, 1, getMD)
 ```
 
 ```
-[1] 0.2434
+[1] 0.01392
 ```
 
 
@@ -194,7 +194,7 @@ fisher.test(DV1, DV2, alternative="greater")$p.value
 ```
 
 ```
-[1] 0.7143
+[1] 1
 ```
 
 
@@ -214,7 +214,7 @@ agree12  <- sum(diag(table(DV1, DV2)))
 ```
 
 ```
-[1] 0.7143
+[1] 1
 ```
 
 

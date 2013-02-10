@@ -7,8 +7,8 @@ rerCat: Data_Frames
 tags: [DataFrames]
 ---
 
-
-
+Split and merge data frames
+=========================
 
 TODO
 -------------------------
@@ -20,7 +20,7 @@ Split a data frame according to group membership
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N      <- 12
 sex    <- sample(c("f", "m"), N, replace=TRUE)
 group  <- sample(rep(c("CG", "WL", "T"), 4), N, replace=FALSE)
@@ -32,18 +32,18 @@ rating <- round(runif(N, min=0, max=6))
 
 ```
    id sex group age  IQ rating
-1   1   f     T  22 112      5
-2   2   f    WL  24 109      2
-3   3   m    WL  18 114      3
-4   4   m    WL  24 112      2
-5   5   f     T  33 101      4
-6   6   m    CG  24  70      2
-7   7   m     T  26 109      3
-8   8   m    CG  28  99      5
-9   9   m     T  26  98      1
-10 10   f    CG  21  78      5
-11 11   f    WL  32  93      2
-12 12   f    CG  30 106      5
+1   1   f     T  29 111      4
+2   2   m    CG  30  93      1
+3   3   f    WL  27  84      2
+4   4   m     T  28  97      2
+5   5   m    CG  23  85      5
+6   6   f    CG  20  89      3
+7   7   m    WL  35  91      5
+8   8   m    WL  34  75      5
+9   9   m    CG  30 113      5
+10 10   f     T  32 102      3
+11 11   m     T  18  83      5
+12 12   f    WL  26 119      4
 ```
 
 
@@ -54,25 +54,25 @@ rating <- round(runif(N, min=0, max=6))
 
 ```
 $CG
-   id sex group age  IQ rating
-6   6   m    CG  24  70      2
-8   8   m    CG  28  99      5
-10 10   f    CG  21  78      5
-12 12   f    CG  30 106      5
+  id sex group age  IQ rating
+2  2   m    CG  30  93      1
+5  5   m    CG  23  85      5
+6  6   f    CG  20  89      3
+9  9   m    CG  30 113      5
 
 $T
-  id sex group age  IQ rating
-1  1   f     T  22 112      5
-5  5   f     T  33 101      4
-7  7   m     T  26 109      3
-9  9   m     T  26  98      1
+   id sex group age  IQ rating
+1   1   f     T  29 111      4
+4   4   m     T  28  97      2
+10 10   f     T  32 102      3
+11 11   m     T  18  83      5
 
 $WL
    id sex group age  IQ rating
-2   2   f    WL  24 109      2
-3   3   m    WL  18 114      3
-4   4   m    WL  24 112      2
-11 11   f    WL  32  93      2
+3   3   f    WL  27  84      2
+7   7   m    WL  35  91      5
+8   8   m    WL  34  75      5
+12 12   f    WL  26 119      4
 ```
 
 ```r
@@ -81,34 +81,34 @@ split(myDf, list(myDf$group, myDf$sex))
 
 ```
 $CG.f
-   id sex group age  IQ rating
-10 10   f    CG  21  78      5
-12 12   f    CG  30 106      5
+  id sex group age IQ rating
+6  6   f    CG  20 89      3
 
 $T.f
-  id sex group age  IQ rating
-1  1   f     T  22 112      5
-5  5   f     T  33 101      4
+   id sex group age  IQ rating
+1   1   f     T  29 111      4
+10 10   f     T  32 102      3
 
 $WL.f
    id sex group age  IQ rating
-2   2   f    WL  24 109      2
-11 11   f    WL  32  93      2
+3   3   f    WL  27  84      2
+12 12   f    WL  26 119      4
 
 $CG.m
-  id sex group age IQ rating
-6  6   m    CG  24 70      2
-8  8   m    CG  28 99      5
+  id sex group age  IQ rating
+2  2   m    CG  30  93      1
+5  5   m    CG  23  85      5
+9  9   m    CG  30 113      5
 
 $T.m
-  id sex group age  IQ rating
-7  7   m     T  26 109      3
-9  9   m     T  26  98      1
+   id sex group age IQ rating
+4   4   m     T  28 97      2
+11 11   m     T  18 83      5
 
 $WL.m
-  id sex group age  IQ rating
-3  3   m    WL  18 114      3
-4  4   m    WL  24 112      2
+  id sex group age IQ rating
+7  7   m    WL  35 91      5
+8  8   m    WL  34 75      5
 ```
 
 ```r
@@ -117,18 +117,18 @@ unsplit(lDf, myDf$group)
 
 ```
    id sex group age  IQ rating
-1   1   f     T  22 112      5
-2   2   f    WL  24 109      2
-3   3   m    WL  18 114      3
-4   4   m    WL  24 112      2
-5   5   f     T  33 101      4
-6   6   m    CG  24  70      2
-7   7   m     T  26 109      3
-8   8   m    CG  28  99      5
-9   9   m     T  26  98      1
-10 10   f    CG  21  78      5
-11 11   f    WL  32  93      2
-12 12   f    CG  30 106      5
+1   1   f     T  29 111      4
+2   2   m    CG  30  93      1
+3   3   f    WL  27  84      2
+4   4   m     T  28  97      2
+5   5   m    CG  23  85      5
+6   6   f    CG  20  89      3
+7   7   m    WL  35  91      5
+8   8   m    WL  34  75      5
+9   9   m    CG  30 113      5
+10 10   f     T  32 102      3
+11 11   m     T  18  83      5
+12 12   f    WL  26 119      4
 ```
 
 
@@ -161,8 +161,8 @@ dfComb[11:15, ]
 
 ```
    id sex group age  IQ rating
-11 11   f    WL  32  93      2
-12 12   f    CG  30 106      5
+11 11   m     T  18  83      5
+12 12   f    WL  26 119      4
 13 13   f    CG  18 116      4
 14 14   f    WL  31 101      4
 15 15   m     T  21  99      1

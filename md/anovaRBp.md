@@ -7,8 +7,8 @@ rerCat: Univariate
 tags: [ANOVA]
 ---
 
-
-
+One-way repeated measures ANOVA (RB-p design)
+=========================
 
 TODO
 -------------------------
@@ -37,7 +37,7 @@ Traditional univariate approach
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N      <- 10
 P      <- 4
 muJ    <- rep(c(-1, 0, 1, 2), each=N)
@@ -56,12 +56,14 @@ summary(aov(DV ~ IV + Error(id/IV), data=dfRBpL))
 
 Error: id
           Df Sum Sq Mean Sq F value Pr(>F)
-Residuals  9   60.4    6.71               
+Residuals  9   60.8    6.76               
 
 Error: id:IV
-          Df Sum Sq Mean Sq F value Pr(>F)
-IV         3   44.5   14.84    1.92   0.15
-Residuals 27  208.6    7.72               
+          Df Sum Sq Mean Sq F value Pr(>F)  
+IV         3   82.5   27.50    3.85   0.02 *
+Residuals 27  192.9    7.14                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
 
 
@@ -77,9 +79,9 @@ Analysis of Variance Table
 
 Response: DV
           Df Sum Sq Mean Sq F value Pr(>F)
-IV         3   44.5   14.84               
-id         9   60.4    6.71               
-IV:id     27  208.6    7.72               
+IV         3   82.5   27.50               
+id         9   60.8    6.76               
+IV:id     27  192.9    7.14               
 Residuals  0    0.0                       
 ```
 
@@ -97,7 +99,7 @@ SSb    <- anRes["IV", "Sum Sq"]
 ```
 
 ```
-[1] 0.142
+[1] 0.2454
 ```
 
 
@@ -126,8 +128,8 @@ summary(AnovaRBp, multivariate=FALSE, univariate=TRUE)
 Univariate Type III Repeated-Measures ANOVA Assuming Sphericity
 
               SS num Df Error SS den Df    F Pr(>F)  
-(Intercept) 24.1      1     60.4      9 3.59  0.091 .
-IV          44.5      3    208.6     27 1.92  0.150  
+(Intercept) 16.2      1     60.8      9 2.39   0.16  
+IV          82.5      3    192.9     27 3.85   0.02 *
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
@@ -135,17 +137,21 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Mauchly Tests for Sphericity
 
    Test statistic p-value
-IV          0.611   0.581
+IV          0.304   0.104
 
 
 Greenhouse-Geisser and Huynh-Feldt Corrections
  for Departure from Sphericity
 
-   GG eps Pr(>F[GG])
-IV  0.748       0.17
+   GG eps Pr(>F[GG])  
+IV  0.585      0.048 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-   HF eps Pr(>F[HF])
-IV   1.01       0.15
+   HF eps Pr(>F[HF])  
+IV  0.716      0.037 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
 
 
@@ -167,11 +173,11 @@ Contrasts orthogonal to
 Contrasts spanned by
 ~IV
 
-Greenhouse-Geisser epsilon: 0.7478
-Huynh-Feldt epsilon:        1.0081
+Greenhouse-Geisser epsilon: 0.5851
+Huynh-Feldt epsilon:        0.7155
 
             Df    F num Df den Df Pr(>F) G-G Pr H-F Pr
-(Intercept)  1 1.92      3     27   0.15  0.169   0.15
+(Intercept)  1 3.85      3     27 0.0205 0.0481 0.0366
 Residuals    9                                        
 ```
 
@@ -192,7 +198,7 @@ mauchly.test(fitRBp, M=~IV, X=~1, idata=inRBp)
 
 
 data:  SSD matrix from lm(formula = cbind(DV.1, DV.2, DV.3, DV.4) ~ 1, data = dfRBpW) 
-W = 0.6113, p-value = 0.5811
+W = 0.304, p-value = 0.104
 ```
 
 
@@ -222,7 +228,7 @@ HotellingsT2(DVdiff, mu=muH0)
 	Hotelling's one sample T2-test
 
 data:  DVdiff 
-T.2 = 1.994, df1 = 3, df2 = 7, p-value = 0.2036
+T.2 = 12.27, df1 = 3, df2 = 7, p-value = 0.003555
 alternative hypothesis: true location is not equal to c(0,0,0) 
 ```
 
@@ -252,20 +258,18 @@ DV.4           1
 
 Sum of squares and products for the hypothesis:
             (Intercept)
-(Intercept)       96.37
+(Intercept)       64.63
 
 Sum of squares and products for error:
             (Intercept)
-(Intercept)       241.5
+(Intercept)       243.3
 
 Multivariate Tests: (Intercept)
-                 Df test stat approx F num Df den Df Pr(>F)  
-Pillai            1    0.2852    3.591      1      9 0.0906 .
-Wilks             1    0.7148    3.591      1      9 0.0906 .
-Hotelling-Lawley  1    0.3990    3.591      1      9 0.0906 .
-Roy               1    0.3990    3.591      1      9 0.0906 .
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+                 Df test stat approx F num Df den Df Pr(>F)
+Pillai            1    0.2099    2.391      1      9  0.156
+Wilks             1    0.7901    2.391      1      9  0.156
+Hotelling-Lawley  1    0.2657    2.391      1      9  0.156
+Roy               1    0.2657    2.391      1      9  0.156
 
 ------------------------------------------
  
@@ -279,23 +283,25 @@ DV.3   0   0   1
 DV.4  -1  -1  -1
 
 Sum of squares and products for the hypothesis:
-      IV1   IV2   IV3
-IV1 87.95 47.91 52.29
-IV2 47.91 26.10 28.49
-IV3 52.29 28.49 31.09
+       IV1   IV2    IV3
+IV1 140.04 87.58 121.24
+IV2  87.58 54.77  75.82
+IV3 121.24 75.82 104.96
 
 Sum of squares and products for error:
        IV1    IV2    IV3
-IV1 127.30  27.66  17.01
-IV2  27.66 120.98  85.45
-IV3  17.01  85.45 116.54
+IV1  41.37  29.40 -16.70
+IV2  29.40  85.75 -16.53
+IV3 -16.70 -16.53 127.47
 
 Multivariate Tests: IV
-                 Df test stat approx F num Df den Df Pr(>F)
-Pillai            1    0.4607    1.994      3      7  0.204
-Wilks             1    0.5393    1.994      3      7  0.204
-Hotelling-Lawley  1    0.8544    1.994      3      7  0.204
-Roy               1    0.8544    1.994      3      7  0.204
+                 Df test stat approx F num Df den Df  Pr(>F)   
+Pillai            1     0.840    12.27      3      7 0.00355 **
+Wilks             1     0.160    12.27      3      7 0.00355 **
+Hotelling-Lawley  1     5.257    12.27      3      7 0.00355 **
+Roy               1     5.257    12.27      3      7 0.00355 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
 
 

@@ -7,8 +7,8 @@ rerCat: Descriptive
 tags: [Association]
 ---
 
-
-
+Association tests and measures for unordered categorical variables
+=========================
 
 TODO
 -------------------------
@@ -266,7 +266,7 @@ $(r \times c)$-tables
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N        <- 50
 smokes   <- factor(sample(c("no", "yes"), N, replace=TRUE))
 siblings <- factor(round(abs(rnorm(N, 1, 0.5))))
@@ -277,9 +277,9 @@ addmargins(cTab)
 ```
       siblings
 smokes  0  1  2 Sum
-   no   2 18  3  23
-   yes  4 19  4  27
-   Sum  6 37  7  50
+   no   5 16  4  25
+   yes  3 19  3  25
+   Sum  8 35  7  50
 ```
 
 
@@ -293,7 +293,7 @@ chisq.test(cTab)
 	Pearson's Chi-squared test
 
 data:  cTab 
-X-squared = 0.5199, df = 2, p-value = 0.7711
+X-squared = 0.9, df = 2, p-value = 0.6376
 ```
 
 
@@ -364,7 +364,7 @@ cmh_test(tab3, distribution=approximate(B=9999))
 data:  sex by
 	 work (home, office) 
 	 stratified by group 
-chi-squared = 0.1556, p-value = 1
+chi-squared = 2.613, p-value = 0.19
 ```
 
 

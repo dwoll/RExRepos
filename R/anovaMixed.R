@@ -6,7 +6,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 P     <- 2               # Xb1
 Q     <- 2               # Xb2
 R     <- 3               # Xw1

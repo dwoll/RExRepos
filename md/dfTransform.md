@@ -7,8 +7,8 @@ rerCat: Data_Frames
 tags: [DataFrames]
 ---
 
-
-
+Transform data frames
+=========================
 
 TODO
 -------------------------
@@ -20,7 +20,7 @@ Add variables to a data frame
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N      <- 12
 sex    <- sample(c("f", "m"), N, replace=TRUE)
 group  <- sample(rep(c("CG", "WL", "T"), 4), N, replace=FALSE)
@@ -32,18 +32,18 @@ rating <- round(runif(N, min=0, max=6))
 
 ```
    id sex group age  IQ rating
-1   1   f     T  22 112      5
-2   2   f    WL  24 109      2
-3   3   m    WL  18 114      3
-4   4   m    WL  24 112      2
-5   5   f     T  33 101      4
-6   6   m    CG  24  70      2
-7   7   m     T  26 109      3
-8   8   m    CG  28  99      5
-9   9   m     T  26  98      1
-10 10   f    CG  21  78      5
-11 11   f    WL  32  93      2
-12 12   f    CG  30 106      5
+1   1   f     T  29 111      4
+2   2   m    CG  30  93      1
+3   3   f    WL  27  84      2
+4   4   m     T  28  97      2
+5   5   m    CG  23  85      5
+6   6   f    CG  20  89      3
+7   7   m    WL  35  91      5
+8   8   m    WL  34  75      5
+9   9   m    CG  30 113      5
+10 10   f     T  32 102      3
+11 11   m     T  18  83      5
+12 12   f    WL  26 119      4
 ```
 
 
@@ -59,12 +59,12 @@ head(myDf3)
 
 ```
   id sex group age  IQ rating isSingle
-1  1   f     T  22 112      5     TRUE
-2  2   f    WL  24 109      2     TRUE
-3  3   m    WL  18 114      3     TRUE
-4  4   m    WL  24 112      2    FALSE
-5  5   f     T  33 101      4    FALSE
-6  6   m    CG  24  70      2     TRUE
+1  1   f     T  29 111      4    FALSE
+2  2   m    CG  30  93      1     TRUE
+3  3   f    WL  27  84      2     TRUE
+4  4   m     T  28  97      2     TRUE
+5  5   m    CG  23  85      5     TRUE
+6  6   f    CG  20  89      3    FALSE
 ```
 
 ```r
@@ -74,12 +74,12 @@ head(myDf4)
 
 ```
   id sex group age  IQ rating isSingle rSq
-1  1   f     T  22 112      5     TRUE  25
-2  2   f    WL  24 109      2     TRUE   4
-3  3   m    WL  18 114      3     TRUE   9
-4  4   m    WL  24 112      2    FALSE   4
-5  5   f     T  33 101      4    FALSE  16
-6  6   m    CG  24  70      2     TRUE   4
+1  1   f     T  29 111      4    FALSE  16
+2  2   m    CG  30  93      1     TRUE   1
+3  3   f    WL  27  84      2     TRUE   4
+4  4   m     T  28  97      2     TRUE   4
+5  5   m    CG  23  85      5     TRUE  25
+6  6   f    CG  20  89      3    FALSE   9
 ```
 
 
@@ -95,12 +95,12 @@ head(dfTemp)
 
 ```
   id sex age  IQ rating
-1  1   f  22 112      5
-2  2   f  24 109      2
-3  3   m  18 114      3
-4  4   m  24 112      2
-5  5   f  33 101      4
-6  6   m  24  70      2
+1  1   f  29 111      4
+2  2   m  30  93      1
+3  3   f  27  84      2
+4  4   m  28  97      2
+5  5   m  23  85      5
+6  6   f  20  89      3
 ```
 
 
@@ -113,12 +113,12 @@ head(dfTemp)
 
 ```
   id age rating
-1  1  22      5
-2  2  24      2
-3  3  18      3
-4  4  24      2
-5  5  33      4
-6  6  24      2
+1  1  29      4
+2  2  30      1
+3  3  27      2
+4  4  28      2
+5  5  23      5
+6  6  20      3
 ```
 
 
@@ -131,7 +131,7 @@ Sort data frames
 ```
 
 ```
- [1]  9  2  4  6 11  3  7  5  1  8 10 12
+ [1]  2  3  4  6 10  1 12  5  7  8  9 11
 ```
 
 ```r
@@ -140,18 +140,18 @@ myDf1[idx1, ]
 
 ```
    id sex group age  IQ rating
-9   9   m     T  26  98      1
-2   2   f    WL  24 109      2
-4   4   m    WL  24 112      2
-6   6   m    CG  24  70      2
-11 11   f    WL  32  93      2
-3   3   m    WL  18 114      3
-7   7   m     T  26 109      3
-5   5   f     T  33 101      4
-1   1   f     T  22 112      5
-8   8   m    CG  28  99      5
-10 10   f    CG  21  78      5
-12 12   f    CG  30 106      5
+2   2   m    CG  30  93      1
+3   3   f    WL  27  84      2
+4   4   m     T  28  97      2
+6   6   f    CG  20  89      3
+10 10   f     T  32 102      3
+1   1   f     T  29 111      4
+12 12   f    WL  26 119      4
+5   5   m    CG  23  85      5
+7   7   m    WL  35  91      5
+8   8   m    WL  34  75      5
+9   9   m    CG  30 113      5
+11 11   m     T  18  83      5
 ```
 
 ```r
@@ -159,7 +159,7 @@ myDf1[idx1, ]
 ```
 
 ```
- [1]  6 10  8 12  9  5  7  1 11  2  4  3
+ [1]  5  6  2  9 11  4 10  1  8  3  7 12
 ```
 
 ```r
@@ -168,18 +168,18 @@ myDf1[idx2, ]
 
 ```
    id sex group age  IQ rating
-6   6   m    CG  24  70      2
-10 10   f    CG  21  78      5
-8   8   m    CG  28  99      5
-12 12   f    CG  30 106      5
-9   9   m     T  26  98      1
-5   5   f     T  33 101      4
-7   7   m     T  26 109      3
-1   1   f     T  22 112      5
-11 11   f    WL  32  93      2
-2   2   f    WL  24 109      2
-4   4   m    WL  24 112      2
-3   3   m    WL  18 114      3
+5   5   m    CG  23  85      5
+6   6   f    CG  20  89      3
+2   2   m    CG  30  93      1
+9   9   m    CG  30 113      5
+11 11   m     T  18  83      5
+4   4   m     T  28  97      2
+10 10   f     T  32 102      3
+1   1   f     T  29 111      4
+8   8   m    WL  34  75      5
+3   3   f    WL  27  84      2
+7   7   m    WL  35  91      5
+12 12   f    WL  26 119      4
 ```
 
 ```r
@@ -187,7 +187,7 @@ myDf1[idx2, ]
 ```
 
 ```
- [1]  8 10 12  6  1  5  7  9  3  2  4 11
+ [1]  5  9  6  2 11  1 10  4  7  8 12  3
 ```
 
 ```r
@@ -196,18 +196,18 @@ myDf1[idx3, ]
 
 ```
    id sex group age  IQ rating
-8   8   m    CG  28  99      5
-10 10   f    CG  21  78      5
-12 12   f    CG  30 106      5
-6   6   m    CG  24  70      2
-1   1   f     T  22 112      5
-5   5   f     T  33 101      4
-7   7   m     T  26 109      3
-9   9   m     T  26  98      1
-3   3   m    WL  18 114      3
-2   2   f    WL  24 109      2
-4   4   m    WL  24 112      2
-11 11   f    WL  32  93      2
+5   5   m    CG  23  85      5
+9   9   m    CG  30 113      5
+6   6   f    CG  20  89      3
+2   2   m    CG  30  93      1
+11 11   m     T  18  83      5
+1   1   f     T  29 111      4
+10 10   f     T  32 102      3
+4   4   m     T  28  97      2
+7   7   m    WL  35  91      5
+8   8   m    WL  34  75      5
+12 12   f    WL  26 119      4
+3   3   f    WL  27  84      2
 ```
 
 
@@ -222,7 +222,7 @@ Select subsets of data
 ```
 
 ```
- [1]  TRUE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE
+ [1]  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE
 [12]  TRUE
 ```
 
@@ -231,7 +231,7 @@ Select subsets of data
 ```
 
 ```
-[1]  1  2  5 10 11 12
+[1]  1  3  6 10 12
 ```
 
 ```r
@@ -240,12 +240,11 @@ myDf1[idxNum, ]
 
 ```
    id sex group age  IQ rating
-1   1   f     T  22 112      5
-2   2   f    WL  24 109      2
-5   5   f     T  33 101      4
-10 10   f    CG  21  78      5
-11 11   f    WL  32  93      2
-12 12   f    CG  30 106      5
+1   1   f     T  29 111      4
+3   3   f    WL  27  84      2
+6   6   f    CG  20  89      3
+10 10   f     T  32 102      3
+12 12   f    WL  26 119      4
 ```
 
 
@@ -255,7 +254,7 @@ myDf1[idxNum, ]
 ```
 
 ```
- [1] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE
+ [1] FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE
 [12] FALSE
 ```
 
@@ -264,10 +263,12 @@ myDf1[which(idx2), ]
 ```
 
 ```
-  id sex group age  IQ rating
-3  3   m    WL  18 114      3
-7  7   m     T  26 109      3
-8  8   m    CG  28  99      5
+   id sex group age  IQ rating
+5   5   m    CG  23  85      5
+7   7   m    WL  35  91      5
+8   8   m    WL  34  75      5
+9   9   m    CG  30 113      5
+11 11   m     T  18  83      5
 ```
 
 
@@ -277,8 +278,8 @@ myDf1[which(idx2), ]
 ```
 
 ```
- [1]  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE
-[12] FALSE
+ [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE
+[12]  TRUE
 ```
 
 ```r
@@ -287,11 +288,14 @@ myDf1[which(idx3), ]
 
 ```
    id sex group age  IQ rating
-1   1   f     T  22 112      5
-3   3   m    WL  18 114      3
-4   4   m    WL  24 112      2
-6   6   m    CG  24  70      2
-10 10   f    CG  21  78      5
+1   1   f     T  29 111      4
+3   3   f    WL  27  84      2
+5   5   m    CG  23  85      5
+6   6   f    CG  20  89      3
+8   8   m    WL  34  75      5
+9   9   m    CG  30 113      5
+11 11   m     T  18  83      5
+12 12   f    WL  26 119      4
 ```
 
 
@@ -302,9 +306,9 @@ myDf1[1:3, c("group", "IQ")]
 
 ```
   group  IQ
-1     T 112
-2    WL 109
-3    WL 114
+1     T 111
+2    CG  93
+3    WL  84
 ```
 
 ```r
@@ -313,9 +317,9 @@ myDf1[1:3, 2:4]
 
 ```
   sex group age
-1   f     T  22
-2   f    WL  24
-3   m    WL  18
+1   f     T  29
+2   m    CG  30
+3   f    WL  27
 ```
 
 
@@ -343,9 +347,9 @@ dfTemp[1:3, colIdx]
 
 ```
   B100 B101 B102
-1   22  112    5
-2   24  109    2
-3   18  114    3
+1   29  111    4
+2   30   93    1
+3   27   84    2
 ```
 
 
@@ -360,12 +364,11 @@ subset(myDf1, sex == "f")
 
 ```
    id sex group age  IQ rating
-1   1   f     T  22 112      5
-2   2   f    WL  24 109      2
-5   5   f     T  33 101      4
-10 10   f    CG  21  78      5
-11 11   f    WL  32  93      2
-12 12   f    CG  30 106      5
+1   1   f     T  29 111      4
+3   3   f    WL  27  84      2
+6   6   f    CG  20  89      3
+10 10   f     T  32 102      3
+12 12   f    WL  26 119      4
 ```
 
 ```r
@@ -374,12 +377,11 @@ subset(myDf1, sex == "f", select=-2)
 
 ```
    id group age  IQ rating
-1   1     T  22 112      5
-2   2    WL  24 109      2
-5   5     T  33 101      4
-10 10    CG  21  78      5
-11 11    WL  32  93      2
-12 12    CG  30 106      5
+1   1     T  29 111      4
+3   3    WL  27  84      2
+6   6    CG  20  89      3
+10 10     T  32 102      3
+12 12    WL  26 119      4
 ```
 
 ```r
@@ -387,10 +389,12 @@ subset(myDf1, (sex == "m") & (rating > 2))
 ```
 
 ```
-  id sex group age  IQ rating
-3  3   m    WL  18 114      3
-7  7   m     T  26 109      3
-8  8   m    CG  28  99      5
+   id sex group age  IQ rating
+5   5   m    CG  23  85      5
+7   7   m    WL  35  91      5
+8   8   m    WL  34  75      5
+9   9   m    CG  30 113      5
+11 11   m     T  18  83      5
 ```
 
 ```r
@@ -399,11 +403,14 @@ subset(myDf1, (IQ < 90) | (IQ > 110))
 
 ```
    id sex group age  IQ rating
-1   1   f     T  22 112      5
-3   3   m    WL  18 114      3
-4   4   m    WL  24 112      2
-6   6   m    CG  24  70      2
-10 10   f    CG  21  78      5
+1   1   f     T  29 111      4
+3   3   f    WL  27  84      2
+5   5   m    CG  23  85      5
+6   6   f    CG  20  89      3
+8   8   m    WL  34  75      5
+9   9   m    CG  30 113      5
+11 11   m     T  18  83      5
+12 12   f    WL  26 119      4
 ```
 
 ```r
@@ -412,14 +419,14 @@ subset(myDf1, group %in% c("CG", "WL"))
 
 ```
    id sex group age  IQ rating
-2   2   f    WL  24 109      2
-3   3   m    WL  18 114      3
-4   4   m    WL  24 112      2
-6   6   m    CG  24  70      2
-8   8   m    CG  28  99      5
-10 10   f    CG  21  78      5
-11 11   f    WL  32  93      2
-12 12   f    CG  30 106      5
+2   2   m    CG  30  93      1
+3   3   f    WL  27  84      2
+5   5   m    CG  23  85      5
+6   6   f    CG  20  89      3
+7   7   m    WL  35  91      5
+8   8   m    WL  34  75      5
+9   9   m    CG  30 113      5
+12 12   f    WL  26 119      4
 ```
 
 
@@ -490,9 +497,9 @@ subset(myDfNA, !complete.cases(myDfNA))
 ```
 
 ```
-  id sex group age  IQ rating
-4  4   m    WL  24  NA      2
-5  5   f     T  33 101     NA
+  id sex group age IQ rating
+4  4   m     T  28 NA      2
+5  5   m    CG  23 85     NA
 ```
 
 ```r
@@ -501,12 +508,12 @@ head(na.omit(myDfNA))
 
 ```
   id sex group age  IQ rating
-1  1   f     T  22 112      5
-2  2   f    WL  24 109      2
-3  3   m    WL  18 114      3
-6  6   m    CG  24  70      2
-7  7   m     T  26 109      3
-8  8   m    CG  28  99      5
+1  1   f     T  29 111      4
+2  2   m    CG  30  93      1
+3  3   f    WL  27  84      2
+6  6   f    CG  20  89      3
+7  7   m    WL  35  91      5
+8  8   m    WL  34  75      5
 ```
 
 

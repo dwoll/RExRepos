@@ -7,8 +7,8 @@ rerCat: Univariate
 tags: [Regression]
 ---
 
-
-
+Regression diagnostics
+=========================
 
 
 
@@ -37,15 +37,15 @@ Extreme values and outliers
 ### Univariate assessment of outliers
     
 
-{% highlight r %}
-set.seed(1.234)
+```r
+set.seed(123)
 N  <- 100
 X1 <- rnorm(N, 175, 7)
 X2 <- rnorm(N,  30, 8)
 X3 <- 0.3*X1 - 0.2*X2 + rnorm(N, 0, 5)
 Y  <- 0.5*X1 - 0.3*X2 - 0.4*X3 + 10 + rnorm(N, 0, 5)
 dfRegr <- data.frame(X1, X2, X3, Y)
-{% endhighlight %}
+```
 
 
 
@@ -58,13 +58,13 @@ summary(XYz)
 ```
 
 ```
-       X1                X2                X3                Y          
- Min.   :-2.6127   Min.   :-1.8597   Min.   :-2.6709   Min.   :-2.2947  
- 1st Qu.:-0.6963   1st Qu.:-0.6241   1st Qu.:-0.6985   1st Qu.:-0.6727  
- Median :-0.0189   Median :-0.1607   Median : 0.0440   Median :-0.0141  
- Mean   :-0.0245   Mean   :-0.0244   Mean   : 0.0049   Mean   : 0.0069  
- 3rd Qu.: 0.6245   3rd Qu.: 0.5025   3rd Qu.: 0.7050   3rd Qu.: 0.6429  
- Max.   : 2.5293   Max.   : 2.2698   Max.   : 2.4814   Max.   : 2.3276  
+       X1                X2               X3               Y          
+ Min.   :-2.5382   Min.   :-1.966   Min.   :-2.462   Min.   :-2.4511  
+ 1st Qu.:-0.6334   1st Qu.:-0.689   1st Qu.:-0.547   1st Qu.:-0.6166  
+ Median :-0.0505   Median :-0.103   Median : 0.147   Median :-0.0401  
+ Mean   :-0.0204   Mean   : 0.018   Mean   : 0.141   Mean   :-0.0487  
+ 3rd Qu.: 0.6106   3rd Qu.: 0.604   3rd Qu.: 0.787   3rd Qu.: 0.6044  
+ Max.   : 2.1798   Max.   : 3.431   Max.   : 2.981   Max.   : 2.4565  
 ```
 
 
@@ -78,7 +78,7 @@ summary(sqrt(mahaSq))
 
 ```
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  0.547   1.310   1.740   1.840   2.320   3.610 
+  0.618   1.350   1.750   1.840   2.250   3.930 
 ```
 
 
@@ -92,10 +92,10 @@ aqRes <- aq.plot(xyMat)
 
 ```
 Projection to the first and second robust principal components.
-Proportion of total variation (explained variance): 0.6126
+Proportion of total variation (explained variance): 0.6334
 ```
 
-![plot of chunk rerRegressionDiag01](../content/assets/figure/rerRegressionDiag01.png) 
+![plot of chunk rerRegressionDiag01](content/assets/figure/rerRegressionDiag01.png) 
 
 ```r
 which(aqRes$outliers)
@@ -118,7 +118,7 @@ summary(h)
 
 ```
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.0114  0.0222  0.0359  0.0400  0.0522  0.1200 
+ 0.0108  0.0219  0.0347  0.0400  0.0517  0.1520 
 ```
 
 
@@ -130,7 +130,7 @@ summary(cooksDst)
 
 ```
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-0.00000 0.00094 0.00309 0.01250 0.01230 0.17200 
+0.00000 0.00086 0.00365 0.01030 0.01360 0.06500 
 ```
 
 
@@ -144,12 +144,15 @@ summary(inflRes)
 Potentially influential observations of
 	 lm(formula = Y ~ X1 + X2 + X3, data = dfRegr) :
 
-   dfb.1_ dfb.X1 dfb.X2 dfb.X3 dffit   cov.r   cook.d hat  
-14 -0.22   0.16   0.09   0.11  -0.26    1.13_*  0.02   0.10
-45 -0.30   0.33   0.20  -0.29  -0.56    0.81_*  0.07   0.04
-61  0.75  -0.61  -0.22  -0.26  -0.86_*  0.83_*  0.17   0.09
-74 -0.06   0.10  -0.04  -0.13  -0.15    1.13_*  0.01   0.09
-95  0.05  -0.03   0.02  -0.06  -0.10    1.13_*  0.00   0.08
+   dfb.1_ dfb.X1 dfb.X2 dfb.X3 dffit cov.r   cook.d hat    
+44 -0.04   0.05  -0.03  -0.02   0.06  1.15_*  0.00   0.09  
+59  0.04  -0.04  -0.25   0.07  -0.38  0.83_*  0.03   0.02  
+60  0.04   0.15  -0.20  -0.45   0.52  0.84_*  0.06   0.04  
+64  0.05  -0.13   0.37   0.10   0.40  1.19_*  0.04   0.15_*
+71  0.15  -0.20   0.02   0.17   0.34  0.84_*  0.03   0.02  
+74  0.05  -0.02   0.11  -0.12   0.21  1.14_*  0.01   0.10  
+95  0.04  -0.02   0.02  -0.07  -0.10  1.15_*  0.00   0.09  
+97  0.16  -0.10  -0.09  -0.13  -0.20  1.16_*  0.01   0.12  
 ```
 
 
@@ -159,7 +162,7 @@ library(car)
 influenceIndexPlot(fit)
 ```
 
-![plot of chunk rerRegressionDiag02](../content/assets/figure/rerRegressionDiag02.png) 
+![plot of chunk rerRegressionDiag02](content/assets/figure/rerRegressionDiag02.png) 
 
 
 Checking model assumptions using residuals
@@ -181,7 +184,7 @@ hist(Estud, main="Histogram studentized residals", breaks="FD", freq=FALSE)
 curve(dnorm(x, mean=0, sd=1), col="red", lwd=2, add=TRUE)
 ```
 
-![plot of chunk rerRegressionDiag03](../content/assets/figure/rerRegressionDiag03.png) 
+![plot of chunk rerRegressionDiag03](content/assets/figure/rerRegressionDiag03.png) 
 
 
 
@@ -190,7 +193,7 @@ qqPlot(Estud, distribution="norm", pch=20, main="QQ-Plot studentized residuals")
 qqline(Estud, col="red", lwd=2)
 ```
 
-![plot of chunk rerRegressionDiag04](../content/assets/figure/rerRegressionDiag04.png) 
+![plot of chunk rerRegressionDiag04](content/assets/figure/rerRegressionDiag04.png) 
 
 
 
@@ -203,7 +206,7 @@ shapiro.test(Estud)
 	Shapiro-Wilk normality test
 
 data:  Estud 
-W = 0.9798, p-value = 0.1284
+W = 0.9943, p-value = 0.9535
 ```
 
 
@@ -216,11 +219,11 @@ W = 0.9798, p-value = 0.1284
 spreadLevelPlot(fit, pch=20)
 ```
 
-![plot of chunk rerRegressionDiag05](../content/assets/figure/rerRegressionDiag05.png) 
+![plot of chunk rerRegressionDiag05](content/assets/figure/rerRegressionDiag05.png) 
 
 ```
 
-Suggested power transformation:  0.6374 
+Suggested power transformation:  4.324 
 ```
 
 
@@ -233,7 +236,7 @@ durbinWatsonTest(fit)
 
 ```
  lag Autocorrelation D-W Statistic p-value
-   1         0.03852         1.911    0.67
+   1        -0.08825         2.173   0.348
  Alternative hypothesis: rho != 0
 ```
 
@@ -253,7 +256,7 @@ bptest(fit)
 	studentized Breusch-Pagan test
 
 data:  fit 
-BP = 1.472, df = 3, p-value = 0.6887
+BP = 1.921, df = 3, p-value = 0.5889
 ```
 
 
@@ -265,7 +268,7 @@ ncvTest(fit)
 ```
 
 ```
-Error: object 'dfRegr' not found
+Error: Objekt 'dfRegr' nicht gefunden
 ```
 
 
@@ -284,7 +287,7 @@ white.test(dfRegr$X1, dfRegr$Y)
 	White Neural Network Test
 
 data:  dfRegr$X1 and dfRegr$Y 
-X-squared = 0.8764, df = 2, p-value = 0.6452
+X-squared = 1.818, df = 2, p-value = 0.4029
 ```
 
 
@@ -305,8 +308,8 @@ lamObj  <- powerTransform(fit, family="bcPower")
 ```
 
 ```
-  Y1 
-1.49 
+   Y1 
+1.281 
 ```
 
 ```r
@@ -326,10 +329,10 @@ X   <- data.matrix(subset(dfRegr, select=c("X1", "X2", "X3")))
 ```
 
 ```
-           X1         X2      X3
-X1  1.0000000 -0.0009943  0.3411
-X2 -0.0009943  1.0000000 -0.3080
-X3  0.3410580 -0.3080062  1.0000
+         X1       X2      X3
+X1  1.00000 -0.04953  0.2700
+X2 -0.04953  1.00000 -0.2929
+X3  0.27004 -0.29290  1.0000
 ```
 
 
@@ -342,7 +345,7 @@ vif(fit)
 
 ```
    X1    X2    X3 
-1.147 1.120 1.267 
+1.080 1.095 1.178 
 ```
 
 
@@ -357,7 +360,7 @@ kappa(fitScl, exact=TRUE)
 ```
 
 ```
-[1] 1.643
+[1] 1.509
 ```
 
 
@@ -371,10 +374,10 @@ colldiag(fit, scale=TRUE, center=FALSE)
 Condition
 Index	Variance Decomposition Proportions
           intercept X1    X2    X3   
-1   1.000 0.000     0.000 0.003 0.001
-2   8.437 0.001     0.001 0.720 0.044
-3  23.685 0.044     0.027 0.277 0.912
-4  80.709 0.955     0.972 0.000 0.044
+1   1.000 0.000     0.000 0.004 0.001
+2   8.371 0.001     0.001 0.781 0.029
+3  26.110 0.046     0.040 0.208 0.964
+4  78.331 0.953     0.959 0.008 0.006
 ```
 
 
@@ -387,7 +390,7 @@ pRes <- perturb(fit, pvars=c("X1", "X2", "X3"), prange=c(1, 1, 1))
 ```
 
 ```
-Error: object 'dfRegr' not found
+Error: Objekt 'dfRegr' nicht gefunden
 ```
 
 ```r
@@ -395,8 +398,9 @@ summary(pRes)
 ```
 
 ```
-Error: error in evaluating the argument 'object' in selecting a method for
-function 'summary': Error: object 'pRes' not found
+Error: Fehler bei der Auswertung des Argumentes 'object' bei der
+Methodenauswahl für Funktion 'summary': Fehler: Objekt 'pRes' nicht
+gefunden
 ```
 
 ```r

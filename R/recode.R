@@ -41,7 +41,7 @@ response  <- c("Z", "E", "O", "W", "H", "C", "I", "G", "A", "O", "B")
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 IQ <- rnorm(20, mean=100, sd=15)
 ifelse(IQ >= 100, "hi", "lo")
 

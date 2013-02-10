@@ -34,7 +34,7 @@ Not limited to just two independent samples.
 ### Using package `coin`
 
 ```{r}
-set.seed(1.234)
+set.seed(123)
 Nj     <- c(7, 8)
 sigma  <- 20
 DVa    <- rnorm(Nj[1], 100, sigma)

@@ -33,7 +33,7 @@ rep(age, each=2)
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 sample(1:6, size=20, replace=TRUE)
 sample(c("rot", "gruen", "blau"), size=8, replace=TRUE)
 x <- c(2, 4, 6, 8)

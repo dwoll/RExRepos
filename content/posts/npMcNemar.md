@@ -30,7 +30,7 @@ McNemar-test
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N       <- 20
 pre     <- rbinom(N, size=1, prob=0.6)
 post    <- rbinom(N, size=1, prob=0.4)
@@ -43,9 +43,9 @@ addmargins(cTab)
 ```
       postFac
 preFac no yes Sum
-   no   7   3  10
-   yes  6   4  10
-   Sum 13   7  20
+   no   3   5   8
+   yes  6   6  12
+   Sum  9  11  20
 ```
 
 
@@ -59,7 +59,7 @@ mcnemar.test(cTab, correct=FALSE)
 	McNemar's Chi-squared test
 
 data:  cTab 
-McNemar's chi-squared = 1, df = 1, p-value = 0.3173
+McNemar's chi-squared = 0.0909, df = 1, p-value = 0.763
 ```
 
 
@@ -78,7 +78,7 @@ symmetry_test(cTab, teststat="quad", distribution=approximate(B=9999))
 data:  response by
 	 groups (postFac, preFac) 
 	 stratified by block 
-chi-squared = 1, p-value = 0.5055
+chi-squared = 0.0909, p-value = 1
 ```
 
 

@@ -32,9 +32,9 @@ Poisson regression
 ### Simulate data
     
 
-{% highlight r %}
+```r
 library(mvtnorm)
-set.seed(1.234)
+set.seed(123)
 N     <- 200
 sigma <- matrix(c(4,2,-3, 2,16,-1, -3,-1,8), byrow=TRUE, ncol=3)
 mu    <- c(-3, 2, 4)
@@ -42,7 +42,7 @@ XY    <- rmvnorm(N, mean=mu, sigma=sigma)
 Y     <- round(XY[ , 3] - 1.5)
 Y[Y < 0] <- 0
 dfCount <- data.frame(X1=XY[ , 1], X2=XY[ , 2], Y)
-{% endhighlight %}
+```
 
 
 ### Using `glm()`
@@ -60,21 +60,21 @@ glm(formula = Y ~ X1 + X2, family = poisson(link = "log"), data = dfCount)
 
 Deviance Residuals: 
    Min      1Q  Median      3Q     Max  
--3.229  -1.414  -0.298   0.795   2.917  
+-3.324  -1.245  -0.293   0.820   2.925  
 
 Coefficients:
-            Estimate Std. Error z value Pr(>|z|)    
-(Intercept)  0.08668    0.10111    0.86     0.39    
-X1          -0.24945    0.02138  -11.67   <2e-16 ***
-X2           0.00503    0.01142    0.44     0.66    
+             Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  1.93e-01   1.03e-01    1.87    0.061 .  
+X1          -2.55e-01   2.26e-02  -11.28   <2e-16 ***
+X2          -8.65e-05   1.15e-02   -0.01    0.994    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 (Dispersion parameter for poisson family taken to be 1)
 
-    Null deviance: 520.82  on 199  degrees of freedom
-Residual deviance: 380.55  on 197  degrees of freedom
-AIC: 816.5
+    Null deviance: 494.5  on 199  degrees of freedom
+Residual deviance: 356.2  on 197  degrees of freedom
+AIC: 838.4
 
 Number of Fisher Scoring iterations: 5
 ```
@@ -89,7 +89,7 @@ exp(coef(glmFitP))
 
 ```
 (Intercept)          X1          X2 
-     1.0905      0.7792      1.0050 
+     1.2131      0.7750      0.9999 
 ```
 
 
@@ -102,9 +102,9 @@ exp(confint(glmFitP))
 
 ```
              2.5 % 97.5 %
-(Intercept) 0.8916 1.3254
-X1          0.7472 0.8126
-X2          0.9828 1.0278
+(Intercept) 0.9877  1.480
+X1          0.7413  0.810
+X2          0.9776  1.023
 ```
 
 
@@ -137,11 +137,11 @@ Call:  glm(formula = Yt ~ Xt, family = poisson(link = "log"), offset = log(Ti))
 
 Coefficients:
 (Intercept)           Xt  
-   -0.59656     -0.00084  
+    -0.5466      -0.0017  
 
 Degrees of Freedom: 99 Total (i.e. Null);  98 Residual
-Null Deviance:	    53.3 
-Residual Deviance: 53.1 	AIC: 507 
+Null Deviance:	    51.7 
+Residual Deviance: 50.7 	AIC: 503 
 ```
 
 
@@ -166,20 +166,20 @@ glm(formula = Y ~ X1 + X2, family = quasipoisson(link = "log"),
 
 Deviance Residuals: 
    Min      1Q  Median      3Q     Max  
--3.229  -1.414  -0.298   0.795   2.917  
+-3.324  -1.245  -0.293   0.820   2.925  
 
 Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  0.08668    0.13303    0.65     0.52    
-X1          -0.24945    0.02813   -8.87  4.5e-16 ***
-X2           0.00503    0.01502    0.34     0.74    
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  1.93e-01   1.30e-01    1.49     0.14    
+X1          -2.55e-01   2.84e-02   -8.98   <2e-16 ***
+X2          -8.65e-05   1.44e-02   -0.01     1.00    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-(Dispersion parameter for quasipoisson family taken to be 1.731)
+(Dispersion parameter for quasipoisson family taken to be 1.579)
 
-    Null deviance: 520.82  on 199  degrees of freedom
-Residual deviance: 380.55  on 197  degrees of freedom
+    Null deviance: 494.5  on 199  degrees of freedom
+Residual deviance: 356.2  on 197  degrees of freedom
 AIC: NA
 
 Number of Fisher Scoring iterations: 5
@@ -213,10 +213,10 @@ coeftest(glmFitP, vcov=hcSE)
 
 z test of coefficients:
 
-            Estimate Std. Error z value Pr(>|z|)    
-(Intercept)  0.08668    0.13380    0.65     0.52    
-X1          -0.24945    0.02889   -8.63   <2e-16 ***
-X2           0.00503    0.01504    0.33     0.74    
+             Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  1.93e-01   1.33e-01    1.46     0.15    
+X1          -2.55e-01   2.70e-02   -9.45   <2e-16 ***
+X2          -8.65e-05   1.32e-02   -0.01     0.99    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -227,45 +227,43 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Using `glm.nb()` from package `MASS`
 
 
-{% highlight r %}
+```r
 library(MASS)
 glmFitNB <- glm.nb(Y ~ X1 + X2, data=dfCount)
 summary(glmFitNB)
-{% endhighlight %}
+```
 
-
-
-{% highlight text %}
+```
 
 Call:
-glm.nb(formula = Y ~ X1 + X2, data = dfCount, init.theta = 3.276759193, 
+glm.nb(formula = Y ~ X1 + X2, data = dfCount, init.theta = 5.181857797, 
     link = log)
 
 Deviance Residuals: 
    Min      1Q  Median      3Q     Max  
--2.517  -1.281  -0.223   0.567   2.143  
+-2.769  -1.053  -0.232   0.647   2.443  
 
 Coefficients:
             Estimate Std. Error z value Pr(>|z|)    
-(Intercept)  0.05641    0.13131    0.43     0.67    
-X1          -0.25777    0.03030   -8.51   <2e-16 ***
-X2           0.00565    0.01596    0.35     0.72    
+(Intercept)  0.16602    0.12596    1.32     0.19    
+X1          -0.26126    0.02912   -8.97   <2e-16 ***
+X2           0.00265    0.01473    0.18     0.86    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-(Dispersion parameter for Negative Binomial(3.277) family taken to be 1)
+(Dispersion parameter for Negative Binomial(5.182) family taken to be 1)
 
-    Null deviance: 326.95  on 199  degrees of freedom
-Residual deviance: 248.19  on 197  degrees of freedom
-AIC: 789
+    Null deviance: 345.33  on 199  degrees of freedom
+Residual deviance: 256.60  on 197  degrees of freedom
+AIC: 824.6
 
 Number of Fisher Scoring iterations: 1
 
-              Theta:  3.277 
-          Std. Err.:  0.936 
+              Theta:  5.18 
+          Std. Err.:  1.79 
 
- 2 x log-likelihood:  -780.981 
-{% endhighlight %}
+ 2 x log-likelihood:  -816.58 
+```
 
 
 Using `vglm()` from package `VGAM`
@@ -287,7 +285,7 @@ odTest(glmFitNB)
 ```
 
 ```
-Error: object 'dfCount' not found
+Error: Objekt 'dfCount' nicht gefunden
 ```
 
 
@@ -310,22 +308,22 @@ zeroinfl(formula = Y ~ X1 + X2 | 1, data = dfCount, dist = "poisson")
 
 Pearson residuals:
    Min     1Q Median     3Q    Max 
--1.499 -0.953 -0.192  0.758  3.051 
+-1.679 -0.889 -0.175  0.768  3.317 
 
 Count model coefficients (poisson with log link):
             Estimate Std. Error z value Pr(>|z|)    
-(Intercept)  0.42063    0.12175    3.45  0.00055 ***
-X1          -0.20294    0.02456   -8.26  < 2e-16 ***
-X2           0.00677    0.01225    0.55  0.58064    
+(Intercept)  0.45683    0.12439    3.67  0.00024 ***
+X1          -0.21698    0.02588   -8.38  < 2e-16 ***
+X2          -0.00207    0.01218   -0.17  0.86516    
 
 Zero-inflation model coefficients (binomial with logit link):
             Estimate Std. Error z value Pr(>|z|)    
-(Intercept)   -1.502      0.256   -5.87  4.4e-09 ***
+(Intercept)   -1.887      0.293   -6.45  1.1e-10 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-Number of iterations in BFGS optimization: 9 
-Log-likelihood: -388 on 4 Df
+Number of iterations in BFGS optimization: 10 
+Log-likelihood: -402 on 4 Df
 ```
 
 
@@ -348,11 +346,11 @@ vuong(ziFitP, glmFitP)
 ```
 
 ```
-Vuong Non-Nested Hypothesis Test-Statistic: 2.355 
+Vuong Non-Nested Hypothesis Test-Statistic: 2.045 
 (test-statistic is asymptotically distributed N(0,1) under the
  null that the models are indistinguishible)
 in this case:
-model1 > model2, with p-value 0.009262 
+model1 > model2, with p-value 0.02041 
 ```
 
 
@@ -371,24 +369,24 @@ zeroinfl(formula = Y ~ X1 + X2 | 1, data = dfCount, dist = "negbin")
 
 Pearson residuals:
    Min     1Q Median     3Q    Max 
--1.415 -0.907 -0.199  0.677  2.863 
+-1.635 -0.871 -0.163  0.742  3.317 
 
 Count model coefficients (negbin with log link):
             Estimate Std. Error z value Pr(>|z|)    
-(Intercept)  0.33048    0.14583    2.27  0.02343 *  
-X1          -0.21917    0.02982   -7.35    2e-13 ***
-X2           0.00671    0.01410    0.48  0.63413    
-Log(theta)   2.34399    0.62744    3.74  0.00019 ***
+(Intercept)   0.4268     0.1367    3.12   0.0018 ** 
+X1           -0.2225     0.0284   -7.84  4.5e-15 ***
+X2           -0.0014     0.0129   -0.11   0.9135    
+Log(theta)    3.4747     1.4434    2.41   0.0161 *  
 
 Zero-inflation model coefficients (binomial with logit link):
             Estimate Std. Error z value Pr(>|z|)    
-(Intercept)   -1.743      0.355   -4.91  9.2e-07 ***
+(Intercept)   -1.973      0.341   -5.79  7.2e-09 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-Theta = 10.423 
-Number of iterations in BFGS optimization: 20 
-Log-likelihood: -386 on 5 Df
+Theta = 32.287 
+Number of iterations in BFGS optimization: 26 
+Log-likelihood: -402 on 5 Df
 ```
 
 
@@ -411,11 +409,11 @@ vuong(ziFitNB, glmFitNB)
 ```
 
 ```
-Vuong Non-Nested Hypothesis Test-Statistic: 1.445 
+Vuong Non-Nested Hypothesis Test-Statistic: 1.612 
 (test-statistic is asymptotically distributed N(0,1) under the
  null that the models are indistinguishible)
 in this case:
-model1 > model2, with p-value 0.07426 
+model1 > model2, with p-value 0.05347 
 ```
 
 

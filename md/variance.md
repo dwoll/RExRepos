@@ -7,8 +7,8 @@ rerCat: Descriptive
 tags: [Descriptive]
 ---
 
-
-
+Variance, robust spread measures, skewness and kurtosis
+=========================
 
 TODO
 -------------------------

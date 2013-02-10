@@ -98,29 +98,40 @@ rer:
   ## categories -> (sub-categories, if any) -> corresponding posts (Rmd filenames) ->  navigation titles
   rerCategs:
     R_Basics:
+      gui: "R user interfaces"
+      helpDocs: "Getting help and documentation"
+      workspace: "Exploring the workspace"
+      packages: "Add-on packages"
+      arithmeticLogic: "Arithmetic and logic"
+      vector: "Vectors"
       generateData: "Generate systematic and random data"
       transformData: "Data transformations"
       recode: "Recode variables"
       factors: "Factors"
       sets: "Sets"
       combinatorics: "Combinatorics"
+      matrix: "Matrices"
       strings: "Character strings"
       timeDate: "Time and date"
     Descriptive:
+      sumProdRange: "Sum, product, and range of data"
       mean: "The mean and other location measures"
       variance: "Variance, robust spread measures, skewness, and kurtosis"
       correlation: "Covariance, correlation, association measures for continuous variables"
+      matrixStatistics: "Descriptive statistics for data in matrices"
       frequencies: "Frequency tables"
       association: "Association measures for unordered categorical variables"
       associationOrder: "Association measures for ordered categorical variables"
       interRaterICC: "Inter-rater-reliability and intra-class-correlation"
       aggregate: "Aggregate data"
+      missingData: "Deal with missing data"
     Data_Frames:
       dataFrames: "Create and analyze data frames"
       dfTransform: "Transform data frames"
       aggregate: "Aggregate data"
       dfSplitMerge: "Split and merge data frames"
       dfReshape: "Reshape data frames"
+      dfImportExport: "Data import and export"
     Univariate:
       Regression_Models:
         regression: "Multiple linear regression"

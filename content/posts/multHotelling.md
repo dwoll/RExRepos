@@ -30,7 +30,7 @@ One-sample Hotelling's $T^{2}$-test
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 library(mvtnorm)
 Nj    <- c(15, 25)
 Sigma <- matrix(c(16,-2, -2,9), byrow=TRUE, ncol=2)
@@ -53,7 +53,7 @@ HotellingsT2(Y1, mu=muH0)
 	Hotelling's one sample T2-test
 
 data:  Y1 
-T.2 = 5.496, df1 = 2, df2 = 13, p-value = 0.01863
+T.2 = 5.325, df1 = 2, df2 = 13, p-value = 0.02045
 alternative hypothesis: true location is not equal to c(-1,2) 
 ```
 
@@ -70,7 +70,7 @@ Y1ctr  <- sweep(Y1, 2, muH0, "-")
 Analysis of Variance Table
 
             Df Hotelling-Lawley approx F num Df den Df Pr(>F)  
-(Intercept)  1            0.846      5.5      2     13  0.019 *
+(Intercept)  1            0.819     5.33      2     13   0.02 *
 Residuals   14                                                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
@@ -102,7 +102,7 @@ HotellingsT2(Y12 ~ IV)
 	Hotelling's two sample T2-test
 
 data:  Y12 by IV 
-T.2 = 15.88, df1 = 2, df2 = 37, p-value = 1.047e-05
+T.2 = 23.24, df1 = 2, df2 = 37, p-value = 2.901e-07
 alternative hypothesis: true location difference is not equal to c(0,0) 
 ```
 
@@ -117,10 +117,10 @@ anova(lm(Y12 ~ IV), test="Hotelling-Lawley")
 ```
 Analysis of Variance Table
 
-            Df Hotelling-Lawley approx F num Df den Df Pr(>F)    
-(Intercept)  1            1.705     31.5      2     37  1e-08 ***
-IV           1            0.859     15.9      2     37  1e-05 ***
-Residuals   38                                                   
+            Df Hotelling-Lawley approx F num Df den Df  Pr(>F)    
+(Intercept)  1             1.37     25.4      2     37 1.1e-07 ***
+IV           1             1.26     23.2      2     37 2.9e-07 ***
+Residuals   38                                                    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -130,9 +130,9 @@ summary(manova(Y12 ~ IV), test="Hotelling-Lawley")
 ```
 
 ```
-          Df Hotelling-Lawley approx F num Df den Df Pr(>F)    
-IV         1            0.859     15.9      2     37  1e-05 ***
-Residuals 38                                                   
+          Df Hotelling-Lawley approx F num Df den Df  Pr(>F)    
+IV         1             1.26     23.2      2     37 2.9e-07 ***
+Residuals 38                                                    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -181,7 +181,7 @@ HotellingsT2(DVdiff, mu=muH0)
 	Hotelling's one sample T2-test
 
 data:  DVdiff 
-T.2 = 12.4, df1 = 2, df2 = 18, p-value = 0.0004111
+T.2 = 6.001, df1 = 2, df2 = 18, p-value = 0.01007
 alternative hypothesis: true location is not equal to c(0,0) 
 ```
 
@@ -196,9 +196,9 @@ anova(lm(DVdiff ~ 1), test="Hotelling-Lawley")
 ```
 Analysis of Variance Table
 
-            Df Hotelling-Lawley approx F num Df den Df  Pr(>F)    
-(Intercept)  1             1.38     12.4      2     18 0.00041 ***
-Residuals   19                                                    
+            Df Hotelling-Lawley approx F num Df den Df Pr(>F)  
+(Intercept)  1            0.667        6      2     18   0.01 *
+Residuals   19                                                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```

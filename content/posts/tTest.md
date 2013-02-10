@@ -22,7 +22,7 @@ One-sample $t$-test
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N    <- 100
 DV   <- rnorm(N, 5, 20)
 muH0 <- 0
@@ -34,13 +34,13 @@ t.test(DV, alternative="two.sided", mu=muH0)
 	One Sample t-test
 
 data:  DV 
-t = 3.996, df = 99, p-value = 0.0001242
+t = 3.729, df = 99, p-value = 0.0003203
 alternative hypothesis: true mean is not equal to 0 
 95 percent confidence interval:
-  3.613 10.742 
+  3.186 10.431 
 sample estimates:
 mean of x 
-    7.178 
+    6.808 
 ```
 
 
@@ -52,7 +52,7 @@ mean of x
 ```
 
 ```
-[1] 0.3996
+[1] 0.3729
 ```
 
 
@@ -87,13 +87,13 @@ t.test(DV ~ IV, alternative="greater", var.equal=TRUE, data=tIndDf)
 	Two Sample t-test
 
 data:  DV by IV 
-t = 3.465, df = 37, p-value = 0.0006798
+t = 1.114, df = 37, p-value = 0.1363
 alternative hypothesis: true difference in means is greater than 0 
 95 percent confidence interval:
- 3.706   Inf 
+ -1.23   Inf 
 sample estimates:
 mean in group f mean in group m 
-          181.1           173.9 
+          177.0           174.7 
 ```
 
 
@@ -109,13 +109,13 @@ t.test(DV ~ IV, alternative="greater", var.equal=FALSE, data=tIndDf)
 	Welch Two Sample t-test
 
 data:  DV by IV 
-t = 3.294, df = 23.35, p-value = 0.001566
+t = 1.103, df = 34.36, p-value = 0.1388
 alternative hypothesis: true difference in means is greater than 0 
 95 percent confidence interval:
- 3.467   Inf 
+ -1.272    Inf 
 sample estimates:
 mean in group f mean in group m 
-          181.1           173.9 
+          177.0           174.7 
 ```
 
 
@@ -130,7 +130,7 @@ sdPool <- sqrt(((n1-1)*var(DVm) + (n2-1)*var(DVf)) / (n1+n2-2))
 ```
 
 ```
-[1] 1.113
+[1] 0.3577
 ```
 
 
@@ -159,13 +159,13 @@ t.test(DV ~ IV, alternative="less", paired=TRUE, data=tDepDf)
 	Paired t-test
 
 data:  DV by IV 
-t = -5.088, df = 19, p-value = 3.268e-05
+t = -2.992, df = 19, p-value = 0.003748
 alternative hypothesis: true difference in means is less than 0 
 95 percent confidence interval:
-   -Inf -16.64 
+   -Inf -6.739 
 sample estimates:
 mean of the differences 
-                 -25.21 
+                 -15.97 
 ```
 
 
@@ -184,7 +184,7 @@ t.test(DVdiff, alternative="less")
 ```
 
 ```
-[1] -1.138
+[1] -0.669
 ```
 
 

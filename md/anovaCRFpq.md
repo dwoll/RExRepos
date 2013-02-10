@@ -7,8 +7,8 @@ rerCat: Univariate
 tags: [ANOVA]
 ---
 
-
-
+Two-way ANOVA (CRF-pq design)
+=========================
 
 TODO
 -------------------------
@@ -36,7 +36,7 @@ CRF-$pq$ ANOVA
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 Njk  <- 8
 P    <- 2
 Q    <- 3
@@ -60,10 +60,10 @@ summary(aov(DV ~ IV1*IV2, data=dfCRFpq))
 
 ```
             Df Sum Sq Mean Sq F value  Pr(>F)    
-IV1          1   26.3    26.3    8.72 0.00514 ** 
-IV2          2   66.7    33.4   11.05 0.00014 ***
-IV1:IV2      2   17.1     8.5    2.82 0.07070 .  
-Residuals   42  126.8     3.0                    
+IV1          1   15.8    15.8    4.37 0.04264 *  
+IV2          2   74.0    37.0   10.26 0.00024 ***
+IV1:IV2      2   10.6     5.3    1.47 0.24067    
+Residuals   42  151.4     3.6                    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -86,11 +86,11 @@ Anova Table (Type III tests)
 
 Response: DV
             Sum Sq Df F value  Pr(>F)    
-(Intercept)  135.0  1   44.72 4.1e-08 ***
-IV1           26.3  1    8.72 0.00514 ** 
-IV2           66.7  2   11.05 0.00014 ***
-IV1:IV2       17.1  2    2.82 0.07070 .  
-Residuals    126.8 42                    
+(Intercept)  114.2  1   31.69 1.4e-06 ***
+IV1           15.8  1    4.37 0.04264 *  
+IV2           74.0  2   10.26 0.00024 ***
+IV1:IV2       10.6  2    1.47 0.24067    
+Residuals    151.4 42                    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -103,14 +103,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 plot.design(DV ~ IV1*IV2, data=dfCRFpq, main="Marginal means")
 ```
 
-![plot of chunk rerAnovaCRFpq01](../content/assets/figure/rerAnovaCRFpq011.png) 
+![plot of chunk rerAnovaCRFpq01](content/assets/figure/rerAnovaCRFpq011.png) 
 
 ```r
 interaction.plot(dfCRFpq$IV1, dfCRFpq$IV2, dfCRFpq$DV,
                  main="Cell means", col=c("red", "blue", "green"), lwd=2)
 ```
 
-![plot of chunk rerAnovaCRFpq01](../content/assets/figure/rerAnovaCRFpq012.png) 
+![plot of chunk rerAnovaCRFpq01](content/assets/figure/rerAnovaCRFpq012.png) 
 
 
 Effect size estimate: partial $\hat{\eta}_{p}^{2}$
@@ -132,7 +132,7 @@ SSE   <- anRes["Residuals", "Sum Sq"]
 ```
 
 ```
-[1] 0.1719
+[1] 0.09426
 ```
 
 ```r
@@ -140,7 +140,7 @@ SSE   <- anRes["Residuals", "Sum Sq"]
 ```
 
 ```
-[1] 0.3447
+[1] 0.3282
 ```
 
 ```r
@@ -148,7 +148,7 @@ SSE   <- anRes["Residuals", "Sum Sq"]
 ```
 
 ```
-[1] 0.1185
+[1] 0.06558
 ```
 
 
@@ -208,7 +208,7 @@ Fp3 <- (SSp3/dfSSA) / (SSE/dfSSE)
 ```
 
 ```
-[1] 0.004532
+[1] 0.04441
 ```
 
 ```r
@@ -216,7 +216,7 @@ Fp3 <- (SSp3/dfSSA) / (SSE/dfSSE)
 ```
 
 ```
-[1] 0.02594
+[1] 0.09105
 ```
 
 ```r
@@ -224,7 +224,7 @@ Fp3 <- (SSp3/dfSSA) / (SSE/dfSSE)
 ```
 
 ```
-[1] 0.847
+[1] 0.8575
 ```
 
 
@@ -257,8 +257,8 @@ Fit: aov(formula = DV ~ IV1 * IV2, data = dfCRFpq)
 
 Linear Hypotheses:
         Estimate Std. Error t value Pr(>|t|)
-c1 == 0   -0.845      0.752   -1.12     0.54
-c2 == 0    1.495      0.869    1.72     0.19
+c1 == 0   -1.630      0.822   -1.98     0.11
+c2 == 0    1.710      0.949    1.80     0.16
 (Adjusted p values reported -- bonferroni method)
 ```
 
@@ -277,10 +277,10 @@ TukeyHSD(aovCRFpq, which="IV2")
 Fit: aov(formula = DV ~ IV1 * IV2, data = dfCRFpq)
 
 $IV2
-     diff     lwr   upr  p adj
-2-1 1.599  0.1067 3.092 0.0333
-3-1 2.882  1.3894 4.375 0.0001
-3-2 1.283 -0.2098 2.775 0.1046
+      diff     lwr   upr  p adj
+2-1 0.3216 -1.3091 1.952 0.8815
+3-1 2.7791  1.1483 4.410 0.0005
+3-2 2.4575  0.8267 4.088 0.0020
 ```
 
 
@@ -297,10 +297,10 @@ Call:
 
 Terms:
                 IVcomb Residuals
-Sum of Squares   110.1     126.8
+Sum of Squares   100.3     151.4
 Deg. of Freedom      5        42
 
-Residual standard error: 1.738 
+Residual standard error: 1.899 
 Estimated effects may be unbalanced
 ```
 
@@ -328,10 +328,10 @@ Multiple Comparisons of Means: User-defined Contrasts
 Fit: aov(formula = DV ~ IVcomb, data = dfCRFpq)
 
 Linear Hypotheses:
-        Estimate Std. Error t value  Pr(>t)    
-c1 <= 0   -0.688      0.532   -1.29    0.90    
-c2 <= 0    0.195      0.869    0.22    0.41    
-c3 <= 0    2.241      0.532    4.21 6.6e-05 ***
+        Estimate Std. Error t value Pr(>t)   
+c1 <= 0  -0.0442     0.5813   -0.08 0.5301   
+c2 <= 0   1.5508     0.9493    1.63 0.0549 . 
+c3 <= 0   1.5503     0.5813    2.67 0.0054 **
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 (Adjusted p values reported -- none method)
@@ -350,7 +350,7 @@ qqnorm(Estud, pch=20, cex=2)
 qqline(Estud, col="gray60", lwd=2)
 ```
 
-![plot of chunk rerAnovaCRFpq02](../content/assets/figure/rerAnovaCRFpq02.png) 
+![plot of chunk rerAnovaCRFpq02](content/assets/figure/rerAnovaCRFpq02.png) 
 
 
 
@@ -363,7 +363,7 @@ shapiro.test(Estud)
 	Shapiro-Wilk normality test
 
 data:  Estud 
-W = 0.9765, p-value = 0.4414
+W = 0.9771, p-value = 0.4655
 ```
 
 
@@ -374,7 +374,7 @@ W = 0.9765, p-value = 0.4414
 plot(Estud ~ dfCRFpq$IVcomb, main="Residuals per group")
 ```
 
-![plot of chunk rerAnovaCRFpq03](../content/assets/figure/rerAnovaCRFpq03.png) 
+![plot of chunk rerAnovaCRFpq03](content/assets/figure/rerAnovaCRFpq03.png) 
 
 
 
@@ -386,7 +386,7 @@ leveneTest(aovCRFpq)
 ```
 Levene's Test for Homogeneity of Variance (center = median)
       Df F value Pr(>F)
-group  5    0.56   0.73
+group  5    0.05      1
       42               
 ```
 

@@ -1,0 +1,135 @@
+---
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
+title: "Add-on packages"
+categories: [RBasics]
+rerCat: R_Basics
+tags: [Packages, CRAN]
+---
+
+Add-on packages
+=========================
+
+TODO
+-------------------------
+
+ - link to workspace for `search()`
+
+Install required packages
+-------------------------
+
+[`coin`](http://cran.r-project.org/package=coin)
+
+```{r}
+wants <- c("coin")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Useful online resources
+-------------------------
+
+ * [Comprehensive R Archive Network (CRAN)](http://cran.r-project.org/web/packages/): These mirror servers are the primary hosts for contributed R add-on packages
+ * [CRAN Task Views](http://cran.r-project.org/web/views/): An organized and maintained list of packages useful for a specific data analysis task (e.g., multivariate statistics or psychometric models)
+ * [BioConductor](http://www.bioconductor.org/): A host for add-on packages especially useful for genomic data analysis
+ * [r4stats package overview](http://r4stats.com/articles/add-ons/): A list of popular R packages and how their functionality compares to SPSS/SAS
+
+Install and update add-on packages
+-------------------------
+
+### Information about installed packages
+
+```{r}
+.libPaths()
+```
+
+```{r eval=FALSE}
+installed.packages()
+# not shown (very long output)
+```
+
+```{r}
+rownames(installed.packages())
+```
+
+```{r eval=FALSE}
+library()
+# not shown (opens separate window)
+```
+
+### Install and remove add-on packages
+
+```{r eval=FALSE}
+setRepositories("http://cran.ma.imperial.ac.uk/")
+install.packages(c("coin", "car"))
+install.packages("coin", repos="http://cran.at.r-project.org/")
+update.packages()
+# remove.packages("coin")
+# not shown
+```
+
+### Information provided by add-on packages
+
+```{r eval=FALSE}
+help(package=coin)
+vignette()
+vignette("coin_implementation")
+# not shown (opens separate window)
+```
+
+Use add-on packages
+-------------------------
+
+### Load add-on package
+
+`library()` throws an error if the package cannot be found
+
+```{r}
+library(coin)
+```
+
+Get a return value `TRUE` or `FALSE` that indicates whether package could be loaded
+
+```{r}
+library(coin, logical.return=TRUE)
+```
+
+`require()` gives a warning if the package cannot be found
+
+```{r warning=TRUE}
+require(doesNotExist)
+```
+
+### Know which packages are currently loaded
+
+```{r}
+sessionInfo()
+search()
+```
+
+### Un-load a package
+
+```{r eval=FALSE}
+detach(package:coin)
+```
+
+Data sets from add-on packages
+-------------------------
+
+```{r eval=FALSE}
+data(package="coin")
+data(jobsatisfaction, package="coin")
+# not shown (opens separate window)
+```
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:coin))
+try(detach(package:modeltools))
+try(detach(package:survival))
+try(detach(package:mvtnorm))
+try(detach(package:splines))
+try(detach(package:stats4))
+```

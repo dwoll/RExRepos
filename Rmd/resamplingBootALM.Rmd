@@ -31,7 +31,7 @@ Regression parameters: Case resampling
 -------------------------
 
 ```{r}
-set.seed(1.234)
+set.seed(123)
 N  <- 100
 X1 <- rnorm(N, 175, 7)
 X2 <- rnorm(N,  30, 8)

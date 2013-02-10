@@ -120,7 +120,7 @@ riskratio(contT1, method="small")
 ### \(\chi^{2}\)-test
 
 ```{r}
-set.seed(1.234)
+set.seed(123)
 N        <- 50
 smokes   <- factor(sample(c("no", "yes"), N, replace=TRUE))
 siblings <- factor(round(abs(rnorm(N, 1, 0.5))))

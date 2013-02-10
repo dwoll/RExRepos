@@ -7,15 +7,15 @@ rerCat: Diagrams
 tags: [Diagrams]
 ---
 
-
-
+Linear interpolation, polynomial smoothing, and splines
+=========================
 
 Linear interpolation
 -------------------------
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 xOne     <- 1:9
 yOne     <- rnorm(9)
 ptsLin   <- approx(xOne, yOne, method="linear",   n=30)
@@ -32,7 +32,7 @@ legend(x="bottomleft", c("Data", "linear", "constant"), pch=c(19, 16, 22),
        col=c("black", "red", "blue"), bg="white")
 ```
 
-![plot of chunk rerDiagSplines01](../content/assets/figure/rerDiagSplines01.png) 
+![plot of chunk rerDiagSplines01](content/assets/figure/rerDiagSplines01.png) 
 
 
 Polynomial smoothing
@@ -59,7 +59,7 @@ legend(x="topleft", c("Data", "LOESS span 1/3", "LOESS span 2/3"),
        col=c("black", "red", "blue"))
 ```
 
-![plot of chunk rerDiagSplines02](../content/assets/figure/rerDiagSplines02.png) 
+![plot of chunk rerDiagSplines02](content/assets/figure/rerDiagSplines02.png) 
 
 
 See `supsmu()` for Friedman's SuperSmoother and `smooth()` for Tukey's (running median) smoothing.
@@ -83,7 +83,7 @@ legend(x="topleft", c("Control points", "X-spline"), pch=c(19, NA),
        lty=c(NA, 1), col=c("black", "blue"))
 ```
 
-![plot of chunk rerDiagSplines03](../content/assets/figure/rerDiagSplines03.png) 
+![plot of chunk rerDiagSplines03](content/assets/figure/rerDiagSplines03.png) 
 
 
 ### Cubic splines
@@ -113,7 +113,7 @@ legend(x="topleft", c("Data", "Spline", "spar=0.25", "spar=0.35", "spar=0.45"),
        col=c("black", "darkgray", "blue", "green", "orange"), bg="white")
 ```
 
-![plot of chunk rerDiagSplines04](../content/assets/figure/rerDiagSplines04.png) 
+![plot of chunk rerDiagSplines04](content/assets/figure/rerDiagSplines04.png) 
 
 
 Get the article source from GitHub

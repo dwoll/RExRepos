@@ -58,7 +58,7 @@ mh_test(cTab, distribution=approximate(B=9999))
 data:  response by
 	 groups (drug, plac) 
 	 stratified by block 
-chi-squared = 12.14, p-value = 0.0017
+chi-squared = 12.14, p-value = 0.0018
 ```
 
 

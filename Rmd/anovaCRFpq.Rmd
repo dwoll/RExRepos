@@ -33,7 +33,7 @@ CRF-\(pq\) ANOVA
 ### Using `aov()` (SS type I)
 
 ```{r}
-set.seed(1.234)
+set.seed(123)
 Njk  <- 8
 P    <- 2
 Q    <- 3

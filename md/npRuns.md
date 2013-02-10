@@ -7,8 +7,8 @@ rerCat: Nonparametric
 tags: [Nonparametric, ClassicalNonparametric]
 ---
 
-
-
+Runs-test
+=========================
 
 Install required packages
 -------------------------

@@ -6,7 +6,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 N      <- 180
 P      <- 3
 sex    <- factor(sample(c("f", "m"), N, replace=TRUE))

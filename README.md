@@ -30,8 +30,8 @@ The examples mostly come from my [book](http://www.uni-kiel.de/psychologie/dwoll
 
 Some methods within the intended scope of this repository are currently missing:
 
- - Classical test theory and item response theory
- - Cluster analysis
+ - Psychometrics (classical test theory and item response theory)
+ - Cluster analysis and other classification techniques
  - Time series
 
 Contributed examples are very welcome, please contact me if you would like to add your code to this repository.

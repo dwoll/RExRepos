@@ -7,8 +7,8 @@ rerCat: Univariate
 tags: [ANOVA]
 ---
 
-
-
+Sum of squares type I, II, and III
+=========================
 
 TODO
 -------------------------

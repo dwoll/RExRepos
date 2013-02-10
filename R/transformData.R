@@ -29,7 +29,7 @@ sort(c("D", "E", "10", "A", "F", "E", "D", "4", "E", "A"))
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 myColors  <- c("red", "green", "blue", "yellow", "black")
 (randCols <- sample(myColors, length(myColors), replace=FALSE))
 

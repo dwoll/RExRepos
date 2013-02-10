@@ -14,7 +14,7 @@ Q <- 2
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 library(mvtnorm)
 Kf <- diag(Q)
 mu <- c(5, 15)

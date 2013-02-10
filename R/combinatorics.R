@@ -27,7 +27,7 @@ factorial(7)
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 set <- LETTERS[1:10]
 sample(set, length(set), replace=FALSE)
 

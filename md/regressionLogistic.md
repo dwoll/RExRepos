@@ -7,8 +7,8 @@ rerCat: Univariate
 tags: [Regression, GLM]
 ---
 
-
-
+Binary logistic regression
+=========================
 
 TODO
 -------------------------
@@ -35,7 +35,7 @@ Descriptive model fit
     
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N     <- 100
 X1    <- rnorm(N, 175, 7)
 X2    <- rnorm(N,  30, 8)
@@ -50,13 +50,13 @@ dfLog <- data.frame(X1, X2, Yfac)
 cdplot(Yfac ~ X1, data=dfLog)
 ```
 
-![plot of chunk rerRegressionLogistic01](../content/assets/figure/rerRegressionLogistic011.png) 
+![plot of chunk rerRegressionLogistic01](content/assets/figure/rerRegressionLogistic011.png) 
 
 ```r
 cdplot(Yfac ~ X2, data=dfLog)
 ```
 
-![plot of chunk rerRegressionLogistic01](../content/assets/figure/rerRegressionLogistic012.png) 
+![plot of chunk rerRegressionLogistic01](content/assets/figure/rerRegressionLogistic012.png) 
 
 
 ### Fit the model
@@ -74,11 +74,11 @@ Call:  glm(formula = Yfac ~ X1 + X2, family = binomial(link = "logit"),
 
 Coefficients:
 (Intercept)           X1           X2  
-    -19.485        0.137       -0.154  
+    -17.979        0.121       -0.110  
 
 Degrees of Freedom: 99 Total (i.e. Null);  97 Residual
 Null Deviance:	    139 
-Residual Deviance: 106 	AIC: 112 
+Residual Deviance: 116 	AIC: 122 
 ```
 
 
@@ -91,7 +91,7 @@ exp(coef(glmFit))
 
 ```
 (Intercept)          X1          X2 
-  3.451e-09   1.147e+00   8.575e-01 
+  1.555e-08   1.128e+00   8.958e-01 
 ```
 
 
@@ -103,10 +103,10 @@ exp(confint(glmFit))
 ```
 
 ```
-                2.5 %  97.5 %
-(Intercept) 7.249e-16 0.00239
-X1          1.060e+00 1.25564
-X2          7.870e-01 0.92066
+                2.5 %   97.5 %
+(Intercept) 1.076e-14 0.004975
+X1          1.049e+00 1.225711
+X2          8.316e-01 0.955545
 ```
 
 
@@ -129,11 +129,11 @@ Call:  glm(formula = hitMat ~ X1 + X2, family = binomial(link = "logit"))
 
 Coefficients:
 (Intercept)           X1           X2  
-    0.35804     -0.00428     -0.00152  
+   -1.08326      0.00363      0.00121  
 
 Degrees of Freedom: 99 Total (i.e. Null);  97 Residual
-Null Deviance:	    91 
-Residual Deviance: 90 	AIC: 526 
+Null Deviance:	    86.3 
+Residual Deviance: 85.6 	AIC: 521 
 ```
 
 
@@ -152,11 +152,11 @@ Call:  glm(formula = relHits ~ X1 + X2, family = binomial(link = "logit"),
 
 Coefficients:
 (Intercept)           X1           X2  
-    0.35804     -0.00428     -0.00152  
+   -1.08326      0.00363      0.00121  
 
 Degrees of Freedom: 99 Total (i.e. Null);  97 Residual
-Null Deviance:	    91 
-Residual Deviance: 90 	AIC: 526 
+Null Deviance:	    86.3 
+Residual Deviance: 85.6 	AIC: 521 
 ```
 
 
@@ -169,7 +169,7 @@ plot(logitHat, pch=16, col=c("red", "blue")[unclass(dfLog$Yfac)])
 abline(h=0)
 ```
 
-![plot of chunk rerRegressionLogistic02](../content/assets/figure/rerRegressionLogistic02.png) 
+![plot of chunk rerRegressionLogistic02](content/assets/figure/rerRegressionLogistic02.png) 
 
 
 
@@ -180,8 +180,8 @@ head(Phat)
 ```
 
 ```
-      1       2       3       4       5       6 
-0.49807 0.48815 0.53732 0.76152 0.72098 0.04186 
+     1      2      3      4      5      6 
+0.4920 0.3533 0.7938 0.5451 0.6818 0.7862 
 ```
 
 ```r
@@ -219,9 +219,9 @@ addmargins(cTab)
 ```
      Yhat
 Yfac   lo  hi Sum
-  lo   34  16  50
-  hi   13  37  50
-  Sum  47  53 100
+  lo   31  19  50
+  hi   20  30  50
+  Sum  51  49 100
 ```
 
 
@@ -233,7 +233,7 @@ sum(diag(cTab)) / sum(cTab)
 ```
 
 ```
-[1] 0.71
+[1] 0.61
 ```
 
 
@@ -247,7 +247,7 @@ deviance(glmFit)
 ```
 
 ```
-[1] 106.5
+[1] 115.9
 ```
 
 ```r
@@ -255,7 +255,7 @@ logLik(glmFit)
 ```
 
 ```
-'log Lik.' -53.25 (df=3)
+'log Lik.' -57.96 (df=3)
 ```
 
 ```r
@@ -263,7 +263,7 @@ AIC(glmFit)
 ```
 
 ```
-[1] 112.5
+[1] 121.9
 ```
 
 
@@ -283,16 +283,16 @@ lrm(formula = Yfac ~ X1 + X2, data = dfLog)
 
                       Model Likelihood     Discrimination    Rank Discrim.    
                          Ratio Test            Indexes          Indexes       
-Obs           100    LR chi2      32.14    R2       0.366    C       0.808    
- lo            50    d.f.             2    g        1.658    Dxy     0.616    
- hi            50    Pr(> chi2) <0.0001    gr       5.251    gamma   0.617    
-max |deriv| 7e-10                          gp       0.309    tau-a   0.311    
-                                           Brier    0.179                     
+Obs           100    LR chi2      22.71    R2       0.271    C       0.745    
+ lo            50    d.f.             2    g        1.313    Dxy     0.490    
+ hi            50    Pr(> chi2) <0.0001    gr       3.716    gamma   0.491    
+max |deriv| 9e-06                          gp       0.263    tau-a   0.247    
+                                           Brier    0.201                     
 
           Coef     S.E.   Wald Z Pr(>|Z|)
-Intercept -19.4847 7.2768 -2.68  0.0074  
-X1          0.1367 0.0427  3.21  0.0013  
-X2         -0.1538 0.0396 -3.88  0.0001  
+Intercept -17.9793 6.7859 -2.65  0.0081  
+X1          0.1205 0.0394  3.06  0.0022  
+X2         -0.1100 0.0352 -3.13  0.0018  
 ```
 
 
@@ -318,7 +318,7 @@ as.vector(1 - (LLf / LL0))
 ```
 
 ```
-[1] 0.2318
+[1] 0.1638
 ```
 
 
@@ -330,7 +330,7 @@ as.vector(1 - exp((2/N) * (LL0 - LLf)))
 ```
 
 ```
-[1] 0.2749
+[1] 0.2032
 ```
 
 
@@ -342,7 +342,7 @@ as.vector((1 - exp((2/N) * (LL0 - LLf))) / (1 - exp(LL0)^(2/N)))
 ```
 
 ```
-[1] 0.3665
+[1] 0.2709
 ```
 
 
@@ -361,7 +361,7 @@ predict(glmFit, newdata=dfNew, type="response")
 
 ```
         1         2         3 
-3.679e-06 1.028e-04 4.062e-04 
+1.123e-02 9.971e-05 5.175e-04 
 ```
 
 
@@ -385,21 +385,21 @@ glm(formula = Yfac ~ X1 + X2, family = binomial(link = "logit"),
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
--1.7693  -0.9053   0.0086   0.9246   2.5193  
+-2.1514  -0.9741   0.0572   0.9872   1.6639  
 
 Coefficients:
-            Estimate Std. Error z value Pr(>|z|)    
-(Intercept) -19.4847     7.2767   -2.68   0.0074 ** 
-X1            0.1367     0.0427    3.21   0.0013 ** 
-X2           -0.1538     0.0396   -3.88   0.0001 ***
+            Estimate Std. Error z value Pr(>|z|)   
+(Intercept) -17.9793     6.7859   -2.65   0.0081 **
+X1            0.1205     0.0394    3.06   0.0022 **
+X2           -0.1100     0.0352   -3.13   0.0018 **
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 (Dispersion parameter for binomial family taken to be 1)
 
     Null deviance: 138.63  on 99  degrees of freedom
-Residual deviance: 106.49  on 97  degrees of freedom
-AIC: 112.5
+Residual deviance: 115.92  on 97  degrees of freedom
+AIC: 121.9
 
 Number of Fisher Scoring iterations: 4
 ```
@@ -421,7 +421,7 @@ Model 1: Yfac ~ 1
 Model 2: Yfac ~ X1 + X2
   Resid. Df Resid. Dev Df Deviance Pr(>Chi)    
 1        99        139                         
-2        97        106  2     32.1  1.1e-07 ***
+2        97        116  2     22.7  1.2e-05 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -438,9 +438,9 @@ Single term deletions
 Model:
 Yfac ~ X1 + X2
        Df Deviance AIC  LRT Pr(>Chi)    
-<none>         106 112                  
-X1      1      119 123 12.8  0.00035 ***
-X2      1      128 132 21.5  3.5e-06 ***
+<none>         116 122                  
+X1      1      127 131 11.1  0.00086 ***
+X2      1      128 132 12.1  0.00050 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```

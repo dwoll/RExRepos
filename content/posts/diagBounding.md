@@ -15,7 +15,7 @@ Convex hull
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 xy      <- matrix(rnorm(24, 100, 15), ncol=2)
 hullIdx <- chull(xy)
 ```
@@ -28,7 +28,7 @@ polygon(xy[hullIdx, ], border="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
 ```
 
-![plot of chunk rerDiagBounding01](../content/assets/figure/rerDiagBounding01.png) 
+![plot of chunk rerDiagBounding01](content/assets/figure/rerDiagBounding01.png) 
 
 
 Bounding box
@@ -54,7 +54,7 @@ rect(bb$pts[1], bb$pts[2], bb$pts[3], bb$pts[4], border="blue", lwd="2")
 points(xy, pch=16, cex=1.5)
 ```
 
-![plot of chunk rerDiagBounding02](../content/assets/figure/rerDiagBounding02.png) 
+![plot of chunk rerDiagBounding02](content/assets/figure/rerDiagBounding02.png) 
 
 
 
@@ -63,7 +63,7 @@ bb$width * bb$height
 ```
 
 ```
-[1] 1827
+[1] 2517
 ```
 
 
@@ -155,7 +155,7 @@ polygon(mbb$pts, border="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
 ```
 
-![plot of chunk rerDiagBounding03](../content/assets/figure/rerDiagBounding03.png) 
+![plot of chunk rerDiagBounding03](content/assets/figure/rerDiagBounding03.png) 
 
 
 
@@ -164,7 +164,7 @@ mbb$width * mbb$height      ## box area
 ```
 
 ```
-[1] 1732
+[1] 2127
 ```
 
 ```r
@@ -172,7 +172,7 @@ mbb$angle                   ## box orientation
 ```
 
 ```
-[1] 58.2
+[1] 149.4
 ```
 
 
@@ -316,7 +316,7 @@ lines(circ, col="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
 ```
 
-![plot of chunk rerDiagBounding04](../content/assets/figure/rerDiagBounding04.png) 
+![plot of chunk rerDiagBounding04](content/assets/figure/rerDiagBounding04.png) 
 
 
 Get the article source from GitHub

@@ -35,7 +35,7 @@ Confidence interval for $\mu$
     
 
 ```r
-set.seed(1.234)
+set.seed(123)
 muH0 <- 100
 sdH0 <- 40
 N    <- 200
@@ -69,9 +69,9 @@ boot(data = DV, statistic = getM, R = nR)
 
 
 Bootstrap Statistics :
-    original   bias    std. error
-t1*  101.422 -0.11027      2.6829
-t2*    6.871 -0.04513      0.6576
+    original    bias    std. error
+t1*   99.657 0.1252697      2.5831
+t2*    7.081 0.0008319      0.7764
 ```
 
 
@@ -93,10 +93,10 @@ boot.ci(boot.out = bsRes, conf = 1 - alpha, type = c("basic",
 
 Intervals : 
 Level      Normal              Basic             Studentized     
-95%   ( 96.3, 106.8 )   ( 96.2, 106.9 )   ( 96.1, 107.0 )  
+95%   ( 94.47, 104.59 )   ( 94.59, 104.84 )   ( 94.77, 105.09 )  
 
 Level     Percentile            BCa          
-95%   ( 96.0, 106.7 )   ( 96.0, 106.7 )  
+95%   ( 94.48, 104.72 )   ( 94.20, 104.56 )  
 Calculations and Intervals on Original Scale
 ```
 
@@ -123,7 +123,7 @@ legend(x="topleft", lty=c(NA, 1), pch=c(1, NA), lwd=c(2, 2),
        col=c("gray60", "black"), legend=c("t*", "t"))
 ```
 
-![plot of chunk rerResamplingBoot01](../content/assets/figure/rerResamplingBoot01.png) 
+![plot of chunk rerResamplingBoot01](content/assets/figure/rerResamplingBoot01.png) 
 
 
 Detach (automatically) loaded packages (if possible)

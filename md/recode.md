@@ -7,8 +7,8 @@ rerCat: R_Basics
 tags: [RBasics]
 ---
 
-
-
+Recode variables
+=========================
 
 TODO
 -------------------------
@@ -116,14 +116,14 @@ Cut continuous variables into categorical variables
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 IQ <- rnorm(20, mean=100, sd=15)
 ifelse(IQ >= 100, "hi", "lo")
 ```
 
 ```
- [1] "lo" "hi" "lo" "hi" "hi" "lo" "hi" "hi" "hi" "lo" "hi" "hi" "lo" "lo"
-[15] "hi" "lo" "lo" "hi" "hi" "hi"
+ [1] "lo" "lo" "hi" "hi" "hi" "hi" "hi" "lo" "lo" "lo" "hi" "hi" "hi" "hi"
+[15] "lo" "hi" "hi" "lo" "hi" "lo"
 ```
 
 
@@ -134,7 +134,7 @@ recode(IQ, "0:100=1; 101:115=2; else=3")
 ```
 
 ```
- [1] 1 2 1 3 2 1 2 2 2 1 3 2 1 1 3 1 1 2 2 2
+ [1] 1 1 3 2 2 3 2 1 1 1 3 2 2 2 1 3 2 1 2 1
 ```
 
 
@@ -147,7 +147,7 @@ head(IQfac)
 ```
 
 ```
-[1] mid mid mid hi  mid mid
+[1] mid mid hi  mid mid hi 
 Levels: lo mid hi
 ```
 
@@ -159,7 +159,7 @@ summary(medSplit)
 ```
 
 ```
-(-Inf,105] (105, Inf] 
+(-Inf,102] (102, Inf] 
         10         10 
 ```
 
@@ -171,7 +171,7 @@ summary(IQdiscr)
 ```
 
 ```
-[66.8,94.2]  (94.2,105]   (105,111]   (111,124] 
+[70.5,92.6]  (92.6,102]   (102,108]   (108,127] 
           5           5           5           5 
 ```
 
@@ -299,7 +299,7 @@ tapply(vec, facGrp, FUN=mean)
 
 ```
      A      B      C 
-10.244  3.954 15.128 
+ 7.801  4.652 16.636 
 ```
 
 ```r

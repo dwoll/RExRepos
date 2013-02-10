@@ -7,8 +7,8 @@ rerCat: Univariate
 tags: [Regression, GLM]
 ---
 
-
-
+Ordinal regression
+=========================
 
 
 
@@ -39,7 +39,7 @@ Ordinal regression (proportional odds model)
 Dependent variable $ Y_{\text{ord}} $ with $ k=4 $ groups, $p=2 $ predictor variables
 
 
-{% highlight r %}
+```r
 set.seed(2.234)
 N     <- 100
 X1    <- rnorm(N, 175, 7)
@@ -48,7 +48,7 @@ Ycont <- 0.5*X1 - 0.3*X2 + 10 + rnorm(N, 0, 6)
 Yord  <- cut(Ycont, breaks=quantile(Ycont), include.lowest=TRUE,
              labels=c("--", "-", "+", "++"), ordered=TRUE)
 dfOrd <- data.frame(X1, X2, Yord)
-{% endhighlight %}
+```
 
 
 ### Using `vglm()` from package `VGAM`
@@ -145,11 +145,11 @@ X2     -0.0790 0.0244 -3.24  0.0012
 Model $ \text{logit}(p(Y \leq g)) = \beta_{0_{g}} - (\beta_{1} X_{1} + \dots + \beta_{p} X_{p}) \quad(g = 1, \ldots, k-1) $
 
 
-{% highlight r %}
+```r
 library(MASS)
 (polrFit <- polr(Yord ~ X1 + X2, method="logistic", data=dfOrd))
 # not shown
-{% endhighlight %}
+```
 
 
 Profile likelihood based confidence intervals
@@ -160,7 +160,7 @@ exp(confint(polrFit))
 ```
 
 ```
-Error: object 'dfOrd' not found
+Error: Objekt 'dfOrd' nicht gefunden
 ```
 
 
@@ -436,7 +436,7 @@ summary(polrFit)
 ```
 
 ```
-Error: object 'dfOrd' not found
+Error: Objekt 'dfOrd' nicht gefunden
 ```
 
 ```r

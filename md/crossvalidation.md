@@ -7,8 +7,8 @@ rerCat: Univariate
 tags: [Regression]
 ---
 
-
-
+Crossvalidation for linear and generalized linear models
+=========================
 
 Install required packages
 -------------------------
@@ -30,7 +30,7 @@ $k$-fold crossvalidation
     
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N  <- 100
 X1 <- rnorm(N, 175, 7)
 X2 <- rnorm(N,  30, 8)
@@ -58,7 +58,7 @@ kfCV$delta
 ```
 
 ```
-[1] 9.030 8.954
+[1] 10.16 10.04
 ```
 
 
@@ -79,7 +79,7 @@ LOOCV$delta
 ```
 
 ```
-[1] 9.500 9.496
+[1] 10.35 10.35
 ```
 
 

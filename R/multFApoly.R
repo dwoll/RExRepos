@@ -6,7 +6,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 N <- 200                       # number of observations
 P <- 6                         # number of variables
 Q <- 2                         # number of factors

@@ -402,14 +402,14 @@ Length of difference vector
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 B <- matrix(sample(-20:20, 12, replace=TRUE), ncol=3)
 sqrt(crossprod(B[1, ] - B[2, ]))
 ```
 
 ```
       [,1]
-[1,] 36.58
+[1,] 42.73
 ```
 
 
@@ -420,10 +420,10 @@ dist(B, diag=TRUE, upper=TRUE)
 
 ```
       1     2     3     4
-1  0.00 36.58 36.85 37.60
-2 36.58  0.00 10.20 24.29
-3 36.85 10.20  0.00 17.83
-4 37.60 24.29 17.83  0.00
+1  0.00 42.73 24.56 25.40
+2 42.73  0.00 33.12 35.23
+3 24.56 33.12  0.00 32.65
+4 25.40 35.23 32.65  0.00
 ```
 
 
@@ -464,7 +464,7 @@ colMeans(Xmt)
 ```
 
 ```
-[1] 2.848e-17 3.308e-17 9.853e-17
+[1] -9.962e-17 -1.671e-17 -5.256e-17
 ```
 
 
@@ -486,7 +486,7 @@ mahalanobis(mat, ideal, S)
 
 ```
    y1    y2 
-3.157 7.695 
+ 5.62 13.17 
 ```
 
 
@@ -497,8 +497,8 @@ t(y1-ideal) %*% Sinv %*% (y1-ideal)
 ```
 
 ```
-      [,1]
-[1,] 3.157
+     [,1]
+[1,] 5.62
 ```
 
 ```r
@@ -507,7 +507,7 @@ t(y2-ideal) %*% Sinv %*% (y2-ideal)
 
 ```
       [,1]
-[1,] 7.695
+[1,] 13.17
 ```
 
 
@@ -518,7 +518,7 @@ min(mDist)
 ```
 
 ```
-[1] 0.4971
+[1] 1.14
 ```
 
 ```r
@@ -526,7 +526,7 @@ min(mDist)
 ```
 
 ```
-[1] 52
+[1] 66
 ```
 
 ```r
@@ -534,7 +534,7 @@ Y[idxMin, ]
 ```
 
 ```
-[1] 1 4 2
+[1] -1  1  5
 ```
 
 
@@ -545,8 +545,8 @@ crossprod(Xmt[1, ] - t(idealM))
 ```
 
 ```
-      [,1]
-[1,] 3.157
+     [,1]
+[1,] 5.62
 ```
 
 ```r
@@ -555,7 +555,7 @@ crossprod(Xmt[2, ] - t(idealM))
 
 ```
       [,1]
-[1,] 7.695
+[1,] 13.17
 ```
 
 
@@ -831,12 +831,21 @@ all.equal(S, t(R) %*% R)
 ```r
 qrX <- qr(X)
 Q   <- qr.Q(qrX)
+```
+
+```
+Error: Argument "Dvec" fehlt (ohne Standardwert)
+```
+
+```r
 R   <- qr.R(qrX)
 all.equal(X, Q %*% R)
 ```
 
 ```
-[1] TRUE
+Error: Fehler bei der Auswertung des Argumentes 'current' bei der
+Methodenauswahl für Funktion 'all.equal': Fehler in Q %*% R : nicht
+passende Argumente
 ```
 
 
@@ -979,13 +988,22 @@ Px3[1:3, ]
 ```r
 qrX   <- qr(X)
 Q     <- qr.Q(qrX)
+```
+
+```
+Error: Argument "Dvec" fehlt (ohne Standardwert)
+```
+
+```r
 R     <- qr.R(qrX)
 Xplus <- solve(t(X) %*% X) %*% t(X)
 all.equal(Xplus, solve(R) %*% t(Q))
 ```
 
 ```
-[1] TRUE
+Error: Fehler bei der Auswertung des Argumentes 'current' bei der
+Methodenauswahl für Funktion 'all.equal': Fehler in solve(R) %*% t(Q) :
+nicht passende Argumente
 ```
 
 ```r
@@ -993,7 +1011,8 @@ all.equal(X %*% Xplus, tcrossprod(Q))
 ```
 
 ```
-[1] TRUE
+[1] "Attributes: < Component 1: Mean relative difference: 0.75 >"
+[2] "Numeric: lengths (16, 1) differ"                            
 ```
 
 

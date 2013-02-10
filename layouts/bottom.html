@@ -3,22 +3,23 @@
         </p>
       </div> <!-- /content -->
 
+      <% unless @item[:author].nil? %>
       <div class="row" style="margin-left:-20px; margin-right:-20px;">
         <div class="span12">
           <p class="footer">
-          <%= unless @item[:author].nil?
-                if @item[:author].class.name == "Array"
-                  @item[:author].join(", ") + " -"
-                else
-                  @item[:author] + " -"
-                end
-              end %>
+          &copy; 2013
+          <%= if @item[:author].class.name == "Array"
+               @item[:author].join(", ") + " -"
+             else
+               @item[:author] + " -"
+             end %>
           <% unless @item[:license].nil? %>
-          content licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="<%= @config[:base_url] + @config[:rer][:assetPath] %>/img/cc-by-sa80x15.png" width="80" height="15" alt="Creative Commons BY-SA" /></a>
+          licensed under CC-BY-SA <a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="<%= @config[:base_url] + @config[:rer][:assetPath] %>/img/cc-by-sa80x15.png" width="80" height="15" alt="Creative Commons BY-SA" /></a>
           <% end %>
           </p>
         </div> <!-- /span12 -->
       </div> <!-- /row -->
+      <% end %>
     </div> <!-- /container -->
   </body>
 </html>

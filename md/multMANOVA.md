@@ -7,8 +7,8 @@ rerCat: Multivariate
 tags: [ANOVA]
 ---
 
-
-
+Multivariate analysis of variance (MANOVA)
+=========================
 
 TODO
 -------------------------
@@ -33,7 +33,7 @@ One-way MANOVA
     
 
 ```r
-set.seed(1.234)
+set.seed(123)
 P     <- 3
 Nj    <- c(15, 25, 20)
 Sigma <- matrix(c(16,-2, -2,9), byrow=TRUE, ncol=2)
@@ -59,7 +59,7 @@ summary(manRes1, test="Wilks")
 
 ```
           Df Wilks approx F num Df den Df  Pr(>F)    
-IV         2 0.427     14.8      4    112 9.2e-10 ***
+IV         2 0.387       17      4    112 6.2e-11 ***
 Residuals 57                                         
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
@@ -105,9 +105,9 @@ summary(manRes2, test="Pillai")
 
 ```
            Df Pillai approx F num Df den Df  Pr(>F)    
-IV1         2  0.775     36.0      4    228 < 2e-16 ***
-IV2         1  0.157     10.5      2    113 6.6e-05 ***
-IV1:IV2     2  0.148      4.6      4    228  0.0014 ** 
+IV1         2  0.819     39.5      4    228 < 2e-16 ***
+IV2         1  0.241     17.9      2    113 1.8e-07 ***
+IV1:IV2     2  0.146      4.5      4    228  0.0017 ** 
 Residuals 114                                          
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
@@ -139,24 +139,24 @@ Type III MANOVA Tests:
 
 Sum of squares and products for error:
        Y.1    Y.2
-Y.1 1595.4 -252.1
-Y.2 -252.1 1075.2
+Y.1 1658.0 -349.2
+Y.2 -349.2  982.9
 
 ------------------------------------------
  
 Term: (Intercept) 
 
 Sum of squares and products for the hypothesis:
-      Y.1    Y.2
-Y.1 175.9  422.3
-Y.2 422.3 1013.8
+      Y.1   Y.2
+Y.1 188.1 412.1
+Y.2 412.1 902.9
 
 Multivariate Tests: (Intercept)
                  Df test stat approx F num Df den Df Pr(>F)    
-Pillai            1    0.5501    69.07      2    113 <2e-16 ***
-Wilks             1    0.4499    69.07      2    113 <2e-16 ***
-Hotelling-Lawley  1    1.2225    69.07      2    113 <2e-16 ***
-Roy               1    1.2225    69.07      2    113 <2e-16 ***
+Pillai            1    0.5664    73.81      2    113 <2e-16 ***
+Wilks             1    0.4336    73.81      2    113 <2e-16 ***
+Hotelling-Lawley  1    1.3064    73.81      2    113 <2e-16 ***
+Roy               1    1.3064    73.81      2    113 <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
@@ -165,16 +165,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Term: IV1 
 
 Sum of squares and products for the hypothesis:
-      Y.1   Y.2
-Y.1 878.6 148.0
-Y.2 148.0 750.3
+       Y.1    Y.2
+Y.1 782.98  62.59
+Y.2  62.59 891.47
 
 Multivariate Tests: IV1
                  Df test stat approx F num Df den Df Pr(>F)    
-Pillai            2    0.7748    36.05      4    228 <2e-16 ***
-Wilks             2    0.3666    36.81      4    226 <2e-16 ***
-Hotelling-Lawley  2    1.3417    37.57      4    224 <2e-16 ***
-Roy               2    0.9243    52.68      2    114 <2e-16 ***
+Pillai            2    0.8189    39.52      4    228 <2e-16 ***
+Wilks             2    0.3356    41.04      4    226 <2e-16 ***
+Hotelling-Lawley  2    1.5197    42.55      4    224 <2e-16 ***
+Roy               2    1.1020    62.81      2    114 <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
@@ -184,15 +184,15 @@ Term: IV2
 
 Sum of squares and products for the hypothesis:
       Y.1   Y.2
-Y.1 45.68 59.45
-Y.2 59.45 77.36
+Y.1 193.3 116.3
+Y.2 116.3  69.9
 
 Multivariate Tests: IV2
-                 Df test stat approx F num Df den Df  Pr(>F)   
-Pillai            1    0.1092    6.927      2    113 0.00145 **
-Wilks             1    0.8908    6.927      2    113 0.00145 **
-Hotelling-Lawley  1    0.1226    6.927      2    113 0.00145 **
-Roy               1    0.1226    6.927      2    113 0.00145 **
+                 Df test stat approx F num Df den Df   Pr(>F)    
+Pillai            1    0.2043    14.51      2    113 2.47e-06 ***
+Wilks             1    0.7957    14.51      2    113 2.47e-06 ***
+Hotelling-Lawley  1    0.2568    14.51      2    113 2.47e-06 ***
+Roy               1    0.2568    14.51      2    113 2.47e-06 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
@@ -201,16 +201,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Term: IV1:IV2 
 
 Sum of squares and products for the hypothesis:
-       Y.1     Y.2
-Y.1 14.558  -7.192
-Y.2 -7.192 169.478
+       Y.1    Y.2
+Y.1  39.73 -69.37
+Y.2 -69.37 158.57
 
 Multivariate Tests: IV1:IV2
                  Df test stat approx F num Df den Df   Pr(>F)    
-Pillai            2    0.1483    4.566      4    228 0.001448 ** 
-Wilks             2    0.8529    4.677      4    226 0.001204 ** 
-Hotelling-Lawley  2    0.1710    4.787      4    224 0.001006 ** 
-Roy               2    0.1619    9.230      2    114 0.000193 ***
+Pillai            2    0.1455    4.472      4    228 0.001693 ** 
+Wilks             2    0.8553    4.591      4    226 0.001391 ** 
+Hotelling-Lawley  2    0.1681    4.708      4    224 0.001147 ** 
+Roy               2    0.1620    9.237      2    114 0.000192 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```

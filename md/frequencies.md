@@ -7,8 +7,8 @@ rerCat: Descriptive
 tags: [Descriptive]
 ---
 
-
-
+Frequency tables
+=========================
 
 Install required packages
 -------------------------
@@ -30,12 +30,12 @@ Category frequencies for one variable
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 (myLetters <- sample(LETTERS[1:5], 12, replace=TRUE))
 ```
 
 ```
- [1] "B" "B" "C" "E" "B" "E" "E" "D" "D" "A" "B" "A"
+ [1] "B" "D" "C" "E" "E" "A" "C" "E" "C" "C" "E" "C"
 ```
 
 ```r
@@ -45,7 +45,7 @@ set.seed(1.234)
 ```
 myLetters
 A B C D E 
-2 4 1 2 3 
+1 1 5 1 4 
 ```
 
 ```r
@@ -62,7 +62,7 @@ tab["B"]
 
 ```
 B 
-4 
+1 
 ```
 
 
@@ -71,7 +71,7 @@ B
 barplot(tab, main="Counts")
 ```
 
-![plot of chunk rerFrequencies01](../content/assets/figure/rerFrequencies01.png) 
+![plot of chunk rerFrequencies01](content/assets/figure/rerFrequencies01.png) 
 
 
 ### (Cumulative) relative frequencies
@@ -84,7 +84,7 @@ barplot(tab, main="Counts")
 ```
 myLetters
       A       B       C       D       E 
-0.16667 0.33333 0.08333 0.16667 0.25000 
+0.08333 0.08333 0.41667 0.08333 0.33333 
 ```
 
 
@@ -94,8 +94,8 @@ cumsum(relFreq)
 ```
 
 ```
-     A      B      C      D      E 
-0.1667 0.5000 0.5833 0.7500 1.0000 
+      A       B       C       D       E 
+0.08333 0.16667 0.58333 0.66667 1.00000 
 ```
 
 
@@ -108,7 +108,7 @@ letFac
 ```
 
 ```
- [1] B B C E B E E D D A B A
+ [1] B D C E E A C E C C E C
 Levels: A B C D E Q
 ```
 
@@ -119,7 +119,7 @@ table(letFac)
 ```
 letFac
 A B C D E Q 
-2 4 1 2 3 0 
+1 1 5 1 4 0 
 ```
 
 
@@ -180,7 +180,7 @@ N    <- 10
 ```
 
 ```
- [1] m f m f m m f m m f
+ [1] m m f m f f f m m m
 Levels: f m
 ```
 
@@ -189,7 +189,7 @@ Levels: f m
 ```
 
 ```
- [1] office home   home   home   home   home   office home   home   office
+ [1] office office office office office office home   home   office office
 Levels: home office
 ```
 
@@ -200,8 +200,8 @@ Levels: home office
 ```
    work
 sex home office
-  f    2      2
-  m    5      1
+  f    1      3
+  m    1      5
 ```
 
 
@@ -214,7 +214,7 @@ summary(cTab)
 Number of cases in table: 10 
 Number of factors: 2 
 Test for independence of all factors:
-	Chisq = 1.3, df = 1, p-value = 0.3
+	Chisq = 0.1, df = 1, p-value = 0.7
 	Chi-squared approximation may be incorrect
 ```
 
@@ -224,7 +224,7 @@ Test for independence of all factors:
 barplot(cTab, beside=TRUE, legend.text=rownames(cTab), ylab="absolute frequency")
 ```
 
-![plot of chunk rerFrequencies02](../content/assets/figure/rerFrequencies02.png) 
+![plot of chunk rerFrequencies02](content/assets/figure/rerFrequencies02.png) 
 
 
 ### Using `xtabs()`
@@ -237,16 +237,16 @@ counts   <- sample(0:5, N, replace=TRUE)
 
 ```
    sex   work counts
-1    m office      2
-2    f   home      1
-3    m   home      4
-4    f   home      4
-5    m   home      4
-6    m   home      0
-7    f office      4
-8    m   home      2
-9    m   home      4
-10   f office      3
+1    m office      4
+2    m office      4
+3    f office      0
+4    m office      2
+5    f office      4
+6    f office      1
+7    f   home      1
+8    m   home      1
+9    m office      0
+10   m office      2
 ```
 
 
@@ -258,8 +258,8 @@ xtabs(~ sex + work, data=persons)
 ```
    work
 sex home office
-  f    2      2
-  m    5      1
+  f    1      3
+  m    1      5
 ```
 
 ```r
@@ -269,8 +269,8 @@ xtabs(counts ~ sex + work, data=persons)
 ```
    work
 sex home office
-  f    5      7
-  m   14      2
+  f    1      5
+  m    1     12
 ```
 
 
@@ -292,7 +292,7 @@ colMeans(cTab)
 
 ```
   home office 
-   3.5    1.5 
+     1      4 
 ```
 
 ```r
@@ -309,9 +309,9 @@ in the following order:
 ```
       work
 sex    home office mean
-  f     2.0    2.0  2.0
-  m     5.0    1.0  3.0
-  mean  3.5    1.5  2.5
+  f     1.0    3.0  2.0
+  m     1.0    5.0  3.0
+  mean  1.0    4.0  2.5
 ```
 
 
@@ -325,8 +325,8 @@ sex    home office mean
 ```
    work
 sex home office
-  f  0.2    0.2
-  m  0.5    0.1
+  f  0.1    0.3
+  m  0.1    0.5
 ```
 
 
@@ -340,8 +340,8 @@ prop.table(cTab, 1)
 ```
    work
 sex   home office
-  f 0.5000 0.5000
-  m 0.8333 0.1667
+  f 0.2500 0.7500
+  m 0.1667 0.8333
 ```
 
 
@@ -352,9 +352,9 @@ prop.table(cTab, 2)
 
 ```
    work
-sex   home office
-  f 0.2857 0.6667
-  m 0.7143 0.3333
+sex  home office
+  f 0.500  0.375
+  m 0.500  0.625
 ```
 
 
@@ -366,7 +366,7 @@ sex   home office
 ```
 
 ```
- [1] B B B B A A B B A B
+ [1] A A A A A A A B A A
 Levels: A B
 ```
 
@@ -378,8 +378,8 @@ ftable(work, sex, group, row.vars="work", col.vars=c("sex", "group"))
        sex   f   m  
        group A B A B
 work                
-home         0 2 3 2
-office       0 2 0 1
+home         1 0 0 1
+office       3 0 5 0
 ```
 
 
@@ -397,14 +397,14 @@ expand.table(cTab)
 ```
    sex   work
 1    f   home
-2    f   home
+2    f office
 3    f office
 4    f office
 5    m   home
-6    m   home
-7    m   home
-8    m   home
-9    m   home
+6    m office
+7    m office
+8    m office
+9    m office
 10   m office
 ```
 
@@ -418,10 +418,10 @@ as.data.frame(cTab, stringsAsFactors=TRUE)
 
 ```
   sex   work Freq
-1   f   home    2
-2   m   home    5
-3   f office    2
-4   m office    1
+1   f   home    1
+2   m   home    1
+3   f office    3
+4   m office    5
 ```
 
 
@@ -434,7 +434,7 @@ Percentile rank
 ```
 
 ```
- [1] -0.16 -1.47 -0.48  0.42  1.36 -0.10  0.39 -0.05 -1.38 -0.41
+ [1]  0.84  0.15 -1.14  1.25  0.43 -0.30  0.90  0.88  0.82  0.69
 ```
 
 ```r
@@ -443,7 +443,7 @@ Fn(vec)
 ```
 
 ```
- [1] 0.5 0.1 0.3 0.9 1.0 0.6 0.8 0.7 0.2 0.4
+ [1] 0.7 0.3 0.1 1.0 0.4 0.2 0.9 0.8 0.6 0.5
 ```
 
 ```r
@@ -451,7 +451,7 @@ Fn(vec)
 ```
 
 ```
-[1] 70
+[1] 20
 ```
 
 ```r
@@ -467,7 +467,7 @@ knots(Fn)
 ```
 
 ```
- [1] -1.47 -1.38 -0.48 -0.41 -0.16 -0.10 -0.05  0.39  0.42  1.36
+ [1] -1.14 -0.30  0.15  0.43  0.69  0.82  0.84  0.88  0.90  1.25
 ```
 
 
@@ -476,7 +476,7 @@ knots(Fn)
 plot(Fn, main="cumulative frequencies")
 ```
 
-![plot of chunk rerFrequencies03](../content/assets/figure/rerFrequencies03.png) 
+![plot of chunk rerFrequencies03](content/assets/figure/rerFrequencies03.png) 
 
 
 Detach (automatically) loaded packages (if possible)

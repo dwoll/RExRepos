@@ -7,8 +7,8 @@ rerCat: R_Basics
 tags: [Strings]
 ---
 
-
-
+Character strings
+=========================
 
 Create strings from existing objects
 -------------------------
@@ -20,7 +20,7 @@ toString(randVals)
 ```
 
 ```
-[1] "0.91, 1, -0.13, -2, -0.74"
+[1] "1.23, 1.37, -0.51, -1.9, -0.06"
 ```
 
 

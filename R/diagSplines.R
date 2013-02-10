@@ -1,6 +1,6 @@
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 xOne     <- 1:9
 yOne     <- rnorm(9)
 ptsLin   <- approx(xOne, yOne, method="linear",   n=30)

@@ -7,8 +7,8 @@ rerCat: Workflow
 tags: [knitr, WordPress]
 ---
 
-
-
+Build websites with R and WordPress
+=========================
 
 Setup for WordPress
 -------------------------

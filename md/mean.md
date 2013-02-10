@@ -7,8 +7,8 @@ rerCat: Descriptive
 tags: [Descriptive]
 ---
 
-
-
+The mean and other location measures
+=========================
 
 TODO
 -------------------------
@@ -194,7 +194,7 @@ wilcox.test(X, Y, conf.int=TRUE)$estimate
 
 ```
 difference in location 
-                -16.05 
+                -5.616 
 ```
 
 

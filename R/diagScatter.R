@@ -1,6 +1,6 @@
 
 ## @knitr rerDiagScatter01
-set.seed(1.234)
+set.seed(123)
 N <- 100
 x <- rnorm(N, 100, 15)
 y <- 0.3*x + rnorm(N, 0, 5)

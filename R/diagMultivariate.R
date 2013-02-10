@@ -19,7 +19,7 @@ Y     <- seq(mu[2]-rng*sigma[2, 2], mu[2]+rng*sigma[2, 2], length.out=N)
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 library(mvtnorm)
 genZ <- function(x, y) { dmvnorm(cbind(x, y), mu, sigma) }
 matZ <- outer(X, Y, FUN="genZ")

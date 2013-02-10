@@ -23,7 +23,7 @@ layout.show(4)
 ```
 
 ```{r rerDiagMultiple02}
-set.seed(1.234)
+set.seed(123)
 layout(mat1)
 barplot(table(round(rnorm(100))), horiz=TRUE, main="Barplot")
 boxplot(rt(100, 5), main="Boxplot")

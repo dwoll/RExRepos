@@ -119,13 +119,13 @@ factorial(7)
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 set <- LETTERS[1:10]
 sample(set, length(set), replace=FALSE)
 ```
 
 ```
- [1] "C" "D" "E" "G" "B" "H" "I" "F" "J" "A"
+ [1] "C" "H" "D" "G" "F" "A" "J" "I" "B" "E"
 ```
 
 
@@ -136,7 +136,7 @@ shuffle(length(set))
 ```
 
 ```
- [1]  3  2  6 10  5  7  8  4  1  9
+ [1] 10  5  6  9  1  7  8  4  3  2
 ```
 
 
@@ -197,11 +197,11 @@ for(i in 1:5) {
 ```
 
 ```
-[1] "c" "a" "b" "a" "c" "c" "b" "a" "b"
-[1] "b" "c" "b" "a" "a" "c" "b" "a" "c"
-[1] "c" "b" "b" "c" "c" "a" "a" "b" "a"
-[1] "b" "b" "c" "a" "c" "a" "a" "c" "b"
-[1] "a" "b" "c" "c" "c" "a" "b" "a" "b"
+[1] "c" "b" "b" "c" "b" "a" "a" "c" "a"
+[1] "a" "c" "c" "b" "b" "a" "c" "a" "b"
+[1] "a" "a" "a" "c" "b" "c" "c" "b" "b"
+[1] "b" "a" "c" "a" "c" "b" "b" "a" "c"
+[1] "a" "c" "c" "a" "b" "a" "c" "b" "b"
 ```
 
 

@@ -7,8 +7,8 @@ rerCat: Univariate
 tags: [Survival, KaplanMeier]
 ---
 
-
-
+Survival analysis: Kaplan-Meier
+=========================
 
 TODO
 -------------------------
@@ -37,7 +37,7 @@ $T = (-\ln(U) \, b \, e^{-\bf{X} \bf{\beta}})^{\frac{1}{a}}$, where $U \sim \mat
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N      <- 180                  # number of observations
 P      <- 3                    # number of groups
 sex    <- factor(sample(c("f", "m"), N, replace=TRUE))  # stratification factor
@@ -69,7 +69,7 @@ abline(v=obsLen, col="blue", lwd=2)
 text(obsLen-5, 0.2, adj=1, labels="end of study", cex=1.4)
 ```
 
-![plot of chunk rerSurvivalKM01](../content/assets/figure/rerSurvivalKM01.png) 
+![plot of chunk rerSurvivalKM01](content/assets/figure/rerSurvivalKM01.png) 
 
 
 Kaplan-Meier-Analysis
@@ -96,13 +96,13 @@ KM0 <- survfit(Surv(obsT, status) ~ 1,  type="kaplan-meier", conf.type="log", da
 ```
 
 ```
-Call: survfit(formula = Surv(obsT, status) ~ IV, data = dfSurv, type = "kaplan-meier", 
-    conf.type = "log")
+Call: survfit.formula(formula = Surv(obsT, status) ~ IV, data = dfSurv, 
+    type = "kaplan-meier", conf.type = "log")
 
      records n.max n.start events median 0.95LCL 0.95UCL
-IV=A      60    60      60     56   13.0       9      19
-IV=B      60    60      60     44   24.5      15      55
-IV=C      60    60      60     57    8.0       4      15
+IV=A      60    60      60     53   13.0       8      29
+IV=B      60    60      60     46   35.0      20      58
+IV=C      60    60      60     58    9.5       4      13
 ```
 
 
@@ -123,54 +123,62 @@ summary(KM0)
 ```
 
 ```
-Call: survfit(formula = Surv(obsT, status) ~ 1, data = dfSurv, type = "kaplan-meier", 
-    conf.type = "log")
+Call: survfit.formula(formula = Surv(obsT, status) ~ 1, data = dfSurv, 
+    type = "kaplan-meier", conf.type = "log")
 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
-    1    180      15    0.917  0.0206       0.8772        0.958
-    2    165      15    0.833  0.0278       0.7806        0.890
-    3    150       7    0.794  0.0301       0.7375        0.856
-    4    143      12    0.728  0.0332       0.6656        0.796
-    5    131       6    0.694  0.0343       0.6303        0.765
-    6    125       6    0.661  0.0353       0.5955        0.734
-    7    119       3    0.644  0.0357       0.5782        0.718
-    8    116       9    0.594  0.0366       0.5269        0.671
-    9    107       4    0.572  0.0369       0.5043        0.649
-   10    103       4    0.550  0.0371       0.4819        0.628
-   11     99       1    0.544  0.0371       0.4763        0.622
-   12     98       1    0.539  0.0372       0.4708        0.617
-   13     97       4    0.517  0.0372       0.4486        0.595
-   14     93       7    0.478  0.0372       0.4101        0.557
-   15     86       3    0.461  0.0372       0.3937        0.540
-   16     83       4    0.439  0.0370       0.3721        0.518
-   17     79       7    0.400  0.0365       0.3345        0.478
-   19     72       2    0.389  0.0363       0.3238        0.467
-   20     70       1    0.383  0.0362       0.3185        0.461
-   21     69       1    0.378  0.0361       0.3132        0.456
-   22     68       2    0.367  0.0359       0.3026        0.444
-   23     66       3    0.350  0.0356       0.2868        0.427
-   24     63       3    0.333  0.0351       0.2711        0.410
-   25     60       2    0.322  0.0348       0.2607        0.398
-   26     58       3    0.306  0.0343       0.2452        0.381
-   27     55       1    0.300  0.0342       0.2400        0.375
-   28     54       3    0.283  0.0336       0.2246        0.357
-   32     51       2    0.272  0.0332       0.2144        0.346
-   33     49       2    0.261  0.0327       0.2042        0.334
-   34     47       3    0.244  0.0320       0.1891        0.316
-   40     44       1    0.239  0.0318       0.1841        0.310
-   47     43       2    0.228  0.0313       0.1741        0.298
-   52     41       1    0.222  0.0310       0.1691        0.292
-   53     40       1    0.217  0.0307       0.1641        0.286
-   54     39       3    0.200  0.0298       0.1493        0.268
-   55     36       1    0.194  0.0295       0.1444        0.262
-   57     35       2    0.183  0.0288       0.1347        0.250
-   58     33       1    0.178  0.0285       0.1298        0.243
-   64     32       1    0.172  0.0281       0.1250        0.237
-   66     31       2    0.161  0.0274       0.1154        0.225
-   85     29       1    0.156  0.0270       0.1107        0.219
-   97     28       1    0.150  0.0266       0.1059        0.212
-  100     27       3    0.133  0.0253       0.0919        0.194
-  118     24       1    0.128  0.0249       0.0872        0.187
+    1    180      13    0.928  0.0193       0.8907        0.966
+    2    167      11    0.867  0.0253       0.8184        0.918
+    3    156      17    0.772  0.0313       0.7133        0.836
+    4    139       9    0.722  0.0334       0.6597        0.791
+    5    130       4    0.700  0.0342       0.6362        0.770
+    6    126       5    0.672  0.0350       0.6070        0.744
+    7    121       3    0.656  0.0354       0.5897        0.729
+    8    118       4    0.633  0.0359       0.5667        0.708
+    9    114       5    0.606  0.0364       0.5382        0.681
+   10    109       8    0.561  0.0370       0.4931        0.638
+   11    101       4    0.539  0.0372       0.4708        0.617
+   12     97       1    0.533  0.0372       0.4652        0.611
+   13     96       5    0.506  0.0373       0.4375        0.584
+   14     91       3    0.489  0.0373       0.4211        0.568
+   15     88       6    0.456  0.0371       0.3883        0.534
+   16     82       3    0.439  0.0370       0.3721        0.518
+   17     79       2    0.428  0.0369       0.3613        0.507
+   19     77       3    0.411  0.0367       0.3452        0.490
+   20     74       2    0.400  0.0365       0.3345        0.478
+   21     72       3    0.383  0.0362       0.3185        0.461
+   23     69       2    0.372  0.0360       0.3079        0.450
+   24     67       1    0.367  0.0359       0.3026        0.444
+   25     66       1    0.361  0.0358       0.2973        0.439
+   27     65       2    0.350  0.0356       0.2868        0.427
+   29     63       3    0.333  0.0351       0.2711        0.410
+   30     60       2    0.322  0.0348       0.2607        0.398
+   32     58       2    0.311  0.0345       0.2503        0.387
+   34     56       2    0.300  0.0342       0.2400        0.375
+   36     54       1    0.294  0.0340       0.2349        0.369
+   38     53       1    0.289  0.0338       0.2297        0.363
+   39     52       2    0.278  0.0334       0.2195        0.352
+   40     50       1    0.272  0.0332       0.2144        0.346
+   41     49       2    0.261  0.0327       0.2042        0.334
+   43     47       1    0.256  0.0325       0.1992        0.328
+   46     46       1    0.250  0.0323       0.1941        0.322
+   47     45       1    0.244  0.0320       0.1891        0.316
+   48     44       1    0.239  0.0318       0.1841        0.310
+   49     43       1    0.233  0.0315       0.1790        0.304
+   50     42       2    0.222  0.0310       0.1691        0.292
+   54     40       2    0.211  0.0304       0.1592        0.280
+   58     38       2    0.200  0.0298       0.1493        0.268
+   64     36       2    0.189  0.0292       0.1396        0.256
+   65     34       1    0.183  0.0288       0.1347        0.250
+   68     33       1    0.178  0.0285       0.1298        0.243
+   69     32       1    0.172  0.0281       0.1250        0.237
+   71     31       1    0.167  0.0278       0.1202        0.231
+   86     30       1    0.161  0.0274       0.1154        0.225
+   91     29       2    0.150  0.0266       0.1059        0.212
+  103     27       1    0.144  0.0262       0.1012        0.206
+  109     26       1    0.139  0.0258       0.0965        0.200
+  111     25       1    0.133  0.0253       0.0919        0.194
+  112     24       1    0.128  0.0249       0.0872        0.187
 ```
 
 
@@ -184,7 +192,7 @@ plot(KM0, main=expression(paste("Kaplan-Meier-estimate ", hat(S)(t), " with CI")
      xlab="t", ylab="Survival", lwd=2)
 ```
 
-![plot of chunk rerSurvivalKM02](../content/assets/figure/rerSurvivalKM02.png) 
+![plot of chunk rerSurvivalKM02](content/assets/figure/rerSurvivalKM02.png) 
 
 
 Separate estimates for levels of factor `IV`
@@ -196,7 +204,7 @@ plot(KM, main=expression(paste("Kaplan-Meier-estimate ", hat(S)[g](t), " for gro
 legend(x="topright", col=1:3, lwd=2, legend=LETTERS[1:3])
 ```
 
-![plot of chunk rerSurvivalKM03](../content/assets/figure/rerSurvivalKM03.png) 
+![plot of chunk rerSurvivalKM03](content/assets/figure/rerSurvivalKM03.png) 
 
 
 ### Plot cumulative hazard
@@ -209,7 +217,7 @@ plot(KM0, main=expression(paste("Kaplan-Meier-estimate ", hat(Lambda)(t))),
      xlab="t", ylab="cumulative hazard", fun="cumhaz", lwd=2)
 ```
 
-![plot of chunk rerSurvivalKM04](../content/assets/figure/rerSurvivalKM04.png) 
+![plot of chunk rerSurvivalKM04](content/assets/figure/rerSurvivalKM04.png) 
 
 
 ### Log-rank-test for equal survival-functions
@@ -226,11 +234,11 @@ Call:
 survdiff(formula = Surv(obsT, status) ~ IV, data = dfSurv)
 
       N Observed Expected (O-E)^2/E (O-E)^2/V
-IV=A 60       56     50.7     0.552     0.861
-IV=B 60       44     68.4     8.694    16.814
-IV=C 60       57     37.9     9.613    13.798
+IV=A 60       53     49.9     0.196     0.301
+IV=B 60       46     71.7     9.220    18.251
+IV=C 60       58     35.4    14.402    20.264
 
- Chisq= 20.8  on 2 degrees of freedom, p= 3.05e-05 
+ Chisq= 26.1  on 2 degrees of freedom, p= 2.16e-06 
 ```
 
 
@@ -246,11 +254,11 @@ Call:
 survdiff(formula = Surv(obsT, status) ~ IV + strata(sex), data = dfSurv)
 
       N Observed Expected (O-E)^2/E (O-E)^2/V
-IV=A 60       56     50.7     0.549     0.856
-IV=B 60       44     68.6     8.824    17.160
-IV=C 60       57     37.7     9.913    14.284
+IV=A 60       53     49.7     0.225     0.345
+IV=B 60       46     71.9     9.311    18.516
+IV=C 60       58     35.5    14.302    20.127
 
- Chisq= 21.4  on 2 degrees of freedom, p= 2.27e-05 
+ Chisq= 26.1  on 2 degrees of freedom, p= 2.12e-06 
 ```
 
 

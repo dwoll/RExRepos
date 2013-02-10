@@ -78,7 +78,7 @@ as.numeric(as.complex(c(3-2i, 3+2i, 0+1i, 0+0i)))
 ```
 
 ```
-Warning: imaginary parts discarded in coercion
+Warning: imaginäre Teile verworfen in Umwandlung
 ```
 
 ```
@@ -90,7 +90,7 @@ as.numeric(c("21", "3.141", "abc"))
 ```
 
 ```
-Warning: NAs introduced by coercion
+Warning: NAs durch Umwandlung erzeugt
 ```
 
 ```
@@ -151,13 +151,13 @@ sort(c("D", "E", "10", "A", "F", "E", "D", "4", "E", "A"))
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 myColors  <- c("red", "green", "blue", "yellow", "black")
 (randCols <- sample(myColors, length(myColors), replace=FALSE))
 ```
 
 ```
-[1] "green"  "black"  "yellow" "blue"   "red"   
+[1] "green"  "yellow" "black"  "blue"   "red"   
 ```
 
 
@@ -177,7 +177,7 @@ Nj  <- c(4, 3, 5)
 ```
 
 ```
- [1] 3 3 2 2 1 1 3 1 3 1 3 2
+ [1] 1 2 3 2 1 2 1 3 3 3 1 3
 ```
 
 
@@ -193,7 +193,7 @@ P <- 3
 ```
 
 ```
- [1] 2 2 2 3 3 1 2 3 1 1
+ [1] 2 1 3 2 3 2 1 3 1 2
 ```
 
 
@@ -209,7 +209,7 @@ sample(vec, 5, replace=FALSE)
 ```
 
 ```
-[1] "blue"  "green" "red"   "green" "red"  
+[1] "blue"  "blue"  "green" "blue"  "blue" 
 ```
 
 
@@ -220,7 +220,7 @@ some(vec, n=5)
 ```
 
 ```
-[1] "blue" "blue" "red"  "blue" "blue"
+[1] "red"   "red"   "green" "blue"  "blue" 
 ```
 
 
@@ -246,7 +246,7 @@ vec[selIdx2]
 ```
 
 ```
-[1] "blue"
+character(0)
 ```
 
 
@@ -319,7 +319,8 @@ vec2*age
 ```
 
 ```
-Warning: longer object length is not a multiple of shorter object length
+Warning: Länge des längeren Objektes ist kein Vielfaches der Länge des
+kürzeren Objektes
 ```
 
 ```

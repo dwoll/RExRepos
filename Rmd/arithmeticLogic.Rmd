@@ -1,0 +1,198 @@
+---
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
+title: "Basic arithmetic and logic"
+categories: [RBasics]
+rerCat: R_Basics
+tags: [Arithmetic, Logic]
+---
+
+Basic arithmetic and logic
+=========================
+
+TODO
+-------------------------
+
+ - link to vector
+
+R as a pocket calculator
+-------------------------
+
+### Arithmetic operators
+
+```{r}
+3 + 7
+9 / 3
+9 * (3+2)
+12^2 + 1.5*10
+10 %/% 3
+10 %% 3
+```
+
+Also see `help(Syntax)` for operator precendence / associativity: This determines the order in which computations are carried out when multiple operators are present.
+
+Using operators as functions
+
+```{r}
+"/"(1, 10)
+"+"(2, 3)
+```
+
+### Standard math functions
+
+```{r}
+sqrt(4)
+sin(pi/2)
+abs(-4)
+log10(100)
+exp(1)
+```
+
+### Rounding numbers
+
+```{r}
+round(1.271)
+round(pi, digits=3)
+ceiling(1.2)
+floor(3.7)
+trunc(22.913)
+```
+
+### Complex numbers
+
+```{r}
+exp(1)^((0+1i)*pi)
+exp(1)^(-pi/2) - (0+1i)^(0+1i)
+sqrt(-1)
+sqrt(-1+0i)
+```
+
+### Special values
+
+```{r}
+.Machine$integer.max
+.Machine$double.eps
+```
+
+```{r}
+1/0
+is.infinite(1/0)
+0/0
+is.nan(0/0)
+NULL
+is.null(NULL)
+```
+
+### Using variables (objects)
+
+```{r}
+x1 <- 2
+x2 <- 10
+x3 <- -7
+x1 * 2
+x2^x1 + x3
+```
+
+Logic
+-------------------------
+
+### Logical values
+
+```{r}
+TRUE
+FALSE
+!TRUE
+!FALSE
+```
+
+```{r}
+isTRUE(TRUE)
+isTRUE(FALSE)
+```
+
+### Logical comparisons
+
+```{r}
+TRUE == TRUE
+TRUE == FALSE
+TRUE != TRUE
+TRUE != FALSE
+TRUE & TRUE
+TRUE & FALSE
+FALSE & FALSE
+FALSE & TRUE
+TRUE | TRUE
+TRUE | FALSE
+FALSE | FALSE
+FALSE | TRUE
+xor(TRUE, FALSE)
+xor(TRUE, TRUE)
+```
+
+Short-circuit logical comparisons with vectors
+
+```{r}
+c(TRUE,  FALSE, FALSE) && c(TRUE,  TRUE, FALSE)
+c(FALSE, FALSE, TRUE)  || c(FALSE, TRUE, FALSE)
+```
+
+### Arithmetic comparisons
+
+```{r}
+4 < 8
+7 < 3
+4 > 4
+4 >= 4
+```
+
+### Checking whether any or all elements are `TRUE`
+
+```{r}
+any(c(FALSE, FALSE, FALSE))
+any(c(FALSE, FALSE, TRUE))
+all(c(TRUE, TRUE, FALSE))
+any(c(TRUE, TRUE, TRUE))
+```
+
+In an empty vector, there is no element that is `FALSE`, therefore:
+
+```{r}
+all(numeric(0))
+```
+
+In an empty vector, you cannot pick an element that is `TRUE`, therefore:
+
+```{r}
+any(numeric(0))
+```
+
+Numeric representations
+-------------------------
+
+### Integers vs. decimal numbers
+
+```{r}
+4L == 4
+identical(4L, 4)
+```
+
+### Floating point arithmetic
+
+```{r}
+0.1 + 0.2 == 0.3
+1 %/% 0.1
+sin(pi)
+1 - ((1/49) * 49)
+1 - ((1/48) * 48)
+```
+
+[What every computer scientist should know about floating-point arithmetic](http://docs.sun.com/source/806-3568/ncg_goldberg.html)
+
+### Checking decimal numbers for equality
+
+```{r}
+isTRUE(all.equal(0.123450001, 0.123450000))
+0.123400001 == 0.123400000
+all.equal(0.12345001, 0.12345000)
+isTRUE(all.equal(0.12345001,  0.12345000))
+```

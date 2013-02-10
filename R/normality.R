@@ -6,7 +6,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr rerNormality01
-set.seed(1.234)
+set.seed(123)
 DV <- rnorm(20, mean=1.5, sd=3)
 qqnorm(DV, pch=20, cex=2)
 qqline(DV, col="gray60", lwd=2)

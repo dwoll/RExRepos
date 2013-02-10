@@ -1,0 +1,180 @@
+---
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
+title: "Matrices and arrays"
+categories: [RBasics]
+rerCat: R_Basics
+tags: [Matrix, Array]
+---
+
+Matrices and arrays
+=========================
+
+TODO
+-------------------------
+
+ - link to matrixArithmetic
+
+Matrices
+-------------------------
+
+### Create a matrix using `matrix()`
+
+```{r}
+age <- c(17, 30, 30, 25, 23, 21)
+matrix(age, nrow=3, ncol=2, byrow=FALSE)
+(ageMat <- matrix(age, nrow=2, ncol=3, byrow=TRUE))
+```
+
+### Combine rows and columns to a matrix
+
+```{r}
+age    <- c(19, 19, 31, 19, 24)
+weight <- c(95, 76, 94, 76, 76)
+height <- c(197, 178, 189, 184, 173)
+rbind(age, weight, height)
+cbind(age, weight, height)
+```
+
+### Information about matrices
+
+```{r}
+dim(ageMat)
+nrow(ageMat)
+ncol(ageMat)
+prod(dim(ageMat))
+```
+
+### Transpose matrices
+
+```{r}
+t(ageMat)
+```
+
+```{r}
+as.matrix(1:3)
+c(ageMat)
+```
+
+### Rows and columns
+
+```{r}
+P       <- 2
+Q       <- 3
+(pqMat  <- matrix(1:(P*Q), nrow=P, ncol=Q))
+(rowMat <- row(pqMat))
+(colMat <- col(pqMat))
+```
+
+```{r}
+cbind(rowIdx=c(rowMat), colIdx=c(colMat), val=c(pqMat))
+```
+
+```{r}
+mat <- matrix(sample(1:10, 16, replace=TRUE), 4, 4)
+upper.tri(mat)
+lower.tri(mat)
+```
+
+### Extract and change elements
+
+Row and column indices
+
+```{r}
+ageMat <- matrix(sample(16:35, 6, replace=TRUE), nrow=2, ncol=3)
+ageMat[2, 2]
+ageMat[2, 2] <- 24
+ageMat[2, 2]
+ageMat[2,  ]
+ageMat[ , 1]
+ageMat[ ,  ]
+ageMat[ , 1, drop=FALSE]
+ageMat[ , 2:3]
+ageMat[ , c(1, 3)]
+```
+
+Index vector
+
+```{r}
+idxVec <- c(1, 3, 4)
+ageMat[idxVec]
+```
+
+Index matrix
+
+```{r}
+ageMatNew   <- ageMat
+(replaceMat <- matrix(c(11, 21, 12, 22), nrow=2, ncol=2))
+ageMatNew[ , c(1, 3)] <- replaceMat
+ageMatNew
+```
+
+Logical index matrix
+
+```{r}
+(idxMatLog <- ageMat >= 25)
+ageMat[idxMatLog]
+```
+
+```{r}
+(idxMatNum <- which(idxMatLog, arr.ind=TRUE))
+ageMat[idxMatNum]
+(idxMat <- arrayInd(idxVec, dim(ageMat)))
+```
+
+Also see `help(Extract)`
+
+### Sort matrices
+
+```{r}
+age    <- c(19, 19, 31, 19, 24)
+weight <- c(95, 76, 94, 76, 76)
+height <- c(197, 178, 189, 184, 173)
+mat    <- cbind(age, weight, height)
+(rowOrder1 <- order(mat[ , "age"]))
+mat[rowOrder1, ]
+```
+
+```{r}
+rowOrder2 <- order(mat[ , "age"], partial=mat[ , "weight"])
+mat[rowOrder2, ]
+```
+
+```{r}
+rowOrder3 <- order(mat[ , "weight"], -mat[ , "height"])
+mat[rowOrder3, ]
+```
+
+Arrays
+-------------------------
+
+### Create arrays
+
+```{r}
+(myArr1 <- array(1:12, c(2, 3, 2),
+                 dimnames=list(row=c("f", "m"), column=c("CG", "WL", "T"),
+                               layer=c("high", "low"))))
+```
+
+### Extract and change elements
+
+```{r}
+myArr1[1, 3, 2]
+myArr1[2, 1, 2] <- 19
+myArr2 <- myArr1*2
+myArr2[ , , "high"]
+```
+
+### Transpose arrays
+
+Switch rows and columns
+
+```{r}
+aperm(myArr1, c(2, 1, 3))
+```
+
+Switch rows and layers
+
+```{r}
+aperm(myArr1, c(3, 2, 1))
+```

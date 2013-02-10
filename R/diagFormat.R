@@ -34,7 +34,7 @@ text(0.32, 3, labels="line ending: lend=0", srt=90, cex=1.2)
 
 
 ## @knitr rerDiagFormat03
-set.seed(1.234)
+set.seed(123)
 N <- 100
 x <- rnorm(N, 100, 15)
 y <- 0.3*x + rnorm(N, 0, 7)

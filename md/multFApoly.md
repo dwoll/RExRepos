@@ -7,8 +7,8 @@ rerCat: Multivariate
 tags: [FactorAnalysis]
 ---
 
-
-
+Exploratory factor analysis for ordinal categorical data
+=========================
 
 Install required packages
 -------------------------
@@ -32,7 +32,7 @@ First, let's simulate 200 observations from 6 variables, coming from 2 orthogona
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N <- 200                       # number of observations
 P <- 6                         # number of variables
 Q <- 2                         # number of factors
@@ -92,18 +92,18 @@ faPC$loadings
 ```
 
 Loadings:
-   MR1    MR2   
-X1 -0.525 -0.238
-X2 -0.548  0.141
-X3  0.451  0.618
-X4  0.474  0.185
-X5 -0.141  0.658
-X6  0.551       
+   MR2    MR1   
+X1  0.546 -0.196
+X2  0.607       
+X3 -0.173  0.842
+X4 -0.197  0.311
+X5  0.336  0.537
+X6 -0.619       
 
-                 MR1   MR2
-SS loadings    1.328 0.929
-Proportion Var 0.221 0.155
-Cumulative Var 0.221 0.376
+                 MR2   MR1
+SS loadings    1.231 1.133
+Proportion Var 0.205 0.189
+Cumulative Var 0.205 0.394
 ```
 
 
@@ -124,18 +124,18 @@ faPCdirect$fa$loadings         # loadings are the same as above ...
 ```
 
 Loadings:
-   MR1    MR2   
-X1 -0.526 -0.237
-X2 -0.548  0.140
-X3  0.450  0.616
-X4  0.474  0.184
-X5 -0.140  0.660
-X6  0.550       
+   MR2    MR1   
+X1  0.546 -0.196
+X2  0.605       
+X3 -0.174  0.841
+X4 -0.198  0.311
+X5  0.336  0.538
+X6 -0.621       
 
-                 MR1   MR2
-SS loadings    1.325 0.929
-Proportion Var 0.221 0.155
-Cumulative Var 0.221 0.376
+                 MR2   MR1
+SS loadings    1.231 1.133
+Proportion Var 0.205 0.189
+Cumulative Var 0.205 0.394
 ```
 
 
@@ -154,13 +154,13 @@ You can visualize the loadings from the factor analysis using `factor.plot()` an
 factor.plot(faPCdirect$fa, cut=0.5)
 ```
 
-![plot of chunk rerMultFApoly01](../content/assets/figure/rerMultFApoly011.png) 
+![plot of chunk rerMultFApoly01](content/assets/figure/rerMultFApoly011.png) 
 
 ```r
 fa.diagram(faPCdirect)
 ```
 
-![plot of chunk rerMultFApoly01](../content/assets/figure/rerMultFApoly012.png) 
+![plot of chunk rerMultFApoly01](content/assets/figure/rerMultFApoly012.png) 
 
 
 Determine number of factors
@@ -173,7 +173,7 @@ Parallel analysis and a "very simple structure" analysis provide help in selecti
 fap <- fa.parallel.poly(ordNum)   # parallel analysis for dichotomous data
 ```
 
-![plot of chunk rerMultFApoly02](../content/assets/figure/rerMultFApoly02.png) 
+![plot of chunk rerMultFApoly02](content/assets/figure/rerMultFApoly02.png) 
 
 
 
@@ -187,34 +187,34 @@ Parallel analysis suggests that the number of factors =  2  and the number of co
 
  Eigen Values of 
   Original factors Simulated data Original components simulated data
-1             1.38           0.59                2.09           1.32
-2             0.49           0.19                1.35           1.15
+1             1.23           0.76                1.92           1.30
+2             0.62           0.19                1.53           1.15
 ```
 
 ```r
 vss(pc$correlations, n.obs=N, rotate="varimax")  # very simple structure
 ```
 
-![plot of chunk rerMultFApoly03](../content/assets/figure/rerMultFApoly03.png) 
+![plot of chunk rerMultFApoly03](content/assets/figure/rerMultFApoly03.png) 
 
 ```
 
 Very Simple Structure
 Call: VSS(x = x, n = n, rotate = rotate, diagonal = diagonal, fm = fm, 
     n.obs = n.obs, plot = plot, title = title)
-VSS complexity 1 achieves a maximimum of 0.56  with  6  factors
-VSS complexity 2 achieves a maximimum of 0.72  with  5  factors
+VSS complexity 1 achieves a maximimum of 0.61  with  6  factors
+VSS complexity 2 achieves a maximimum of 0.76  with  6  factors
 
 The Velicer MAP criterion achieves a minimum of NA  with  1  factors
  
 Velicer MAP
-[1] 0.07 0.11 0.21 0.43 1.00   NA
+[1] 0.08 0.11 0.22 0.40 1.00   NA
 
 Very Simple Structure Complexity 1
-[1] 0.49 0.54 0.50 0.47 0.56 0.56
+[1] 0.41 0.58 0.60 0.60 0.56 0.61
 
 Very Simple Structure Complexity 2
-[1] 0.00 0.69 0.70 0.65 0.72 0.68
+[1] 0.00 0.69 0.73 0.69 0.75 0.76
 ```
 
 

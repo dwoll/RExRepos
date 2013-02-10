@@ -1,0 +1,226 @@
+---
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
+title: "Vectors"
+categories: [RBasics]
+rerCat: R_Basics
+tags: [Vector]
+---
+
+Vectors
+=========================
+
+TODO
+-------------------------
+
+ - link to generateData, transformData
+
+Create vectors
+-------------------------
+
+### Empty vectors
+
+```{r}
+numeric(4)
+character(3)
+logical(5)
+```
+
+### Create and combine vectors
+
+Numeric vectors
+
+```{r}
+(age <- c(18, 20, 30, 24, 23, 21))
+addAge  <- c(27, 21, 19)
+(ageNew <- c(age, addAge))
+append(age, c(17, 31))
+```
+
+Character vectors
+
+```{r}
+charVec1 <- c("Z", "Y", "X")
+(charVec2 <- c(charVec1, "T", "S", "R"))
+LETTERS[c(1, 2, 3)]
+letters[c(5, 9, 13)]
+(chars <- c("ipsum", "dolor", "sit"))
+```
+
+Information about vectors
+
+```{r}
+length(age)
+length(chars)
+nchar(chars)
+```
+
+Extract and change vector elements
+-------------------------
+
+### Extract elements with a numeric index
+
+```{r}
+age[4]
+age[4] <- 22
+age
+```
+
+Get and change the last element
+
+```{r}
+(ageLast <- age[length(age)])
+age[length(age) + 1]
+```
+
+A vector does not need a name for getting one of its values
+
+```{r}
+c(11, 12, 13, 14)[2]
+```
+
+### Extract elements with index vectors
+
+Get elements
+
+```{r}
+idx <- c(1, 2, 4)
+age[idx]
+age[c(3, 5, 6)]
+age[c(1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6)]
+age[c(4, NA, 1)]
+```
+
+Change elements
+
+```{r}
+age[idx] <- c(17, 30, 25)
+age
+```
+
+### Exclude elements
+
+```{r}
+age[-3]
+age[c(-1, -2, -4)]
+age[-c(1, 2, 4)]
+age[-idx]
+```
+
+Also see `help(Extract)`
+
+Types of values in vectors
+-------------------------
+
+```{r}
+charVec4 <- "word"
+numVec   <- c(10, 20, 30)
+(combVec <- c(charVec4, numVec))
+mode(combVec)
+```
+
+Named elements
+-------------------------
+
+```{r}
+(namedVec1 <- c(elem1="first", elem2="second"))
+namedVec1["elem1"]
+(namedVec2 <- c(val1=10, val2=-12, val3=33))
+names(namedVec2)
+names(namedVec2) <- c("A", "B", "C")
+namedVec2
+```
+
+Delete elements
+-------------------------
+
+```{r}
+vec <- c(10, 20, 30, 40, 50)
+vec <- vec[c(-4, -5)]
+vec
+vec <- c(1, 2, 3, 4, 5)
+length(vec) <- 3
+vec
+```
+
+Vector valued comparisons
+-------------------------
+
+### Simple comparisons
+
+```{r}
+age <- c(17, 30, 30, 24, 23, 21)
+age < 24
+x <- c(2, 4, 8)
+y <- c(3, 4, 5)
+x == y
+x < y
+```
+
+Information about elements satisfying some condition
+
+```{r}
+res <- age > 30
+any(res)
+any(age < 18)
+all(x == y)
+res <- age < 24
+sum(res)
+which(age < 24)
+length(which(age < 24))
+```
+
+Checking for equality of vectors
+
+```{r}
+x <- c(4, 5, 6)
+y <- c(4, 5, 6)
+z <- c(1, 2, 3)
+all.equal(x, y)
+all.equal(y, z)
+isTRUE(all.equal(y, z))
+```
+
+### Combine multiple logical comparisons
+
+```{r}
+(age <= 20) | (age >= 30)
+(age > 20) & (age < 30)
+```
+
+Logical index vectors
+-------------------------
+
+### Simple and combined selection criteria
+
+```{r}
+age[c(TRUE, FALSE, TRUE, TRUE, FALSE, TRUE)]
+(idx <- (age <= 20) | (age >= 30))
+age[idx]
+age[(age >= 30) | (age <= 20)]
+```
+
+### The recycling rule
+
+```{r}
+age[c(TRUE, FALSE)]
+age[c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)]
+```
+
+### Convert logical index vectors to numerical ones
+
+Problem:
+
+```{r}
+vecNA   <- c(-3, 2, 0, NA, -7, 5)
+(logIdx <- vecNA > 0)
+vecNA[logIdx]
+```
+
+Solution:
+
+```{r}
+(numIdx <- which(logIdx))
+vecNA[numIdx]
+seq(along=logIdx) %in% numIdx
+```

@@ -1,6 +1,6 @@
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 xy      <- matrix(rnorm(24, 100, 15), ncol=2)
 hullIdx <- chull(xy)
 

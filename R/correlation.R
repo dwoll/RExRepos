@@ -30,7 +30,7 @@ fisherz2r(rZ)
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 N  <- 100
 z1 <- runif(N)
 z2 <- runif(N)

@@ -6,7 +6,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 N      <- 180                  # number of observations
 P      <- 3                    # number of groups
 sex    <- factor(sample(c("f", "m"), N, replace=TRUE))  # stratification factor

@@ -1,0 +1,72 @@
+---
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
+title: "Sum, product, and range of data"
+categories: [Descriptive]
+rerCat: Descriptive
+tags: [Descriptive]
+---
+
+Sum, product, and range of data
+=========================
+
+Sums, differences, and products
+-------------------------
+
+### Sum and cumulative sum
+
+```{r}
+age <- c(17, 30, 30, 25, 23, 21)
+sum(age)
+cumsum(age)
+```
+
+### Successive differences
+
+```{r}
+diff(age)
+diff(age, lag=2)
+```
+
+### Product and cumulative product
+
+```{r}
+prod(age)
+cumprod(age)
+factorial(5)
+```
+
+Minimum, maximum and range
+-------------------------
+
+### Get the minimum, maximum and range
+
+```{r}
+min(age)
+max(age)
+range(c(17, 30, 30, 25, 23, 21))
+diff(range(c(17, 30, 30, 25, 23, 21)))
+```
+
+### Identify the minimum and maximum elements
+
+```{r}
+which.max(age)
+```
+
+Identify element closest to a value
+
+```{r}
+vec <- c(-5, -8, -2, 10, 9)
+val <- 0
+which.min(abs(vec-val))
+```
+
+### Pairwise minimum and maximum
+
+```{r}
+vec1 <- c(5, 2, 0, 7)
+vec2 <- c(3, 3, 9, 2)
+pmax(vec1, vec2)
+pmin(vec1, vec2)
+```

@@ -38,7 +38,7 @@ Descriptive model fit
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N  <- 100
 X1 <- rnorm(N, 175, 7)
 X2 <- rnorm(N,  30, 8)
@@ -60,7 +60,7 @@ lm(formula = Y ~ X1 + X2, data = dfRegr)
 
 Coefficients:
 (Intercept)           X1           X2  
-     -2.700        0.429       -0.272  
+    -47.501        0.680       -0.296  
 ```
 
 ```r
@@ -74,7 +74,7 @@ lm(formula = scale(Y) ~ scale(X1) + scale(X2), data = dfRegr)
 
 Coefficients:
 (Intercept)    scale(X1)    scale(X2)  
-   1.09e-16     2.02e-01    -1.57e-01  
+   4.67e-16     2.97e-01    -1.57e-01  
 ```
 
 
@@ -84,7 +84,7 @@ library(car)
 scatter3d(Y ~ X1 + X2, fill=FALSE, data=dfRegr)
 ```
 
-![plot of chunk rerRegression01](../content/assets/figure/rerRegression01.png) 
+![plot of chunk rerRegression01](content/assets/figure/rerRegression01.png) 
 
 
 ### Estimated coefficients, residuals, and fitted values
@@ -96,7 +96,7 @@ coef(fit12)
 
 ```
 (Intercept)          X1          X2 
-    -2.6999      0.4285     -0.2725 
+   -47.5012      0.6805     -0.2965 
 ```
 
 ```r
@@ -106,7 +106,7 @@ head(E)
 
 ```
       1       2       3       4       5       6 
-  1.546 -27.135  -5.077   2.429  32.845 -19.806 
+-28.854 -18.924  -3.540 -12.155   3.586   7.678 
 ```
 
 ```r
@@ -116,7 +116,7 @@ head(Yhat)
 
 ```
     1     2     3     4     5     6 
-63.59 64.58 63.60 68.56 66.54 57.81 
+61.70 60.98 70.70 63.85 65.56 70.97 
 ```
 
 
@@ -134,7 +134,7 @@ lm(formula = Y ~ X1 + X2 + X3, data = dfRegr)
 
 Coefficients:
 (Intercept)           X1           X2           X3  
-     20.458        0.443       -0.349       -0.379  
+     19.159        0.445       -0.260       -0.413  
 ```
 
 ```r
@@ -148,7 +148,7 @@ lm(formula = Y ~ X2 + X3, data = dfRegr)
 
 Coefficients:
 (Intercept)           X2           X3  
-     98.350       -0.349       -0.378  
+     98.535       -0.276       -0.426  
 ```
 
 ```r
@@ -162,7 +162,7 @@ lm(formula = Y ~ X1, data = dfRegr)
 
 Coefficients:
 (Intercept)           X1  
-    -10.849        0.429  
+    -59.263        0.698  
 ```
 
 
@@ -178,7 +178,7 @@ sumRes$r.squared
 ```
 
 ```
-[1] 0.7317
+[1] 0.7546
 ```
 
 ```r
@@ -186,7 +186,7 @@ sumRes$adj.r.squared
 ```
 
 ```
-[1] 0.7233
+[1] 0.7469
 ```
 
 ```r
@@ -194,7 +194,7 @@ sumRes$sigma
 ```
 
 ```
-[1] 7.002
+[1] 7.361
 ```
 
 
@@ -206,7 +206,7 @@ AIC(fit1)
 ```
 
 ```
-[1] 802.3
+[1] 815.6
 ```
 
 ```r
@@ -214,7 +214,7 @@ extractAIC(fit1)
 ```
 
 ```
-[1]   2.0 516.5
+[1]   2.0 529.9
 ```
 
 ```r
@@ -222,7 +222,7 @@ extractAIC(fit1, k=log(N))
 ```
 
 ```
-[1]   2.0 521.8
+[1]   2.0 535.1
 ```
 
 
@@ -245,19 +245,19 @@ lm(formula = Y ~ X1 + X2, data = dfRegr)
 
 Residuals:
    Min     1Q Median     3Q    Max 
--32.34  -8.01   1.08   9.39  32.85 
+-31.86  -6.77   1.97   9.27  37.94 
 
 Coefficients:
-            Estimate Std. Error t value Pr(>|t|)  
-(Intercept)   -2.700     36.901   -0.07    0.942  
-X1             0.429      0.208    2.06    0.042 *
-X2            -0.272      0.170   -1.60    0.113  
+            Estimate Std. Error t value Pr(>|t|)   
+(Intercept)  -47.501     39.047   -1.22   0.2267   
+X1             0.680      0.219    3.11   0.0024 **
+X2            -0.296      0.181   -1.64   0.1040   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-Residual standard error: 13 on 97 degrees of freedom
-Multiple R-squared: 0.0656,	Adjusted R-squared: 0.0464 
-F-statistic: 3.41 on 2 and 97 DF,  p-value: 0.0372 
+Residual standard error: 13.9 on 97 degrees of freedom
+Multiple R-squared: 0.118,	Adjusted R-squared: 0.0993 
+F-statistic: 6.46 on 2 and 97 DF,  p-value: 0.00233 
 ```
 
 ```r
@@ -265,10 +265,10 @@ confint(fit12)
 ```
 
 ```
-               2.5 %   97.5 %
-(Intercept) -75.9386 70.53887
-X1            0.0161  0.84097
-X2           -0.6109  0.06594
+                2.5 %   97.5 %
+(Intercept) -124.9991 29.99672
+X1             0.2465  1.11449
+X2            -0.6550  0.06201
 ```
 
 ```r
@@ -276,10 +276,10 @@ vcov(fit12)
 ```
 
 ```
-            (Intercept)         X1         X2
-(Intercept)   1361.7019 -7.591e+00 -8.695e-01
-X1              -7.5909  4.318e-02  3.523e-05
-X2              -0.8695  3.523e-05  2.907e-02
+            (Intercept)        X1        X2
+(Intercept)    1524.684 -8.455382 -1.294238
+X1               -8.455  0.047818  0.001956
+X2               -1.294  0.001956  0.032624
 ```
 
 
@@ -301,9 +301,9 @@ Single term additions
 Model:
 Y ~ X1
        Df Sum of Sq   RSS AIC F value Pr(>F)    
-<none>              16824 517                   
-X2      1       432 16393 516    2.55   0.11    
-X3      1     11413  5412 405  204.56 <2e-16 ***
+<none>              19222 530                   
+X2      1       519 18702 529    2.69    0.1    
+X3      1     13623  5599 409  236.00 <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -322,8 +322,8 @@ Analysis of Variance Table
 Model 1: Y ~ X1
 Model 2: Y ~ X1 + X2 + X3
   Res.Df   RSS Df Sum of Sq   F Pr(>F)    
-1     98 16824                            
-2     96  4707  2     12118 124 <2e-16 ***
+1     98 19222                            
+2     96  5201  2     14021 129 <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -358,25 +358,29 @@ Subset selection object
 Call: FUN(c("./aggregate.Rmd", "./ancova.Rmd", "./anovaCRFpq.Rmd", 
 "./anovaCRp.Rmd", "./anovaMixed.Rmd", "./anovaRBFpq.Rmd", "./anovaRBp.Rmd", 
 "./anovaSPFpq.Rmd", "./anovaSPFpqr.Rmd", "./anovaSStypes.Rmd", 
-"./association.Rmd", "./associationOrder.Rmd", "./combinatorics.Rmd", 
-"./correlation.Rmd", "./crossvalidation.Rmd", "./dataFrames.Rmd", 
-"./dfReshape.Rmd", "./dfSplitMerge.Rmd", "./dfTransform.Rmd", 
-"./diagAddElements.Rmd", "./diagBounding.Rmd", "./diagCategorical.Rmd", 
-"./diagDevice.Rmd", "./diagDistributions.Rmd", "./diagFormat.Rmd", 
-"./diagMultiple.Rmd", "./diagMultivariate.Rmd", "./diagScatter.Rmd", 
-"./diagSplines.Rmd", "./factors.Rmd", "./frequencies.Rmd", "./generateData.Rmd", 
-"./interRaterICC.Rmd", "./linearAlgebra.Rmd", "./mean.Rmd", "./multFA.Rmd", 
-"./multFApoly.Rmd", "./multHotelling.Rmd", "./multLDA.Rmd", "./multMANOVA.Rmd", 
-"./multMDS.Rmd", "./multPCA.Rmd", "./multRegression.Rmd", "./normality.Rmd", 
-"./npBinomial.Rmd", "./npBowker.Rmd", "./npCochran.Rmd", "./npKruskalFriedman.Rmd", 
+"./arithmeticLogic.Rmd", "./association.Rmd", "./associationOrder.Rmd", 
+"./combinatorics.Rmd", "./correlation.Rmd", "./crossvalidation.Rmd", 
+"./dataFrames.Rmd", "./dfImportExport.Rmd", "./dfReshape.Rmd", 
+"./dfSplitMerge.Rmd", "./dfTransform.Rmd", "./diagAddElements.Rmd", 
+"./diagBounding.Rmd", "./diagCategorical.Rmd", "./diagDevice.Rmd", 
+"./diagDistributions.Rmd", "./diagFormat.Rmd", "./diagMultiple.Rmd", 
+"./diagMultivariate.Rmd", "./diagScatter.Rmd", "./diagSplines.Rmd", 
+"./factors.Rmd", "./frequencies.Rmd", "./generateData.Rmd", "./gui.Rmd", 
+"./helpDocs.Rmd", "./interRaterICC.Rmd", "./linearAlgebra.Rmd", 
+"./matrix.Rmd", "./matrixArithmetic.Rmd", "./matrixStatistics.Rmd", 
+"./mean.Rmd", "./missingData.Rmd", "./multFA.Rmd", "./multFApoly.Rmd", 
+"./multHotelling.Rmd", "./multLDA.Rmd", "./multMANOVA.Rmd", "./multMDS.Rmd", 
+"./multPCA.Rmd", "./multRegression.Rmd", "./normality.Rmd", "./npBinomial.Rmd", 
+"./npBowker.Rmd", "./npCochran.Rmd", "./npKruskalFriedman.Rmd", 
 "./npMcNemar.Rmd", "./npRuns.Rmd", "./npStuartMaxwell.Rmd", "./npWilcoxon.Rmd", 
-"./recode.Rmd", "./regression.Rmd", "./regressionDiag.Rmd", "./regressionLogistic.Rmd", 
-"./regressionModMed.Rmd", "./regressionMultinom.Rmd", "./regressionOrdinal.Rmd", 
-"./regressionPoisson.Rmd", "./rerWorkflowJN.Rmd", "./rerWorkflowWP.Rmd", 
-"./resamplingBoot.Rmd", "./resamplingBootALM.Rmd", "./resamplingPerm.Rmd", 
-"./sets.Rmd", "./strings.Rmd", "./survivalCoxPH.Rmd", "./survivalKM.Rmd", 
-"./survivalParametric.Rmd", "./timeDate.Rmd", "./transformData.Rmd", 
-"./tTest.Rmd", "./variance.Rmd", "./varianceHom.Rmd")[[54L]], 
+"./packages.Rmd", "./recode.Rmd", "./regression.Rmd", "./regressionDiag.Rmd", 
+"./regressionLogistic.Rmd", "./regressionModMed.Rmd", "./regressionMultinom.Rmd", 
+"./regressionOrdinal.Rmd", "./regressionPoisson.Rmd", "./rerWorkflowJN.Rmd", 
+"./rerWorkflowWP.Rmd", "./resamplingBoot.Rmd", "./resamplingBootALM.Rmd", 
+"./resamplingPerm.Rmd", "./sets.Rmd", "./strings.Rmd", "./sumProdRange.Rmd", 
+"./survivalCoxPH.Rmd", "./survivalKM.Rmd", "./survivalParametric.Rmd", 
+"./timeDate.Rmd", "./transformData.Rmd", "./tTest.Rmd", "./variance.Rmd", 
+"./varianceHom.Rmd", "./vector.Rmd", "./workspace.Rmd")[[63L]], 
     ...)
 6 Variables  (and intercept)
              Forced in Forced out
@@ -401,7 +405,7 @@ Selection Algorithm: exhaustive
 plot(subs, scale="bic")
 ```
 
-![plot of chunk rerRegression02](../content/assets/figure/rerRegression02.png) 
+![plot of chunk rerRegression02](content/assets/figure/rerRegression02.png) 
 
 
 
@@ -448,7 +452,7 @@ plot(leapFits$size, leapFits$Cp, xlab="model size", pch=20, col="blue",
 abline(a=0, b=1)
 ```
 
-![plot of chunk rerRegression03](../content/assets/figure/rerRegression03.png) 
+![plot of chunk rerRegression03](content/assets/figure/rerRegression03.png) 
 
 
 Apply regression model to new data
@@ -462,12 +466,12 @@ predict(fit1, dfNew, interval="prediction", level=0.95)
 ```
 
 ```
-    fit   lwr   upr
-1 65.06 38.92 91.20
-2 53.48 25.24 81.72
-3 71.49 44.50 98.48
-4 70.21 43.50 96.91
-5 66.78 40.55 93.00
+    fit   lwr    upr
+1 64.33 36.39  92.27
+2 45.48 15.38  75.57
+3 74.80 45.97 103.64
+4 72.71 44.17 101.24
+5 67.12 39.09  95.15
 ```
 
 ```r
@@ -492,7 +496,7 @@ legend(x="bottomright", legend=c("Data", "prediction", "confidence region"),
        col=c("black", "blue", "gray"))
 ```
 
-![plot of chunk rerRegression04](../content/assets/figure/rerRegression04.png) 
+![plot of chunk rerRegression04](content/assets/figure/rerRegression04.png) 
 
 
 Robust and penalized regression
@@ -610,13 +614,13 @@ lmrCoef <- coef(lmrFit)
 plot(lmrFit, xlab="lambda", ylab="coefficients")
 ```
 
-![plot of chunk rerRegression05](../content/assets/figure/rerRegression051.png) 
+![plot of chunk rerRegression05](content/assets/figure/rerRegression051.png) 
 
 ```r
 plot(lmrFit$lambda, lmrFit$GCV, type="l", xlab="lambda", ylab="GCV")
 ```
 
-![plot of chunk rerRegression05](../content/assets/figure/rerRegression052.png) 
+![plot of chunk rerRegression05](content/assets/figure/rerRegression052.png) 
 
 
 See packages [`lars`](http://cran.r-project.org/package=lars) and [`glmnet`](http://cran.r-project.org/package=glmnet) for the LASSO and elastic net methods which combine regularization and selection.

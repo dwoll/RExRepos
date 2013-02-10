@@ -6,7 +6,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 library(mvtnorm)
 Sigma <- matrix(c(4, 2, 2, 3), ncol=2)
 mu    <- c(1, 2)

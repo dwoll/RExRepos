@@ -94,7 +94,7 @@ sqrt(crossprod(c(A)))
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 B <- matrix(sample(-20:20, 12, replace=TRUE), ncol=3)
 sqrt(crossprod(B[1, ] - B[2, ]))
 

@@ -7,8 +7,8 @@ rerCat: Univariate
 tags: [Regression]
 ---
 
-
-
+Moderated and mediated linear regression
+=========================
 
 TODO
 -------------------------
@@ -33,7 +33,7 @@ Moderated regression
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N <- 100
 X <- rnorm(N, 175, 7)
 M <- rnorm(N,  30, 8)
@@ -57,20 +57,20 @@ lm(formula = Y ~ Xc + Mc + Xc:Mc, data = dfRegr)
 
 Residuals:
    Min     1Q Median     3Q    Max 
--8.777 -1.294  0.007  1.970  7.806 
+-5.616 -2.033 -0.326  1.769  6.950 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 89.06026    0.31047  286.86  < 2e-16 ***
-Xc           0.48952    0.05108    9.58  1.2e-15 ***
-Mc          -0.32037    0.04072   -7.87  5.4e-12 ***
-Xc:Mc       -0.01284    0.00795   -1.61     0.11    
+(Intercept) 89.45659    0.28442  314.52  < 2e-16 ***
+Xc           0.45289    0.04530   10.00  < 2e-16 ***
+Mc          -0.28173    0.03755   -7.50  3.2e-11 ***
+Xc:Mc        0.00852    0.00613    1.39     0.17    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-Residual standard error: 3.1 on 96 degrees of freedom
-Multiple R-squared: 0.639,	Adjusted R-squared: 0.627 
-F-statistic: 56.6 on 3 and 96 DF,  p-value: <2e-16 
+Residual standard error: 2.84 on 96 degrees of freedom
+Multiple R-squared: 0.639,	Adjusted R-squared: 0.628 
+F-statistic: 56.7 on 3 and 96 DF,  p-value: <2e-16 
 ```
 
 
@@ -84,9 +84,9 @@ sim.slopes(fitMod, Mc)
 
 ```
            INT  Slope      SE    LCL    UCL
-at zHigh 86.61 0.3911 0.08831 0.2158 0.5664
-at zMean 89.06 0.4895 0.05108 0.3881 0.5909
-at zLow  91.52 0.5879 0.06964 0.4497 0.7261
+at zHigh 87.28 0.5188 0.07060 0.3787 0.6590
+at zMean 89.46 0.4529 0.04530 0.3630 0.5428
+at zLow  91.64 0.3870 0.06019 0.2675 0.5064
 ```
 
 
@@ -118,19 +118,19 @@ lm(formula = Y ~ X + M, data = dfMed)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--12.089  -3.066  -0.128   3.509  10.355 
+-13.869  -2.588  -0.017   3.445  14.097 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  11.3426    12.2973    0.92  0.35863    
-X            -0.0149     0.0922   -0.16  0.87208    
-M             0.3269     0.0832    3.93  0.00016 ***
+(Intercept)   9.3822    11.1750    0.84    0.403    
+X            -0.1916     0.0908   -2.11    0.037 *  
+M             0.5945     0.0939    6.33  7.6e-09 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-Residual standard error: 4.84 on 97 degrees of freedom
-Multiple R-squared: 0.207,	Adjusted R-squared: 0.191 
-F-statistic: 12.7 on 2 and 97 DF,  p-value: 1.28e-05 
+Residual standard error: 4.62 on 97 degrees of freedom
+Multiple R-squared: 0.347,	Adjusted R-squared: 0.334 
+F-statistic: 25.8 on 2 and 97 DF,  p-value: 1.04e-09 
 ```
 
 
@@ -145,28 +145,28 @@ sobel(dfMed$X, dfMed$M, dfMed$Y)
 ```
 $`Mod1: Y~X`
             Estimate Std. Error t value Pr(>|t|)
-(Intercept)  10.1248   13.16855  0.7689 0.443824
-pred          0.2205    0.07504  2.9392 0.004103
+(Intercept)  11.0579   13.21242  0.8369 0.404667
+pred          0.2167    0.07554  2.8688 0.005047
 
 $`Mod2: Y~X+M`
             Estimate Std. Error t value  Pr(>|t|)
-(Intercept) 11.34259   12.29728  0.9224 0.3586262
-pred        -0.01488    0.09216 -0.1614 0.8720846
-med          0.32692    0.08317  3.9307 0.0001589
+(Intercept)   9.3822   11.17501  0.8396 4.032e-01
+pred         -0.1916    0.09078 -2.1107 3.737e-02
+med           0.5945    0.09391  6.3300 7.609e-09
 
 $`Mod3: M~X`
             Estimate Std. Error t value  Pr(>|t|)
-(Intercept)  -3.7250   14.93061 -0.2495 8.035e-01
-pred          0.7201    0.08508  8.4645 2.564e-13
+(Intercept)   2.8188   12.01663  0.2346 8.150e-01
+pred          0.6869    0.06871  9.9975 1.226e-16
 
 $Indirect.Effect
-[1] 0.2354
+[1] 0.4083
 
 $SE
-[1] 0.06604
+[1] 0.07635
 
 $z.value
-[1] 3.565
+[1] 5.348
 
 $N
 [1] 100
@@ -196,10 +196,10 @@ Causal Mediation Analysis
 Quasi-Bayesian Confidence Intervals
 
                          Estimate 95% CI Lower 95% CI Upper p-value
-Mediation Effect           0.2320       0.1040       0.3754    0.00
-Direct Effect             -0.0174      -0.2001       0.1644    0.86
-Total Effect               0.2145       0.0672       0.3768    0.01
-Proportion via Mediation   1.0871       0.4551       3.2314    0.20
+Mediation Effect           0.4076       0.2637       0.5651    0.00
+Direct Effect             -0.1899      -0.3623      -0.0128    0.03
+Total Effect               0.2177       0.0660       0.3672    0.01
+Proportion via Mediation   1.8360       1.0324       5.4378    0.15
 
 Sample Size Used: 100 
 
@@ -213,7 +213,7 @@ Simulations: 999
 plot(fitMed)
 ```
 
-![plot of chunk rerRegressionModMed01](../content/assets/figure/rerRegressionModMed01.png) 
+![plot of chunk rerRegressionModMed01](content/assets/figure/rerRegressionModMed01.png) 
 
 
 #### Estimation via nonparametric bootstrap
@@ -231,10 +231,10 @@ Causal Mediation Analysis
 Confidence Intervals Based on Nonparametric Bootstrap
 
                          Estimate 95% CI Lower 95% CI Upper p-value
-Mediation Effect           0.2354       0.1243       0.3847    0.00
-Direct Effect             -0.0149      -0.2166       0.1825    0.98
-Total Effect               0.2205       0.0440       0.3747    0.00
-Proportion via Mediation   1.0675       0.4359       3.6534    0.19
+Mediation Effect           0.4083       0.2598       0.5507    0.00
+Direct Effect             -0.1916      -0.3257      -0.0417    0.01
+Total Effect               0.2167       0.0791       0.3506    0.00
+Proportion via Mediation   1.8842       1.1362       4.6463    0.09
 
 Sample Size Used: 100 
 

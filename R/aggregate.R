@@ -19,7 +19,7 @@ tapply(IQ, list(sex, group), FUN=mean)
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 N      <- 12
 sex    <- sample(c("f", "m"), N, replace=TRUE)
 group  <- sample(rep(c("CG", "WL", "T"), 4), N, replace=FALSE)

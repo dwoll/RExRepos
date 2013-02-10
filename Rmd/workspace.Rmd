@@ -1,0 +1,103 @@
+---
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
+title: "Exploring the workspace"
+categories: [RBasics]
+rerCat: R_Basics
+tags: [Workspace, Environment]
+---
+
+Exploring the workspace
+=========================
+
+The working directory
+-------------------------
+
+```{r}
+getwd()
+```
+
+```{r eval=FALSE}
+setwd("d:/daniel/work/r/")
+```
+
+Create and remove objects
+-------------------------
+
+Create some objects
+
+```{r}
+Aval <- 7
+Bval <- 15
+Cval <- 10
+ls()
+```
+
+List available objects
+
+```{r}
+ls(pattern="C")
+exists("Bval")
+exists("doesNotExist")
+```
+
+Remove objects
+
+```{r}
+Aval
+rm(Aval)
+Aval                             # this will give an error
+## rm(list=ls(all.names=TRUE))   # remove all objects from the workspace
+```
+
+Show and rename objects
+-------------------------
+
+### Show objects
+
+```{r}
+Bval
+print(Bval)
+(Bval <- 4.5)
+.Last.value
+```
+
+```{r}
+get("Bval")
+varName <- "Bval"
+get(varName)
+```
+
+### Rename objects
+
+```{r}
+ls()
+newNameVar <- "varNew"
+assign(newNameVar, Bval)
+varNew
+```
+
+Environments and search path
+-------------------------
+
+```{r}
+search()
+```
+
+[How R Searches and Finds Stuff](http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/)
+
+Session history
+-------------------------
+
+By default, `savehistory()` saves the command history to the file `.Rhistory` in the current working directory.
+
+```{r eval=FALSE}
+history()
+savehistory("d:/daniel/work/r/history.r")
+```
+
+By default, `save.image()` saves all objects in the workspace to the file `.RData` in the current working directory.
+
+```{r eval=FALSE}
+save.image("d:/daniel/work/r/objects.Rdata")
+```

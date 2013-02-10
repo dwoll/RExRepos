@@ -37,7 +37,7 @@ $T = (-\ln(U) \, b \, e^{-\bf{X} \bf{\beta}})^{\frac{1}{a}}$, where $U \sim \mat
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N      <- 180                  # number of observations
 P      <- 3                    # number of groups
 sex    <- factor(sample(c("f", "m"), N, replace=TRUE))  # stratification factor
@@ -128,17 +128,17 @@ Call:
 survreg(formula = Surv(obsT, status) ~ X + IV, data = dfSurv, 
     dist = "weibull")
              Value Std. Error     z        p
-(Intercept)  3.116     0.1831 17.02 5.74e-65
-X           -0.501     0.1138 -4.40 1.09e-05
-IVB          1.092     0.2775  3.94 8.31e-05
-IVC         -0.483     0.2549 -1.89 5.83e-02
-Log(scale)   0.302     0.0621  4.86 1.20e-06
+(Intercept)  3.167     0.1779 17.80 7.22e-71
+X           -0.659     0.1138 -5.79 7.13e-09
+IVB          1.094     0.2634  4.15 3.26e-05
+IVC         -0.584     0.2432 -2.40 1.63e-02
+Log(scale)   0.239     0.0625  3.83 1.30e-04
 
-Scale= 1.35 
+Scale= 1.27 
 
 Weibull distribution
-Loglik(model)= -670.1   Loglik(intercept only)= -693.2
-	Chisq= 46.24 on 3 degrees of freedom, p= 5e-10 
+Loglik(model)= -673.9   Loglik(intercept only)= -703.6
+	Chisq= 59.38 on 3 degrees of freedom, p= 8e-13 
 Number of Newton-Raphson Iterations: 5 
 n= 180 
 ```
@@ -156,8 +156,8 @@ anova(fitExp, fitWeib)               # model comparison
 
 ```
    Terms Resid. Df -2*LL Test Df Deviance  Pr(>Chi)
-1 X + IV       176  1368      NA       NA        NA
-2 X + IV       175  1340    =  1    27.65 1.454e-07
+1 X + IV       176  1364      NA       NA        NA
+2 X + IV       175  1348    =  1    16.57 4.676e-05
 ```
 
 
@@ -172,8 +172,8 @@ anova(fitR, fitWeib)                 # model comparison
 
 ```
    Terms Resid. Df -2*LL Test Df Deviance  Pr(>Chi)
-1      X       177  1374      NA       NA        NA
-2 X + IV       175  1340  +IV  2    33.98 4.172e-08
+1      X       177  1390      NA       NA        NA
+2 X + IV       175  1348  +IV  2    42.51 5.882e-10
 ```
 
 
@@ -208,7 +208,7 @@ legend(x="topright", lwd=2, lty=c(1, 2, 1, 2), col=c("blue", "blue", "red", "red
        legend=c("sex=m, X=0, IV=A", "+- 2*SE", "sex=m, X=0, IV=C", "+- 2*SE"))
 ```
 
-![plot of chunk rerSurvivalParametric01](../content/assets/figure/rerSurvivalParametric01.png) 
+![plot of chunk rerSurvivalParametric01](content/assets/figure/rerSurvivalParametric01.png) 
 
 
 Detach (automatically) loaded packages (if possible)

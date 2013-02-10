@@ -6,7 +6,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 N      <- 10
 P      <- 4
 muJ    <- rep(c(-1, 0, 1, 2), each=N)

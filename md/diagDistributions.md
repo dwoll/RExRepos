@@ -7,8 +7,8 @@ rerCat: Diagrams
 tags: [Diagrams]
 ---
 
-
-
+Visualize univariate and bivariate distributions
+=========================
 
 TODO
 -------------------------
@@ -36,12 +36,12 @@ Histograms
     
 
 ```r
-set.seed(1.234)
+set.seed(123)
 x <- rnorm(200, 175, 10)
 hist(x, xlab="x", ylab="N", breaks="FD")
 ```
 
-![plot of chunk rerDiagDistributions01](../content/assets/figure/rerDiagDistributions01.png) 
+![plot of chunk rerDiagDistributions01](content/assets/figure/rerDiagDistributions01.png) 
 
 
 ### Add individual values and normal probability density function
@@ -54,7 +54,7 @@ rug(jitter(x))
 curve(dnorm(x, mean(x), sd(x)), lwd=2, col="blue", add=TRUE)
 ```
 
-![plot of chunk rerDiagDistributions02](../content/assets/figure/rerDiagDistributions02.png) 
+![plot of chunk rerDiagDistributions02](content/assets/figure/rerDiagDistributions02.png) 
 
 
 ### Add estimated probability density function
@@ -67,7 +67,7 @@ lines(density(x), lwd=2, col="blue")
 rug(jitter(x))
 ```
 
-![plot of chunk rerDiagDistributions03](../content/assets/figure/rerDiagDistributions03.png) 
+![plot of chunk rerDiagDistributions03](content/assets/figure/rerDiagDistributions03.png) 
 
 
 To compare the histograms from two groups, see `histbackback()` from package [`Hmisc`](http://cran.r-project.org/package=Hmisc).
@@ -85,17 +85,14 @@ stem(y)
 
   The decimal point is 1 digit(s) to the right of the |
 
-  15 | 4
-  15 | 9
-  16 | 01134444
-  16 | 5556777788999
-  17 | 0000000011111222222222233444
-  17 | 5555555667777788999999999
-  18 | 001122333344
-  18 | 5556778
-  19 | 0112
-  19 | 
-  20 | 2
+  15 | 669
+  16 | 134
+  16 | 5566777789
+  17 | 0011112222233333334444444
+  17 | 5555566666677777788888888999
+  18 | 0000000001111233334444
+  18 | 55667779
+  19 | 2
 ```
 
 
@@ -118,7 +115,7 @@ boxplot(DV ~ IV, ylab="Score", col=c("red", "blue", "green"),
 stripchart(DV ~ IV, pch=16, col="darkgray", vert=TRUE, add=TRUE)
 ```
 
-![plot of chunk rerDiagDistributions04](../content/assets/figure/rerDiagDistributions04.png) 
+![plot of chunk rerDiagDistributions04](content/assets/figure/rerDiagDistributions04.png) 
 
 
 
@@ -128,7 +125,7 @@ xA <- DV[IV == "Group A"]
 boxplot(xC, xA)
 ```
 
-![plot of chunk rerDiagDistributions05](../content/assets/figure/rerDiagDistributions05.png) 
+![plot of chunk rerDiagDistributions05](content/assets/figure/rerDiagDistributions05.png) 
 
 
 Dotchart
@@ -153,7 +150,7 @@ dotchart(DV, gdata=Mj, pch=16, color=rep(c("red", "blue"), each=Nj),
          main="individual results and means from 2 groups")
 ```
 
-![plot of chunk rerDiagDistributions06](../content/assets/figure/rerDiagDistributions06.png) 
+![plot of chunk rerDiagDistributions06](content/assets/figure/rerDiagDistributions06.png) 
 
 
 Stripchart
@@ -174,14 +171,14 @@ stripchart(dice ~ IV, xlab="Result", ylab="group", pch=1, col="blue",
            main="Dice results: 4 groups", sub="jitter-method", method="jitter")
 ```
 
-![plot of chunk rerDiagDistributions07](../content/assets/figure/rerDiagDistributions071.png) 
+![plot of chunk rerDiagDistributions07](content/assets/figure/rerDiagDistributions071.png) 
 
 ```r
 stripchart(dice ~ IV, xlab="Result", ylab="group", pch=16, col="red",
            main="Dice results: 4 groups", sub="stack-method", method="stack")
 ```
 
-![plot of chunk rerDiagDistributions07](../content/assets/figure/rerDiagDistributions072.png) 
+![plot of chunk rerDiagDistributions07](content/assets/figure/rerDiagDistributions072.png) 
 
 
 QQ-plot
@@ -195,7 +192,7 @@ qqplot(DV1, DV2, xlab="quantile N(0, 1)", ylab="quantile F(3, 15)",
        main="Comparison of quantiles from N(0, 1) and F(3, 15)")
 ```
 
-![plot of chunk rerDiagDistributions08](../content/assets/figure/rerDiagDistributions08.png) 
+![plot of chunk rerDiagDistributions08](content/assets/figure/rerDiagDistributions08.png) 
 
 
 
@@ -205,7 +202,7 @@ qqnorm(height)
 qqline(height, col="red", lwd=2)
 ```
 
-![plot of chunk rerDiagDistributions09](../content/assets/figure/rerDiagDistributions09.png) 
+![plot of chunk rerDiagDistributions09](content/assets/figure/rerDiagDistributions09.png) 
 
 
 Empirical cumulative distribution function
@@ -219,7 +216,7 @@ plot(Fn, main="Empirical cumulative distribution function")
 curve(pnorm, add=TRUE, col="gray", lwd=2)
 ```
 
-![plot of chunk rerDiagDistributions10](../content/assets/figure/rerDiagDistributions10.png) 
+![plot of chunk rerDiagDistributions10](content/assets/figure/rerDiagDistributions10.png) 
 
 
 Joint distribution of two variables in separate groups
@@ -248,7 +245,7 @@ legend(x="topleft", legend=c("group A", "group B"),
        pch=c(4, 16), col=c("black", "blue"))
 ```
 
-![plot of chunk rerDiagDistributions11](../content/assets/figure/rerDiagDistributions11.png) 
+![plot of chunk rerDiagDistributions11](content/assets/figure/rerDiagDistributions11.png) 
 
 
 ### Add distribution ellipse
@@ -264,7 +261,7 @@ legend(x="bottomright", legend=c("Data", "centroid", "distribution ellipse"),
        pch=c(1, 16, NA), lty=c(NA, NA, 1), col=c("black", "blue", "blue"))
 ```
 
-![plot of chunk rerDiagDistributions12](../content/assets/figure/rerDiagDistributions12.png) 
+![plot of chunk rerDiagDistributions12](content/assets/figure/rerDiagDistributions12.png) 
 
 
 Joint distribution of two variables with many observations
@@ -280,7 +277,7 @@ yy <- 0.4*xx + rnorm(N, 0, 10)
 plot(xx, yy, pch=16, col=rgb(0, 0, 1, 0.3))
 ```
 
-![plot of chunk rerDiagDistributions13](../content/assets/figure/rerDiagDistributions13.png) 
+![plot of chunk rerDiagDistributions13](content/assets/figure/rerDiagDistributions13.png) 
 
 
 ### Smooth scatter plot
@@ -292,7 +289,7 @@ Based on a 2-D kernel density estimate
 smoothScatter(xx, yy, bandwidth=4)
 ```
 
-![plot of chunk rerDiagDistributions14](../content/assets/figure/rerDiagDistributions14.png) 
+![plot of chunk rerDiagDistributions14](content/assets/figure/rerDiagDistributions14.png) 
 
 
 ### Hexagonal 2-D binning
@@ -304,7 +301,7 @@ res <- hexbin(xx, yy, xbins=20)
 plot(res)
 ```
 
-![plot of chunk rerDiagDistributions15](../content/assets/figure/rerDiagDistributions15.png) 
+![plot of chunk rerDiagDistributions15](content/assets/figure/rerDiagDistributions15.png) 
 
 ```r
 summary(res)
@@ -312,14 +309,14 @@ summary(res)
 
 ```
 'hexbin' object from call: hexbin(x = xx, y = yy, xbins = 20) 
-n = 5000  points in	nc = 258  hexagon cells in grid dimensions  26 by 21 
+n = 5000  points in	nc = 233  hexagon cells in grid dimensions  26 by 21 
       cell         count            xcm             ycm       
- Min.   :  1   Min.   :  1.0   Min.   : 44.5   Min.   :-3.31  
- 1st Qu.:172   1st Qu.:  2.0   1st Qu.: 80.1   1st Qu.:25.09  
- Median :264   Median :  7.0   Median : 98.9   Median :39.69  
- Mean   :261   Mean   : 19.4   Mean   : 99.6   Mean   :39.20  
- 3rd Qu.:352   3rd Qu.: 27.8   3rd Qu.:118.1   3rd Qu.:54.24  
- Max.   :499   Max.   :103.0   Max.   :153.5   Max.   :79.37  
+ Min.   :  5   Min.   :  1.0   Min.   : 49.7   Min.   :-10.6  
+ 1st Qu.:191   1st Qu.:  2.0   1st Qu.: 78.5   1st Qu.: 24.4  
+ Median :277   Median :  8.0   Median : 99.5   Median : 42.0  
+ Mean   :271   Mean   : 21.5   Mean   : 99.2   Mean   : 40.1  
+ 3rd Qu.:351   3rd Qu.: 30.0   3rd Qu.:118.3   3rd Qu.: 54.7  
+ Max.   :501   Max.   :119.0   Max.   :155.7   Max.   : 83.7  
 ```
 
 

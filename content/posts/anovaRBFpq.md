@@ -37,7 +37,7 @@ Traditional univariate approach
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N    <- 10
 P    <- 2
 Q    <- 3
@@ -58,24 +58,24 @@ summary(aov(DV ~ IV1*IV2 + Error(id/(IV1*IV2)), data=dfRBFpqL))
 
 Error: id
           Df Sum Sq Mean Sq F value Pr(>F)
-Residuals  9   89.4    9.93               
+Residuals  9   55.2    6.14               
 
 Error: id:IV1
           Df Sum Sq Mean Sq F value Pr(>F)
-IV1        1   0.96   0.965    0.32   0.59
-Residuals  9  27.48   3.054               
+IV1        1   8.23    8.23    2.57   0.14
+Residuals  9  28.83    3.20               
 
 Error: id:IV2
-          Df Sum Sq Mean Sq F value  Pr(>F)    
-IV2        2  120.0    60.0    17.3 6.4e-05 ***
-Residuals 18   62.4     3.5                    
+          Df Sum Sq Mean Sq F value Pr(>F)   
+IV2        2    122    61.2    7.94 0.0034 **
+Residuals 18    139     7.7                  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Error: id:IV1:IV2
           Df Sum Sq Mean Sq F value Pr(>F)
-IV1:IV2    2    0.6    0.30    0.07   0.94
-Residuals 18   82.2    4.57               
+IV1:IV2    2    4.3    2.17    0.89   0.43
+Residuals 18   43.7    2.43               
 ```
 
 
@@ -104,11 +104,11 @@ summary(AnovaRBFpq, multivariate=FALSE, univariate=TRUE)
 
 Univariate Type III Repeated-Measures ANOVA Assuming Sphericity
 
-               SS num Df Error SS den Df     F  Pr(>F)    
-(Intercept) 114.6      1     89.4      9 11.53  0.0079 ** 
-IV1           1.0      1     27.5      9  0.32  0.5878    
-IV2         120.0      2     62.4     18 17.33 6.4e-05 ***
-IV1:IV2       0.6      2     82.2     18  0.07  0.9363    
+               SS num Df Error SS den Df     F Pr(>F)   
+(Intercept) 101.1      1     55.2      9 16.47 0.0029 **
+IV1           8.2      1     28.8      9  2.57 0.1435   
+IV2         122.4      2    138.7     18  7.94 0.0034 **
+IV1:IV2       4.3      2     43.7     18  0.89 0.4262   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
@@ -116,22 +116,22 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Mauchly Tests for Sphericity
 
         Test statistic p-value
-IV2              0.910   0.684
-IV1:IV2          0.757   0.328
+IV2              0.707   0.250
+IV1:IV2          0.996   0.984
 
 
 Greenhouse-Geisser and Huynh-Feldt Corrections
  for Departure from Sphericity
 
-        GG eps Pr(>F[GG])    
-IV2      0.917    0.00012 ***
-IV1:IV2  0.804    0.90246    
+        GG eps Pr(>F[GG])   
+IV2      0.774     0.0075 **
+IV1:IV2  0.996     0.4259   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-        HF eps Pr(>F[HF])    
-IV2      1.140    6.4e-05 ***
-IV1:IV2  0.953       0.93    
+        HF eps Pr(>F[HF])   
+IV2      0.904     0.0047 **
+IV1:IV2  1.278     0.4262   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -159,7 +159,7 @@ Greenhouse-Geisser epsilon: 1
 Huynh-Feldt epsilon:        1
 
             Df    F num Df den Df Pr(>F) G-G Pr H-F Pr
-(Intercept)  1 0.32      1      9  0.588  0.588  0.588
+(Intercept)  1 2.57      1      9  0.143  0.143  0.143
 Residuals    9                                        
 ```
 
@@ -178,12 +178,12 @@ Contrasts orthogonal to
 Contrasts spanned by
 ~IV1 + IV2
 
-Greenhouse-Geisser epsilon: 0.917
-Huynh-Feldt epsilon:        1.140
+Greenhouse-Geisser epsilon: 0.7737
+Huynh-Feldt epsilon:        0.9039
 
-            Df    F num Df den Df   Pr(>F)   G-G Pr   H-F Pr
-(Intercept)  1 17.3      2     18 6.38e-05 0.000116 6.38e-05
-Residuals    9                                              
+            Df    F num Df den Df  Pr(>F) G-G Pr  H-F Pr
+(Intercept)  1 7.94      2     18 0.00337 0.0075 0.00472
+Residuals    9                                          
 ```
 
 ```r
@@ -202,11 +202,11 @@ Contrasts orthogonal to
 Contrasts spanned by
 ~IV1 + IV2 + IV1:IV2
 
-Greenhouse-Geisser epsilon: 0.8045
-Huynh-Feldt epsilon:        0.9531
+Greenhouse-Geisser epsilon: 0.996
+Huynh-Feldt epsilon:        1.278
 
             Df    F num Df den Df Pr(>F) G-G Pr H-F Pr
-(Intercept)  1 0.07      2     18  0.936  0.902   0.93
+(Intercept)  1 0.89      2     18  0.426  0.426  0.426
 Residuals    9                                        
 ```
 
@@ -247,7 +247,7 @@ mauchly.test(fitRBFpq, M=~IV1 + IV2, X=~IV1, idata=inRBFpq)
 
 
 data:  SSD matrix from lm(formula = cbind(DV.1.1, DV.2.1, DV.1.2, DV.2.2, DV.1.3, DV.2.3) ~  SSD matrix from     1, data = dfRBFpqW) 
-W = 0.9095, p-value = 0.6843
+W = 0.7074, p-value = 0.2505
 ```
 
 ```r
@@ -265,7 +265,7 @@ mauchly.test(fitRBFpq, M=~IV1 + IV2 + IV1:IV2, X=~IV1 + IV2, idata=inRBFpq)
 
 
 data:  SSD matrix from lm(formula = cbind(DV.1.1, DV.2.1, DV.1.2, DV.2.2, DV.1.3, DV.2.3) ~  SSD matrix from     1, data = dfRBFpqW) 
-W = 0.7569, p-value = 0.3283
+W = 0.9959, p-value = 0.9839
 ```
 
 
@@ -282,13 +282,13 @@ Analysis of Variance Table
 
 Response: DV
            Df Sum Sq Mean Sq F value Pr(>F)
-IV1         1    1.0     1.0               
-IV2         2  120.0    60.0               
-id          9   89.4     9.9               
-IV1:IV2     2    0.6     0.3               
-IV1:id      9   27.5     3.1               
-IV2:id     18   62.4     3.5               
-IV1:IV2:id 18   82.2     4.6               
+IV1         1    8.2     8.2               
+IV2         2  122.4    61.2               
+id          9   55.2     6.1               
+IV1:IV2     2    4.3     2.2               
+IV1:id      9   28.8     3.2               
+IV2:id     18  138.7     7.7               
+IV1:IV2:id 18   43.7     2.4               
 Residuals   0    0.0                       
 ```
 
@@ -311,7 +311,7 @@ SSI    <- anRes["IV1:IV2",    "Sum Sq"]
 ```
 
 ```
-[1] 0.003675
+[1] 0.02996
 ```
 
 ```r
@@ -319,7 +319,7 @@ SSI    <- anRes["IV1:IV2",    "Sum Sq"]
 ```
 
 ```
-[1] 0.3147
+[1] 0.3148
 ```
 
 ```r
@@ -327,7 +327,7 @@ SSI    <- anRes["IV1:IV2",    "Sum Sq"]
 ```
 
 ```
-[1] 0.002304
+[1] 0.01603
 ```
 
 
@@ -347,12 +347,12 @@ summary(aov(DV ~ IV1 + Error(id/IV1), data=dfRBFpqL, subset=(IV2==1)))
 
 Error: id
           Df Sum Sq Mean Sq F value Pr(>F)
-Residuals  9   75.4    8.38               
+Residuals  9    122    13.6               
 
 Error: id:IV1
           Df Sum Sq Mean Sq F value Pr(>F)
-IV1        1    0.3    0.27    0.06   0.82
-Residuals  9   42.9    4.76               
+IV1        1   0.36   0.359    0.21   0.66
+Residuals  9  15.18   1.687               
 ```
 
 ```r
@@ -363,12 +363,14 @@ summary(aov(DV ~ IV1 + Error(id/IV1), data=dfRBFpqL, subset=(IV2==2)))
 
 Error: id
           Df Sum Sq Mean Sq F value Pr(>F)
-Residuals  9   67.5     7.5               
+Residuals  9   31.9    3.55               
 
 Error: id:IV1
-          Df Sum Sq Mean Sq F value Pr(>F)
-IV1        1   1.29    1.29    0.45   0.52
-Residuals  9  25.90    2.88               
+          Df Sum Sq Mean Sq F value Pr(>F)  
+IV1        1   11.2   11.15    3.54  0.093 .
+Residuals  9   28.3    3.15                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
 
 ```r
@@ -379,12 +381,12 @@ summary(aov(DV ~ IV1 + Error(id/IV1), data=dfRBFpqL, subset=(IV2==3)))
 
 Error: id
           Df Sum Sq Mean Sq F value Pr(>F)
-Residuals  9   8.91    0.99               
+Residuals  9   39.6     4.4               
 
 Error: id:IV1
           Df Sum Sq Mean Sq F value Pr(>F)
-IV1        1    0.0    0.00       0   0.98
-Residuals  9   40.9    4.55               
+IV1        1   1.06    1.06    0.33   0.58
+Residuals  9  28.99    3.22               
 ```
 
 
@@ -416,18 +418,18 @@ DV.2.3           1
 
 Sum of squares and products for the hypothesis:
             (Intercept)
-(Intercept)       687.5
+(Intercept)       606.4
 
 Sum of squares and products for error:
             (Intercept)
-(Intercept)       536.4
+(Intercept)       331.4
 
 Multivariate Tests: (Intercept)
                  Df test stat approx F num Df den Df  Pr(>F)   
-Pillai            1    0.5617    11.53      1      9 0.00792 **
-Wilks             1    0.4383    11.53      1      9 0.00792 **
-Hotelling-Lawley  1    1.2816    11.53      1      9 0.00792 **
-Roy               1    1.2816    11.53      1      9 0.00792 **
+Pillai            1    0.6466    16.47      1      9 0.00285 **
+Wilks             1    0.3534    16.47      1      9 0.00285 **
+Hotelling-Lawley  1    1.8297    16.47      1      9 0.00285 **
+Roy               1    1.8297    16.47      1      9 0.00285 **
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
@@ -446,18 +448,18 @@ DV.2.3   -1
 
 Sum of squares and products for the hypothesis:
       IV11
-IV11 5.787
+IV11 49.37
 
 Sum of squares and products for error:
-      IV11
-IV11 164.9
+     IV11
+IV11  173
 
 Multivariate Tests: IV1
                  Df test stat approx F num Df den Df Pr(>F)
-Pillai            1    0.0339   0.3159      1      9  0.588
-Wilks             1    0.9661   0.3159      1      9  0.588
-Hotelling-Lawley  1    0.0351   0.3159      1      9  0.588
-Roy               1    0.0351   0.3159      1      9  0.588
+Pillai            1    0.2220    2.568      1      9  0.143
+Wilks             1    0.7780    2.568      1      9  0.143
+Hotelling-Lawley  1    0.2854    2.568      1      9  0.143
+Roy               1    0.2854    2.568      1      9  0.143
 
 ------------------------------------------
  
@@ -474,20 +476,20 @@ DV.2.3   -1   -1
 
 Sum of squares and products for the hypothesis:
       IV21  IV22
-IV21 461.5 311.2
-IV22 311.2 209.9
+IV21 470.5 317.7
+IV22 317.7 214.5
 
 Sum of squares and products for error:
       IV21  IV22
-IV21 159.7  91.6
-IV22  91.6 119.0
+IV21 427.1 222.4
+IV22 222.4 211.4
 
 Multivariate Tests: IV2
-                 Df test stat approx F num Df den Df  Pr(>F)   
-Pillai            1    0.7475    11.84      2      8 0.00407 **
-Wilks             1    0.2525    11.84      2      8 0.00407 **
-Hotelling-Lawley  1    2.9604    11.84      2      8 0.00407 **
-Roy               1    2.9604    11.84      2      8 0.00407 **
+                 Df test stat approx F num Df den Df Pr(>F)  
+Pillai            1    0.5494    4.876      2      8 0.0412 *
+Wilks             1    0.4506    4.876      2      8 0.0412 *
+Hotelling-Lawley  1    1.2191    4.876      2      8 0.0412 *
+Roy               1    1.2191    4.876      2      8 0.0412 *
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
@@ -506,20 +508,20 @@ DV.2.3         1         1
 
 Sum of squares and products for the hypothesis:
           IV11:IV21 IV11:IV22
-IV11:IV21    0.4607     1.052
-IV11:IV22    1.0521     2.403
+IV11:IV21    0.3718    -1.991
+IV11:IV22   -1.9906    10.659
 
 Sum of squares and products for error:
           IV11:IV21 IV11:IV22
-IV11:IV21     83.70     48.24
-IV11:IV22     48.24    211.18
+IV11:IV21     92.24     43.83
+IV11:IV22     43.83     82.60
 
 Multivariate Tests: IV1:IV2
                  Df test stat approx F num Df den Df Pr(>F)
-Pillai            1    0.0127  0.05131      2      8   0.95
-Wilks             1    0.9873  0.05131      2      8   0.95
-Hotelling-Lawley  1    0.0128  0.05131      2      8   0.95
-Roy               1    0.0128  0.05131      2      8   0.95
+Pillai            1    0.1726   0.8342      2      8  0.469
+Wilks             1    0.8274   0.8342      2      8  0.469
+Hotelling-Lawley  1    0.2086   0.8342      2      8  0.469
+Roy               1    0.2086   0.8342      2      8  0.469
 ```
 
 

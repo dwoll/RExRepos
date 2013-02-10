@@ -6,7 +6,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 dice  <- sample(1:6, 100, replace=TRUE)
 (dTab <- table(dice))
 

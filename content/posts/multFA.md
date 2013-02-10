@@ -54,7 +54,7 @@ Non correlated factors
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 library(mvtnorm)
 Kf <- diag(Q)
 mu <- c(5, 15)
@@ -77,25 +77,25 @@ Call:
 factanal(x = X, factors = 2, scores = "regression")
 
 Uniquenesses:
-[1] 0.635 0.636 0.402 0.790 0.680 0.734
+[1] 0.616 0.638 0.225 0.885 0.658 0.608
 
 Loadings:
      Factor1 Factor2
-[1,] -0.578  -0.177 
-[2,] -0.585   0.146 
-[3,]  0.441   0.635 
-[4,]  0.449         
-[5,] -0.132   0.550 
-[6,]  0.514         
+[1,]  0.570  -0.243 
+[2,]  0.601         
+[3,] -0.217   0.853 
+[4,] -0.197   0.276 
+[5,]  0.327   0.486 
+[6,] -0.622         
 
                Factor1 Factor2
-SS loadings      1.355   0.768
-Proportion Var   0.226   0.128
-Cumulative Var   0.226   0.354
+SS loadings      1.267   1.104
+Proportion Var   0.211   0.184
+Cumulative Var   0.211   0.395
 
 Test of the hypothesis that 2 factors are sufficient.
-The chi square statistic is 3.21 on 4 degrees of freedom.
-The p-value is 0.524 
+The chi square statistic is 1.43 on 4 degrees of freedom.
+The p-value is 0.84 
 ```
 
 
@@ -114,41 +114,41 @@ corMat <- cor(X)
 Factor Analysis using method =  minres
 Call: fa(r = corMat, nfactors = 2, n.obs = N, rotate = "varimax")
 Standardized loadings (pattern matrix) based upon correlation matrix
-    MR1   MR2   h2   u2
-1 -0.58 -0.18 0.37 0.63
-2 -0.58  0.15 0.36 0.64
-3  0.44  0.62 0.58 0.42
-4  0.45  0.09 0.21 0.79
-5 -0.13  0.56 0.33 0.67
-6  0.51 -0.05 0.27 0.73
+    MR2   MR1   h2   u2
+1  0.57 -0.24 0.38 0.62
+2  0.60  0.03 0.36 0.64
+3 -0.22  0.85 0.77 0.23
+4 -0.20  0.28 0.12 0.88
+5  0.33  0.49 0.34 0.66
+6 -0.62  0.07 0.39 0.61
 
-                       MR1  MR2
-SS loadings           1.36 0.77
-Proportion Var        0.23 0.13
-Cumulative Var        0.23 0.35
-Proportion Explained  0.64 0.36
-Cumulative Proportion 0.64 1.00
+                       MR2  MR1
+SS loadings           1.27 1.10
+Proportion Var        0.21 0.18
+Cumulative Var        0.21 0.40
+Proportion Explained  0.53 0.47
+Cumulative Proportion 0.53 1.00
 
 Test of the hypothesis that 2 factors are sufficient.
 
-The degrees of freedom for the null model are  15  and the objective function was  0.72 with Chi Square of  141.7
-The degrees of freedom for the model are 4  and the objective function was  0.02 
+The degrees of freedom for the null model are  15  and the objective function was  0.82 with Chi Square of  160.4
+The degrees of freedom for the model are 4  and the objective function was  0.01 
 
 The root mean square of the residuals (RMSR) is  0.02 
-The df corrected root mean square of the residuals is  0.06 
+The df corrected root mean square of the residuals is  0.04 
 
-The harmonic number of observations is  200 with the empirical chi square  3.02  with prob <  0.55 
-The total number of observations was  200  with MLE Chi Square =  3.21  with prob <  0.52 
+The harmonic number of observations is  200 with the empirical chi square  1.37  with prob <  0.85 
+The total number of observations was  200  with MLE Chi Square =  1.43  with prob <  0.84 
 
-Tucker Lewis Index of factoring reliability =  1.024
-RMSEA index =  0  and the 90 % confidence intervals are  NA 0.097
-BIC =  -17.98
-Fit based upon off diagonal values = 0.99
+Tucker Lewis Index of factoring reliability =  1.067
+RMSEA index =  0  and the 90 % confidence intervals are  NA 0.061
+BIC =  -19.77
+Fit based upon off diagonal values = 1
 Measures of factor score adequacy             
-                                                MR1  MR2
-Correlation of scores with factors             0.82 0.76
-Multiple R square of scores with factors       0.67 0.58
-Minimum correlation of possible factor scores  0.34 0.16
+                                                MR2  MR1
+Correlation of scores with factors             0.81 0.88
+Multiple R square of scores with factors       0.66 0.78
+Minimum correlation of possible factor scores  0.33 0.56
 ```
 
 
@@ -162,13 +162,13 @@ head(bartlett)
 ```
 
 ```
-     Factor1  Factor2
-[1,] -0.4199 -0.10818
-[2,]  1.3778  1.15775
-[3,] -0.5545 -0.48421
-[4,] -0.4000  1.39614
-[5,] -1.3699 -0.69253
-[6,] -0.8303  0.06557
+      Factor1 Factor2
+[1,] -0.14693 -0.4087
+[2,]  1.12205 -0.1700
+[3,]  0.06507  0.7207
+[4,] -0.11232  0.1412
+[5,] -0.24712  1.4317
+[6,]  1.09157  0.3979
 ```
 
 
@@ -179,13 +179,13 @@ head(anderson$scores)
 ```
 
 ```
-         MR1     MR2
-[1,] -0.5035 -0.1182
-[2,]  1.6013  1.3819
-[3,] -0.6492 -0.5649
-[4,] -0.5952  1.8418
-[5,] -1.6249 -0.7934
-[6,] -1.0224  0.2039
+         MR2     MR1
+[1,] -0.2025 -0.4724
+[2,]  1.3725 -0.1340
+[3,]  0.1182  0.8227
+[4,] -0.1308  0.1545
+[5,] -0.2286  1.6144
+[6,]  1.3650  0.5099
 ```
 
 
@@ -197,13 +197,13 @@ Visualize loadings
 factor.plot(faPC, cut=0.5)
 ```
 
-![plot of chunk rerMultFA01](../content/assets/figure/rerMultFA011.png) 
+![plot of chunk rerMultFA01](content/assets/figure/rerMultFA011.png) 
 
 ```r
 fa.diagram(faPC)
 ```
 
-![plot of chunk rerMultFA01](../content/assets/figure/rerMultFA012.png) 
+![plot of chunk rerMultFA01](content/assets/figure/rerMultFA012.png) 
 
 
 Determine number of factors
@@ -216,36 +216,36 @@ Parallel analysis and a "very simple structure" analysis provide help in selecti
 fa.parallel(X)                     # parallel analysis
 ```
 
-![plot of chunk rerMultFA02](../content/assets/figure/rerMultFA021.png) 
+![plot of chunk rerMultFA02](content/assets/figure/rerMultFA021.png) 
 
 ```
-Parallel analysis suggests that the number of factors =  3  and the number of components =  2 
+Parallel analysis suggests that the number of factors =  2  and the number of components =  2 
 ```
 
 ```r
 vss(X, n.obs=N, rotate="varimax")  # very simple structure
 ```
 
-![plot of chunk rerMultFA02](../content/assets/figure/rerMultFA022.png) 
+![plot of chunk rerMultFA02](content/assets/figure/rerMultFA022.png) 
 
 ```
 
 Very Simple Structure
 Call: VSS(x = x, n = n, rotate = rotate, diagonal = diagonal, fm = fm, 
     n.obs = n.obs, plot = plot, title = title)
-VSS complexity 1 achieves a maximimum of 0.54  with  2  factors
-VSS complexity 2 achieves a maximimum of 0.69  with  4  factors
+VSS complexity 1 achieves a maximimum of 0.59  with  3  factors
+VSS complexity 2 achieves a maximimum of 0.72  with  3  factors
 
 The Velicer MAP criterion achieves a minimum of NA  with  1  factors
  
 Velicer MAP
-[1] 0.06 0.11 0.21 0.41 1.00   NA
+[1] 0.07 0.10 0.25 0.45 1.00   NA
 
 Very Simple Structure Complexity 1
-[1] 0.48 0.54 0.47 0.52 0.49 0.49
+[1] 0.45 0.57 0.59 0.57 0.52 0.53
 
 Very Simple Structure Complexity 2
-[1] 0.00 0.66 0.67 0.69 0.63 0.63
+[1] 0.00 0.69 0.72 0.72 0.67 0.67
 ```
 
 

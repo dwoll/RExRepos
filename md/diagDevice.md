@@ -7,8 +7,8 @@ rerCat: Diagrams
 tags: [Diagrams]
 ---
 
-
-
+Graphics devices: Opening and saving diagrams
+=========================
 
 TODO
 -------------------------

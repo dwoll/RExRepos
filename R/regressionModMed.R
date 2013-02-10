@@ -6,7 +6,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 N <- 100
 X <- rnorm(N, 175, 7)
 M <- rnorm(N,  30, 8)

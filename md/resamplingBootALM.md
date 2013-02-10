@@ -7,8 +7,8 @@ rerCat: Nonparametric
 tags: [Bootstrapping]
 ---
 
-
-
+Bootstrapping linear models
+========================================================
 
 TODO
 -------------------------
@@ -34,7 +34,7 @@ Regression parameters: Case resampling
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N  <- 100
 X1 <- rnorm(N, 175, 7)
 X2 <- rnorm(N,  30, 8)
@@ -56,7 +56,7 @@ lm(formula = Y ~ X1 + X2 + X3, data = dfRegr)
 
 Coefficients:
 (Intercept)           X1           X2           X3  
-     14.482        0.476       -0.321       -0.391  
+     13.925        0.476       -0.283       -0.406  
 ```
 
 ```r
@@ -65,7 +65,7 @@ sqrt(diag(vcov(fit)))
 
 ```
 (Intercept)          X1          X2          X3 
-    8.54235     0.04797     0.03941     0.01052 
+    9.05358     0.05009     0.04105     0.01122 
 ```
 
 ```r
@@ -74,10 +74,10 @@ confint(fit)
 
 ```
               2.5 %  97.5 %
-(Intercept) -2.4746 31.4383
-X1           0.3805  0.5710
-X2          -0.3991 -0.2427
-X3          -0.4119 -0.3702
+(Intercept) -4.0460 31.8964
+X1           0.3768  0.5757
+X2          -0.3641 -0.2012
+X3          -0.4280 -0.3835
 ```
 
 
@@ -108,10 +108,10 @@ boot(data = dfRegr, statistic = getRegr, R = nR)
 
 Bootstrap Statistics :
     original     bias    std. error
-t1*  14.4819 -0.0912465    10.15789
-t2*   0.4758  0.0009374     0.05676
-t3*  -0.3209 -0.0013366     0.04059
-t4*  -0.3911 -0.0005230     0.01137
+t1*  13.9252  0.0965488     8.00580
+t2*   0.4762 -0.0003379     0.04459
+t3*  -0.2827 -0.0007962     0.03971
+t4*  -0.4057 -0.0003035     0.01169
 ```
 
 
@@ -122,7 +122,7 @@ boot.ci(bsRegr, conf=0.95, type="bca", index=1)$bca
 
 ```
      conf                         
-[1,] 0.95 28.29 978.2 -4.821 35.42
+[1,] 0.95 16.47 964.1 -3.212 28.48
 ```
 
 ```r
@@ -130,8 +130,8 @@ boot.ci(bsRegr, conf=0.95, type="bca", index=2)$bca
 ```
 
 ```
-     conf                         
-[1,] 0.95 18.5 967.3 0.3568 0.5796
+     conf                          
+[1,] 0.95 32.58 981.5 0.3918 0.5687
 ```
 
 ```r
@@ -139,8 +139,8 @@ boot.ci(bsRegr, conf=0.95, type="bca", index=3)$bca
 ```
 
 ```
-     conf                          
-[1,] 0.95 33.98 982 -0.3964 -0.2355
+     conf                            
+[1,] 0.95 20.67 969.9 -0.3723 -0.2112
 ```
 
 ```r
@@ -148,8 +148,8 @@ boot.ci(bsRegr, conf=0.95, type="bca", index=4)$bca
 ```
 
 ```
-     conf                         
-[1,] 0.95 32.6 981 -0.4123 -0.3688
+     conf                            
+[1,] 0.95 23.16 973.1 -0.4293 -0.3837
 ```
 
 
@@ -178,7 +178,7 @@ Fbase  <- anBase["IV", "F value"]
 ```
 
 ```
-[1] 0.0212
+[1] 0.2184
 ```
 
 
@@ -211,7 +211,7 @@ boot(data = dfCRp, statistic = getAnova, R = nR)
 
 Bootstrap Statistics :
     original  bias    std. error
-t1*    3.328  -2.296      0.8058
+t1*    1.494 -0.4779      0.8282
 ```
 
 ```r
@@ -220,7 +220,7 @@ Fstar    <- bsAnova$t
 ```
 
 ```
-[1] 0.018
+[1] 0.215
 ```
 
 
@@ -233,7 +233,7 @@ legend(x="topleft", lty=c(NA, 1), pch=c(1, NA), lwd=c(2, 2),
        col=c("gray60", "black"), legend=c("F*", "F"))
 ```
 
-![plot of chunk rerResamplingBootALM01](../content/assets/figure/rerResamplingBootALM01.png) 
+![plot of chunk rerResamplingBootALM01](content/assets/figure/rerResamplingBootALM01.png) 
 
 
 ### Wild boostrap
@@ -269,7 +269,7 @@ FstarW   <- bsAnovaW$t
 ```
 
 ```
-[1] 0.023
+[1] 0.211
 ```
 
 

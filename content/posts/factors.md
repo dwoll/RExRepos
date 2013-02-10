@@ -60,7 +60,7 @@ Levels: 1 2 3 4 5
 ```
 
 ```
- [1] 1 1 0 1 1 0 0 0 0 1
+ [1] 0 0 1 1 1 0 1 1 0 0
 ```
 
 ```r
@@ -68,7 +68,7 @@ factor(sexNum, labels=c("man", "woman"))
 ```
 
 ```
- [1] woman woman man   woman woman man   man   man   man   woman
+ [1] man   man   woman woman woman man   woman woman man   man  
 Levels: man woman
 ```
 
@@ -109,7 +109,7 @@ sample(fac2, length(fac2), replace=FALSE)
 ```
 
 ```
- [1] more more more less less more more less less less
+ [1] less more more less more less less more more less
 Levels: less < more
 ```
 
@@ -214,8 +214,8 @@ Joining factors
 ```
 
 ```
-[1] M X A G L
-Levels: A G L M X
+[1] C E G N Q
+Levels: C E G N Q
 ```
 
 ```r
@@ -223,8 +223,8 @@ Levels: A G L M X
 ```
 
 ```
-[1] p g k
-Levels: g k p
+[1] e v r
+Levels: e r v
 ```
 
 ```r
@@ -232,7 +232,7 @@ Levels: g k p
 ```
 
 ```
-[1] "M" "X" "A" "G" "L"
+[1] "C" "E" "G" "N" "Q"
 ```
 
 ```r
@@ -240,7 +240,7 @@ Levels: g k p
 ```
 
 ```
-[1] "p" "g" "k"
+[1] "e" "v" "r"
 ```
 
 ```r
@@ -248,8 +248,8 @@ factor(c(charVec1, charVec2))
 ```
 
 ```
-[1] M X A G L p g k
-Levels: A g G k L M p X
+[1] C E G N Q e v r
+Levels: C e E G N Q r v
 ```
 
 
@@ -261,8 +261,8 @@ rep(fac1, times=2)
 ```
 
 ```
- [1] M X A G L M X A G L
-Levels: A G L M X
+ [1] C E G N Q C E G N Q
+Levels: C E G N Q
 ```
 
 
@@ -388,7 +388,7 @@ tapply(vec, fac1, FUN=mean)
 
 ```
      A      B      C 
- 9.021  2.567 14.872 
+ 9.389  6.169 13.564 
 ```
 
 ```r
@@ -409,7 +409,7 @@ Levels: B A C
 ```
 
 ```
- [1] A B B A A B A A A A
+ [1] A B B A B A B A A B
 Levels: B A
 ```
 
@@ -418,7 +418,7 @@ sort(fac2)
 ```
 
 ```
- [1] B B B A A A A A A A
+ [1] B B B B B A A A A A
 Levels: B A
 ```
 
@@ -427,7 +427,7 @@ sort(as.character(fac2))
 ```
 
 ```
- [1] "A" "A" "A" "A" "A" "A" "A" "B" "B" "B"
+ [1] "A" "A" "A" "A" "A" "B" "B" "B" "B" "B"
 ```
 
 

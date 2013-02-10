@@ -7,15 +7,15 @@ rerCat: Workflow
 tags: [knitr, Jekyll, nanoc]
 ---
 
-
-
+Build websites with R and nanoc or Jekyll
+=========================
 
 Workflow for static site generators
 -------------------------
 
 Using static website generators (SSG) like [nanoc](http://nanoc.ws/) or [Jekyll](http://jekyllrb.com) to automatically build a website based on R markdown documents currently requires dealing with a couple of technical details.
 
- * The first step of the workflow requires `knitr` to turn the R markdown documents into regular markdown. I use an [R script](https://github.com/dwoll/RExRepos/blob/master/dwKnit.r) that gets called from a [Makefile](https://github.com/dwoll/RExRepos/blob/master/Rmd/Makefile).
+ * The first step of the workflow requires `knitr` to turn the R markdown documents into regular markdown. I use an [R script](https://github.com/dwoll/RExRepos/blob/master/scripts/knit.r) that gets called from a [Makefile](https://github.com/dwoll/RExRepos/blob/master/Rmd/Makefile).
  * The markdown files are then processed into regular HTML by the SSG. This is done by a markdown engine, popular choices are [pandoc](http://johnmacfarlane.net/pandoc/), [kramdown](http://kramdown.rubyforge.org/), and [Redcarpet2](https://github.com/vmg/redcarpet). Unfortunately, not all engines are supported out-of-the-box by nanoc and Jekyll. Also unfortunately, the engines have slightly different behavior and feature sets when it comes to markdown extensions.
  * SSGs require markdown files with [YAML front matter](https://github.com/mojombo/jekyll/wiki/yaml-front-matter) that describes the type of layout, post title, categories and tags. The `knitr` and `markdown` R packages both ignore YAML front matter in R markdown files, so this is fine.
 
@@ -31,7 +31,7 @@ This website is currently built with [nanoc](http://nanoc.ws/), the design uses 
 
 The build-process is automatically managed with a [Makefile](https://github.com/dwoll/RExRepos/blob/master/Rmd/Makefile) and an [R-script](https://github.com/dwoll/RExRepos/blob/master/dwKnit.r) for knitting R markdown files to plain markdown. To build this website yourself:
 
- * You need R, set a permanent R option which CRAN mirror to use (in `.Rprofile`), install pandoc, Ruby, as well as the Ruby gems nanoc, and pandoc-ruby. nanoc's support for pandoc options is currently not working, so I wrote a custom [filter](https://github.com/dwoll/RExRepos/blob/master/lib/helpers.rb) to pass all necessary options to pandoc.
+ * You need R with knitr, set a permanent R option which CRAN mirror to use (in `.Rprofile`), install pandoc, Ruby, as well as the Ruby gems nanoc and pandoc-ruby. nanoc's support for pandoc options is currently not working, so I wrote a custom [filter](https://github.com/dwoll/RExRepos/blob/master/lib/helpers.rb) to pass all necessary options to pandoc.
  * Clone the RExRepos GitHub repository at `https://github.com/dwoll/RExRepos.git`.
  * In the RExRepos directory, just run `nanoc` to build the already present markdown files. To build from R markdown, run `make clean` and `make nanoc`. On Linux, this requires editing the Makefiles first, commenting the Windows `del` commands, und un-commenting the Linux `rm` commands. On Windows, you need to have [make](http://gnuwin32.sourceforge.net/packages/make.htm) and [sed](http://gnuwin32.sourceforge.net/packages/sed.htm) installed, and in your path.
 

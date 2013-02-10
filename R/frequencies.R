@@ -6,7 +6,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 (myLetters <- sample(LETTERS[1:5], 12, replace=TRUE))
 (tab <- table(myLetters))
 names(tab)

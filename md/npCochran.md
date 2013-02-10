@@ -7,8 +7,8 @@ rerCat: Nonparametric
 tags: [Nonparametric, ClassicalNonparametric]
 ---
 
-
-
+Cochran-Q-test
+=========================
 
 Install required packages
 -------------------------

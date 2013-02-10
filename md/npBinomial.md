@@ -7,8 +7,8 @@ rerCat: Nonparametric
 tags: [Nonparametric, ClassicalNonparametric]
 ---
 
-
-
+Binomial test and chi^2-test for proportions
+=========================
 
 Install required packages
 -------------------------

@@ -13,7 +13,7 @@ plot(vec, pch=16)
 
 ## @knitr rerDiagAddElements01
 library(Hmisc)
-set.seed(1.234)
+set.seed(123)
 par(xpd=NA, mar=c(5, 5, 5, 5))
 plot(rnorm(10), xlab=NA, ylab=NA, pch=20)
 pt1 <- cnvrt.coords(0, 0, input="fig")

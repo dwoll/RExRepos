@@ -36,7 +36,7 @@ Two between-subjects factors, two within-subjects factors.
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 P     <- 2               # Xb1
 Q     <- 2               # Xb2
 R     <- 3               # Xw1
@@ -143,12 +143,14 @@ summary(aov(Y ~ Xw1 + Error(id/Xw1), data=d1))
 
 Error: id
           Df Sum Sq Mean Sq F value Pr(>F)
-Residuals 79  68427     866               
+Residuals 79  75040     950               
 
 Error: id:Xw1
-           Df Sum Sq Mean Sq F value Pr(>F)
-Xw1         2   2795    1397    1.35   0.26
-Residuals 158 163743    1036               
+           Df Sum Sq Mean Sq F value Pr(>F)  
+Xw1         2   5756    2878    3.36  0.037 *
+Residuals 158 135211     856                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
 
 
@@ -168,8 +170,8 @@ anova(lme(Y ~ Xw1, random=~1 | id, method="ML", data=d1))
 
 ```
             numDF denDF F-value p-value
-(Intercept)     1   158  2392.4  <.0001
-Xw1             2   158     1.4  0.2433
+(Intercept)     1   158  2554.8  <.0001
+Xw1             2   158     3.4  0.0371
 ```
 
 
@@ -184,8 +186,8 @@ anova(lmeFit)
 
 ```
             numDF denDF F-value p-value
-(Intercept)     1   158  2705.8  <.0001
-Xw1             2   158     1.3  0.2626
+(Intercept)     1   158  2554.8  <.0001
+Xw1             2   158     3.4  0.0371
 ```
 
 
@@ -196,8 +198,8 @@ anova(lme(Y ~ Xw1, random=list(id=pdCompSymm(~Xw1-1)), method="REML", data=d1))
 
 ```
             numDF denDF F-value p-value
-(Intercept)     1   158  2705.8  <.0001
-Xw1             2   158     1.3  0.2626
+(Intercept)     1   158  2554.8  <.0001
+Xw1             2   158     3.4  0.0371
 ```
 
 
@@ -212,7 +214,7 @@ anova(lmer(Y ~ Xw1 + (1|id), data=d1))
 ```
 Analysis of Variance Table
     Df Sum Sq Mean Sq F value
-Xw1  2   2795    1397    1.43
+Xw1  2   5756    2878    3.24
 ```
 
 
@@ -236,10 +238,12 @@ Fit: lme.formula(fixed = Y ~ Xw1, data = d1, random = ~1 | id, correlation = cor
     id), method = "ML")
 
 Linear Hypotheses:
-           Estimate Std. Error z value Pr(>|z|)
-B - A == 0   -0.902      5.058   -0.18     0.98
-C - A == 0    6.745      5.058    1.33     0.38
-C - B == 0    7.648      5.058    1.51     0.29
+           Estimate Std. Error z value Pr(>|z|)  
+B - A == 0  10.3637     4.5964    2.25    0.062 .
+C - A == 0  10.4142     4.5964    2.27    0.061 .
+C - B == 0   0.0504     4.5964    0.01    1.000  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 (Adjusted p values reported -- single-step method)
 ```
 
@@ -262,10 +266,10 @@ Quantile = 2.344
  
 
 Linear Hypotheses:
-           Estimate lwr     upr    
-B - A == 0  -0.902  -12.757  10.953
-C - A == 0   6.745   -5.110  18.601
-C - B == 0   7.647   -4.208  19.503
+           Estimate lwr      upr     
+B - A == 0  10.3637  -0.4115  21.1390
+C - A == 0  10.4142  -0.3611  21.1894
+C - B == 0   0.0504 -10.7248  10.8257
 ```
 
 
@@ -283,24 +287,24 @@ summary(aov(Y ~ Xw1*Xw2 + Error(id/(Xw1*Xw2)), data=d2))
 
 Error: id
           Df Sum Sq Mean Sq F value Pr(>F)
-Residuals 79 205280    2598               
+Residuals 79 225120    2850               
 
 Error: id:Xw1
-           Df Sum Sq Mean Sq F value Pr(>F)
-Xw1         2   8384    4192    1.35   0.26
-Residuals 158 491228    3109               
-
-Error: id:Xw2
            Df Sum Sq Mean Sq F value Pr(>F)  
-Xw2         2  16588    8294    2.95  0.055 .
-Residuals 158 444423    2813                 
+Xw1         2  17269    8635    3.36  0.037 *
+Residuals 158 405633    2567                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
+Error: id:Xw2
+           Df Sum Sq Mean Sq F value Pr(>F)
+Xw2         2   9859    4929    1.62    0.2
+Residuals 158 481938    3050               
+
 Error: id:Xw1:Xw2
            Df Sum Sq Mean Sq F value Pr(>F)
-Xw1:Xw2     4  20527    5132    1.72   0.15
-Residuals 316 942658    2983               
+Xw1:Xw2     4   6118    1529     0.6   0.66
+Residuals 316 802069    2538               
 ```
 
 
@@ -316,10 +320,10 @@ anova(lme(Y ~ Xw1*Xw2, random=list(id=pdBlocked(list(~1, pdIdent(~Xw1-1), pdIden
 
 ```
             numDF denDF F-value p-value
-(Intercept)     1   632  2399.2  <.0001
-Xw1             2   632     1.4  0.2400
-Xw2             2   632     2.8  0.0597
-Xw1:Xw2         4   632     1.8  0.1371
+(Intercept)     1   632  2440.2  <.0001
+Xw1             2   632     3.4  0.0344
+Xw2             2   632     1.7  0.1924
+Xw1:Xw2         4   632     0.6  0.6626
 ```
 
 
@@ -334,10 +338,10 @@ anova(lme(Y ~ Xw1*Xw2,
 
 ```
             numDF denDF F-value p-value
-(Intercept)     1   632  2441.7  <.0001
-Xw1             2   632     1.3  0.2604
-Xw2             2   632     2.9  0.0568
-Xw1:Xw2         4   632     1.8  0.1307
+(Intercept)     1   632  2554.8  <.0001
+Xw1             2   632     3.4  0.0352
+Xw2             2   632     1.6  0.1995
+Xw1:Xw2         4   632     0.6  0.6609
 ```
 
 
@@ -351,9 +355,9 @@ anova(lmer(Y ~ Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
 ```
 Analysis of Variance Table
         Df Sum Sq Mean Sq F value
-Xw1      2   8348    4174    1.43
-Xw2      2  16588    8294    2.83
-Xw1:Xw2  4  20527    5132    1.75
+Xw1      2  17269    8635    3.39
+Xw2      2   8419    4210    1.65
+Xw1:Xw2  4   6118    1529    0.60
 ```
 
 
@@ -370,15 +374,17 @@ summary(aov(Y ~ Xb1*Xw1 + Error(id/Xw1), data=d1))
 ```
 
 Error: id
-          Df Sum Sq Mean Sq F value Pr(>F)
-Xb1        1   1912    1912    2.24   0.14
-Residuals 78  66515     853               
+          Df Sum Sq Mean Sq F value Pr(>F)  
+Xb1        1   5335    5335    5.97  0.017 *
+Residuals 78  69705     894                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Error: id:Xw1
            Df Sum Sq Mean Sq F value Pr(>F)   
-Xw1         2   2795    1397    1.43 0.2422   
-Xb1:Xw1     2  11416    5708    5.85 0.0036 **
-Residuals 156 152326     976                  
+Xw1         2   5756    2878    3.54 0.0313 * 
+Xb1:Xw1     2   8414    4207    5.18 0.0067 **
+Residuals 156 126797     813                  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -400,10 +406,10 @@ anova(lme(Y ~ Xb1*Xw1, random=~1 | id, method="ML", data=d1))
 
 ```
             numDF denDF F-value p-value
-(Intercept)     1   156  2506.0  <.0001
-Xb1             1    78     2.0  0.1568
-Xw1             2   156     1.5  0.2276
-Xb1:Xw1         2   156     6.1  0.0028
+(Intercept)     1   156  2715.5  <.0001
+Xb1             1    78     6.0  0.0168
+Xw1             2   156     3.5  0.0313
+Xb1:Xw1         2   156     5.2  0.0067
 ```
 
 
@@ -417,10 +423,10 @@ anova(lme(Y ~ Xb1*Xw1, random=~1 | id, correlation=corCompSymm(form=~1|id),
 
 ```
             numDF denDF F-value p-value
-(Intercept)     1   156  2748.4  <.0001
-Xb1             1    78     2.2  0.1383
-Xw1             2   156     1.4  0.2422
-Xb1:Xw1         2   156     5.8  0.0036
+(Intercept)     1   156  2715.5  <.0001
+Xb1             1    78     6.0  0.0168
+Xw1             2   156     3.5  0.0313
+Xb1:Xw1         2   156     5.2  0.0067
 ```
 
 
@@ -431,10 +437,10 @@ anova(lme(Y ~ Xb1*Xw1, random=list(id=pdCompSymm(~Xw1-1)), method="REML", data=d
 
 ```
             numDF denDF F-value p-value
-(Intercept)     1   156  2748.4  <.0001
-Xb1             1    78     2.2  0.1383
-Xw1             2   156     1.4  0.2422
-Xb1:Xw1         2   156     5.8  0.0036
+(Intercept)     1   156  2715.5  <.0001
+Xb1             1    78     6.0  0.0168
+Xw1             2   156     3.5  0.0313
+Xb1:Xw1         2   156     5.2  0.0067
 ```
 
 
@@ -448,9 +454,9 @@ anova(lmer(Y ~ Xb1*Xw1 + (1|id), data=d1))
 ```
 Analysis of Variance Table
         Df Sum Sq Mean Sq F value
-Xb1      1   1912    1912    2.04
-Xw1      2   2795    1397    1.49
-Xb1:Xw1  2  11416    5708    6.10
+Xb1      1   5335    5335    6.35
+Xw1      2   5756    2878    3.43
+Xb1:Xw1  2   8414    4207    5.01
 ```
 
 
@@ -467,21 +473,21 @@ summary(aov(Y ~ Xb1*Xb2*Xw1 + Error(id/Xw1), data=d1))
 ```
 
 Error: id
-          Df Sum Sq Mean Sq F value  Pr(>F)    
-Xb1        1   1912    1912    2.84 0.09578 .  
-Xb2        1   5255    5255    7.82 0.00654 ** 
-Xb1:Xb2    1  10177   10177   15.14 0.00021 ***
-Residuals 76  51082     672                    
+          Df Sum Sq Mean Sq F value Pr(>F)   
+Xb1        1   5335    5335    7.47 0.0078 **
+Xb2        1   7246    7246   10.14 0.0021 **
+Xb1:Xb2    1   8169    8169   11.44 0.0011 **
+Residuals 76  54290     714                  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Error: id:Xw1
-             Df Sum Sq Mean Sq F value Pr(>F)   
-Xw1           2   2795    1397    1.44 0.2412   
-Xb1:Xw1       2  11416    5708    5.86 0.0035 **
-Xb2:Xw1       2   1989     995    1.02 0.3624   
-Xb1:Xb2:Xw1   2   2383    1191    1.22 0.2969   
-Residuals   152 147954     973                  
+             Df Sum Sq Mean Sq F value  Pr(>F)    
+Xw1           2   5756    2878    4.12 0.01817 *  
+Xb1:Xw1       2   8414    4207    6.02 0.00306 ** 
+Xb2:Xw1       2  11336    5668    8.11 0.00045 ***
+Xb1:Xb2:Xw1   2   9167    4583    6.55 0.00186 ** 
+Residuals   152 106294     699                    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -498,14 +504,14 @@ anova(lme(Y ~ Xb1*Xb2*Xw1, random=~1 | id, method="ML", data=d1))
 
 ```
             numDF denDF F-value p-value
-(Intercept)     1   152  2684.7  <.0001
-Xb1             1    76     2.2  0.1430
-Xb2             1    76     6.0  0.0164
-Xw1             2   152     1.6  0.2051
-Xb1:Xb2         1    76    11.7  0.0010
-Xb1:Xw1         2   152     6.5  0.0019
-Xb2:Xw1         2   152     1.1  0.3227
-Xb1:Xb2:Xw1     2   152     1.4  0.2585
+(Intercept)     1   152    3397  <.0001
+Xb1             1    76       7  0.0078
+Xb2             1    76      10  0.0021
+Xw1             2   152       4  0.0182
+Xb1:Xb2         1    76      11  0.0011
+Xb1:Xw1         2   152       6  0.0031
+Xb2:Xw1         2   152       8  0.0005
+Xb1:Xb2:Xw1     2   152       7  0.0019
 ```
 
 
@@ -519,14 +525,14 @@ anova(lme(Y ~ Xb1*Xb2*Xw1, random=~1 | id,
 
 ```
             numDF denDF F-value p-value
-(Intercept)     1   152    3487  <.0001
-Xb1             1    76       3  0.0958
-Xb2             1    76       8  0.0065
-Xw1             2   152       1  0.2412
-Xb1:Xb2         1    76      15  0.0002
-Xb1:Xw1         2   152       6  0.0035
-Xb2:Xw1         2   152       1  0.3624
-Xb1:Xb2:Xw1     2   152       1  0.2969
+(Intercept)     1   152    3397  <.0001
+Xb1             1    76       7  0.0078
+Xb2             1    76      10  0.0021
+Xw1             2   152       4  0.0182
+Xb1:Xb2         1    76      11  0.0011
+Xb1:Xw1         2   152       6  0.0031
+Xb2:Xw1         2   152       8  0.0005
+Xb1:Xb2:Xw1     2   152       7  0.0019
 ```
 
 
@@ -539,14 +545,14 @@ anova(lme(Y ~ Xb1*Xb2*Xw1,
 
 ```
             numDF denDF F-value p-value
-(Intercept)     1   152    3487  <.0001
-Xb1             1    76       3  0.0958
-Xb2             1    76       8  0.0065
-Xw1             2   152       1  0.2412
-Xb1:Xb2         1    76      15  0.0002
-Xb1:Xw1         2   152       6  0.0035
-Xb2:Xw1         2   152       1  0.3624
-Xb1:Xb2:Xw1     2   152       1  0.2969
+(Intercept)     1   152    3397  <.0001
+Xb1             1    76       7  0.0078
+Xb2             1    76      10  0.0021
+Xw1             2   152       4  0.0182
+Xb1:Xb2         1    76      11  0.0011
+Xb1:Xw1         2   152       6  0.0031
+Xb2:Xw1         2   152       8  0.0005
+Xb1:Xb2:Xw1     2   152       7  0.0019
 ```
 
 
@@ -560,13 +566,13 @@ anova(lmer(Y ~ Xb1*Xb2*Xw1 + (1|id), data=d1))
 ```
 Analysis of Variance Table
             Df Sum Sq Mean Sq F value
-Xb1          1   1912    1912    2.19
-Xb2          1   5255    5255    6.02
-Xw1          2   2795    1397    1.60
-Xb1:Xb2      1  10177   10177   11.66
-Xb1:Xw1      2  11416    5708    6.54
-Xb2:Xw1      2   1989     995    1.14
-Xb1:Xb2:Xw1  2   2383    1191    1.36
+Xb1          1   5335    5335    7.57
+Xb2          1   7246    7246   10.29
+Xw1          2   5756    2878    4.09
+Xb1:Xb2      1   8169    8169   11.60
+Xb1:Xw1      2   8414    4207    5.97
+Xb2:Xw1      2  11336    5668    8.05
+Xb1:Xb2:Xw1  2   9167    4583    6.51
 ```
 
 
@@ -583,31 +589,31 @@ summary(aov(Y ~ Xb1*Xw1*Xw2 + Error(id/(Xw1*Xw2)), data=d2))
 ```
 
 Error: id
-          Df Sum Sq Mean Sq F value Pr(>F)
-Xb1        1   5736    5736    2.24   0.14
-Residuals 78 199544    2558               
+          Df Sum Sq Mean Sq F value Pr(>F)  
+Xb1        1  16005   16005    5.97  0.017 *
+Residuals 78 209116    2681                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Error: id:Xw1
            Df Sum Sq Mean Sq F value Pr(>F)   
-Xw1         2   8384    4192    1.43 0.2422   
-Xb1:Xw1     2  34249   17124    5.85 0.0036 **
-Residuals 156 456979    2929                  
+Xw1         2  17269    8635    3.54 0.0313 * 
+Xb1:Xw1     2  25243   12622    5.18 0.0067 **
+Residuals 156 380390    2438                  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Error: id:Xw2
-           Df Sum Sq Mean Sq F value Pr(>F)   
-Xw2         2  16588    8294    3.17 0.0447 * 
-Xb1:Xw2     2  36287   18143    6.93 0.0013 **
-Residuals 156 408136    2616                  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+           Df Sum Sq Mean Sq F value Pr(>F)
+Xw2         2   9859    4929     1.6   0.20
+Xb1:Xw2     2   2462    1231     0.4   0.67
+Residuals 156 479476    3074               
 
 Error: id:Xw1:Xw2
              Df Sum Sq Mean Sq F value Pr(>F)
-Xw1:Xw2       4  20527    5132    1.72   0.15
-Xb1:Xw1:Xw2   4   9233    2308    0.77   0.54
-Residuals   312 933425    2992               
+Xw1:Xw2       4   6118    1529    0.60   0.66
+Xb1:Xw1:Xw2   4   7609    1902    0.75   0.56
+Residuals   312 794460    2546               
 ```
 
 
@@ -624,14 +630,14 @@ anova(lme(Y ~ Xb1*Xw1*Xw2,
 
 ```
             numDF denDF F-value p-value
-(Intercept)     1   624  2470.2  <.0001
-Xb1             1    78     2.0  0.1597
-Xw1             2   624     1.5  0.2301
-Xw2             2   624     2.9  0.0550
-Xb1:Xw1         2   624     6.0  0.0026
-Xb1:Xw2         2   624     6.4  0.0018
-Xw1:Xw2         4   624     1.8  0.1266
-Xb1:Xw1:Xw2     4   624     0.8  0.5184
+(Intercept)     1   624  2474.0  <.0001
+Xb1             1    78     5.4  0.0223
+Xw1             2   624     3.4  0.0327
+Xw2             2   624     1.7  0.1881
+Xb1:Xw1         2   624     5.0  0.0068
+Xb1:Xw2         2   624     0.4  0.6584
+Xw1:Xw2         4   624     0.6  0.6561
+Xb1:Xw1:Xw2     4   624     0.8  0.5531
 ```
 
 
@@ -646,14 +652,14 @@ anova(lme(Y ~ Xb1*Xw1*Xw2,
 
 ```
             numDF denDF F-value p-value
-(Intercept)     1   624  2491.0  <.0001
-Xb1             1    78     2.0  0.1580
-Xw1             2   624     1.4  0.2398
-Xw2             2   624     2.9  0.0537
-Xb1:Xw1         2   624     5.8  0.0031
-Xb1:Xw2         2   624     6.4  0.0017
-Xw1:Xw2         4   624     1.8  0.1236
-Xb1:Xw1:Xw2     4   624     0.8  0.5140
+(Intercept)     1   624  2715.4  <.0001
+Xb1             1    78     6.0  0.0168
+Xw1             2   624     3.4  0.0327
+Xw2             2   624     1.6  0.2020
+Xb1:Xw1         2   624     5.0  0.0068
+Xb1:Xw2         2   624     0.4  0.6702
+Xw1:Xw2         4   624     0.6  0.6561
+Xb1:Xw1:Xw2     4   624     0.8  0.5531
 ```
 
 
@@ -667,13 +673,13 @@ anova(lmer(Y ~ Xb1*Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
 ```
 Analysis of Variance Table
             Df Sum Sq Mean Sq F value
-Xb1          1   5736    5736    2.02
-Xw1          2   8384    4192    1.47
-Xw2          2  16588    8294    2.91
-Xb1:Xw1      2  34249   17124    6.02
-Xb1:Xw2      2  36287   18143    6.37
-Xw1:Xw2      4  20527    5132    1.80
-Xb1:Xw1:Xw2  4   9233    2308    0.81
+Xb1          1  13653   13653    5.44
+Xw1          2  17269    8635    3.44
+Xw2          2   8410    4205    1.68
+Xb1:Xw1      2  25243   12622    5.03
+Xb1:Xw2      2   2100    1050    0.42
+Xw1:Xw2      4   6118    1529    0.61
+Xb1:Xw1:Xw2  4   7609    1902    0.76
 ```
 
 
@@ -690,41 +696,43 @@ summary(aov(Y ~ Xb1*Xb2*Xw1*Xw2 + Error(id/(Xw1*Xw2)), data=d2))
 ```
 
 Error: id
-          Df Sum Sq Mean Sq F value  Pr(>F)    
-Xb1        1   5736    5736    2.84 0.09578 .  
-Xb2        1  15766   15766    7.82 0.00654 ** 
-Xb1:Xb2    1  30532   30532   15.14 0.00021 ***
-Residuals 76 153247    2016                    
+          Df Sum Sq Mean Sq F value Pr(>F)   
+Xb1        1  16005   16005    7.47 0.0078 **
+Xb2        1  21738   21738   10.14 0.0021 **
+Xb1:Xb2    1  24507   24507   11.44 0.0011 **
+Residuals 76 162871    2143                  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Error: id:Xw1
-             Df Sum Sq Mean Sq F value Pr(>F)   
-Xw1           2   8384    4192    1.44 0.2412   
-Xb1:Xw1       2  34249   17124    5.86 0.0035 **
-Xb2:Xw1       2   5968    2984    1.02 0.3624   
-Xb1:Xb2:Xw1   2   7149    3574    1.22 0.2969   
-Residuals   152 443862    2920                  
+             Df Sum Sq Mean Sq F value  Pr(>F)    
+Xw1           2  17269    8635    4.12 0.01817 *  
+Xb1:Xw1       2  25243   12622    6.02 0.00306 ** 
+Xb2:Xw1       2  34008   17004    8.11 0.00045 ***
+Xb1:Xb2:Xw1   2  27500   13750    6.55 0.00186 ** 
+Residuals   152 318882    2098                    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Error: id:Xw2
-             Df Sum Sq Mean Sq F value  Pr(>F)    
-Xw2           2  16588    8294    3.31 0.03922 *  
-Xb1:Xw2       2  36287   18143    7.24 0.00099 ***
-Xb2:Xw2       2  20209   10105    4.03 0.01970 *  
-Xb1:Xb2:Xw2   2   6870    3435    1.37 0.25720    
-Residuals   152 381057    2507                    
+             Df Sum Sq Mean Sq F value Pr(>F)   
+Xw2           2   9859    4929    1.73 0.1811   
+Xb1:Xw2       2   2462    1231    0.43 0.6503   
+Xb2:Xw2       2  11822    5911    2.07 0.1294   
+Xb1:Xb2:Xw2   2  34080   17040    5.97 0.0032 **
+Residuals   152 433574    2852                  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Error: id:Xw1:Xw2
-                 Df Sum Sq Mean Sq F value Pr(>F)
-Xw1:Xw2           4  20527    5132    1.72   0.15
-Xb1:Xw1:Xw2       4   9233    2308    0.77   0.54
-Xb2:Xw1:Xw2       4  18107    4527    1.52   0.20
-Xb1:Xb2:Xw1:Xw2   4   8282    2070    0.69   0.60
-Residuals       304 907036    2984               
+                 Df Sum Sq Mean Sq F value Pr(>F)  
+Xw1:Xw2           4   6118    1529    0.61  0.656  
+Xb1:Xw1:Xw2       4   7609    1902    0.76  0.553  
+Xb2:Xw1:Xw2       4  24545    6136    2.45  0.046 *
+Xb1:Xb2:Xw1:Xw2   4   7595    1899    0.76  0.554  
+Residuals       304 762320    2508                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
 
 
@@ -743,22 +751,22 @@ anova(lme(Y ~ Xb1*Xb2*Xw1*Xw2,
 
 ```
                 numDF denDF F-value p-value
-(Intercept)         1   608  2551.0  <.0001
-Xb1                 1    76     2.1  0.1532
-Xb2                 1    76     5.7  0.0192
-Xw1                 2   608     1.5  0.2193
-Xw2                 2   608     3.0  0.0501
-Xb1:Xb2             1    76    11.1  0.0013
-Xb1:Xw1             2   608     6.2  0.0021
-Xb2:Xw1             2   608     1.1  0.3394
-Xb1:Xw2             2   608     6.6  0.0015
-Xb2:Xw2             2   608     3.7  0.0261
-Xw1:Xw2             4   608     1.9  0.1155
-Xb1:Xb2:Xw1         2   608     1.3  0.2741
-Xb1:Xb2:Xw2         2   608     1.2  0.2883
-Xb1:Xw1:Xw2         4   608     0.8  0.5016
-Xb2:Xw1:Xw2         4   608     1.6  0.1620
-Xb1:Xb2:Xw1:Xw2     4   608     0.8  0.5574
+(Intercept)         1   608  2782.9  <.0001
+Xb1                 1    76     6.1  0.0156
+Xb2                 1    76     8.3  0.0051
+Xw1                 2   608     3.6  0.0268
+Xw2                 2   608     1.9  0.1528
+Xb1:Xb2             1    76     9.4  0.0031
+Xb1:Xw1             2   608     5.3  0.0051
+Xb2:Xw1             2   608     7.2  0.0008
+Xb1:Xw2             2   608     0.5  0.6249
+Xb2:Xw2             2   608     2.3  0.1053
+Xw1:Xw2             4   608     0.6  0.6305
+Xb1:Xb2:Xw1         2   608     5.8  0.0032
+Xb1:Xb2:Xw2         2   608     6.5  0.0016
+Xb1:Xw1:Xw2         4   608     0.8  0.5240
+Xb2:Xw1:Xw2         4   608     2.6  0.0359
+Xb1:Xb2:Xw1:Xw2     4   608     0.8  0.5249
 ```
 
 
@@ -773,22 +781,22 @@ anova(lme(Y ~ Xb1*Xb2*Xw1*Xw2,
 
 ```
                 numDF denDF F-value p-value
-(Intercept)         1   608  2595.2  <.0001
-Xb1                 1    76     2.1  0.1498
-Xb2                 1    76     5.8  0.0183
-Xw1                 2   608     1.4  0.2388
-Xw2                 2   608     3.1  0.0475
-Xb1:Xb2             1    76    11.3  0.0012
-Xb1:Xw1             2   608     5.9  0.0030
-Xb2:Xw1             2   608     1.0  0.3605
-Xb1:Xw2             2   608     6.7  0.0013
-Xb2:Xw2             2   608     3.7  0.0246
-Xw1:Xw2             4   608     1.9  0.1099
-Xb1:Xb2:Xw1         2   608     1.2  0.2948
-Xb1:Xb2:Xw2         2   608     1.3  0.2822
-Xb1:Xw1:Xw2         4   608     0.9  0.4926
-Xb2:Xw1:Xw2         4   608     1.7  0.1551
-Xb1:Xb2:Xw1:Xw2     4   608     0.8  0.5488
+(Intercept)         1   608  3113.2  <.0001
+Xb1                 1    76     6.8  0.0107
+Xb2                 1    76     9.3  0.0032
+Xw1                 2   608     3.7  0.0255
+Xw2                 2   608     1.7  0.1785
+Xb1:Xb2             1    76    10.5  0.0018
+Xb1:Xw1             2   608     5.4  0.0047
+Xb2:Xw1             2   608     7.3  0.0008
+Xb1:Xw2             2   608     0.4  0.6497
+Xb2:Xw2             2   608     2.1  0.1268
+Xw1:Xw2             4   608     0.7  0.6242
+Xb1:Xb2:Xw1         2   608     5.9  0.0030
+Xb1:Xb2:Xw2         2   608     6.0  0.0027
+Xb1:Xw1:Xw2         4   608     0.8  0.5168
+Xb2:Xw1:Xw2         4   608     2.6  0.0339
+Xb1:Xb2:Xw1:Xw2     4   608     0.8  0.5178
 ```
 
 
@@ -802,21 +810,21 @@ anova(lmer(Y ~ Xb1*Xb2*Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
 ```
 Analysis of Variance Table
                 Df Sum Sq Mean Sq F value
-Xb1              1   5736    5736    2.08
-Xb2              1  15766   15766    5.72
-Xw1              2   8384    4192    1.52
-Xw2              2  16588    8294    3.01
-Xb1:Xb2          1  30532   30532   11.08
-Xb1:Xw1          2  34249   17124    6.21
-Xb2:Xw1          2   5968    2984    1.08
-Xb1:Xw2          2  36287   18143    6.58
-Xb2:Xw2          2  20209   10105    3.67
-Xw1:Xw2          4  20527    5132    1.86
-Xb1:Xb2:Xw1      2   7149    3574    1.30
-Xb1:Xb2:Xw2      2   6870    3435    1.25
-Xb1:Xw1:Xw2      4   9233    2308    0.84
-Xb2:Xw1:Xw2      4  18107    4527    1.64
-Xb1:Xb2:Xw1:Xw2  4   8282    2070    0.75
+Xb1              1  14506   14506    6.12
+Xb2              1  19703   19703    8.31
+Xw1              2  17269    8635    3.64
+Xw2              2   8935    4468    1.88
+Xb1:Xb2          1  22212   22212    9.37
+Xb1:Xw1          2  25243   12622    5.32
+Xb2:Xw1          2  34008   17004    7.17
+Xb1:Xw2          2   2231    1116    0.47
+Xb2:Xw2          2  10715    5357    2.26
+Xw1:Xw2          4   6118    1529    0.65
+Xb1:Xb2:Xw1      2  27500   13750    5.80
+Xb1:Xb2:Xw2      2  30889   15444    6.51
+Xb1:Xw1:Xw2      4   7609    1902    0.80
+Xb2:Xw1:Xw2      4  24545    6136    2.59
+Xb1:Xb2:Xw1:Xw2  4   7595    1899    0.80
 ```
 
 

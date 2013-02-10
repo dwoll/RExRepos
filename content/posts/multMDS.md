@@ -76,7 +76,7 @@ Stuttgart  365.19  126.91
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 P   <- 3
 obj <- matrix(sample(-20:20, N*P, replace=TRUE), ncol=P)
 dst <- dist(obj, diag=TRUE, upper=TRUE)
@@ -95,7 +95,7 @@ plot(mds, xlim=xLims, xlab="North-South", ylab="East-West", pch=16,
 text(mds[ , 1]+50, mds[ , 2], adj=0, labels=cities)
 ```
 
-![plot of chunk rerMultMDS01](../content/assets/figure/rerMultMDS01.png) 
+![plot of chunk rerMultMDS01](content/assets/figure/rerMultMDS01.png) 
 
 
 Non-metric MDS
@@ -117,10 +117,10 @@ Non-metric Multidimensional Scaling
 10 points, dissimilarity 'unknown'
 
 Dimensions: 2 
-Stress:     0.03911 
+Stress:     0.008449 
 Stress type 1, weak ties
 Scores scaled to unit root mean square, rotated to principal components
-Stopped after 57 iterations: Scale factor of gradient nearly zero
+Stopped after 111 iterations: Scale factor of gradient nearly zero
 ```
 
 ```r
@@ -129,16 +129,16 @@ scores(nmMDS)
 
 ```
               MDS1     MDS2
-Augsburg  -1.14117 -0.18781
-Berlin     0.50459 -0.51167
-Dresden    0.08429 -0.71736
-Hamburg    0.85574  0.33510
-Hannover   0.40313  0.39986
-Karlsruhe -0.92301  0.61331
-Kiel       1.15409 -0.04916
-Muenchen  -1.14863 -0.24649
-Rostock    1.20672  0.16289
-Stuttgart -0.99576  0.20133
+Augsburg  -1.11085 -0.09031
+Berlin     0.58107 -0.50484
+Dresden    0.01896 -0.74170
+Hamburg    0.85851  0.32960
+Hannover   0.51125  0.38229
+Karlsruhe -0.94592  0.52527
+Kiel       1.09913  0.37960
+Muenchen  -1.12637 -0.33100
+Rostock    1.13265 -0.23825
+Stuttgart -1.01841  0.28933
 attr(,"pc")
 [1] TRUE
 ```

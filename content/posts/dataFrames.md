@@ -37,7 +37,7 @@ From existing variables
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N      <- 12
 sex    <- sample(c("f", "m"), N, replace=TRUE)
 group  <- sample(rep(c("CG", "WL", "T"), 4), N, replace=FALSE)
@@ -49,18 +49,18 @@ rating <- round(runif(N, min=0, max=6))
 
 ```
    id sex group age  IQ rating
-1   1   f     T  22 112      5
-2   2   f    WL  24 109      2
-3   3   m    WL  18 114      3
-4   4   m    WL  24 112      2
-5   5   f     T  33 101      4
-6   6   m    CG  24  70      2
-7   7   m     T  26 109      3
-8   8   m    CG  28  99      5
-9   9   m     T  26  98      1
-10 10   f    CG  21  78      5
-11 11   f    WL  32  93      2
-12 12   f    CG  30 106      5
+1   1   f     T  29 111      4
+2   2   m    CG  30  93      1
+3   3   f    WL  27  84      2
+4   4   m     T  28  97      2
+5   5   m    CG  23  85      5
+6   6   f    CG  20  89      3
+7   7   m    WL  35  91      5
+8   8   m    WL  34  75      5
+9   9   m    CG  30 113      5
+10 10   f     T  32 102      3
+11 11   m     T  18  83      5
+12 12   f    WL  26 119      4
 ```
 
 
@@ -97,17 +97,17 @@ summary(myDf1)
 
 ```
        id        sex   group       age             IQ       
- Min.   : 1.00   f:6   CG:4   Min.   :18.0   Min.   : 70.0  
- 1st Qu.: 3.75   m:6   T :4   1st Qu.:23.5   1st Qu.: 96.8  
- Median : 6.50         WL:4   Median :25.0   Median :103.5  
- Mean   : 6.50                Mean   :25.7   Mean   :100.1  
- 3rd Qu.: 9.25                3rd Qu.:28.5   3rd Qu.:109.8  
- Max.   :12.00                Max.   :33.0   Max.   :114.0  
+ Min.   : 1.00   f:5   CG:4   Min.   :18.0   Min.   : 75.0  
+ 1st Qu.: 3.75   m:7   T :4   1st Qu.:25.2   1st Qu.: 84.8  
+ Median : 6.50         WL:4   Median :28.5   Median : 92.0  
+ Mean   : 6.50                Mean   :27.7   Mean   : 95.2  
+ 3rd Qu.: 9.25                3rd Qu.:30.5   3rd Qu.:104.2  
+ Max.   :12.00                Max.   :35.0   Max.   :119.0  
      rating    
  Min.   :1.00  
- 1st Qu.:2.00  
- Median :3.00  
- Mean   :3.25  
+ 1st Qu.:2.75  
+ Median :4.00  
+ Mean   :3.67  
  3rd Qu.:5.00  
  Max.   :5.00  
 ```
@@ -119,11 +119,11 @@ str(myDf1)
 ```
 'data.frame':	12 obs. of  6 variables:
  $ id    : int  1 2 3 4 5 6 7 8 9 10 ...
- $ sex   : Factor w/ 2 levels "f","m": 1 1 2 2 1 2 2 2 2 1 ...
- $ group : Factor w/ 3 levels "CG","T","WL": 2 3 3 3 2 1 2 1 2 1 ...
- $ age   : int  22 24 18 24 33 24 26 28 26 21 ...
- $ IQ    : num  112 109 114 112 101 70 109 99 98 78 ...
- $ rating: num  5 2 3 2 4 2 3 5 1 5 ...
+ $ sex   : Factor w/ 2 levels "f","m": 1 2 1 2 2 1 2 2 2 1 ...
+ $ group : Factor w/ 3 levels "CG","T","WL": 2 1 3 2 1 1 3 3 1 2 ...
+ $ age   : int  29 30 27 28 23 20 35 34 30 32 ...
+ $ IQ    : num  111 93 84 97 85 89 91 75 113 102 ...
+ $ rating: num  4 1 2 2 5 3 5 5 5 3 ...
 ```
 
 
@@ -134,12 +134,12 @@ head(myDf1)
 
 ```
   id sex group age  IQ rating
-1  1   f     T  22 112      5
-2  2   f    WL  24 109      2
-3  3   m    WL  18 114      3
-4  4   m    WL  24 112      2
-5  5   f     T  33 101      4
-6  6   m    CG  24  70      2
+1  1   f     T  29 111      4
+2  2   m    CG  30  93      1
+3  3   f    WL  27  84      2
+4  4   m     T  28  97      2
+5  5   m    CG  23  85      5
+6  6   f    CG  20  89      3
 ```
 
 ```r
@@ -148,12 +148,12 @@ tail(myDf1)
 
 ```
    id sex group age  IQ rating
-7   7   m     T  26 109      3
-8   8   m    CG  28  99      5
-9   9   m     T  26  98      1
-10 10   f    CG  21  78      5
-11 11   f    WL  32  93      2
-12 12   f    CG  30 106      5
+7   7   m    WL  35  91      5
+8   8   m    WL  34  75      5
+9   9   m    CG  30 113      5
+10 10   f     T  32 102      3
+11 11   m     T  18  83      5
+12 12   f    WL  26 119      4
 ```
 
 
@@ -164,12 +164,12 @@ some(myDf1, n=5)
 ```
 
 ```
-   id sex group age  IQ rating
-4   4   m    WL  24 112      2
-5   5   f     T  33 101      4
-7   7   m     T  26 109      3
-9   9   m     T  26  98      1
-12 12   f    CG  30 106      5
+  id sex group age  IQ rating
+1  1   f     T  29 111      4
+2  2   m    CG  30  93      1
+4  4   m     T  28  97      2
+5  5   m    CG  23  85      5
+9  9   m    CG  30 113      5
 ```
 
 
@@ -282,12 +282,12 @@ head(myDf1)
 
 ```
    id sex group age  IQ rating
-Z1  1   f     T  22 112      5
-Z2  2   f    WL  24 109      2
-Z3  3   m    WL  18 114      3
-Z4  4   m    WL  24 112      2
-Z5  5   f     T  33 101      4
-Z6  6   m    CG  24  70      2
+Z1  1   f     T  29 111      4
+Z2  2   m    CG  30  93      1
+Z3  3   f    WL  27  84      2
+Z4  4   m     T  28  97      2
+Z5  5   m    CG  23  85      5
+Z6  6   f    CG  20  89      3
 ```
 
 
@@ -300,7 +300,7 @@ myDf1[[3]][2]
 ```
 
 ```
-[1] WL
+[1] CG
 Levels: CG T WL
 ```
 
@@ -309,7 +309,7 @@ myDf1$rating
 ```
 
 ```
- [1] 5 2 3 2 4 2 3 5 1 5 2 5
+ [1] 4 1 2 2 5 3 5 5 5 3 5 4
 ```
 
 ```r
@@ -317,7 +317,7 @@ myDf1$age[4]
 ```
 
 ```
-[1] 24
+[1] 28
 ```
 
 ```r
@@ -326,7 +326,7 @@ myDf1[3, 4]
 ```
 
 ```
-[1] 18
+[1] 27
 ```
 
 ```r
@@ -334,7 +334,7 @@ myDf1[4, "group"]
 ```
 
 ```
-[1] WL
+[1] T
 Levels: CG T WL
 ```
 
@@ -343,8 +343,8 @@ myDf1[2, ]
 ```
 
 ```
-   id sex group age  IQ rating
-Z2  2   f    WL  24 109      2
+   id sex group age IQ rating
+Z2  2   m    CG  30 93      1
 ```
 
 ```r
@@ -352,7 +352,7 @@ myDf1[, "age"]
 ```
 
 ```
- [1] 22 24 18 24 33 24 26 28 26 21 32 30
+ [1] 29 30 27 28 23 20 35 34 30 32 18 26
 ```
 
 ```r
@@ -361,11 +361,11 @@ myDf1[1:5, 4, drop=FALSE]
 
 ```
    age
-Z1  22
-Z2  24
-Z3  18
-Z4  24
-Z5  33
+Z1  29
+Z2  30
+Z3  27
+Z4  28
+Z5  23
 ```
 
 
@@ -381,7 +381,7 @@ with(myDf1, tapply(IQ, group, FUN=mean))
 
 ```
     CG      T     WL 
- 89.25 105.00 111.25 
+ 95.00 104.25  84.75 
 ```
 
 ```r
@@ -391,8 +391,8 @@ xtabs(~ sex + group, data=myDf1)
 ```
    group
 sex CG T WL
-  f  2 2  2
-  m  2 2  2
+  f  1 2  2
+  m  3 2  2
 ```
 
 ```r
@@ -400,7 +400,7 @@ IQ[3]
 ```
 
 ```
-[1] 114
+[1] 84
 ```
 
 ```r
@@ -409,7 +409,7 @@ IQ[3]
 ```
 
 ```
-[1] 114
+[1] 84
 ```
 
 ```r
@@ -435,7 +435,7 @@ myDf1$IQ[3]
 ```
 
 ```
-[1] 114
+[1] 84
 ```
 
 ```r
@@ -444,7 +444,7 @@ IQ
 ```
 
 ```
- [1] 112 109 130 112 101  70 109  99  98  78  93 106
+ [1] 111  93 130  97  85  89  91  75 113 102  83 119
 ```
 
 

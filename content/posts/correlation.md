@@ -113,7 +113,7 @@ fisherz2r(rZ)
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 N  <- 100
 z1 <- runif(N)
 z2 <- runif(N)
@@ -123,7 +123,7 @@ cor(x, y)
 ```
 
 ```
-[1] -0.1626
+[1] -0.162
 ```
 
 
@@ -137,7 +137,7 @@ cor(x.z1, y.z1)
 ```
 
 ```
-[1] -0.1077
+[1] -0.05298
 ```
 
 
@@ -149,7 +149,7 @@ cor(x.z12, y.z12)
 ```
 
 ```
-[1] -0.04983
+[1] 0.02471
 ```
 
 
@@ -161,7 +161,7 @@ cor(x.z1, y)
 ```
 
 ```
-[1] -0.105
+[1] -0.04772
 ```
 
 
@@ -254,8 +254,8 @@ cor(vec, X)
 ```
 
 ```
-         X1     X2     X3
-[1,] 0.7816 0.5617 0.1837
+           X1      X2      X3
+[1,] -0.04054 -0.1729 -0.4406
 ```
 
 
@@ -403,7 +403,7 @@ spearman_test(DV1 ~ DV2, distribution=approximate(B=9999))
 	Approximative Spearman Correlation Test
 
 data:  DV1 by DV2 
-Z = 2.2, p-value = 0.0184
+Z = 2.2, p-value = 0.0207
 alternative hypothesis: true mu is not equal to 0 
 ```
 

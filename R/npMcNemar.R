@@ -6,7 +6,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 N       <- 20
 pre     <- rbinom(N, size=1, prob=0.6)
 post    <- rbinom(N, size=1, prob=0.4)

@@ -14,7 +14,7 @@ if(any(!has)) install.packages(wants[!has])
 
 ## @knitr regressionPoissonDf, cache=TRUE
 library(mvtnorm)
-set.seed(1.234)
+set.seed(123)
 N     <- 200
 sigma <- matrix(c(4,2,-3, 2,16,-1, -3,-1,8), byrow=TRUE, ncol=3)
 mu    <- c(-3, 2, 4)

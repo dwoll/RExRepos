@@ -6,7 +6,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 P     <- 3
 Nj    <- c(15, 25, 20)
 Sigma <- matrix(c(16,-2, -2,9), byrow=TRUE, ncol=2)

@@ -7,8 +7,8 @@ rerCat: Univariate
 tags: [ANOVA, Regression]
 ---
 
-
-
+Analysis of covariance (ANCOVA)
+=========================
 
 TODO
 -------------------------
@@ -59,13 +59,13 @@ dfAnc <- data.frame(IV=factor(rep(1:P, Nj), labels=c("SSRI", "Placebo", "WL")),
 plot(DVpre  ~ IV, data=dfAnc, main="Pre-scores per group")
 ```
 
-![plot of chunk rerAncova01](../content/assets/figure/rerAncova011.png) 
+![plot of chunk rerAncova01](content/assets/figure/rerAncova011.png) 
 
 ```r
 plot(DVpost ~ IV, data=dfAnc, main="Post-Scores per group")
 ```
 
-![plot of chunk rerAncova01](../content/assets/figure/rerAncova012.png) 
+![plot of chunk rerAncova01](content/assets/figure/rerAncova012.png) 
 
 
 ### Type I sum of squares
@@ -230,7 +230,7 @@ abline(iCeptPlac, slopeAll, col="green")
 abline(iCeptWL,   slopeAll, col="blue")
 ```
 
-![plot of chunk rerAncova02](../content/assets/figure/rerAncova02.png) 
+![plot of chunk rerAncova02](content/assets/figure/rerAncova02.png) 
 
 
 Effect size estimate

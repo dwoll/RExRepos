@@ -37,7 +37,7 @@ Three-way SPF-$pq \cdot r$ ANOVA
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 Njk   <- 10
 P     <- 2
 Q     <- 2
@@ -61,19 +61,21 @@ summary(aov(DV ~ IVbtw1*IVbtw2*IVwth + Error(id/IVwth), data=dfSPFpq.rL))
 ```
 
 Error: id
-              Df Sum Sq Mean Sq F value Pr(>F)
-IVbtw1         1    1.1    1.10    0.29   0.59
-IVbtw2         1    0.8    0.77    0.20   0.65
-IVbtw1:IVbtw2  1    1.4    1.42    0.38   0.54
-Residuals     36  136.1    3.78               
+              Df Sum Sq Mean Sq F value Pr(>F)  
+IVbtw1         1    0.1    0.11    0.04  0.847  
+IVbtw2         1   17.7   17.75    6.33  0.017 *
+IVbtw1:IVbtw2  1    0.0    0.05    0.02  0.897  
+Residuals     36  101.0    2.81                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Error: id:IVwth
                     Df Sum Sq Mean Sq F value Pr(>F)    
-IVwth                2    573   286.3   92.14 <2e-16 ***
-IVbtw1:IVwth         2      2     1.2    0.40   0.67    
-IVbtw2:IVwth         2      1     0.4    0.14   0.87    
-IVbtw1:IVbtw2:IVwth  2      3     1.7    0.55   0.58    
-Residuals           72    224     3.1                   
+IVwth                2    540   270.0   80.86 <2e-16 ***
+IVbtw1:IVwth         2      2     1.2    0.35   0.71    
+IVbtw2:IVwth         2      7     3.7    1.10   0.34    
+IVbtw1:IVbtw2:IVwth  2     12     5.8    1.73   0.18    
+Residuals           72    240     3.3                   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -99,7 +101,7 @@ SSbtw2Wth <- anRes["IVbtw2:IVwth", "Sum Sq"]
 ```
 
 ```
-[1] 0.003007
+[1] 0.0003014
 ```
 
 ```r
@@ -107,7 +109,7 @@ SSbtw2Wth <- anRes["IVbtw2:IVwth", "Sum Sq"]
 ```
 
 ```
-[1] 0.002103
+[1] 0.04787
 ```
 
 ```r
@@ -115,7 +117,7 @@ SSbtw2Wth <- anRes["IVbtw2:IVwth", "Sum Sq"]
 ```
 
 ```
-[1] 0.6109
+[1] 0.6047
 ```
 
 ```r
@@ -123,7 +125,7 @@ SSbtw2Wth <- anRes["IVbtw2:IVwth", "Sum Sq"]
 ```
 
 ```
-[1] 0.00675
+[1] 0.006598
 ```
 
 ```r
@@ -131,7 +133,7 @@ SSbtw2Wth <- anRes["IVbtw2:IVwth", "Sum Sq"]
 ```
 
 ```
-[1] 0.002299
+[1] 0.02045
 ```
 
 
@@ -151,7 +153,7 @@ SSbtw1Btw2Wth <- anRes2["IVbtw1:IVbtw2:IVwth", "Sum Sq"]
 ```
 
 ```
-[1] 0.003891
+[1] 0.0001352
 ```
 
 ```r
@@ -159,7 +161,7 @@ SSbtw1Btw2Wth <- anRes2["IVbtw1:IVbtw2:IVwth", "Sum Sq"]
 ```
 
 ```
-[1] 0.009338
+[1] 0.03166
 ```
 
 
@@ -188,14 +190,14 @@ summary(AnovaSPFpq.r, multivariate=FALSE, univariate=TRUE)
 Univariate Type II Repeated-Measures ANOVA Assuming Sphericity
 
                      SS num Df Error SS den Df     F Pr(>F)    
-(Intercept)           6      1      136     36  1.53   0.22    
-IVbtw1                1      1      136     36  0.29   0.59    
-IVbtw2                1      1      136     36  0.20   0.65    
-IVbtw1:IVbtw2         1      1      136     36  0.38   0.54    
-IVwth               573      2      224     72 92.14 <2e-16 ***
-IVbtw1:IVwth          2      2      224     72  0.40   0.67    
-IVbtw2:IVwth          1      2      224     72  0.14   0.87    
-IVbtw1:IVbtw2:IVwth   3      2      224     72  0.55   0.58    
+(Intercept)           0      1      101     36  0.04  0.841    
+IVbtw1                0      1      101     36  0.04  0.847    
+IVbtw2               18      1      101     36  6.33  0.017 *  
+IVbtw1:IVbtw2         0      1      101     36  0.02  0.897    
+IVwth               540      2      240     72 80.86 <2e-16 ***
+IVbtw1:IVwth          2      2      240     72  0.35  0.705    
+IVbtw2:IVwth          7      2      240     72  1.10  0.337    
+IVbtw1:IVbtw2:IVwth  12      2      240     72  1.73  0.185    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
@@ -203,28 +205,28 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Mauchly Tests for Sphericity
 
                     Test statistic p-value
-IVwth                        0.928   0.269
-IVbtw1:IVwth                 0.928   0.269
-IVbtw2:IVwth                 0.928   0.269
-IVbtw1:IVbtw2:IVwth          0.928   0.269
+IVwth                        0.993   0.887
+IVbtw1:IVwth                 0.993   0.887
+IVbtw2:IVwth                 0.993   0.887
+IVbtw1:IVbtw2:IVwth          0.993   0.887
 
 
 Greenhouse-Geisser and Huynh-Feldt Corrections
  for Departure from Sphericity
 
                     GG eps Pr(>F[GG])    
-IVwth                0.933     <2e-16 ***
-IVbtw1:IVwth         0.933       0.66    
-IVbtw2:IVwth         0.933       0.86    
-IVbtw1:IVbtw2:IVwth  0.933       0.57    
+IVwth                0.993     <2e-16 ***
+IVbtw1:IVwth         0.993       0.70    
+IVbtw2:IVwth         0.993       0.34    
+IVbtw1:IVbtw2:IVwth  0.993       0.19    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
                     HF eps Pr(>F[HF])    
-IVwth                0.982     <2e-16 ***
-IVbtw1:IVwth         0.982       0.67    
-IVbtw2:IVwth         0.982       0.87    
-IVbtw1:IVbtw2:IVwth  0.982       0.57    
+IVwth                 1.05     <2e-16 ***
+IVbtw1:IVwth          1.05       0.71    
+IVbtw2:IVwth          1.05       0.34    
+IVbtw1:IVbtw2:IVwth   1.05       0.18    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -252,10 +254,10 @@ Greenhouse-Geisser epsilon: 1
 Huynh-Feldt epsilon:        1
 
               Df    F num Df den Df Pr(>F) G-G Pr H-F Pr
-(Intercept)    1 1.53      1     36  0.224  0.224  0.224
-IVbtw1         1 0.29      1     36  0.593  0.593  0.593
-IVbtw2         1 0.20      1     36  0.655  0.655  0.655
-IVbtw1:IVbtw2  1 0.38      1     36  0.543  0.543  0.543
+(Intercept)    1 0.04      1     36  0.841  0.841  0.841
+IVbtw1         1 0.04      1     36  0.847  0.847  0.847
+IVbtw2         1 6.33      1     36  0.017  0.017  0.017
+IVbtw1:IVbtw2  1 0.02      1     36  0.897  0.897  0.897
 Residuals     36                                        
 ```
 
@@ -274,14 +276,14 @@ Contrasts orthogonal to
 Contrasts spanned by
 ~IVwth
 
-Greenhouse-Geisser epsilon: 0.9326
-Huynh-Feldt epsilon:        0.9816
+Greenhouse-Geisser epsilon: 0.9932
+Huynh-Feldt epsilon:        1.0511
 
               Df     F num Df den Df Pr(>F) G-G Pr H-F Pr
-(Intercept)    1 92.14      2     72  0.000  0.000  0.000
-IVbtw1         1  0.40      2     72  0.673  0.658  0.669
-IVbtw2         1  0.14      2     72  0.874  0.860  0.870
-IVbtw1:IVbtw2  1  0.55      2     72  0.578  0.566  0.574
+(Intercept)    1 80.86      2     72  0.000  0.000  0.000
+IVbtw1         1  0.35      2     72  0.705  0.704  0.705
+IVbtw2         1  1.10      2     72  0.337  0.337  0.337
+IVbtw1:IVbtw2  1  1.73      2     72  0.185  0.185  0.185
 Residuals     36                                         
 ```
 
@@ -302,7 +304,7 @@ mauchly.test(fitSPFpq.r, M=~IVwth, X=~1, idata=inSPFpq.r)
 
 
 data:  SSD matrix from lm(formula = cbind(DV.1, DV.2, DV.3) ~ IVbtw1 * IVbtw2, data = dfSPFpq.rW) 
-W = 0.9277, p-value = 0.269
+W = 0.9932, p-value = 0.8874
 ```
 
 
@@ -341,32 +343,30 @@ summary(aov(DV ~ IVbtw*IVwth1*IVwth2 + Error(id/(IVwth1*IVwth2)),
 
 Error: id
           Df Sum Sq Mean Sq F value Pr(>F)
-IVbtw      1    0.1    0.10    0.01   0.91
-Residuals 18  126.6    7.03               
+IVbtw      1    3.7    3.71    0.68   0.42
+Residuals 18   98.3    5.46               
 
 Error: id:IVwth1
-             Df Sum Sq Mean Sq F value Pr(>F)    
-IVwth1        2    771     386  116.36 <2e-16 ***
-IVbtw:IVwth1  2      6       3    0.94    0.4    
-Residuals    36    119       3                   
+             Df Sum Sq Mean Sq F value  Pr(>F)    
+IVwth1        2    717     358    80.0 5.6e-14 ***
+IVbtw:IVwth1  2      1       0     0.1     0.9    
+Residuals    36    161       4                    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Error: id:IVwth2
-             Df Sum Sq Mean Sq F value  Pr(>F)    
-IVwth2        1  110.8   110.8   28.59 4.4e-05 ***
-IVbtw:IVwth2  1    0.3     0.3    0.07    0.79    
-Residuals    18   69.8     3.9                    
+             Df Sum Sq Mean Sq F value Pr(>F)    
+IVwth2        1  114.7   114.7    30.6  3e-05 ***
+IVbtw:IVwth2  1    0.4     0.4     0.1   0.75    
+Residuals    18   67.5     3.8                   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Error: id:IVwth1:IVwth2
-                    Df Sum Sq Mean Sq F value Pr(>F)   
-IVwth1:IVwth2        2   46.0   23.01    6.14 0.0051 **
-IVbtw:IVwth1:IVwth2  2    0.5    0.24    0.06 0.9385   
-Residuals           36  134.8    3.74                  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+                    Df Sum Sq Mean Sq F value Pr(>F)
+IVwth1:IVwth2        2    4.2    2.08    0.65   0.53
+IVbtw:IVwth1:IVwth2  2    8.1    4.04    1.27   0.29
+Residuals           36  114.2    3.17               
 ```
 
 
@@ -400,7 +400,7 @@ SSbtwWth1Wth2 <- anRes["IVbtw:IVwth1:IVwth2", "Sum Sq"]
 ```
 
 ```
-[1] 0.0002251
+[1] 0.008331
 ```
 
 ```r
@@ -408,7 +408,7 @@ SSbtwWth1Wth2 <- anRes["IVbtw:IVwth1:IVwth2", "Sum Sq"]
 ```
 
 ```
-[1] 0.6313
+[1] 0.6189
 ```
 
 ```r
@@ -416,7 +416,7 @@ SSbtwWth1Wth2 <- anRes["IVbtw:IVwth1:IVwth2", "Sum Sq"]
 ```
 
 ```
-[1] 0.01366
+[1] 0.002041
 ```
 
 ```r
@@ -424,7 +424,7 @@ SSbtwWth1Wth2 <- anRes["IVbtw:IVwth1:IVwth2", "Sum Sq"]
 ```
 
 ```
-[1] 0.1974
+[1] 0.2063
 ```
 
 ```r
@@ -432,7 +432,7 @@ SSbtwWth1Wth2 <- anRes["IVbtw:IVwth1:IVwth2", "Sum Sq"]
 ```
 
 ```
-[1] 0.0006177
+[1] 0.0008586
 ```
 
 ```r
@@ -440,7 +440,7 @@ SSbtwWth1Wth2 <- anRes["IVbtw:IVwth1:IVwth2", "Sum Sq"]
 ```
 
 ```
-[1] 0.09268
+[1] 0.00933
 ```
 
 ```r
@@ -448,7 +448,7 @@ SSbtwWth1Wth2 <- anRes["IVbtw:IVwth1:IVwth2", "Sum Sq"]
 ```
 
 ```
-[1] 0.001056
+[1] 0.01799
 ```
 
 
@@ -480,14 +480,14 @@ summary(AnovaSPFp.qr, multivariate=FALSE, univariate=TRUE)
 Univariate Type II Repeated-Measures ANOVA Assuming Sphericity
 
                        SS num Df Error SS den Df       F  Pr(>F)    
-(Intercept)         17864      1    126.6     18 2540.02 < 2e-16 ***
-IVbtw                   0      1    126.6     18    0.01  0.9057    
-IVwth1                771      2    119.3     36  116.36 < 2e-16 ***
-IVbtw:IVwth1            6      2    119.3     36    0.94  0.3994    
-IVwth2                111      1     69.8     18   28.59 4.4e-05 ***
-IVbtw:IVwth2            0      1     69.8     18    0.07  0.7917    
-IVwth1:IVwth2          46      2    134.8     36    6.14  0.0051 ** 
-IVbtw:IVwth1:IVwth2     0      2    134.8     36    0.06  0.9385    
+(Intercept)         18099      1     98.3     18 3313.88 < 2e-16 ***
+IVbtw                   4      1     98.3     18    0.68    0.42    
+IVwth1                717      2    161.1     36   80.04 5.6e-14 ***
+IVbtw:IVwth1            1      2    161.1     36    0.10    0.90    
+IVwth2                115      1     67.5     18   30.56 3.0e-05 ***
+IVbtw:IVwth2            0      1     67.5     18    0.10    0.75    
+IVwth1:IVwth2           4      2    114.2     36    0.65    0.53    
+IVbtw:IVwth1:IVwth2     8      2    114.2     36    1.27    0.29    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
@@ -495,28 +495,28 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Mauchly Tests for Sphericity
 
                     Test statistic p-value
-IVwth1                       0.761  0.0984
-IVbtw:IVwth1                 0.761  0.0984
-IVwth1:IVwth2                0.790  0.1348
-IVbtw:IVwth1:IVwth2          0.790  0.1348
+IVwth1                       0.992   0.933
+IVbtw:IVwth1                 0.992   0.933
+IVwth1:IVwth2                0.975   0.809
+IVbtw:IVwth1:IVwth2          0.975   0.809
 
 
 Greenhouse-Geisser and Huynh-Feldt Corrections
  for Departure from Sphericity
 
                     GG eps Pr(>F[GG])    
-IVwth1               0.807    1.1e-13 ***
-IVbtw:IVwth1         0.807     0.3835    
-IVwth1:IVwth2        0.826     0.0086 ** 
-IVbtw:IVwth1:IVwth2  0.826     0.9094    
+IVwth1               0.992      7e-14 ***
+IVbtw:IVwth1         0.992       0.90    
+IVwth1:IVwth2        0.976       0.52    
+IVbtw:IVwth1:IVwth2  0.976       0.29    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
                     HF eps Pr(>F[HF])    
-IVwth1               0.875    1.2e-14 ***
-IVbtw:IVwth1         0.875     0.3896    
-IVwth1:IVwth2        0.899     0.0069 ** 
-IVbtw:IVwth1:IVwth2  0.899     0.9231    
+IVwth1                1.11    5.6e-14 ***
+IVbtw:IVwth1          1.11       0.90    
+IVwth1:IVwth2         1.09       0.53    
+IVbtw:IVwth1:IVwth2   1.09       0.29    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -545,8 +545,8 @@ Greenhouse-Geisser epsilon: 1
 Huynh-Feldt epsilon:        1
 
             Df       F num Df den Df Pr(>F) G-G Pr H-F Pr
-(Intercept)  1 2540.02      1     18  0.000  0.000  0.000
-IVbtw        1    0.01      1     18  0.906  0.906  0.906
+(Intercept)  1 3313.88      1     18  0.000  0.000  0.000
+IVbtw        1    0.68      1     18  0.421  0.421  0.421
 Residuals   18                                           
 ```
 
@@ -566,13 +566,13 @@ Contrasts orthogonal to
 Contrasts spanned by
 ~IVwth1
 
-Greenhouse-Geisser epsilon: 0.8073
-Huynh-Feldt epsilon:        0.8751
+Greenhouse-Geisser epsilon: 0.9919
+Huynh-Feldt epsilon:        1.1143
 
-            Df      F num Df den Df Pr(>F) G-G Pr H-F Pr
-(Intercept)  1 116.36      2     36  0.000  0.000   0.00
-IVbtw        1   0.94      2     36  0.399  0.384   0.39
-Residuals   18                                          
+            Df    F num Df den Df Pr(>F) G-G Pr H-F Pr
+(Intercept)  1 80.0      2     36  0.000  0.000  0.000
+IVbtw        1  0.1      2     36  0.904  0.903  0.904
+Residuals   18                                        
 ```
 
 ```r
@@ -594,10 +594,10 @@ Contrasts spanned by
 Greenhouse-Geisser epsilon: 1
 Huynh-Feldt epsilon:        1
 
-            Df     F num Df den Df Pr(>F) G-G Pr H-F Pr
-(Intercept)  1 28.59      1     18  0.000  0.000  0.000
-IVbtw        1  0.07      1     18  0.792  0.792  0.792
-Residuals   18                                         
+            Df    F num Df den Df Pr(>F) G-G Pr H-F Pr
+(Intercept)  1 30.6      1     18  0.000  0.000  0.000
+IVbtw        1  0.1      1     18  0.754  0.754  0.754
+Residuals   18                                        
 ```
 
 ```r
@@ -616,12 +616,12 @@ Contrasts orthogonal to
 Contrasts spanned by
 ~IVwth1 + IVwth2 + IVwth1:IVwth2
 
-Greenhouse-Geisser epsilon: 0.8264
-Huynh-Feldt epsilon:        0.8993
+Greenhouse-Geisser epsilon: 0.9759
+Huynh-Feldt epsilon:        1.0931
 
             Df    F num Df den Df Pr(>F) G-G Pr H-F Pr
-(Intercept)  1 6.14      2     36  0.005  0.009  0.007
-IVbtw        1 0.06      2     36  0.939  0.909  0.923
+(Intercept)  1 0.65      2     36  0.526  0.522  0.526
+IVbtw        1 1.27      2     36  0.292  0.292  0.292
 Residuals   18                                        
 ```
 
@@ -643,7 +643,7 @@ mauchly.test(fitSPFp.qr, M=~IVwth1, X=~1,
 
 
 data:  SSD matrix from lm(formula = cbind(DV.1.1, DV.2.1, DV.3.1, DV.1.2, DV.2.2, DV.3.2) ~  SSD matrix from     IVbtw, data = dfSPFp.qrW) 
-W = 0.7613, p-value = 0.09842
+W = 0.9919, p-value = 0.933
 ```
 
 Mauchly-Test for IVwth2 is unnecessary here since R=2 -> sphericity holds automatically
@@ -684,7 +684,7 @@ mauchly.test(fitSPFp.qr, M=~IVwth1 + IVwth2 + IVwth1:IVwth2, X=~IVwth1 + IVwth2,
 
 
 data:  SSD matrix from lm(formula = cbind(DV.1.1, DV.2.1, DV.3.1, DV.1.2, DV.2.2, DV.3.2) ~  SSD matrix from     IVbtw, data = dfSPFp.qrW) 
-W = 0.7899, p-value = 0.1348
+W = 0.9753, p-value = 0.8086
 ```
 
 

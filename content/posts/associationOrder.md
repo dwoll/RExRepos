@@ -33,7 +33,7 @@ Linear-by-linear association test
 
 
 ```r
-set.seed(1.234)
+set.seed(123)
 library(mvtnorm)
 N     <- 100
 Sigma <- matrix(c(4,2,-3, 2,16,-1, -3,-1,9), byrow=TRUE, ncol=3)
@@ -61,10 +61,10 @@ addmargins(cTab)
 ```
      X3
 X1      A   B   C   D Sum
-  A     3   3   5  14  25
-  B     6   6   7   6  25
-  C     6   8   9   2  25
-  D    10   8   4   3  25
+  A     1   5   6  13  25
+  B     5   7   6   7  25
+  C     8   9   4   4  25
+  D    11   4   9   1  25
   Sum  25  25  25  25 100
 ```
 
@@ -78,7 +78,7 @@ lbl_test(cTab, distribution=approximate(B=9999))
 	Approximative Linear-by-Linear Association Test
 
 data:  X3 (ordered) by X1 (A < B < C < D) 
-chi-squared = 14.6, p-value = 1e-04
+chi-squared = 17.13, p-value < 2.2e-16
 ```
 
 
@@ -94,7 +94,7 @@ polychor(dfOrd$X1, dfOrd$X2, ML=TRUE)
 ```
 
 ```
-[1] 0.1989
+[1] 0.3086
 ```
 
 
@@ -104,7 +104,7 @@ polychor(cTab, ML=TRUE)
 ```
 
 ```
-[1] -0.4522
+[1] -0.4818
 ```
 
 
@@ -117,7 +117,7 @@ polyserial(Xdf$X2, dfOrd$X3)
 ```
 
 ```
-[1] -0.09123
+[1] -0.1303
 ```
 
 
@@ -136,33 +136,33 @@ hetcor(dfBoth, ML=TRUE)
 Maximum-Likelihood Estimates
 
 Correlations/Type of Correlation:
-        1       2       3         X1         X2         X3
-1       1 Pearson Pearson Polyserial Polyserial Polyserial
-2   0.297       1 Pearson Polyserial Polyserial Polyserial
-3  -0.589 -0.0949       1 Polyserial Polyserial Polyserial
-X1 0.0405  0.0549  -0.222          1 Polychoric Polychoric
-X2  0.133   0.136 -0.0696      0.199          1 Polychoric
-X3 0.0748  -0.101   0.098     -0.452     -0.079          1
+          1       2        3         X1         X2         X3
+1         1 Pearson  Pearson Polyserial Polyserial Polyserial
+2     0.279       1  Pearson Polyserial Polyserial Polyserial
+3     -0.39 -0.0719        1 Polyserial Polyserial Polyserial
+X1   -0.051  -0.134  -0.0787          1 Polychoric Polychoric
+X2   -0.176  -0.262    0.049      0.309          1 Polychoric
+X3 -0.00571 -0.0344 -0.00621     -0.482    -0.0856          1
 
 Standard Errors:
         1      2     3     X1    X2
 1                                  
-2  0.0916                          
-3  0.0659 0.0994                   
-X1  0.108  0.109 0.104             
-X2  0.106  0.107 0.108  0.113      
-X3  0.109  0.107 0.107 0.0965 0.115
+2  0.0926                          
+3  0.0852 0.0998                   
+X1  0.107  0.104 0.108             
+X2  0.103    0.1 0.108  0.106      
+X3  0.107  0.108 0.109 0.0923 0.113
 
 n = 100 
 
 P-values for Tests of Bivariate Normality:
-        1     2     3    X1    X2
+       1     2     3    X1     X2
 1                                
-2   0.204                        
-3   0.149 0.665                  
-X1  0.141 0.786 0.227            
-X2  0.451 0.874 0.146  0.51      
-X3 0.0371 0.879 0.156 0.626 0.635
+2  0.816                         
+3  0.684 0.488                   
+X1 0.107 0.561 0.555             
+X2   0.2 0.734 0.247 0.472       
+X3 0.442  0.99 0.728 0.358 0.0477
 ```
 
 
@@ -191,11 +191,11 @@ lrm(yDi ~ x)$stats
 
 ```
        Obs  Max Deriv Model L.R.       d.f.          P          C 
- 1.000e+02  2.617e-09  2.877e+00  1.000e+00  8.985e-02  6.010e-01 
+ 1.000e+02  4.371e-07  5.975e+00  1.000e+00  1.451e-02  6.354e-01 
        Dxy      Gamma      Tau-a         R2      Brier          g 
- 2.020e-01  2.034e-01  1.020e-01  3.781e-02  2.429e-01  3.931e-01 
+ 2.708e-01  2.729e-01  1.368e-01  7.733e-02  2.357e-01  5.794e-01 
         gr         gp 
- 1.482e+00  9.588e-02 
+ 1.785e+00  1.380e-01 
 ```
 
 
@@ -214,8 +214,8 @@ Call:
 roc.formula(formula = yDi ~ x, plot = TRUE, ci = TRUE, main = "ROC-curve",     xlab = "specificity (TN / (TN+FP))", ylab = "sensitivity (TP / (TP+FN))")
 
 Data: x in 50 controls (yDi 0) < 50 cases (yDi 1).
-Area under the curve: 0.601
-95% CI: 0.488-0.715 (DeLong)
+Area under the curve: 0.634
+95% CI: 0.525-0.743 (DeLong)
 ```
 
 ```r
@@ -223,7 +223,7 @@ rocCI <- ci.se(rocRes)
 plot(rocCI, type="shape")
 ```
 
-![plot of chunk associationOrder01](../content/assets/figure/associationOrder01.png) 
+![plot of chunk associationOrder01](content/assets/figure/associationOrder01.png) 
 
 
 Detach (automatically) loaded packages (if possible)

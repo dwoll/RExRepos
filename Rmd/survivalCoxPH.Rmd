@@ -34,7 +34,7 @@ Time independent covariates with proportional hazards
 \(T = (-\ln(U) \, b \, e^{-\bf{X} \bf{\beta}})^{\frac{1}{a}}\), where \(U \sim \mathcal{U}(0, 1)\)
 
 ```{r}
-set.seed(1.234)
+set.seed(123)
 N      <- 180
 P      <- 3
 sex    <- factor(sample(c("f", "m"), N, replace=TRUE))

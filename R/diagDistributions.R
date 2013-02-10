@@ -6,7 +6,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr rerDiagDistributions01
-set.seed(1.234)
+set.seed(123)
 x <- rnorm(200, 175, 10)
 hist(x, xlab="x", ylab="N", breaks="FD")
 

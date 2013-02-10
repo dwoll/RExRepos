@@ -34,7 +34,7 @@ Simulated survival time \(T\) influenced by time independent covariates \(X_{j}\
 \(T = (-\ln(U) \, b \, e^{-\bf{X} \bf{\beta}})^{\frac{1}{a}}\), where \(U \sim \mathcal{U}(0, 1)\), \(a\) is the Weibull shape parameter and \(b\) is the Weibull scale parameter.
 
 ```{r}
-set.seed(1.234)
+set.seed(123)
 N      <- 180                  # number of observations
 P      <- 3                    # number of groups
 sex    <- factor(sample(c("f", "m"), N, replace=TRUE))  # stratification factor

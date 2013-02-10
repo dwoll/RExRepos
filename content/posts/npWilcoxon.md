@@ -30,7 +30,7 @@ One-sample
     
 
 ```r
-set.seed(1.234)
+set.seed(123)
 medH0 <- 30
 DV    <- sample(0:100, 20, replace=TRUE)
 DV    <- DV[DV != medH0]
@@ -118,7 +118,7 @@ median_test(DV ~ IV, distribution="exact", data=wIndDf)
 	Exact Median Test
 
 data:  DV by IV (A, B) 
-Z = 0, p-value = 1
+Z = 1.143, p-value = 0.3868
 alternative hypothesis: true mu is not equal to 0 
 ```
 
@@ -135,13 +135,13 @@ wilcox.test(DV ~ IV, alternative="less", conf.int=TRUE, data=wIndDf)
 	Wilcoxon rank sum test
 
 data:  DV by IV 
-W = 246, p-value = 0.1462
+W = 202, p-value = 0.02647
 alternative hypothesis: true location shift is less than 0 
 95 percent confidence interval:
-  -Inf 2.159 
+   -Inf -1.771 
 sample estimates:
 difference in location 
-                -4.021 
+                -9.761 
 ```
 
 
@@ -157,13 +157,13 @@ wilcox_test(DV ~ IV, alternative="less", conf.int=TRUE,
 	Exact Wilcoxon Mann-Whitney Rank Sum Test
 
 data:  DV by IV (A, B) 
-Z = -1.069, p-value = 0.1462
+Z = -1.941, p-value = 0.02647
 alternative hypothesis: true mu is less than 0 
 95 percent confidence interval:
-  -Inf 2.159 
+   -Inf -1.771 
 sample estimates:
 difference in location 
-                -4.021 
+                -9.761 
 ```
 
 
@@ -191,7 +191,7 @@ DVdiff <- aggregate(DV ~ id, FUN=diff, data=wDepDf)
 ```
 
 ```
-[1] 8
+[1] 7
 ```
 
 
@@ -201,7 +201,7 @@ DVdiff <- aggregate(DV ~ id, FUN=diff, data=wDepDf)
 ```
 
 ```
-[1] 0.2517
+[1] 0.1316
 ```
 
 
@@ -219,7 +219,7 @@ wilcoxsign_test(DV ~ IV | id, alternative="greater",
 
 data:  y by x (neg, pos) 
 	 stratified by block 
-Z = 0.8213, p-value = 0.2152
+Z = 2.128, p-value = 0.01638
 alternative hypothesis: true mu is greater than 0 
 ```
 

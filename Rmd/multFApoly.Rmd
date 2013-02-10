@@ -29,7 +29,7 @@ Factor analysis
 First, let's simulate 200 observations from 6 variables, coming from 2 orthogonal factors. I'll take a couple of intermediate steps and start with multivariate normal continuous data that I later dichotomize. That way, we can compare Pearson correlations with polychoric correlations, and compare factor loadings from continuous data with that from dichotomous data and the true loadings.
 
 ```{r}
-set.seed(1.234)
+set.seed(123)
 N <- 200                       # number of observations
 P <- 6                         # number of variables
 Q <- 2                         # number of factors

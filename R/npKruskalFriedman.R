@@ -33,7 +33,7 @@ oneway_test(DV ~ IV, distribution=approximate(B=9999), data=KWdf)
 
 
 ## @knitr 
-set.seed(1.234)
+set.seed(123)
 P    <- 4
 Nj   <- c(41, 37, 42, 40)
 muJ  <- rep(c(-1, 0, 1, 2), Nj)
