@@ -13,6 +13,8 @@ Convex hull, (minimum) bounding box, and minimum enclosing circle
 Convex hull
 -------------------------
 
+`chull()` returns the ordered indices of the matrix rows corresponding to corners of the convex hull.
+
 ```{r}
 set.seed(123)
 xy      <- matrix(rnorm(24, 100, 15), ncol=2)

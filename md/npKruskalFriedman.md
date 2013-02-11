@@ -69,7 +69,7 @@ kruskal_test(DV ~ IV, distribution=approximate(B=9999), data=KWdf)
 	Approximative Kruskal-Wallis Test
 
 data:  DV by IV (I, II, III, IV) 
-chi-squared = 6.059, p-value = 0.1068
+chi-squared = 6.059, p-value = 0.1017
 ```
 
 
@@ -107,7 +107,7 @@ oneway_test(DV ~ IV, distribution=approximate(B=9999), data=KWdf)
 	Approximative K-Sample Permutation Test
 
 data:  DV by IV (I, II, III, IV) 
-maxT = 2.206, p-value = 0.09711
+maxT = 2.206, p-value = 0.09221
 ```
 
 

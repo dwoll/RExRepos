@@ -69,7 +69,7 @@ abline(v=obsLen, col="blue", lwd=2)
 text(obsLen-5, 0.2, adj=1, labels="end of study", cex=1.4)
 ```
 
-![plot of chunk rerSurvivalKM01](content/assets/figure/rerSurvivalKM01.png) 
+![plot of chunk rerSurvivalKM01](../content/assets/figure/rerSurvivalKM01.png) 
 
 
 Kaplan-Meier-Analysis
@@ -96,8 +96,8 @@ KM0 <- survfit(Surv(obsT, status) ~ 1,  type="kaplan-meier", conf.type="log", da
 ```
 
 ```
-Call: survfit.formula(formula = Surv(obsT, status) ~ IV, data = dfSurv, 
-    type = "kaplan-meier", conf.type = "log")
+Call: survfit(formula = Surv(obsT, status) ~ IV, data = dfSurv, type = "kaplan-meier", 
+    conf.type = "log")
 
      records n.max n.start events median 0.95LCL 0.95UCL
 IV=A      60    60      60     53   13.0       8      29
@@ -123,8 +123,8 @@ summary(KM0)
 ```
 
 ```
-Call: survfit.formula(formula = Surv(obsT, status) ~ 1, data = dfSurv, 
-    type = "kaplan-meier", conf.type = "log")
+Call: survfit(formula = Surv(obsT, status) ~ 1, data = dfSurv, type = "kaplan-meier", 
+    conf.type = "log")
 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
     1    180      13    0.928  0.0193       0.8907        0.966
@@ -192,7 +192,7 @@ plot(KM0, main=expression(paste("Kaplan-Meier-estimate ", hat(S)(t), " with CI")
      xlab="t", ylab="Survival", lwd=2)
 ```
 
-![plot of chunk rerSurvivalKM02](content/assets/figure/rerSurvivalKM02.png) 
+![plot of chunk rerSurvivalKM02](../content/assets/figure/rerSurvivalKM02.png) 
 
 
 Separate estimates for levels of factor `IV`
@@ -204,7 +204,7 @@ plot(KM, main=expression(paste("Kaplan-Meier-estimate ", hat(S)[g](t), " for gro
 legend(x="topright", col=1:3, lwd=2, legend=LETTERS[1:3])
 ```
 
-![plot of chunk rerSurvivalKM03](content/assets/figure/rerSurvivalKM03.png) 
+![plot of chunk rerSurvivalKM03](../content/assets/figure/rerSurvivalKM03.png) 
 
 
 ### Plot cumulative hazard
@@ -217,7 +217,7 @@ plot(KM0, main=expression(paste("Kaplan-Meier-estimate ", hat(Lambda)(t))),
      xlab="t", ylab="cumulative hazard", fun="cumhaz", lwd=2)
 ```
 
-![plot of chunk rerSurvivalKM04](content/assets/figure/rerSurvivalKM04.png) 
+![plot of chunk rerSurvivalKM04](../content/assets/figure/rerSurvivalKM04.png) 
 
 
 ### Log-rank-test for equal survival-functions

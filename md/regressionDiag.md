@@ -95,7 +95,7 @@ Projection to the first and second robust principal components.
 Proportion of total variation (explained variance): 0.6334
 ```
 
-![plot of chunk rerRegressionDiag01](content/assets/figure/rerRegressionDiag01.png) 
+![plot of chunk rerRegressionDiag01](../content/assets/figure/rerRegressionDiag01.png) 
 
 ```r
 which(aqRes$outliers)
@@ -162,7 +162,7 @@ library(car)
 influenceIndexPlot(fit)
 ```
 
-![plot of chunk rerRegressionDiag02](content/assets/figure/rerRegressionDiag02.png) 
+![plot of chunk rerRegressionDiag02](../content/assets/figure/rerRegressionDiag02.png) 
 
 
 Checking model assumptions using residuals
@@ -184,7 +184,7 @@ hist(Estud, main="Histogram studentized residals", breaks="FD", freq=FALSE)
 curve(dnorm(x, mean=0, sd=1), col="red", lwd=2, add=TRUE)
 ```
 
-![plot of chunk rerRegressionDiag03](content/assets/figure/rerRegressionDiag03.png) 
+![plot of chunk rerRegressionDiag03](../content/assets/figure/rerRegressionDiag03.png) 
 
 
 
@@ -193,7 +193,7 @@ qqPlot(Estud, distribution="norm", pch=20, main="QQ-Plot studentized residuals")
 qqline(Estud, col="red", lwd=2)
 ```
 
-![plot of chunk rerRegressionDiag04](content/assets/figure/rerRegressionDiag04.png) 
+![plot of chunk rerRegressionDiag04](../content/assets/figure/rerRegressionDiag04.png) 
 
 
 
@@ -219,7 +219,7 @@ W = 0.9943, p-value = 0.9535
 spreadLevelPlot(fit, pch=20)
 ```
 
-![plot of chunk rerRegressionDiag05](content/assets/figure/rerRegressionDiag05.png) 
+![plot of chunk rerRegressionDiag05](../content/assets/figure/rerRegressionDiag05.png) 
 
 ```
 

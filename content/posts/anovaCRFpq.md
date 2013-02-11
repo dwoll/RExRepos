@@ -103,14 +103,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 plot.design(DV ~ IV1*IV2, data=dfCRFpq, main="Marginal means")
 ```
 
-![plot of chunk rerAnovaCRFpq01](content/assets/figure/rerAnovaCRFpq011.png) 
+![plot of chunk rerAnovaCRFpq01](../content/assets/figure/rerAnovaCRFpq011.png) 
 
 ```r
 interaction.plot(dfCRFpq$IV1, dfCRFpq$IV2, dfCRFpq$DV,
                  main="Cell means", col=c("red", "blue", "green"), lwd=2)
 ```
 
-![plot of chunk rerAnovaCRFpq01](content/assets/figure/rerAnovaCRFpq012.png) 
+![plot of chunk rerAnovaCRFpq01](../content/assets/figure/rerAnovaCRFpq012.png) 
 
 
 Effect size estimate: partial $\hat{\eta}_{p}^{2}$
@@ -350,7 +350,7 @@ qqnorm(Estud, pch=20, cex=2)
 qqline(Estud, col="gray60", lwd=2)
 ```
 
-![plot of chunk rerAnovaCRFpq02](content/assets/figure/rerAnovaCRFpq02.png) 
+![plot of chunk rerAnovaCRFpq02](../content/assets/figure/rerAnovaCRFpq02.png) 
 
 
 
@@ -374,7 +374,7 @@ W = 0.9771, p-value = 0.4655
 plot(Estud ~ dfCRFpq$IVcomb, main="Residuals per group")
 ```
 
-![plot of chunk rerAnovaCRFpq03](content/assets/figure/rerAnovaCRFpq03.png) 
+![plot of chunk rerAnovaCRFpq03](../content/assets/figure/rerAnovaCRFpq03.png) 
 
 
 

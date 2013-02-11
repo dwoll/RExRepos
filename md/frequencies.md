@@ -71,7 +71,7 @@ B
 barplot(tab, main="Counts")
 ```
 
-![plot of chunk rerFrequencies01](content/assets/figure/rerFrequencies01.png) 
+![plot of chunk rerFrequencies01](../content/assets/figure/rerFrequencies01.png) 
 
 
 ### (Cumulative) relative frequencies
@@ -224,7 +224,7 @@ Test for independence of all factors:
 barplot(cTab, beside=TRUE, legend.text=rownames(cTab), ylab="absolute frequency")
 ```
 
-![plot of chunk rerFrequencies02](content/assets/figure/rerFrequencies02.png) 
+![plot of chunk rerFrequencies02](../content/assets/figure/rerFrequencies02.png) 
 
 
 ### Using `xtabs()`
@@ -476,7 +476,7 @@ knots(Fn)
 plot(Fn, main="cumulative frequencies")
 ```
 
-![plot of chunk rerFrequencies03](content/assets/figure/rerFrequencies03.png) 
+![plot of chunk rerFrequencies03](../content/assets/figure/rerFrequencies03.png) 
 
 
 Detach (automatically) loaded packages (if possible)

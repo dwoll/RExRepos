@@ -1,5 +1,5 @@
-## knit all Rmd files found in given input directory
-dwKnit <- function(dirIn, dirOut,
+## knit input Rmd file to output md file
+dwKnit <- function(fIn, fOut,
                    markdEngine=c("kramdown", "redcarpet", "pandoc"),
                    siteGen=c("jekyll", "nanoc", "none")) {
     markdEngine <- match.arg(markdEngine)
@@ -8,15 +8,15 @@ dwKnit <- function(dirIn, dirOut,
     require(knitr)
     require(stringr)
 
-    ## set some directories and list Rmd-files
+    ## set some directories and get base file name
     dirTmp <- "../tmp"
     dirMd  <- "../md"
     dirR   <- "../R"
-    fIn    <- list.files(dirIn, pattern="Rmd", full.names=TRUE)
+    fName  <- basename(tools::file_path_sans_ext(fIn))
 
     ## configure knitr chunk options
-    knitr::opts_chunk$set(cache.path=file.path("tmp/cache/"),
-                            fig.path=file.path("content/assets/figure/"),
+    knitr::opts_chunk$set(cache.path=file.path("../tmp/cache/"),
+                            fig.path=file.path("../content/assets/figure/"),
                                 tidy=FALSE, message=FALSE, warning=FALSE, comment=NA)
 
     ## configure hooks for different types of markdown output
@@ -48,18 +48,12 @@ dwKnit <- function(dirIn, dirOut,
     }
 
     ## add GitHub-Links, knit to markdown, post-process, and extract R code
-    sapply(fIn, function(fileCurr) {
-        fName <- basename(tools::file_path_sans_ext(fileCurr))
-        gitHubLinks(fileCurr,
-                    paste(dirTmp, "/", fName, "Tmp.Rmd", sep=""))
-        knitr::knit(paste(dirTmp, "/", fName, "Tmp.Rmd", sep=""),
-                    paste(dirMd,  "/", fName, ".md", sep=""))
-        postProcess(paste(dirMd,  "/", fName, ".md", sep=""),
-                    paste(dirOut, "/", fName, ".md", sep=""),
-                    markdEngine, siteGen)
-        knitr::purl(fileCurr,
-                    paste(dirR,   "/", fName, ".R",  sep=""))
-    })
+    gitHubLinks(fIn, paste(dirTmp, "/", fName, "Tmp.Rmd", sep=""))
+    knitr::knit(     paste(dirTmp, "/", fName, "Tmp.Rmd", sep=""),
+                     paste(dirMd,  "/", fName, ".md",     sep=""))
+    postProcess(     paste(dirMd,  "/", fName, ".md",     sep=""), fOut,
+                markdEngine, siteGen)
+    knitr::purl(fIn, paste(dirR,   "/", fName, ".R",  sep=""))
 }
 
 ## add GitHub links to the bottom of a post

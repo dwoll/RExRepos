@@ -123,7 +123,7 @@ legend(x="topleft", lty=c(NA, 1), pch=c(1, NA), lwd=c(2, 2),
        col=c("gray60", "black"), legend=c("t*", "t"))
 ```
 
-![plot of chunk rerResamplingBoot01](content/assets/figure/rerResamplingBoot01.png) 
+![plot of chunk rerResamplingBoot01](../content/assets/figure/rerResamplingBoot01.png) 
 
 
 Detach (automatically) loaded packages (if possible)

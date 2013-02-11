@@ -208,7 +208,7 @@ legend(x="topright", lwd=2, lty=c(1, 2, 1, 2), col=c("blue", "blue", "red", "red
        legend=c("sex=m, X=0, IV=A", "+- 2*SE", "sex=m, X=0, IV=C", "+- 2*SE"))
 ```
 
-![plot of chunk rerSurvivalParametric01](content/assets/figure/rerSurvivalParametric01.png) 
+![plot of chunk rerSurvivalParametric01](../content/assets/figure/rerSurvivalParametric01.png) 
 
 
 Detach (automatically) loaded packages (if possible)

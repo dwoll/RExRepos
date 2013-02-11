@@ -197,13 +197,13 @@ Visualize loadings
 factor.plot(faPC, cut=0.5)
 ```
 
-![plot of chunk rerMultFA01](content/assets/figure/rerMultFA011.png) 
+![plot of chunk rerMultFA01](../content/assets/figure/rerMultFA011.png) 
 
 ```r
 fa.diagram(faPC)
 ```
 
-![plot of chunk rerMultFA01](content/assets/figure/rerMultFA012.png) 
+![plot of chunk rerMultFA01](../content/assets/figure/rerMultFA012.png) 
 
 
 Determine number of factors
@@ -216,7 +216,7 @@ Parallel analysis and a "very simple structure" analysis provide help in selecti
 fa.parallel(X)                     # parallel analysis
 ```
 
-![plot of chunk rerMultFA02](content/assets/figure/rerMultFA021.png) 
+![plot of chunk rerMultFA02](../content/assets/figure/rerMultFA021.png) 
 
 ```
 Parallel analysis suggests that the number of factors =  2  and the number of components =  2 
@@ -226,7 +226,7 @@ Parallel analysis suggests that the number of factors =  2  and the number of co
 vss(X, n.obs=N, rotate="varimax")  # very simple structure
 ```
 
-![plot of chunk rerMultFA02](content/assets/figure/rerMultFA022.png) 
+![plot of chunk rerMultFA02](../content/assets/figure/rerMultFA022.png) 
 
 ```
 

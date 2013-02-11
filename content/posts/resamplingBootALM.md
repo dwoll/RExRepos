@@ -233,7 +233,7 @@ legend(x="topleft", lty=c(NA, 1), pch=c(1, NA), lwd=c(2, 2),
        col=c("gray60", "black"), legend=c("F*", "F"))
 ```
 
-![plot of chunk rerResamplingBootALM01](content/assets/figure/rerResamplingBootALM01.png) 
+![plot of chunk rerResamplingBootALM01](../content/assets/figure/rerResamplingBootALM01.png) 
 
 
 ### Wild boostrap

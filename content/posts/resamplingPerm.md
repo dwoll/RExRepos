@@ -101,7 +101,7 @@ curve(dnorm(x, 0, sigma/sqrt(Nj[1]) + sigma/sqrt(Nj[2])), lwd=2, add=TRUE)
 legend(x="topright", lty=1, lwd=2, legend=expression(paste("N(0, ", sigma[1]^2 / n[1] + sigma[2]^2 / n[2], ")")))
 ```
 
-![plot of chunk rerResamplingPerm01](content/assets/figure/rerResamplingPerm01.png) 
+![plot of chunk rerResamplingPerm01](../content/assets/figure/rerResamplingPerm01.png) 
 
 
 
@@ -116,7 +116,7 @@ legend(x="bottomright", lty=c(NA, 1), pch=c(16, NA), lwd=c(1, 2),
        expression(paste("N(0, ", sigma[1]^2 / n[1] + sigma[2]^2 / n[2], ")"))))
 ```
 
-![plot of chunk rerResamplingPerm02](content/assets/figure/rerResamplingPerm02.png) 
+![plot of chunk rerResamplingPerm02](../content/assets/figure/rerResamplingPerm02.png) 
 
 
 Two-sample $t$-test / one-way ANOVA for dependent groups

@@ -213,7 +213,7 @@ Simulations: 999
 plot(fitMed)
 ```
 
-![plot of chunk rerRegressionModMed01](content/assets/figure/rerRegressionModMed01.png) 
+![plot of chunk rerRegressionModMed01](../content/assets/figure/rerRegressionModMed01.png) 
 
 
 #### Estimation via nonparametric bootstrap

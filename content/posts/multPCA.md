@@ -82,7 +82,7 @@ pca$sdev^2 / sum(diag(cov(X)))
 plot(pca)
 ```
 
-![plot of chunk rerMultPCA01](content/assets/figure/rerMultPCA01.png) 
+![plot of chunk rerMultPCA01](../content/assets/figure/rerMultPCA01.png) 
 
 
 For rotated principal components, see `principal()` from package [`psych`](http://cran.r-project.org/package=psych).
@@ -164,7 +164,7 @@ legend(x="topleft", legend=c("data", "PC axes", "SDs of PC", "centroid"),
        col=c("black", "gray", "blue", "red"), bg="white")
 ```
 
-![plot of chunk rerMultPCA02](content/assets/figure/rerMultPCA02.png) 
+![plot of chunk rerMultPCA02](../content/assets/figure/rerMultPCA02.png) 
 
 
 ### Approximate data by their principal components
@@ -227,7 +227,7 @@ legend(x="topleft", legend=c("data", "PC axes", "centroid", "approximation"),
        col=c("black", "gray", "red", "blue"), bg="white")
 ```
 
-![plot of chunk rerMultPCA03](content/assets/figure/rerMultPCA03.png) 
+![plot of chunk rerMultPCA03](../content/assets/figure/rerMultPCA03.png) 
 
 
 ### Approximate the covariance matrix using principal components

@@ -61,13 +61,13 @@ matZ <- outer(X, Y, FUN="genZ")
 contour(X, Y, matZ, main="Contours for 2D-normal density")
 ```
 
-![plot of chunk rerDiagMultivariate01](content/assets/figure/rerDiagMultivariate011.png) 
+![plot of chunk rerDiagMultivariate01](../content/assets/figure/rerDiagMultivariate011.png) 
 
 ```r
 filled.contour(X, Y, matZ, main="Colored contours for 2D-normal density")
 ```
 
-![plot of chunk rerDiagMultivariate01](content/assets/figure/rerDiagMultivariate012.png) 
+![plot of chunk rerDiagMultivariate01](../content/assets/figure/rerDiagMultivariate012.png) 
 
 
 ### Bubble plot et c.
@@ -83,7 +83,7 @@ symbols(age, sport, circles=wScale, inch=0.6, fg=NULL, bg=rainbow(N),
         main="Weight against age and sport")
 ```
 
-![plot of chunk rerDiagMultivariate02](content/assets/figure/rerDiagMultivariate02.png) 
+![plot of chunk rerDiagMultivariate02](../content/assets/figure/rerDiagMultivariate02.png) 
 
 
 See `sunflowerplot()` and `stars()` for altenative approaches.
@@ -98,7 +98,7 @@ persp(X, Y, matZ, xlab="x", ylab="y", zlab="Density", theta=5, phi=35,
       main="2D-normal probability density")
 ```
 
-![plot of chunk rerDiagMultivariate03](content/assets/figure/rerDiagMultivariate03.png) 
+![plot of chunk rerDiagMultivariate03](../content/assets/figure/rerDiagMultivariate03.png) 
 
 
 ### Interactive 3-D scatter plot
@@ -115,7 +115,7 @@ spheres3d(vecX, vecY, vecZ, col="red", radius=2)
 grid3d(c("x", "y+", "z"))
 ```
 
-![plot of chunk rerDiagMultivariate04](content/assets/figure/rerDiagMultivariate04.png) 
+![plot of chunk rerDiagMultivariate04](../content/assets/figure/rerDiagMultivariate04.png) 
 
 
 
@@ -142,7 +142,7 @@ myDf   <- data.frame(IV1, IV2, IQ, height)
 coplot(IQ ~ height | IV1*IV2, pch=16, data=myDf)
 ```
 
-![plot of chunk rerDiagMultivariate06](content/assets/figure/rerDiagMultivariate06.png) 
+![plot of chunk rerDiagMultivariate06](../content/assets/figure/rerDiagMultivariate06.png) 
 
 
 
@@ -153,7 +153,7 @@ res <- histogram(IQ ~ height | IV1*IV2, data=myDf,
 print(res)
 ```
 
-![plot of chunk rerDiagMultivariate07](content/assets/figure/rerDiagMultivariate07.png) 
+![plot of chunk rerDiagMultivariate07](../content/assets/figure/rerDiagMultivariate07.png) 
 
 
 Scatterplot matrices
@@ -178,7 +178,7 @@ pairs(mvDf[c("age", "IQ", "rating", "score")], main="Scatter plot matrix",
       pch=16, col=c("red", "blue")[unclass(mvDf$IV)])
 ```
 
-![plot of chunk rerDiagMultivariate08](content/assets/figure/rerDiagMultivariate08.png) 
+![plot of chunk rerDiagMultivariate08](../content/assets/figure/rerDiagMultivariate08.png) 
 
 
 
@@ -205,7 +205,7 @@ pairs(mvDf[c("age", "IQ", "rating", "score")], diag.panel=myHist,
       col=c("red", "blue")[unclass(mvDf$IV)])
 ```
 
-![plot of chunk rerDiagMultivariate09](content/assets/figure/rerDiagMultivariate09.png) 
+![plot of chunk rerDiagMultivariate09](../content/assets/figure/rerDiagMultivariate09.png) 
 
 
 Heatmap
@@ -254,7 +254,7 @@ axis(side=1, at=seq(0, 1, length.out=P), labels=rownames(corMat))
 axis(side=2, at=seq(0, 1, length.out=P), labels=colnames(corMat))
 ```
 
-![plot of chunk rerDiagMultivariate10](content/assets/figure/rerDiagMultivariate10.png) 
+![plot of chunk rerDiagMultivariate10](../content/assets/figure/rerDiagMultivariate10.png) 
 
 
 See `heatmap()` for a heatmap including dendograms added to the plot sides and correlation for an alternative approach to visualize correlation matrices.
@@ -268,7 +268,7 @@ library(ellipse)
 plotcorr(corMat, type="lower", diag=FALSE, main="Bivariate correlations")
 ```
 
-![plot of chunk rerDiagMultivariate11](content/assets/figure/rerDiagMultivariate11.png) 
+![plot of chunk rerDiagMultivariate11](../content/assets/figure/rerDiagMultivariate11.png) 
 
 
 Useful packages

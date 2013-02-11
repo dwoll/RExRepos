@@ -49,7 +49,7 @@ dfCRp <- data.frame(IV=factor(rep(LETTERS[1:P], Nj)),
 plot.design(DV ~ IV, fun=mean, data=dfCRp, main="Group means")
 ```
 
-![plot of chunk rerAnovaCRp01](content/assets/figure/rerAnovaCRp01.png) 
+![plot of chunk rerAnovaCRp01](../content/assets/figure/rerAnovaCRp01.png) 
 
 
 ### Using `oneway.test()`
@@ -287,7 +287,7 @@ D-C 0.4283 -2.2697 3.126 0.9763
 plot(tHSD)
 ```
 
-![plot of chunk rerAnovaCRp02](content/assets/figure/rerAnovaCRp02.png) 
+![plot of chunk rerAnovaCRp02](../content/assets/figure/rerAnovaCRp02.png) 
 
 
 Assess test assumptions
@@ -302,7 +302,7 @@ qqnorm(Estud, pch=20, cex=2)
 qqline(Estud, col="gray60", lwd=2)
 ```
 
-![plot of chunk rerAnovaCRp03](content/assets/figure/rerAnovaCRp03.png) 
+![plot of chunk rerAnovaCRp03](../content/assets/figure/rerAnovaCRp03.png) 
 
 
 
@@ -326,7 +326,7 @@ W = 0.9937, p-value = 0.7149
 plot(Estud ~ dfCRp$IV, main="Residuals per group")
 ```
 
-![plot of chunk rerAnovaCRp04](content/assets/figure/rerAnovaCRp04.png) 
+![plot of chunk rerAnovaCRp04](../content/assets/figure/rerAnovaCRp04.png) 
 
 
 

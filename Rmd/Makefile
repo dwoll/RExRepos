@@ -3,21 +3,13 @@
 KNIT = Rscript ../dwKnit.r
 RMD_DIR = .
 
-## dwKnit.r knits all Rmd files it finds in the given directory
-all: knit
+POSTS_DIR = ../content/posts
+MD_FILES := $(patsubst %.Rmd, $(POSTS_DIR)/%.md, $(wildcard *.Rmd))
 
-knit:
-	$(KNIT) $(RMD_DIR) ../md redcarpet none
+all: $(MD_FILES)
 
-nanoc: nanocPandoc
-
-## make sure you also set filter :pandoc in config.yaml
-nanocPandoc:
-	$(KNIT) $(RMD_DIR) ../content/posts pandoc nanoc
-
-## make sure you also set filter :kramdown in config.yaml
-nanocKramdown:
-	$(KNIT) $(RMD_DIR) ../content/posts kramdown nanoc
+$(POSTS_DIR)/%.md: %.Rmd
+	$(KNIT) $< $@ pandoc nanoc
 
 .PHONY: clean
 clean:

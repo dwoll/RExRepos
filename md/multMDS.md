@@ -95,7 +95,7 @@ plot(mds, xlim=xLims, xlab="North-South", ylab="East-West", pch=16,
 text(mds[ , 1]+50, mds[ , 2], adj=0, labels=cities)
 ```
 
-![plot of chunk rerMultMDS01](content/assets/figure/rerMultMDS01.png) 
+![plot of chunk rerMultMDS01](../content/assets/figure/rerMultMDS01.png) 
 
 
 Non-metric MDS

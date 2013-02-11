@@ -164,7 +164,7 @@ Books
 
  * Murrell, P. (2011). R Graphics (2nd ed.). Boca Raton, FL: Chapman & Hall/CRC. [URL](http://www.stat.auckland.ac.nz/~paul/RG2e/)
  * Sarkar, D. (2008). Lattice: Multivariate Data Visualization with R. New York, NY: Springer. [URL](http://lmdvr.r-forge.r-project.org/)
- * Wickham, H. (2009). ggplot2: Elegant Graphics for Data Analysis. New York, NY: Springer. [URL](http://had.co.nz/ggplot2/book/)
+ * Wickham, H. (2009). ggplot2: Elegant Graphics for Data Analysis. New York, NY: Springer. [URL](http://ggplot2.org/book/)
 
 ### Programming with R
 

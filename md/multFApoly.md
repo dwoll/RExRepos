@@ -154,13 +154,13 @@ You can visualize the loadings from the factor analysis using `factor.plot()` an
 factor.plot(faPCdirect$fa, cut=0.5)
 ```
 
-![plot of chunk rerMultFApoly01](content/assets/figure/rerMultFApoly011.png) 
+![plot of chunk rerMultFApoly01](../content/assets/figure/rerMultFApoly011.png) 
 
 ```r
 fa.diagram(faPCdirect)
 ```
 
-![plot of chunk rerMultFApoly01](content/assets/figure/rerMultFApoly012.png) 
+![plot of chunk rerMultFApoly01](../content/assets/figure/rerMultFApoly012.png) 
 
 
 Determine number of factors
@@ -173,7 +173,7 @@ Parallel analysis and a "very simple structure" analysis provide help in selecti
 fap <- fa.parallel.poly(ordNum)   # parallel analysis for dichotomous data
 ```
 
-![plot of chunk rerMultFApoly02](content/assets/figure/rerMultFApoly02.png) 
+![plot of chunk rerMultFApoly02](../content/assets/figure/rerMultFApoly02.png) 
 
 
 
@@ -195,7 +195,7 @@ Parallel analysis suggests that the number of factors =  2  and the number of co
 vss(pc$correlations, n.obs=N, rotate="varimax")  # very simple structure
 ```
 
-![plot of chunk rerMultFApoly03](content/assets/figure/rerMultFApoly03.png) 
+![plot of chunk rerMultFApoly03](../content/assets/figure/rerMultFApoly03.png) 
 
 ```
 

@@ -5,15 +5,6 @@ all: knit
 
 knit: 
 	$(MAKE) -C Rmd
-
-nanoc: nanocPandoc
-
-nanocPandoc:
-	$(MAKE) nanocPandoc -C Rmd
-	nanoc
-
-nanocKramdown:
-	$(MAKE) nanocKramdown -C Rmd
 	nanoc
 
 .PHONY: clean

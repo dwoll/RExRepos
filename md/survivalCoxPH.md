@@ -252,7 +252,7 @@ legend(x="topright", lwd=2, col=c("black", "blue", "red"),
        legend=c("pseudo-observation", "sex=f, X=-2, IV=A", "sex=f, X=-2, IV=C"))
 ```
 
-![plot of chunk rerSurvivalCoxPH01](content/assets/figure/rerSurvivalCoxPH01.png) 
+![plot of chunk rerSurvivalCoxPH01](../content/assets/figure/rerSurvivalCoxPH01.png) 
 
 
 ### Cumulative baseline hazard
@@ -271,7 +271,7 @@ lines(Lambda0A$time, Lambda0C, lwd=2, col="green")
 legend(x="bottomright", lwd=2, col=1:3, legend=LETTERS[1:3])
 ```
 
-![plot of chunk rerSurvivalCoxPH02](content/assets/figure/rerSurvivalCoxPH02.png) 
+![plot of chunk rerSurvivalCoxPH02](../content/assets/figure/rerSurvivalCoxPH02.png) 
 
 
 Model diagnostics
@@ -304,7 +304,7 @@ par(mfrow=c(2, 2), cex.main=1.4, cex.lab=1.4)
 plot(czph)
 ```
 
-![plot of chunk rerSurvivalCoxPH03](content/assets/figure/rerSurvivalCoxPH03.png) 
+![plot of chunk rerSurvivalCoxPH03](../content/assets/figure/rerSurvivalCoxPH03.png) 
 
 
 ### Influential observations
@@ -319,7 +319,7 @@ plot(dfbetas[ , 2], type="h", main="DfBETAS for IV-B", ylab="DfBETAS", lwd=2)
 plot(dfbetas[ , 3], type="h", main="DfBETAS for IV-C", ylab="DfBETAS", lwd=2)
 ```
 
-![plot of chunk rerSurvivalCoxPH04](content/assets/figure/rerSurvivalCoxPH04.png) 
+![plot of chunk rerSurvivalCoxPH04](../content/assets/figure/rerSurvivalCoxPH04.png) 
 
 
 ### Linearity of log hazard
@@ -335,7 +335,7 @@ lines(loess.smooth(dfSurv$X, resMart), lwd=2, col="blue")
 legend(x="bottomleft", col="blue", lwd=2, legend="LOESS fit", cex=1.4)
 ```
 
-![plot of chunk rerSurvivalCoxPH05](content/assets/figure/rerSurvivalCoxPH05.png) 
+![plot of chunk rerSurvivalCoxPH05](../content/assets/figure/rerSurvivalCoxPH05.png) 
 
 
 Predicted hazard ratios

@@ -36,7 +36,7 @@ qqnorm(DV, pch=20, cex=2)
 qqline(DV, col="gray60", lwd=2)
 ```
 
-![plot of chunk rerNormality01](content/assets/figure/rerNormality01.png) 
+![plot of chunk rerNormality01](../content/assets/figure/rerNormality01.png) 
 
 
 ### Shapiro-Wilk-test

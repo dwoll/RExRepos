@@ -238,10 +238,10 @@ cor(mat, vec)
 ```
 
 ```
-          [,1]
-age     0.3123
-weight -0.6074
-height -0.8372
+         [,1]
+age    0.1482
+weight 0.2144
+height 0.2568
 ```
 
 ```r
@@ -249,8 +249,8 @@ cor(vec, mat)
 ```
 
 ```
-        age  weight  height
-[1,] 0.3123 -0.6074 -0.8372
+        age weight height
+[1,] 0.1482 0.2144 0.2568
 ```
 
 

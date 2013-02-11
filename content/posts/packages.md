@@ -275,25 +275,8 @@ other attached packages:
 [10] survival_2.37-2  
 
 loaded via a namespace (and not attached):
- [1] binom_1.0-5          boot_1.3-7           car_2.0-15          
- [4] class_7.3-5          cluster_1.14.3       colorspace_1.2-1    
- [7] digest_0.6.2         e1071_1.6-1          effects_2.2-3       
-[10] ellipse_0.3-7        energy_1.4-0         epitools_0.5-7      
-[13] evaluate_0.4.3       expm_0.99-0          formatR_0.7         
-[16] gdata_2.12.0         GPArotation_2012.3-1 grid_2.15.2         
-[19] gtools_2.7.0         hexbin_1.26.1        ICS_1.2-3           
-[22] ICSNP_1.0-9          irr_0.84             KernSmooth_2.23-8   
-[25] lattice_0.20-13      lme4_0.999999-0      lpSolve_5.6.6       
-[28] MASS_7.3-23          Matrix_1.0-11        modeest_2.1         
-[31] multcomp_1.2-15      nlme_3.1-108         nnet_7.3-5          
-[34] nortest_1.0-2        pcaPP_1.9-48         permute_0.7-0       
-[37] plotrix_3.4-5        plyr_1.8             polycor_0.7-8       
-[40] pracma_1.3.8         pROC_1.5.4           psych_1.2.12        
-[43] quadprog_1.5-4       QuantPsyc_1.5        RColorBrewer_1.0-5  
-[46] rgl_0.93.928         rms_3.6-3            robustbase_0.9-4    
-[49] sfsmisc_1.0-23       survey_3.29          svMisc_0.9-68       
-[52] tools_2.15.2         tseries_0.10-30      vcd_1.2-13          
-[55] vegan_2.0-5          zoo_1.7-9           
+[1] cluster_1.14.3  digest_0.6.2    evaluate_0.4.3  formatR_0.7    
+[5] grid_2.15.2     lattice_0.20-13 svMisc_0.9-68   tools_2.15.2   
 ```
 
 ```r

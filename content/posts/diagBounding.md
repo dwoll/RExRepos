@@ -13,6 +13,8 @@ tags: [Diagrams]
 Convex hull
 -------------------------
 
+`chull()` returns the ordered indices of the matrix rows corresponding to corners of the convex hull.
+
 
 ```r
 set.seed(123)
@@ -28,7 +30,7 @@ polygon(xy[hullIdx, ], border="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
 ```
 
-![plot of chunk rerDiagBounding01](content/assets/figure/rerDiagBounding01.png) 
+![plot of chunk rerDiagBounding01](../content/assets/figure/rerDiagBounding01.png) 
 
 
 Bounding box
@@ -54,7 +56,7 @@ rect(bb$pts[1], bb$pts[2], bb$pts[3], bb$pts[4], border="blue", lwd="2")
 points(xy, pch=16, cex=1.5)
 ```
 
-![plot of chunk rerDiagBounding02](content/assets/figure/rerDiagBounding02.png) 
+![plot of chunk rerDiagBounding02](../content/assets/figure/rerDiagBounding02.png) 
 
 
 
@@ -155,7 +157,7 @@ polygon(mbb$pts, border="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
 ```
 
-![plot of chunk rerDiagBounding03](content/assets/figure/rerDiagBounding03.png) 
+![plot of chunk rerDiagBounding03](../content/assets/figure/rerDiagBounding03.png) 
 
 
 
@@ -316,7 +318,7 @@ lines(circ, col="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
 ```
 
-![plot of chunk rerDiagBounding04](content/assets/figure/rerDiagBounding04.png) 
+![plot of chunk rerDiagBounding04](../content/assets/figure/rerDiagBounding04.png) 
 
 
 Get the article source from GitHub

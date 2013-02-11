@@ -223,7 +223,7 @@ rocCI <- ci.se(rocRes)
 plot(rocCI, type="shape")
 ```
 
-![plot of chunk associationOrder01](content/assets/figure/associationOrder01.png) 
+![plot of chunk associationOrder01](../content/assets/figure/associationOrder01.png) 
 
 
 Detach (automatically) loaded packages (if possible)

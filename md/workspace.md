@@ -43,7 +43,9 @@ ls()
 ```
 
 ```
-[1] "Aval"     "Bval"     "Cval"     "fileCurr" "fName"   
+ [1] "Aval"        "Bval"        "Cval"        "dirMd"       "dirR"       
+ [6] "dirTmp"      "fIn"         "fName"       "fOut"        "markdEngine"
+[11] "siteGen"    
 ```
 
 
@@ -55,7 +57,7 @@ ls(pattern="C")
 ```
 
 ```
-[1] "Cval"     "fileCurr"
+[1] "Cval"
 ```
 
 ```r
@@ -166,7 +168,9 @@ ls()
 ```
 
 ```
-[1] "Bval"     "Cval"     "fileCurr" "fName"    "varName" 
+ [1] "Bval"        "Cval"        "dirMd"       "dirR"        "dirTmp"     
+ [6] "fIn"         "fName"       "fOut"        "markdEngine" "siteGen"    
+[11] "varName"    
 ```
 
 ```r
@@ -189,14 +193,13 @@ search()
 ```
 
 ```
- [1] ".GlobalEnv"        "package:VGAM"      "package:stats4"   
- [4] "package:rms"       "package:rgl"       "package:mgcv"     
- [7] "package:stringr"   "package:knitr"     "package:grDevices"
-[10] "package:datasets"  "package:svSocket"  "package:TinnR"    
-[13] "package:R2HTML"    "package:Hmisc"     "package:survival" 
-[16] "package:splines"   "package:graphics"  "package:stats"    
-[19] "package:methods"   "package:tcltk"     "package:utils"    
-[22] "SciViews:TempEnv"  "Autoloads"         "package:base"     
+ [1] ".GlobalEnv"        "package:stringr"   "package:knitr"    
+ [4] "package:grDevices" "package:datasets"  "package:svSocket" 
+ [7] "package:TinnR"     "package:R2HTML"    "package:Hmisc"    
+[10] "package:survival"  "package:splines"   "package:graphics" 
+[13] "package:stats"     "package:methods"   "package:tcltk"    
+[16] "package:utils"     "SciViews:TempEnv"  "Autoloads"        
+[19] "package:base"     
 ```
 
 

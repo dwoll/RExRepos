@@ -50,13 +50,13 @@ dfLog <- data.frame(X1, X2, Yfac)
 cdplot(Yfac ~ X1, data=dfLog)
 ```
 
-![plot of chunk rerRegressionLogistic01](content/assets/figure/rerRegressionLogistic011.png) 
+![plot of chunk rerRegressionLogistic01](../content/assets/figure/rerRegressionLogistic011.png) 
 
 ```r
 cdplot(Yfac ~ X2, data=dfLog)
 ```
 
-![plot of chunk rerRegressionLogistic01](content/assets/figure/rerRegressionLogistic012.png) 
+![plot of chunk rerRegressionLogistic01](../content/assets/figure/rerRegressionLogistic012.png) 
 
 
 ### Fit the model
@@ -169,7 +169,7 @@ plot(logitHat, pch=16, col=c("red", "blue")[unclass(dfLog$Yfac)])
 abline(h=0)
 ```
 
-![plot of chunk rerRegressionLogistic02](content/assets/figure/rerRegressionLogistic02.png) 
+![plot of chunk rerRegressionLogistic02](../content/assets/figure/rerRegressionLogistic02.png) 
 
 
 

@@ -84,7 +84,7 @@ library(car)
 scatter3d(Y ~ X1 + X2, fill=FALSE, data=dfRegr)
 ```
 
-![plot of chunk rerRegression01](content/assets/figure/rerRegression01.png) 
+![plot of chunk rerRegression01](../content/assets/figure/rerRegression01.png) 
 
 
 ### Estimated coefficients, residuals, and fitted values
@@ -355,33 +355,7 @@ summary(subs, matrix.logical=TRUE)
 
 ```
 Subset selection object
-Call: FUN(c("./aggregate.Rmd", "./ancova.Rmd", "./anovaCRFpq.Rmd", 
-"./anovaCRp.Rmd", "./anovaMixed.Rmd", "./anovaRBFpq.Rmd", "./anovaRBp.Rmd", 
-"./anovaSPFpq.Rmd", "./anovaSPFpqr.Rmd", "./anovaSStypes.Rmd", 
-"./arithmeticLogic.Rmd", "./association.Rmd", "./associationOrder.Rmd", 
-"./combinatorics.Rmd", "./correlation.Rmd", "./crossvalidation.Rmd", 
-"./dataFrames.Rmd", "./dfImportExport.Rmd", "./dfReshape.Rmd", 
-"./dfSplitMerge.Rmd", "./dfTransform.Rmd", "./diagAddElements.Rmd", 
-"./diagBounding.Rmd", "./diagCategorical.Rmd", "./diagDevice.Rmd", 
-"./diagDistributions.Rmd", "./diagFormat.Rmd", "./diagMultiple.Rmd", 
-"./diagMultivariate.Rmd", "./diagScatter.Rmd", "./diagSplines.Rmd", 
-"./factors.Rmd", "./frequencies.Rmd", "./generateData.Rmd", "./gui.Rmd", 
-"./helpDocs.Rmd", "./interRaterICC.Rmd", "./linearAlgebra.Rmd", 
-"./matrix.Rmd", "./matrixArithmetic.Rmd", "./matrixStatistics.Rmd", 
-"./mean.Rmd", "./missingData.Rmd", "./multFA.Rmd", "./multFApoly.Rmd", 
-"./multHotelling.Rmd", "./multLDA.Rmd", "./multMANOVA.Rmd", "./multMDS.Rmd", 
-"./multPCA.Rmd", "./multRegression.Rmd", "./normality.Rmd", "./npBinomial.Rmd", 
-"./npBowker.Rmd", "./npCochran.Rmd", "./npKruskalFriedman.Rmd", 
-"./npMcNemar.Rmd", "./npRuns.Rmd", "./npStuartMaxwell.Rmd", "./npWilcoxon.Rmd", 
-"./packages.Rmd", "./recode.Rmd", "./regression.Rmd", "./regressionDiag.Rmd", 
-"./regressionLogistic.Rmd", "./regressionModMed.Rmd", "./regressionMultinom.Rmd", 
-"./regressionOrdinal.Rmd", "./regressionPoisson.Rmd", "./rerWorkflowJN.Rmd", 
-"./rerWorkflowWP.Rmd", "./resamplingBoot.Rmd", "./resamplingBootALM.Rmd", 
-"./resamplingPerm.Rmd", "./sets.Rmd", "./strings.Rmd", "./sumProdRange.Rmd", 
-"./survivalCoxPH.Rmd", "./survivalKM.Rmd", "./survivalParametric.Rmd", 
-"./timeDate.Rmd", "./transformData.Rmd", "./tTest.Rmd", "./variance.Rmd", 
-"./varianceHom.Rmd", "./vector.Rmd", "./workspace.Rmd")[[63L]], 
-    ...)
+Call: dwKnit(inputDir, outputDir, markdEngine, siteGen)
 6 Variables  (and intercept)
              Forced in Forced out
 GNP              FALSE      FALSE
@@ -405,7 +379,7 @@ Selection Algorithm: exhaustive
 plot(subs, scale="bic")
 ```
 
-![plot of chunk rerRegression02](content/assets/figure/rerRegression02.png) 
+![plot of chunk rerRegression02](../content/assets/figure/rerRegression02.png) 
 
 
 
@@ -452,7 +426,7 @@ plot(leapFits$size, leapFits$Cp, xlab="model size", pch=20, col="blue",
 abline(a=0, b=1)
 ```
 
-![plot of chunk rerRegression03](content/assets/figure/rerRegression03.png) 
+![plot of chunk rerRegression03](../content/assets/figure/rerRegression03.png) 
 
 
 Apply regression model to new data
@@ -496,7 +470,7 @@ legend(x="bottomright", legend=c("Data", "prediction", "confidence region"),
        col=c("black", "blue", "gray"))
 ```
 
-![plot of chunk rerRegression04](content/assets/figure/rerRegression04.png) 
+![plot of chunk rerRegression04](../content/assets/figure/rerRegression04.png) 
 
 
 Robust and penalized regression
@@ -614,13 +588,13 @@ lmrCoef <- coef(lmrFit)
 plot(lmrFit, xlab="lambda", ylab="coefficients")
 ```
 
-![plot of chunk rerRegression05](content/assets/figure/rerRegression051.png) 
+![plot of chunk rerRegression05](../content/assets/figure/rerRegression051.png) 
 
 ```r
 plot(lmrFit$lambda, lmrFit$GCV, type="l", xlab="lambda", ylab="GCV")
 ```
 
-![plot of chunk rerRegression05](content/assets/figure/rerRegression052.png) 
+![plot of chunk rerRegression05](../content/assets/figure/rerRegression052.png) 
 
 
 See packages [`lars`](http://cran.r-project.org/package=lars) and [`glmnet`](http://cran.r-project.org/package=glmnet) for the LASSO and elastic net methods which combine regularization and selection.

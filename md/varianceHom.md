@@ -51,7 +51,7 @@ boxplot(DV ~ IV, data=varDf)
 stripchart(DV ~ IV, data=varDf, pch=16, vert=TRUE, add=TRUE)
 ```
 
-![plot of chunk rerVarHom01](content/assets/figure/rerVarHom01.png) 
+![plot of chunk rerVarHom01](../content/assets/figure/rerVarHom01.png) 
 
 
 ### $F$-test for variance ratio in two groups
@@ -153,7 +153,7 @@ boxplot(DV ~ IV, data=levDf)
 stripchart(DV ~ IV, data=levDf, pch=20, vert=TRUE, add=TRUE)
 ```
 
-![plot of chunk rerVarHom02](content/assets/figure/rerVarHom02.png) 
+![plot of chunk rerVarHom02](../content/assets/figure/rerVarHom02.png) 
 
 
 ### Levene-test

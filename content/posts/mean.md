@@ -194,7 +194,7 @@ wilcox.test(X, Y, conf.int=TRUE)$estimate
 
 ```
 difference in location 
-                -5.616 
+                 -2.19 
 ```
 
 
