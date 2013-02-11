@@ -36,11 +36,11 @@ Ordinal regression (proportional odds model)
     
 ### Simulate data
 
-Dependent variable $ Y_{\text{ord}} $ with $ k=4 $ groups, $p=2 $ predictor variables
+Dependent variable $Y_{\text{ord}}$ with $k=4$ groups, $p=2$ predictor variables
 
 
 ```r
-set.seed(2.234)
+set.seed(123)
 N     <- 100
 X1    <- rnorm(N, 175, 7)
 X2    <- rnorm(N,  30, 8)
@@ -53,7 +53,7 @@ dfOrd <- data.frame(X1, X2, Yord)
 
 ### Using `vglm()` from package `VGAM`
 
-Model using cumulative logits: $ \text{logit}(p(Y \geq g)) = \ln \frac{P(Y \geq g)}{1 - P(Y \geq g)} = \beta_{0_{g}} + \beta_{1} X_{1} + \dots + \beta_{p} X_{p} \quad(g = 2, \ldots, k) $ 
+Model using cumulative logits: $\text{logit}(p(Y \geq g)) = \ln \frac{P(Y \geq g)}{1 - P(Y \geq g)} = \beta_{0_{g}} + \beta_{1} X_{1} + \dots + \beta_{p} X_{p} \quad(g = 2, \ldots, k)$
 
 
 ```r
@@ -67,11 +67,11 @@ vglm(formula = Yord ~ X1 + X2, family = propodds, data = dfOrd)
 
 Coefficients:
 (Intercept):1 (Intercept):2 (Intercept):3            X1            X2 
-    -18.51151     -19.95682     -21.42690       0.12771      -0.07902 
+    -15.61123     -17.00112     -18.28507       0.11197      -0.09518 
 
 Degrees of Freedom: 300 Total; 295 Residual
-Residual deviance: 239.6 
-Log-likelihood: -119.8 
+Residual deviance: 249.4 
+Log-likelihood: -124.7 
 ```
 
 
@@ -84,7 +84,7 @@ vglm(Yord ~ X1 + X2, family=cumulative(parallel=TRUE, reverse=TRUE), data=dfOrd)
 ```
 
 
-Adjacent category logits $ \ln \frac{P(Y=g)}{P(Y=g-1)} $ with proportional odds assumption
+Adjacent category logits $\ln \frac{P(Y=g)}{P(Y=g-1)}$ with proportional odds assumption
 
 
 ```r
@@ -93,7 +93,7 @@ vglm(Yord ~ X1 + X2, family=acat(parallel=TRUE), data=dfOrd)
 ```
 
 
-Continuation ratio logits $ \ln \frac{P(Y=g)}{P(Y < g)} $ with proportional odds assumption (discrete version of Cox proportional hazards model for survival data)
+Continuation ratio logits $\ln \frac{P(Y=g)}{P(Y < g)}$ with proportional odds assumption (discrete version of Cox proportional hazards model for survival data)
 
 
 ```r
@@ -104,7 +104,7 @@ vglm(Yord ~ X1 + X2, family=sratio(parallel=TRUE), data=dfOrd)
 
 ### Using `lrm()` from package `rms`
 
-Model $ \text{logit}(p(Y \geq g)) = \beta_{0_{g}} + \beta_{1} X_{1} + \dots + \beta_{p} X_{p} \quad(g = 2, \ldots, k) $
+Model $\text{logit}(p(Y \geq g)) = \beta_{0_{g}} + \beta_{1} X_{1} + \dots + \beta_{p} X_{p} \quad(g = 2, \ldots, k)$
 
 
 ```r
@@ -125,24 +125,24 @@ Frequencies of Responses
 
                       Model Likelihood     Discrimination    Rank Discrim.    
                          Ratio Test            Indexes          Indexes       
-Obs           100    LR chi2      37.68    R2       0.335    C       0.762    
-max |deriv| 1e-06    d.f.             2    g        1.424    Dxy     0.523    
-                     Pr(> chi2) <0.0001    gr       4.154    gamma   0.524    
-                                           gp       0.288    tau-a   0.396    
-                                           Brier    0.173                     
+Obs           100    LR chi2      27.90    R2       0.260    C       0.708    
+max |deriv| 5e-08    d.f.             2    g        1.176    Dxy     0.416    
+                     Pr(> chi2) <0.0001    gr       3.240    gamma   0.417    
+                                           gp       0.244    tau-a   0.315    
+                                           Brier    0.202                     
 
       Coef     S.E.   Wald Z Pr(>|Z|)
-y>=-  -18.5116 4.5118 -4.10  <0.0001 
-y>=+  -19.9569 4.5663 -4.37  <0.0001 
-y>=++ -21.4270 4.6389 -4.62  <0.0001 
-X1      0.1277 0.0262  4.88  <0.0001 
-X2     -0.0790 0.0244 -3.24  0.0012  
+y>=-  -15.6111 5.5109 -2.83  0.0046  
+y>=+  -17.0010 5.5508 -3.06  0.0022  
+y>=++ -18.2849 5.5863 -3.27  0.0011  
+X1      0.1120 0.0314  3.56  0.0004  
+X2     -0.0952 0.0272 -3.50  0.0005  
 ```
 
 
 ### Using `polr()` from package `MASS`
 
-Model $ \text{logit}(p(Y \leq g)) = \beta_{0_{g}} - (\beta_{1} X_{1} + \dots + \beta_{p} X_{p}) \quad(g = 1, \ldots, k-1) $
+Model $\text{logit}(p(Y \leq g)) = \beta_{0_{g}} - (\beta_{1} X_{1} + \dots + \beta_{p} X_{p}) \quad(g = 1, \ldots, k-1)$
 
 
 ```r
@@ -166,7 +166,7 @@ Error: Objekt 'dfOrd' nicht gefunden
 
 ### Using `clm()` from package `ordinal`
 
-Model $ \text{logit}(p(Y \leq g)) = \beta_{0_{g}} - (\beta_{1} X_{1} + \dots + \beta_{p} X_{p}) \quad(g = 1, \ldots, k-1) $
+Model $\text{logit}(p(Y \leq g)) = \beta_{0_{g}} - (\beta_{1} X_{1} + \dots + \beta_{p} X_{p}) \quad(g = 1, \ldots, k-1)$
 
 
 ```r
@@ -188,13 +188,13 @@ head(PhatCateg)
 ```
 
 ```
-      --      -      +      ++
-1 0.5034 0.3080 0.1379 0.05074
-2 0.1873 0.3071 0.3153 0.19039
-3 0.0437 0.1187 0.2951 0.54246
-4 0.2828 0.3431 0.2533 0.12083
-5 0.1256 0.2530 0.3474 0.27396
-6 0.4277 0.3325 0.1721 0.06759
+       --      -      +     ++
+1 0.22610 0.3137 0.2692 0.1910
+2 0.32021 0.3339 0.2182 0.1277
+3 0.07321 0.1676 0.2930 0.4662
+4 0.19020 0.2951 0.2877 0.2270
+5 0.12404 0.2384 0.3100 0.3276
+6 0.07534 0.1711 0.2950 0.4585
 ```
 
 
@@ -216,7 +216,7 @@ head(categHat)
 ```
 
 ```
-[1] "--" "+"  "++" "-"  "+"  "--"
+[1] "-"  "-"  "++" "-"  "++" "++"
 ```
 
 
@@ -250,9 +250,9 @@ predict(vglmFit, dfNew, type="response")
 
 ```
       --      -      +      ++
-1 0.1431 0.2716 0.3403 0.24501
-2 0.3565 0.3451 0.2094 0.08910
-3 0.4373 0.3300 0.1675 0.06517
+1 0.2514 0.3227 0.2554 0.17038
+2 0.5306 0.2888 0.1231 0.05753
+3 0.5565 0.2779 0.1135 0.05212
 ```
 
 
@@ -280,11 +280,11 @@ addmargins(cTab)
 ```
      facHat
 Yord   --   -   +  ++ Sum
-  --   13   8   4   0  25
-  -     8   7   9   1  25
-  +     4   5   5  11  25
-  ++    1   3   3  18  25
-  Sum  26  23  21  30 100
+  --   17   4   3   1  25
+  -     5  11   2   7  25
+  +     1  10   4  10  25
+  ++    3   9   2  11  25
+  Sum  26  34  11  29 100
 ```
 
 
@@ -308,7 +308,7 @@ deviance(vglmFit)
 ```
 
 ```
-[1] 239.6
+[1] 249.4
 ```
 
 ```r
@@ -316,7 +316,7 @@ logLik(vglmFit)
 ```
 
 ```
-[1] -119.8
+[1] -124.7
 ```
 
 ```r
@@ -324,7 +324,7 @@ AIC(vglmFit)
 ```
 
 ```
-[1] 249.6
+[1] 259.4
 ```
 
 
@@ -348,7 +348,7 @@ as.vector(1 - (LLf / LL0))
 ```
 
 ```
-[1] 0.1359
+[1] 0.1006
 ```
 
 
@@ -360,7 +360,7 @@ as.vector(1 - exp((2/N) * (LL0 - LLf)))
 ```
 
 ```
-[1] 0.3139
+[1] 0.2435
 ```
 
 
@@ -372,7 +372,7 @@ as.vector((1 - exp((2/N) * (LL0 - LLf))) / (1 - exp(LL0)^(2/N)))
 ```
 
 ```
-[1] 0.3349
+[1] 0.2597
 ```
 
 
@@ -391,11 +391,11 @@ sumOrd   <- summary(vglmFit)
 
 ```
                Estimate Std. Error z value
-(Intercept):1 -18.51151    4.51317  -4.102
-(Intercept):2 -19.95682    4.57164  -4.365
-(Intercept):3 -21.42690    4.63838  -4.619
-X1              0.12771    0.02626   4.864
-X2             -0.07902    0.02485  -3.180
+(Intercept):1 -15.61123    5.41913  -2.881
+(Intercept):2 -17.00112    5.45614  -3.116
+(Intercept):3 -18.28507    5.49804  -3.326
+X1              0.11197    0.03122   3.586
+X2             -0.09518    0.02694  -3.533
 ```
 
 
@@ -408,12 +408,12 @@ zCrit   <- qnorm(c(0.05/2, 1 - 0.05/2))
 ```
 
 ```
-                   [,1]      [,2]
-(Intercept):1  -9.66586 -27.35715
-(Intercept):2 -10.99658 -28.91707
-(Intercept):3 -12.33585 -30.51795
-X1              0.17918   0.07625
-X2             -0.03033  -0.12772
+                  [,1]      [,2]
+(Intercept):1 -4.98994 -26.23252
+(Intercept):2 -6.30730 -27.69495
+(Intercept):3 -7.50911 -29.06102
+X1             0.17317   0.05077
+X2            -0.04238  -0.14798
 ```
 
 
@@ -426,7 +426,7 @@ p-values for two-sided paramter tests based on assumption that z-values are asym
 
 ```
 (Intercept):1 (Intercept):2 (Intercept):3            X1            X2 
-    4.102e-05     1.269e-05     3.847e-06     1.151e-06     1.471e-03 
+    0.0039671     0.0018334     0.0008818     0.0003357     0.0004109 
 ```
 
 
@@ -449,6 +449,8 @@ summary(clmFit)
 
 Likelihood-ratio-test for predictor `X2`
 
+We need to specify `VGAM::lrtest()` here because after attaching package `mlogit` above, there is another function present with the same name.
+
 
 ```r
 vglmR <- vglm(Yord ~ X1, family=propodds, data=dfOrd)
@@ -461,8 +463,8 @@ Likelihood ratio test
 Model 1: Yord ~ X1 + X2
 Model 2: Yord ~ X1
   #Df LogLik Df Chisq Pr(>Chisq)    
-1 295   -120                        
-2 296   -125  1  10.9    0.00096 ***
+1 295   -125                        
+2 296   -131  1  13.5    0.00024 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -481,8 +483,8 @@ Likelihood ratio test
 Model 1: Yord ~ X1 + X2
 Model 2: Yord ~ 1
   #Df LogLik Df Chisq Pr(>Chisq)    
-1 295   -120                        
-2 297   -139  2  37.7    6.6e-09 ***
+1 295   -125                        
+2 297   -139  2  27.9    8.7e-07 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ```
@@ -497,17 +499,18 @@ vglmP <- vglm(Yord ~ X1 + X2, family=cumulative(parallel=TRUE,  reverse=TRUE),
 
 vglmNP <- vglm(Yord ~ X1 + X2, family=cumulative(parallel=FALSE, reverse=TRUE),
                 data=dfOrd)
+```
+
+```
+Error: NA/NaN/Inf in externem Funktionsaufruf (arg 1)
+```
+
+```r
 VGAM::lrtest(vglmP, vglmNP)
 ```
 
 ```
-Likelihood ratio test
-
-Model 1: Yord ~ X1 + X2
-Model 2: Yord ~ X1 + X2
-  #Df LogLik Df Chisq Pr(>Chisq)
-1 295   -120                    
-2 291   -118 -4  2.61       0.63
+Error: Objekt 'vglmNP' nicht gefunden
 ```
 
 

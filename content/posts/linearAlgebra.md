@@ -719,6 +719,8 @@ t(X) %*% Xnull
 
 ### Condition index
 
+We need to specify `base::norm()` here because after attaching package `expm` above, there is another function present with the same name.
+
 
 ```r
 X <- matrix(c(20, 26, 10, 19, 29, 27, 20, 12, 17, 23, 27, 25), nrow=4)
@@ -827,25 +829,18 @@ all.equal(S, t(R) %*% R)
 
 ### $QR$-decomposition
 
+We need to specify `base::qr.Q()` here because after attaching package `expm` above, there is another function present with the same name.
+
 
 ```r
 qrX <- qr(X)
-Q   <- qr.Q(qrX)
-```
-
-```
-Error: Argument "Dvec" fehlt (ohne Standardwert)
-```
-
-```r
-R   <- qr.R(qrX)
+Q   <- base::qr.Q(qrX)
+R   <- base::qr.R(qrX)
 all.equal(X, Q %*% R)
 ```
 
 ```
-Error: Fehler bei der Auswertung des Argumentes 'current' bei der
-Methodenauswahl für Funktion 'all.equal': Fehler in Q %*% R : nicht
-passende Argumente
+[1] TRUE
 ```
 
 
@@ -984,26 +979,19 @@ Px3[1:3, ]
 
 ### Numerically stable implementation using the $QR$-decomposition
 
+We need to specify `base::qr.Q()` here because after attaching package `expm` above, there is another function present with the same name.
+
 
 ```r
 qrX   <- qr(X)
-Q     <- qr.Q(qrX)
-```
-
-```
-Error: Argument "Dvec" fehlt (ohne Standardwert)
-```
-
-```r
-R     <- qr.R(qrX)
+Q     <- base::qr.Q(qrX)
+R     <- base::qr.R(qrX)
 Xplus <- solve(t(X) %*% X) %*% t(X)
 all.equal(Xplus, solve(R) %*% t(Q))
 ```
 
 ```
-Error: Fehler bei der Auswertung des Argumentes 'current' bei der
-Methodenauswahl für Funktion 'all.equal': Fehler in solve(R) %*% t(Q) :
-nicht passende Argumente
+[1] TRUE
 ```
 
 ```r
@@ -1011,8 +999,7 @@ all.equal(X %*% Xplus, tcrossprod(Q))
 ```
 
 ```
-[1] "Attributes: < Component 1: Mean relative difference: 0.75 >"
-[2] "Numeric: lengths (16, 1) differ"                            
+[1] TRUE
 ```
 
 

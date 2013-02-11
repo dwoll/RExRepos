@@ -202,7 +202,7 @@ sqrt(max(evX) / min(evX[evX >= .Machine$double.eps]))
 sqrt(evX / min(evX[evX >= .Machine$double.eps]))
 
 
-## @knitr 
+## @knitr Xmat, cache=TRUE
 X  <- matrix(c(20, 26, 10, 19, 29, 27, 20, 12, 17, 23, 27, 25), nrow=4)
 (S <- cov(X))
 eigS <- eigen(S)
@@ -224,8 +224,8 @@ all.equal(S, t(R) %*% R)
 
 ## @knitr 
 qrX <- qr(X)
-Q   <- qr.Q(qrX)
-R   <- qr.R(qrX)
+Q   <- base::qr.Q(qrX)
+R   <- base::qr.R(qrX)
 all.equal(X, Q %*% R)
 
 
@@ -274,8 +274,8 @@ Px3[1:3, ]
 
 ## @knitr 
 qrX   <- qr(X)
-Q     <- qr.Q(qrX)
-R     <- qr.R(qrX)
+Q     <- base::qr.Q(qrX)
+R     <- base::qr.R(qrX)
 Xplus <- solve(t(X) %*% X) %*% t(X)
 all.equal(Xplus, solve(R) %*% t(Q))
 all.equal(X %*% Xplus, tcrossprod(Q))

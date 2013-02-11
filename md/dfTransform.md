@@ -520,7 +520,7 @@ head(na.omit(myDfNA))
 Useful packages
 -------------------------
 
-Package [`plyr`](http://cran.r-project.org/package=plyr) provides very handy functions for the split-apply-combine approach to aggregating data frames.
+Package [`plyr`](http://cran.r-project.org/package=plyr) provides very handy functions for the split-apply-combine approach to aggregating data frames. In order to work with data frames like with a database, use [`sqldf`](http://cran.r-project.org/package=sqldf). You can then use standard SQL commands to select data. This is useful for extremely large datasets where `sqldf` provides increased performance.
 
 Get the article source from GitHub
 ----------------------------------------------

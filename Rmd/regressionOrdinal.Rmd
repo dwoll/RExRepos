@@ -38,10 +38,10 @@ Ordinal regression (proportional odds model)
     
 ### Simulate data
 
-Dependent variable \( Y_{\text{ord}} \) with \( k=4 \) groups, \(p=2 \) predictor variables
+Dependent variable \(Y_{\text{ord}}\) with \(k=4\) groups, \(p=2\) predictor variables
 
 ```{r regressionOrdinalDf, cache=TRUE}
-set.seed(2.234)
+set.seed(123)
 N     <- 100
 X1    <- rnorm(N, 175, 7)
 X2    <- rnorm(N,  30, 8)
@@ -53,7 +53,7 @@ dfOrd <- data.frame(X1, X2, Yord)
 
 ### Using `vglm()` from package `VGAM`
 
-Model using cumulative logits: \( \text{logit}(p(Y \geq g)) = \ln \frac{P(Y \geq g)}{1 - P(Y \geq g)} = \beta_{0_{g}} + \beta_{1} X_{1} + \dots + \beta_{p} X_{p} \quad(g = 2, \ldots, k) \) 
+Model using cumulative logits: \(\text{logit}(p(Y \geq g)) = \ln \frac{P(Y \geq g)}{1 - P(Y \geq g)} = \beta_{0_{g}} + \beta_{1} X_{1} + \dots + \beta_{p} X_{p} \quad(g = 2, \ldots, k)\)
 
 ```{r}
 library(VGAM)
@@ -67,14 +67,14 @@ vglm(Yord ~ X1 + X2, family=cumulative(parallel=TRUE, reverse=TRUE), data=dfOrd)
 # not shown
 ```
 
-Adjacent category logits \( \ln \frac{P(Y=g)}{P(Y=g-1)} \) with proportional odds assumption
+Adjacent category logits \(\ln \frac{P(Y=g)}{P(Y=g-1)}\) with proportional odds assumption
 
 ```{r results='hide'}
 vglm(Yord ~ X1 + X2, family=acat(parallel=TRUE), data=dfOrd)
 # not shown
 ```
 
-Continuation ratio logits \( \ln \frac{P(Y=g)}{P(Y < g)} \) with proportional odds assumption (discrete version of Cox proportional hazards model for survival data)
+Continuation ratio logits \(\ln \frac{P(Y=g)}{P(Y < g)}\) with proportional odds assumption (discrete version of Cox proportional hazards model for survival data)
 
 ```{r results='hide'}
 vglm(Yord ~ X1 + X2, family=sratio(parallel=TRUE), data=dfOrd)
@@ -83,7 +83,7 @@ vglm(Yord ~ X1 + X2, family=sratio(parallel=TRUE), data=dfOrd)
 
 ### Using `lrm()` from package `rms`
 
-Model \( \text{logit}(p(Y \geq g)) = \beta_{0_{g}} + \beta_{1} X_{1} + \dots + \beta_{p} X_{p} \quad(g = 2, \ldots, k) \)
+Model \(\text{logit}(p(Y \geq g)) = \beta_{0_{g}} + \beta_{1} X_{1} + \dots + \beta_{p} X_{p} \quad(g = 2, \ldots, k)\)
 
 ```{r}
 library(rms)
@@ -92,7 +92,7 @@ library(rms)
 
 ### Using `polr()` from package `MASS`
 
-Model \( \text{logit}(p(Y \leq g)) = \beta_{0_{g}} - (\beta_{1} X_{1} + \dots + \beta_{p} X_{p}) \quad(g = 1, \ldots, k-1) \)
+Model \(\text{logit}(p(Y \leq g)) = \beta_{0_{g}} - (\beta_{1} X_{1} + \dots + \beta_{p} X_{p}) \quad(g = 1, \ldots, k-1)\)
 
 ```{r regressionOrdinalPolrFit, results='hide', cache=TRUE}
 library(MASS)
@@ -108,7 +108,7 @@ exp(confint(polrFit))
 
 ### Using `clm()` from package `ordinal`
 
-Model \( \text{logit}(p(Y \leq g)) = \beta_{0_{g}} - (\beta_{1} X_{1} + \dots + \beta_{p} X_{p}) \quad(g = 1, \ldots, k-1) \)
+Model \(\text{logit}(p(Y \leq g)) = \beta_{0_{g}} - (\beta_{1} X_{1} + \dots + \beta_{p} X_{p}) \quad(g = 1, \ldots, k-1)\)
 
 ```{r results='hide'}
 library(ordinal)
@@ -257,6 +257,8 @@ summary(clmFit)
 ### Model comparisons - likelihood-ratio tests
 
 Likelihood-ratio-test for predictor `X2`
+
+We need to specify `VGAM::lrtest()` here because after attaching package `mlogit` above, there is another function present with the same name.
 
 ```{r}
 vglmR <- vglm(Yord ~ X1, family=propodds, data=dfOrd)

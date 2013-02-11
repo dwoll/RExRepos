@@ -13,7 +13,7 @@ if(any(!has)) install.packages(wants[!has])
 
 
 ## @knitr regressionOrdinalDf, cache=TRUE
-set.seed(2.234)
+set.seed(123)
 N     <- 100
 X1    <- rnorm(N, 175, 7)
 X2    <- rnorm(N,  30, 8)

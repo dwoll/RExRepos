@@ -377,6 +377,8 @@ summary(mlogitFit)
 
 Likelihood-ratio-test for predictor `X2`
 
+We need to specify `VGAM::lrtest()` here because after attaching package `mlogit` above, there is another function present with the same name.
+
 
 ```r
 vglmFitR <- vglm(Ycateg ~ X1, family=multinomial(refLevel=1), data=dfMN)

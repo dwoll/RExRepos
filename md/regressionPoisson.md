@@ -80,7 +80,7 @@ Number of Fisher Scoring iterations: 5
 ```
 
 
-Change factors for rate parameter $ \lambda $
+Change factors for rate parameter $\lambda$
 
 
 ```r

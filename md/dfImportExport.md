@@ -214,7 +214,7 @@ To read and write Excel files directly, use package [`XLConnect`](http://cran.r-
 Read and write data from a database
 -------------------------
 
-Excel files can also be treated as a database with the `RODBC` package. One can then use standard SQL commands like `query()` and `fetch()` to select data.
+Excel files can also be treated as a database with the `RODBC` package. One can then use standard SQL commands like `query` and `fetch` to select data.
 
 
 ```r

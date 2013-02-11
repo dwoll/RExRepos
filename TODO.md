@@ -8,9 +8,9 @@ Workflow
 
 These posts currently need manual knitting in RStudio -> fix
 
- * regressionDiag
- * regressionOrdinal
- * regressionPoisson
+ * regressionDiag (`ncvTest(fit)`, `pRes <- perturb(fit, pvars=c("X1", "X2", "X3"), prange=c(1, 1, 1))`)
+ * regressionOrdinal (`exp(confint(polrFit))`, `summary(polrFit)`)
+ * regressionPoisson (`odTest(glmFitNB)`)
 
 Additional content
 -------------------------

@@ -52,7 +52,7 @@ glmFitP <- glm(Y ~ X1 + X2, family=poisson(link="log"), data=dfCount)
 summary(glmFitP)
 ```
 
-Change factors for rate parameter \( \lambda \)
+Change factors for rate parameter \(\lambda\)
 
 ```{r}
 exp(coef(glmFitP))
