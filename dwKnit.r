@@ -167,13 +167,13 @@ sanitizeMath <- function(fIn, markdEngine=c("kramdown", "redcarpet", "pandoc")) 
 
 ## get arguments and call knit
 args        <- commandArgs(TRUE)
-## input directory with all Rmd files
-inputDir    <- args[1]
-## output directory
-outputDir   <- args[2]
+## input Rmd file
+inputFile   <- args[1]
+## output md file
+outputFile  <- args[2]
 ## which markdown engine wille be used?
 markdEngine <- args[3]
 ## which static site generator will be used?
 siteGen     <- args[4]
 
-dwKnit(inputDir, outputDir, markdEngine, siteGen)
+dwKnit(inputFile, outputFile, markdEngine, siteGen)

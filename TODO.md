@@ -15,6 +15,7 @@ These posts currently need manual knitting in RStudio -> fix
 Additional content
 -------------------------
 
+ * [knitr to WP](http://yihui.name/en/2013/02/publishing-from-r-knitr-to-wordpress/)
  * Internal links
  * More tags
  * Code comments
@@ -24,3 +25,5 @@ Additional content
  * anovaCRFpq -> `model.tables()`
  * anovaMixed -> RBF-pq, SPF-p.q with compound symmetry
  * diagMultivariate -> `psych::cor.plot()`
+ * dataTransform -> `grepl()` for subsetting variables
+ * dataImportExport -> mention `read.xport()`, `read.dta()`, `write.dta()`

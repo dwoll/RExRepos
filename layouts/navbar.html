@@ -5,6 +5,7 @@
     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= categ.to_s.gsub("_", " ") %> <b class="caret"></b></a>
     <ul class="dropdown-menu">
       <li><a href="<%= @config[:base_url] + "/rer" + categ.to_s + ".html" %>">Overview</a></li>
+      <li class="divider"></li>
 	  <% ## check to see if we have sub-categories
 	     ## then title is a hash with fileName : title entries %>
       <% posts.each do |posting, title|
@@ -30,6 +31,7 @@
     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= categ.to_s.gsub("_", " ") %> <b class="caret"></b></a>
     <ul class="dropdown-menu">
       <li><a href="<%= @config[:base_url] + "/rer" + categ.to_s + ".html" %>">Overview</a></li>
+      <li class="divider"></li>
 	  <% ## check to see if we have sub-categories
 	     ## then title is a hash with fileName : title entries %>
       <% posts.each do |posting, title|
