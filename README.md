@@ -26,7 +26,7 @@ All content on this site is licensed under the [Creative Commons BY-SA](http://c
  - [Multivariate methods](<%= @config[:rer][:baseurl] %>/rerMultivariate.html)
  - [Diagrams](<%= @config[:rer][:baseurl] %>/rerDiagrams.html)
 
-The examples mostly come from my [book](http://www.dwoll.de/r/gddmr/), and are currently bare-bones R code. They will be complemented with comments and short explanations over time.
+The examples mostly come from my [book](http://www.dwoll.de/r/gddmr.php), and are currently bare-bones R code. They will be complemented with comments and short explanations over time.
 
 Some methods within the intended scope of this repository are currently missing:
 
