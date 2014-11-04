@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Confidence interval for $\mu$
 -------------------------
 
@@ -41,7 +40,6 @@ sdH0 <- 40
 N    <- 200
 DV   <- rnorm(N, muH0, sdH0)
 ```
-
 
 Function to calculate the mean and uncorrected variance (=plug-in estimator for the population variance) of a given replication.
 
@@ -69,11 +67,10 @@ boot(data = DV, statistic = getM, R = nR)
 
 
 Bootstrap Statistics :
-    original    bias    std. error
-t1*   99.657 0.1252697      2.5831
-t2*    7.081 0.0008319      0.7764
+     original       bias    std. error
+t1* 99.657182 0.1252697500   2.5831186
+t2*  7.080822 0.0008318941   0.7763612
 ```
-
 
 Various types of bootstrap confidence intervals
 
@@ -100,7 +97,6 @@ Level     Percentile            BCa
 Calculations and Intervals on Original Scale
 ```
 
-
 ### Bootstrap distribution
 
 For the $t$ test statistic, compare the empirical distribution from the bootstrap replicates against the theoretical $t_{n-1}$ distribtion.
@@ -114,7 +110,6 @@ tStar  <- (Mstar-mean(DV)) / SMstar
 ```
 
 
-
 ```r
 plot(tStar, ecdf(tStar)(tStar), col="gray60", pch=1, xlab="t* bzw. t",
      ylab="P(T <= t)", main="t*: cumulative rel. frequency and t CDF")
@@ -123,8 +118,7 @@ legend(x="topleft", lty=c(NA, 1), pch=c(1, NA), lwd=c(2, 2),
        col=c("gray60", "black"), legend=c("t*", "t"))
 ```
 
-![plot of chunk rerResamplingBoot01](../content/assets/figure/rerResamplingBoot01.png) 
-
+![plot of chunk rerResamplingBoot01](../content/assets/figure/rerResamplingBoot01-1.png) 
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -133,7 +127,6 @@ Detach (automatically) loaded packages (if possible)
 ```r
 try(detach(package:boot))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

@@ -18,15 +18,14 @@ TODO
 Install required packages
 -------------------------
 
-[`sets`](http://cran.r-project.org/package=sets)
+[`DescTools`](http://cran.r-project.org/package=DescTools), [`sets`](http://cran.r-project.org/package=sets)
 
 
 ```r
-wants <- c("sets")
+wants <- c("DescTools", "sets")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
 
 Treating duplicate values
 -------------------------
@@ -40,7 +39,6 @@ n <- c(5, 3, 1, 3, 4, 4)
 x <- c(1, 1, 2, 2)
 y <- c(2, 1)
 ```
-
 
 
 ```r
@@ -75,6 +73,17 @@ length(unique(c("A", "B", "C", "C", "B", "B", "A", "C", "C", "A")))
 [1] 3
 ```
 
+`AllDuplicated()` from package `DescTools` indicates all occurrences of a duplicated value, even the first one.
+
+
+```r
+library(DescTools)
+AllDuplicated(c(1, 1, 1, 3, 3, 4, 4))
+```
+
+```
+[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+```
 
 Set operations
 -------------------------
@@ -89,7 +98,6 @@ union(m, n)
 [1] 2 1 3 5 4
 ```
 
-
 ### Intersection
 
 
@@ -100,7 +108,6 @@ intersect(m, n)
 ```
 [1] 1 3
 ```
-
 
 ### Asymmetric and symmetric difference
 
@@ -129,7 +136,6 @@ union(setdiff(m, n), setdiff(n, m))
 [1] 2 5 4
 ```
 
-
 ### Is $e$ an element of set $X$?
 
 
@@ -148,7 +154,6 @@ c("A", "Z", "B") %in% c("A", "B", "C", "D", "E")
 ```
 [1]  TRUE FALSE  TRUE
 ```
-
 
 ### (Proper) subset
 
@@ -176,7 +181,6 @@ AinB & !BinA
 ```
 [1] TRUE
 ```
-
 
 Set operations using package `sets`
 -------------------------
@@ -287,15 +291,14 @@ set_contains_element(sa, se)
 [1] TRUE
 ```
 
-
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
+try(detach(package:DescTools))
 try(detach(package:sets))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

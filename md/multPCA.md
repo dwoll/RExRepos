@@ -13,15 +13,14 @@ Principal components analysis
 Install required packages
 -------------------------
 
-[`mvtnorm`](http://cran.r-project.org/package=mvtnorm), [`psych`](http://cran.r-project.org/package=psych), [`robustbase`](http://cran.r-project.org/package=robustbase), [`pcaPP`](http://cran.r-project.org/package=pcaPP)
+[`mvtnorm`](http://cran.r-project.org/package=mvtnorm), [`robustbase`](http://cran.r-project.org/package=robustbase), [`pcaPP`](http://cran.r-project.org/package=pcaPP)
 
 
 ```r
-wants <- c("mvtnorm", "psych", "robustbase", "pcaPP")
+wants <- c("mvtnorm", "robustbase", "pcaPP")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
 
 PCA
 -------------------------
@@ -39,21 +38,19 @@ X     <- rmvnorm(N, mean=mu, sigma=Sigma)
 ```
 
 
-
 ```r
 (pca <- prcomp(X))
 ```
 
 ```
 Standard deviations:
-[1] 2.115 1.100
+[1] 2.114979 1.099903
 
 Rotation:
-        PC1     PC2
-[1,] 0.6877 -0.7259
-[2,] 0.7259  0.6877
+           PC1        PC2
+[1,] 0.6877487 -0.7259489
+[2,] 0.7259489  0.6877487
 ```
-
 
 
 ```r
@@ -62,10 +59,10 @@ summary(pca)
 
 ```
 Importance of components:
-                         PC1   PC2
-Standard deviation     2.115 1.100
-Proportion of Variance 0.787 0.213
-Cumulative Proportion  0.787 1.000
+                          PC1    PC2
+Standard deviation     2.1150 1.0999
+Proportion of Variance 0.7871 0.2129
+Cumulative Proportion  0.7871 1.0000
 ```
 
 ```r
@@ -73,17 +70,15 @@ pca$sdev^2 / sum(diag(cov(X)))
 ```
 
 ```
-[1] 0.7871 0.2129
+[1] 0.787119 0.212881
 ```
-
 
 
 ```r
 plot(pca)
 ```
 
-![plot of chunk rerMultPCA01](../content/assets/figure/rerMultPCA01.png) 
-
+![plot of chunk rerMultPCA01](../content/assets/figure/rerMultPCA01-1.png) 
 
 For rotated principal components, see `principal()` from package [`psych`](http://cran.r-project.org/package=psych).
 
@@ -99,8 +94,8 @@ Call:
 princomp(x = X)
 
 Standard deviations:
-Comp.1 Comp.2 
- 2.094  1.089 
+  Comp.1   Comp.2 
+2.093723 1.088849 
 
  2  variables and  50 observations.
 ```
@@ -122,34 +117,50 @@ Proportion Var    0.5    0.5
 Cumulative Var    0.5    1.0
 ```
 
+### Find principal components
+
+Principal component values for original data.
+
+
 ```r
-pc <- pcaPrin$scores
-head(pc)
+pcVal <- predict(pca)
+head(pcVal, n=5)
 ```
 
 ```
-     Comp.1  Comp.2
-[1,] -1.633  0.4595
-[2,]  2.503 -1.4578
-[3,]  2.625  1.1630
-[4,] -1.499 -1.3124
-[5,] -2.191  0.4319
-[6,]  2.381 -0.9130
+           PC1        PC2
+[1,] -1.633097  0.4595479
+[2,]  2.503028 -1.4578202
+[3,]  2.624500  1.1630316
+[4,] -1.498896 -1.3124061
+[5,] -2.191086  0.4319243
 ```
 
+Principal component values for new data.
+
+
+```r
+Xnew <- matrix(1:4, ncol=2)
+predict(pca, newdata=Xnew)
+```
+
+```
+           PC1       PC2
+[1,] 0.4241819 0.7484588
+[2,] 1.8378795 0.7102586
+```
 
 ### Illustration
 
 
 ```r
-Gscl <- G %*% diag(pca$sdev)
+B    <- G %*% diag(pca$sdev)
 ctr  <- colMeans(X)
-xMat <- rbind(ctr[1] - Gscl[1, ], ctr[1])
-yMat <- rbind(ctr[2] - Gscl[2, ], ctr[2])
+xMat <- rbind(ctr[1] - B[1, ], ctr[1])
+yMat <- rbind(ctr[2] - B[2, ], ctr[2])
 ab1  <- solve(cbind(1, xMat[ , 1]), yMat[ , 1])
 ab2  <- solve(cbind(1, xMat[ , 2]), yMat[ , 2])
 ```
-
 
 
 ```r
@@ -164,8 +175,7 @@ legend(x="topleft", legend=c("data", "PC axes", "SDs of PC", "centroid"),
        col=c("black", "gray", "blue", "red"), bg="white")
 ```
 
-![plot of chunk rerMultPCA02](../content/assets/figure/rerMultPCA02.png) 
-
+![plot of chunk rerMultPCA02](../content/assets/figure/rerMultPCA02-1.png) 
 
 ### Approximate data by their principal components
 
@@ -173,9 +183,13 @@ legend(x="topleft", legend=c("data", "PC axes", "SDs of PC", "centroid"),
 
 
 ```r
-Hs   <- scale(pc)
-BHs  <- t(Gscl %*% t(Hs))
-repr <- sweep(BHs, 2, ctr, "+")
+Xdot <- scale(X, center=TRUE, scale=FALSE)
+Y    <- Xdot %*% G
+B    <- G %*% diag(pca$sdev)
+H    <- scale(Y)
+HB   <- H %*% t(B)
+
+repr <- sweep(HB, 2, ctr, "+")
 all.equal(X, repr)
 ```
 
@@ -188,21 +202,20 @@ sum((X-repr)^2)
 ```
 
 ```
-[1] 1.925e-29
+[1] 1.365715e-29
 ```
-
 
 #### Approximation using only the first principal component
 
 
 ```r
-BHs1  <- t(Gscl[ , 1] %*% t(Hs[ , 1]))
-repr1 <- sweep(BHs1, 2, ctr, "+")
+HB1   <- H[ , 1] %*% t(B[ , 1])
+repr1 <- sweep(HB1, 2, ctr, "+")
 sum((X-repr1)^2)
 ```
 
 ```
-[1] 59.28
+[1] 59.27955
 ```
 
 ```r
@@ -212,7 +225,6 @@ qr(scale(repr1, center=TRUE, scale=FALSE))$rank
 ```
 [1] 1
 ```
-
 
 
 ```r
@@ -227,20 +239,19 @@ legend(x="topleft", legend=c("data", "PC axes", "centroid", "approximation"),
        col=c("black", "gray", "red", "blue"), bg="white")
 ```
 
-![plot of chunk rerMultPCA03](../content/assets/figure/rerMultPCA03.png) 
-
+![plot of chunk rerMultPCA03](../content/assets/figure/rerMultPCA03-1.png) 
 
 ### Approximate the covariance matrix using principal components
 
 
 ```r
-Gscl %*% t(Gscl)
+B %*% t(B)
 ```
 
 ```
-      [,1]  [,2]
-[1,] 2.753 1.629
-[2,] 1.629 2.930
+         [,1]     [,2]
+[1,] 2.753346 1.629294
+[2,] 1.629294 2.929578
 ```
 
 ```r
@@ -248,21 +259,20 @@ cov(X)
 ```
 
 ```
-      [,1]  [,2]
-[1,] 2.753 1.629
-[2,] 1.629 2.930
+         [,1]     [,2]
+[1,] 2.753346 1.629294
+[2,] 1.629294 2.929578
 ```
 
 ```r
-Gscl[ , 1] %*% t(Gscl[ , 1])
+B[ , 1] %*% t(B[ , 1])
 ```
 
 ```
-      [,1]  [,2]
-[1,] 2.116 2.233
-[2,] 2.233 2.357
+         [,1]     [,2]
+[1,] 2.115786 2.233305
+[2,] 2.233305 2.357351
 ```
-
 
 Robust PCA
 -------------------------
@@ -278,12 +288,11 @@ Call:
 princomp(x = X, covmat = covMcd(X))
 
 Standard deviations:
-Comp.1 Comp.2 
- 2.467  1.047 
+  Comp.1   Comp.2 
+2.466551 1.047429 
 
  2  variables and  50 observations.
 ```
-
 
 
 ```r
@@ -296,12 +305,11 @@ Call:
 PCAproj(x = X, k = ncol(X), method = "qn")
 
 Standard deviations:
-Comp.1 Comp.2 
- 2.101  1.171 
+  Comp.1   Comp.2 
+2.100548 1.170746 
 
  2  variables and  50 observations.
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -310,10 +318,8 @@ Detach (automatically) loaded packages (if possible)
 ```r
 try(detach(package:pcaPP))
 try(detach(package:mvtnorm))
-try(detach(package:psych))
 try(detach(package:robustbase))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

@@ -1,11 +1,11 @@
 
-## @knitr 
+## ------------------------------------------------------------------------
 wants <- c("vegan")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 cities <- c("Augsburg", "Berlin", "Dresden", "Hamburg", "Hannover",
             "Karlsruhe", "Kiel", "Muenchen", "Rostock", "Stuttgart")
 N      <- length(cities)
@@ -27,11 +27,11 @@ dstMat[lower.tri(dstMat)] <- t(dstMat)[lower.tri(dstMat)]
 dimnames(dstMat) <- list(city=cities, city=cities)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 (mds <- cmdscale(dstMat, k=2))
 
 
-## @knitr results='hide'
+## ----results='hide'------------------------------------------------------
 set.seed(123)
 P   <- 3
 obj <- matrix(sample(-20:20, N*P, replace=TRUE), ncol=P)
@@ -40,21 +40,20 @@ cmdscale(dst, k=2)
 # not shown
 
 
-## @knitr rerMultMDS01
+## ----rerMultMDS01--------------------------------------------------------
 xLims <- range(mds[ , 1]) + c(0, 250)
 plot(mds, xlim=xLims, xlab="North-South", ylab="East-West", pch=16,
      main="City locations according to MDS")
 text(mds[ , 1]+50, mds[ , 2], adj=0, labels=cities)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(vegan)
 (nmMDS <- monoMDS(dstMat, k=2))
 scores(nmMDS)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 try(detach(package:vegan))
 try(detach(package:permute))
-
 

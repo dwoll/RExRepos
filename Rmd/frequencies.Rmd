@@ -13,10 +13,10 @@ Frequency tables
 Install required packages
 -------------------------
 
-[`epitools`](http://cran.r-project.org/package=epitools)
+[`DescTools`](http://cran.r-project.org/package=DescTools)
 
 ```{r}
-wants <- c("epitools")
+wants <- c("DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -124,11 +124,11 @@ addmargins(cTab, c(1, 2), FUN=mean)
 ### Conditional relative frequencies
 
 ```{r}
-prop.table(cTab, 1)
+prop.table(cTab, margin=1)
 ```
 
 ```{r}
-prop.table(cTab, 2)
+prop.table(cTab, margin=2)
 ```
 
 ### Flat contingency tables for more than two variables
@@ -144,8 +144,8 @@ Recovering the original data from contingency tables
 Individual-level data frame
 
 ```{r}
-library(epitools)
-expand.table(cTab)
+library(DescTools)
+Untable(cTab)
 ```
 
 Group-level data frame
@@ -174,5 +174,5 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:epitools))
+try(detach(package:DescTools))
 ```

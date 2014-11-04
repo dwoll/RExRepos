@@ -19,15 +19,13 @@ getwd()
 ```
 
 ```
-[1] "D:/daniel_work/workspace/RExRepos/tmp"
+[1] "/home/dw/RExRepos/tmp"
 ```
-
 
 
 ```r
 setwd("d:/daniel/work/r/")
 ```
-
 
 Create and remove objects
 -------------------------
@@ -48,16 +46,16 @@ ls()
 [11] "siteGen"    
 ```
 
-
 List available objects
 
 
 ```r
-ls(pattern="C")
+# objects in .GlobalEnv workspace that have a capital C in their name
+ls(".GlobalEnv", pattern="C")
 ```
 
 ```
-[1] "Cval"
+character(0)
 ```
 
 ```r
@@ -76,7 +74,6 @@ exists("doesNotExist")
 [1] FALSE
 ```
 
-
 Remove objects
 
 
@@ -94,13 +91,12 @@ Aval                             # this will give an error
 ```
 
 ```
-Error: Objekt 'Aval' nicht gefunden
+Error in eval(expr, envir, enclos): Objekt 'Aval' nicht gefunden
 ```
 
 ```r
 ## rm(list=ls(all.names=TRUE))   # remove all objects from the workspace
 ```
-
 
 Show and rename objects
 -------------------------
@@ -141,7 +137,6 @@ print(Bval)
 ```
 
 
-
 ```r
 get("Bval")
 ```
@@ -158,7 +153,6 @@ get(varName)
 ```
 [1] 4.5
 ```
-
 
 ### Rename objects
 
@@ -183,7 +177,6 @@ varNew
 [1] 4.5
 ```
 
-
 Environments and search path
 -------------------------
 
@@ -194,14 +187,10 @@ search()
 
 ```
  [1] ".GlobalEnv"        "package:stringr"   "package:knitr"    
- [4] "package:grDevices" "package:datasets"  "package:svSocket" 
- [7] "package:TinnR"     "package:R2HTML"    "package:Hmisc"    
-[10] "package:survival"  "package:splines"   "package:graphics" 
-[13] "package:stats"     "package:methods"   "package:tcltk"    
-[16] "package:utils"     "SciViews:TempEnv"  "Autoloads"        
-[19] "package:base"     
+ [4] "package:stats"     "package:graphics"  "package:grDevices"
+ [7] "package:utils"     "package:datasets"  "Autoloads"        
+[10] "package:base"     
 ```
-
 
 [How R Searches and Finds Stuff](http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/)
 
@@ -216,14 +205,12 @@ history()
 savehistory("d:/daniel/work/r/history.r")
 ```
 
-
 By default, `save.image()` saves all objects in the workspace to the file `.RData` in the current working directory.
 
 
 ```r
 save.image("d:/daniel/work/r/objects.Rdata")
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

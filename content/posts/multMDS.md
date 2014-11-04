@@ -22,7 +22,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Metric MDS
 -------------------------
 
@@ -52,25 +51,23 @@ dimnames(dstMat) <- list(city=cities, city=cities)
 ```
 
 
-
 ```r
 (mds <- cmdscale(dstMat, k=2))
 ```
 
 ```
-             [,1]    [,2]
-Augsburg   399.61  -70.51
-Berlin    -200.20 -183.39
-Dresden    -18.47 -213.02
-Hamburg   -316.40  130.72
-Hannover  -161.38  120.22
-Karlsruhe  333.39  212.13
-Kiel      -409.09  147.62
-Muenchen   408.56 -144.46
-Rostock   -401.20 -126.21
-Stuttgart  365.19  126.91
+                [,1]       [,2]
+Augsburg   399.60802  -70.51443
+Berlin    -200.20462 -183.39465
+Dresden    -18.47337 -213.01950
+Hamburg   -316.39991  130.72245
+Hannover  -161.38209  120.21761
+Karlsruhe  333.38724  212.12523
+Kiel      -409.08703  147.62226
+Muenchen   408.55752 -144.46446
+Rostock   -401.19605 -126.20651
+Stuttgart  365.19030  126.91200
 ```
-
 
 ### Given object-wise ratings
 
@@ -84,7 +81,6 @@ cmdscale(dst, k=2)
 # not shown
 ```
 
-
 ### Plot
 
 
@@ -95,8 +91,7 @@ plot(mds, xlim=xLims, xlab="North-South", ylab="East-West", pch=16,
 text(mds[ , 1]+50, mds[ , 2], adj=0, labels=cities)
 ```
 
-![plot of chunk rerMultMDS01](../content/assets/figure/rerMultMDS01.png) 
-
+![plot of chunk rerMultMDS01](../content/assets/figure/rerMultMDS01-1.png) 
 
 Non-metric MDS
 -------------------------
@@ -117,10 +112,10 @@ Non-metric Multidimensional Scaling
 10 points, dissimilarity 'unknown'
 
 Dimensions: 2 
-Stress:     0.008449 
+Stress:     0.008443353 
 Stress type 1, weak ties
 Scores scaled to unit root mean square, rotated to principal components
-Stopped after 111 iterations: Scale factor of gradient nearly zero
+Stopped after 130 iterations: Stress nearly unchanged (ratio > sratmax)
 ```
 
 ```r
@@ -128,21 +123,20 @@ scores(nmMDS)
 ```
 
 ```
-              MDS1     MDS2
-Augsburg  -1.11085 -0.09031
-Berlin     0.58107 -0.50484
-Dresden    0.01896 -0.74170
-Hamburg    0.85851  0.32960
-Hannover   0.51125  0.38229
-Karlsruhe -0.94592  0.52527
-Kiel       1.09913  0.37960
-Muenchen  -1.12637 -0.33100
-Rostock    1.13265 -0.23825
-Stuttgart -1.01841  0.28933
+                 MDS1        MDS2
+Augsburg  -1.11072167 -0.08994458
+Berlin     0.58049815 -0.50361604
+Dresden    0.02006455 -0.74668119
+Hamburg    0.85768160  0.32980499
+Hannover   0.51135761  0.38091075
+Karlsruhe -0.94605107  0.52543389
+Kiel       1.09813021  0.38114071
+Muenchen  -1.12608597 -0.32982549
+Rostock    1.13297156 -0.23682661
+Stuttgart -1.01784499  0.28960357
 attr(,"pc")
 [1] TRUE
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -152,7 +146,6 @@ Detach (automatically) loaded packages (if possible)
 try(detach(package:vegan))
 try(detach(package:permute))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

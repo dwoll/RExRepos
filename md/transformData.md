@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Convert between data types
 -------------------------
 
@@ -61,7 +60,6 @@ as.character(tfVec)
 [1] "TRUE"  "FALSE" "FALSE" "TRUE" 
 ```
 
-
 Higher types cannot be uniquely converted to lower types.
 
 
@@ -78,7 +76,7 @@ as.numeric(as.complex(c(3-2i, 3+2i, 0+1i, 0+0i)))
 ```
 
 ```
-Warning: imaginäre Teile verworfen in Umwandlung
+Warning: imaginÃ¤re Teile verworfen in Umwandlung
 ```
 
 ```
@@ -96,7 +94,6 @@ Warning: NAs durch Umwandlung erzeugt
 ```
 [1] 21.000  3.141     NA
 ```
-
 
 Change order of vector elements
 -------------------------
@@ -146,7 +143,6 @@ sort(c("D", "E", "10", "A", "F", "E", "D", "4", "E", "A"))
  [1] "10" "4"  "A"  "A"  "D"  "D"  "E"  "E"  "E"  "F" 
 ```
 
-
 ### Randomly permute vector elements
 
 
@@ -159,7 +155,6 @@ myColors  <- c("red", "green", "blue", "yellow", "black")
 ```
 [1] "green"  "yellow" "black"  "blue"   "red"   
 ```
-
 
 
 ```r
@@ -180,7 +175,6 @@ Nj  <- c(4, 3, 5)
  [1] 1 2 3 2 1 2 1 3 3 3 1 3
 ```
 
-
 Randomly place elements in $p$ groups of approximately equal size
 -------------------------
 
@@ -195,7 +189,6 @@ P <- 3
 ```
  [1] 2 1 3 2 3 2 1 3 1 2
 ```
-
 
 Select random or systematic subsets of vector elements
 -------------------------
@@ -213,7 +206,6 @@ sample(vec, 5, replace=FALSE)
 ```
 
 
-
 ```r
 library(car)
 some(vec, n=5)
@@ -222,7 +214,6 @@ some(vec, n=5)
 ```
 [1] "red"   "red"   "green" "blue"  "blue" 
 ```
-
 
 ### Select every 10th element
 
@@ -236,7 +227,6 @@ vec[selIdx1]
 [1] "red"   "green" "blue" 
 ```
 
-
 ### Select approximately every 10th element
 
 
@@ -248,7 +238,6 @@ vec[selIdx2]
 ```
 character(0)
 ```
-
 
 Transform old variables into new ones
 -------------------------
@@ -292,7 +281,6 @@ vec3 <- c(10, 100, 1000, 10000)
 [1] 1e-01 6e-02 3e-03 8e-04
 ```
 
-
 ### Recycling rule
 
 
@@ -319,14 +307,13 @@ vec2*age
 ```
 
 ```
-Warning: Länge des längeren Objektes ist kein Vielfaches der Länge des
-kürzeren Objektes
+Warning in vec2 * age: LÃ¤nge des lÃ¤ngeren Objektes
+ 	 ist kein Vielfaches der LÃ¤nge des kÃ¼rzeren Objektes
 ```
 
 ```
 [1]  36  80 180 192 230  42
 ```
-
 
 ### Standardize variables
 
@@ -336,7 +323,7 @@ kürzeren Objektes
 ```
 
 ```
-[1] -1.11661 -0.63806  1.75467  0.31903  0.07976 -0.39879
+[1] -1.1166106 -0.6380632  1.7546739  0.3190316  0.0797579 -0.3987895
 ```
 
 ```r
@@ -344,17 +331,17 @@ kürzeren Objektes
 ```
 
 ```
-         [,1]
-[1,] -1.11661
-[2,] -0.63806
-[3,]  1.75467
-[4,]  0.31903
-[5,]  0.07976
-[6,] -0.39879
+           [,1]
+[1,] -1.1166106
+[2,] -0.6380632
+[3,]  1.7546739
+[4,]  0.3190316
+[5,]  0.0797579
+[6,] -0.3987895
 attr(,"scaled:center")
-[1] 22.67
+[1] 22.66667
 attr(,"scaled:scale")
-[1] 4.179
+[1] 4.179314
 ```
 
 ```r
@@ -362,9 +349,8 @@ as.vector(zAge)
 ```
 
 ```
-[1] -1.11661 -0.63806  1.75467  0.31903  0.07976 -0.39879
+[1] -1.1166106 -0.6380632  1.7546739  0.3190316  0.0797579 -0.3987895
 ```
-
 
 ### Move and scale variable
 
@@ -376,7 +362,7 @@ newMean <- 100
 ```
 
 ```
-[1]  83.25  90.43 126.32 104.79 101.20  94.02
+[1]  83.25084  90.42905 126.32011 104.78547 101.19637  94.01816
 ```
 
 ```r
@@ -395,7 +381,6 @@ sd(newAge)
 [1] 15
 ```
 
-
 ### Rank transformation
 
 
@@ -407,7 +392,6 @@ rank(c(3, 1, 2, 3))
 [1] 3.5 1.0 2.0 3.5
 ```
 
-
 ### Transform old variables into new ones
 
 
@@ -418,9 +402,8 @@ weight <- c(65, 89, 91, 75, 73)
 ```
 
 ```
-[1] 20.52 24.40 25.48 22.40 27.14
+[1] 20.51509 24.39626 25.47521 22.39541 27.14158
 ```
-
 
 
 ```r
@@ -434,17 +417,13 @@ quest3  <- c(TRUE,  TRUE,  TRUE,  TRUE,  FALSE, TRUE, FALSE, FALSE)
 [1] 2 1 1 2 1 3 1 1
 ```
 
-
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

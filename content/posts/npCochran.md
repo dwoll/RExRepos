@@ -22,7 +22,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Cochran-$Q$-test
 -------------------------
 
@@ -37,7 +36,6 @@ cDf <- data.frame(id=factor(rep(1:N, each=P)),
 ```
 
 
-
 ```r
 library(coin)
 symmetry_test(pref ~ year | id, teststat="quad", data=cDf)
@@ -49,10 +47,9 @@ symmetry_test(pref ~ year | id, teststat="quad", data=cDf)
 
 data:  pref by
 	 year (1981, 1982, 1983, 1984, 1985) 
-	 stratified by id 
-chi-squared = 1.333, df = 4, p-value = 0.8557
+	 stratified by id
+chi-squared = 1.3333, df = 4, p-value = 0.8557
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -60,13 +57,9 @@ Detach (automatically) loaded packages (if possible)
 
 ```r
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

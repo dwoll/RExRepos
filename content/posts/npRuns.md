@@ -13,37 +13,35 @@ tags: [Nonparametric, ClassicalNonparametric]
 Install required packages
 -------------------------
 
-[`tseries`](http://cran.r-project.org/package=tseries)
+[`DescTools`](http://cran.r-project.org/package=DescTools)
 
 
 ```r
-wants <- c("tseries")
+wants <- c("DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Runs-test
 -------------------------
 
-### Using `runs.test()` from package `tseries` (asymptotic test)
+### Using `RunsTest()` from package `DescTools`
 
 
 ```r
 queue <- factor(c("f", "m", "m", "f", "m", "f", "f", "f"))
-library(tseries)
-runs.test(queue, alternative="greater")
+library(DescTools)
+RunsTest(queue, alternative="greater")
 ```
 
 ```
 
-	Runs Test
+	Runs Test for Randomness
 
-data:  queue 
-Standard Normal = 0.206, p-value = 0.4184
-alternative hypothesis: greater 
+data:  queue
+runs = 5, m = 5, n = 3, p-value = 0.5714
+alternative hypothesis: true number of runs is greater than expected
 ```
-
 
 ### Manual permutation test
 
@@ -88,7 +86,6 @@ m
 ```
 
 
-
 ```r
 getP <- function(r1, r2, n1, n2) {
     # iterations of a symbol <= total number of this symbol?
@@ -101,7 +98,6 @@ getP <- function(r1, r2, n1, n2) {
     ifelse(((r1+r2) %% 2) == 0, 2*p, p)
 }
 ```
-
 
 
 ```r
@@ -118,7 +114,6 @@ f
 ```
 
 
-
 ```r
 p3.2 <- getP(3, 2, n1, n2)
 p2.3 <- getP(2, 3, n1, n2)
@@ -126,15 +121,13 @@ p3.3 <- getP(3, 3, n1, n2)
 p4.3 <- getP(4, 3, n1, n2)
 ```
 
-
 ```r
 (pGrEq <- p3.2 + p2.3 + p3.3 + p4.3)
 ```
 
 ```
-[1] 0.5714
+[1] 0.5714286
 ```
-
 
 
 ```r
@@ -145,13 +138,12 @@ p1.1 <- getP(1, 1, n1, n2)
 ```
 
 
-
 ```r
 (pLess <- p2.2 + p1.2 + p2.1 + p1.1)
 ```
 
 ```
-[1] 0.4286
+[1] 0.4285714
 ```
 
 ```r
@@ -161,7 +153,6 @@ pGrEq + pLess
 ```
 [1] 1
 ```
-
 
 #### Normal approximation
 
@@ -174,19 +165,17 @@ rZ    <- (rr-muR) / sqrt(varR)
 ```
 
 ```
-     f 
-0.4184 
+        f 
+0.4184066 
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
-try(detach(package:tseries))
+try(detach(package:DescTools))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

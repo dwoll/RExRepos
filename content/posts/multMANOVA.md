@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 One-way MANOVA
 -------------------------
     
@@ -51,20 +50,18 @@ dfMan1 <- data.frame(Y =rbind(Y11, Y21, Y31),
 ```
 
 
-
 ```r
 manRes1 <- manova(cbind(Y.1, Y.2) ~ IV, data=dfMan1)
 summary(manRes1, test="Wilks")
 ```
 
 ```
-          Df Wilks approx F num Df den Df  Pr(>F)    
-IV         2 0.387       17      4    112 6.2e-11 ***
-Residuals 57                                         
+          Df   Wilks approx F num Df den Df    Pr(>F)    
+IV         2 0.38675   17.024      4    112 6.222e-11 ***
+Residuals 57                                             
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 
 ```r
@@ -72,7 +69,6 @@ summary(manRes1, test="Roy")
 summary(manRes1, test="Pillai")
 summary(manRes1, test="Hotelling-Lawley")
 ```
-
 
 Two-way MANOVA
 -------------------------
@@ -94,7 +90,6 @@ dfMan2 <- data.frame(Y  =rbind(Y11, Y21, Y31, Y12, Y22, Y32),
                      IV2=factor(rep(1:Q, each=sum(Nj))))
 ```
 
-
 ### Type I sum of squares
 
 
@@ -104,15 +99,14 @@ summary(manRes2, test="Pillai")
 ```
 
 ```
-           Df Pillai approx F num Df den Df  Pr(>F)    
-IV1         2  0.819     39.5      4    228 < 2e-16 ***
-IV2         1  0.241     17.9      2    113 1.8e-07 ***
-IV1:IV2     2  0.146      4.5      4    228  0.0017 ** 
-Residuals 114                                          
+           Df  Pillai approx F num Df den Df    Pr(>F)    
+IV1         2 0.81891   39.521      4    228 < 2.2e-16 ***
+IV2         1 0.24055   17.896      2    113 1.771e-07 ***
+IV1:IV2     2 0.14550    4.472      4    228  0.001693 ** 
+Residuals 114                                             
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 
 ```r
@@ -120,7 +114,6 @@ summary(manRes2, test="Wilks")
 summary(manRes2, test="Roy")
 summary(manRes2, test="Hotelling-Lawley")
 ```
-
 
 ### Type II/III sum of squares
 
@@ -138,83 +131,82 @@ summary(ManRes, multivariate=TRUE)
 Type III MANOVA Tests:
 
 Sum of squares and products for error:
-       Y.1    Y.2
-Y.1 1658.0 -349.2
-Y.2 -349.2  982.9
+         Y.1     Y.2
+Y.1 1657.963 -349.19
+Y.2 -349.190  982.94
 
 ------------------------------------------
  
 Term: (Intercept) 
 
 Sum of squares and products for the hypothesis:
-      Y.1   Y.2
-Y.1 188.1 412.1
-Y.2 412.1 902.9
+         Y.1      Y.2
+Y.1 188.0783 412.0900
+Y.2 412.0900 902.9119
 
 Multivariate Tests: (Intercept)
-                 Df test stat approx F num Df den Df Pr(>F)    
-Pillai            1    0.5664    73.81      2    113 <2e-16 ***
-Wilks             1    0.4336    73.81      2    113 <2e-16 ***
-Hotelling-Lawley  1    1.3064    73.81      2    113 <2e-16 ***
-Roy               1    1.3064    73.81      2    113 <2e-16 ***
+                 Df test stat approx F num Df den Df     Pr(>F)    
+Pillai            1 0.5664167 73.80943      2    113 < 2.22e-16 ***
+Wilks             1 0.4335833 73.80943      2    113 < 2.22e-16 ***
+Hotelling-Lawley  1 1.3063616 73.80943      2    113 < 2.22e-16 ***
+Roy               1 1.3063616 73.80943      2    113 < 2.22e-16 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 ------------------------------------------
  
 Term: IV1 
 
 Sum of squares and products for the hypothesis:
-       Y.1    Y.2
-Y.1 782.98  62.59
-Y.2  62.59 891.47
+         Y.1      Y.2
+Y.1 782.9783  62.5900
+Y.2  62.5900 891.4717
 
 Multivariate Tests: IV1
-                 Df test stat approx F num Df den Df Pr(>F)    
-Pillai            2    0.8189    39.52      4    228 <2e-16 ***
-Wilks             2    0.3356    41.04      4    226 <2e-16 ***
-Hotelling-Lawley  2    1.5197    42.55      4    224 <2e-16 ***
-Roy               2    1.1020    62.81      2    114 <2e-16 ***
+                 Df test stat approx F num Df den Df     Pr(>F)    
+Pillai            2 0.8189128 39.52124      4    228 < 2.22e-16 ***
+Wilks             2 0.3355622 41.03532      4    226 < 2.22e-16 ***
+Hotelling-Lawley  2 1.5197264 42.55234      4    224 < 2.22e-16 ***
+Roy               2 1.1019821 62.81298      2    114 < 2.22e-16 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 ------------------------------------------
  
 Term: IV2 
 
 Sum of squares and products for the hypothesis:
-      Y.1   Y.2
-Y.1 193.3 116.3
-Y.2 116.3  69.9
+         Y.1       Y.2
+Y.1 193.3413 116.25319
+Y.2 116.2532  69.90128
 
 Multivariate Tests: IV2
-                 Df test stat approx F num Df den Df   Pr(>F)    
-Pillai            1    0.2043    14.51      2    113 2.47e-06 ***
-Wilks             1    0.7957    14.51      2    113 2.47e-06 ***
-Hotelling-Lawley  1    0.2568    14.51      2    113 2.47e-06 ***
-Roy               1    0.2568    14.51      2    113 2.47e-06 ***
+                 Df test stat approx F num Df den Df     Pr(>F)    
+Pillai            1 0.2043019 14.50683      2    113 2.4676e-06 ***
+Wilks             1 0.7956981 14.50683      2    113 2.4676e-06 ***
+Hotelling-Lawley  1 0.2567580 14.50683      2    113 2.4676e-06 ***
+Roy               1 0.2567580 14.50683      2    113 2.4676e-06 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 ------------------------------------------
  
 Term: IV1:IV2 
 
 Sum of squares and products for the hypothesis:
-       Y.1    Y.2
-Y.1  39.73 -69.37
-Y.2 -69.37 158.57
+          Y.1       Y.2
+Y.1  39.72500 -69.36667
+Y.2 -69.36667 158.57167
 
 Multivariate Tests: IV1:IV2
-                 Df test stat approx F num Df den Df   Pr(>F)    
-Pillai            2    0.1455    4.472      4    228 0.001693 ** 
-Wilks             2    0.8553    4.591      4    226 0.001391 ** 
-Hotelling-Lawley  2    0.1681    4.708      4    224 0.001147 ** 
-Roy               2    0.1620    9.237      2    114 0.000192 ***
+                 Df test stat approx F num Df den Df     Pr(>F)    
+Pillai            2 0.1455029 4.472193      4    228 0.00169258 ** 
+Wilks             2 0.8553409 4.591223      4    226 0.00139073 ** 
+Hotelling-Lawley  2 0.1681379 4.707860      4    224 0.00114750 ** 
+Roy               2 0.1620497 9.236832      2    114 0.00019151 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -223,10 +215,7 @@ Detach (automatically) loaded packages (if possible)
 ```r
 try(detach(package:mvtnorm))
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

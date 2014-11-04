@@ -14,7 +14,6 @@ Ordinal regression
 library(knitr)
 opts_knit$set(self.contained=FALSE)
 opts_chunk$set(tidy=FALSE, message=FALSE, warning=FALSE, comment=NA)
-# render_jekyll()
 ```
 
 TODO
@@ -40,7 +39,7 @@ Ordinal regression (proportional odds model)
 
 Dependent variable \(Y_{\text{ord}}\) with \(k=4\) groups, \(p=2\) predictor variables
 
-```{r regressionOrdinalDf, cache=TRUE}
+```{r}
 set.seed(123)
 N     <- 100
 X1    <- rnorm(N, 175, 7)
@@ -81,29 +80,29 @@ vglm(Yord ~ X1 + X2, family=sratio(parallel=TRUE), data=dfOrd)
 # not shown
 ```
 
-### Using `lrm()` from package `rms`
+### Using `orm()` from package `rms`
 
 Model \(\text{logit}(p(Y \geq g)) = \beta_{0_{g}} + \beta_{1} X_{1} + \dots + \beta_{p} X_{p} \quad(g = 2, \ldots, k)\)
 
 ```{r}
 library(rms)
-(lrmFit <- lrm(Yord ~ X1 + X2, data=dfOrd))
+(ormFit <- orm(Yord ~ X1 + X2, data=dfOrd))
 ```
 
 ### Using `polr()` from package `MASS`
 
 Model \(\text{logit}(p(Y \leq g)) = \beta_{0_{g}} - (\beta_{1} X_{1} + \dots + \beta_{p} X_{p}) \quad(g = 1, \ldots, k-1)\)
 
-```{r regressionOrdinalPolrFit, results='hide', cache=TRUE}
+```{r results='hide'}
 library(MASS)
 (polrFit <- polr(Yord ~ X1 + X2, method="logistic", data=dfOrd))
 # not shown
 ```
 
-Profile likelihood based confidence intervals
+Profile likelihood based confidence intervals (need to use `MASS:::confint.polr()` insteand of `confint()` since other packages are loaded, and method is masked).
 
-```{r dependson=c("regressionOrdinalDf", "regressionOrdinalPolrFit")}
-exp(confint(polrFit))
+```{r}
+exp(MASS:::confint.polr(polrFit))
 ```
 
 ### Using `clm()` from package `ordinal`
@@ -122,12 +121,12 @@ Predicted category membership
 ### Predicted category probabilities
 
 ```{r}
-PhatCateg <- predict(vglmFit, type="response")
+PhatCateg <- VGAM::predict(vglmFit, type="response")
 head(PhatCateg)
 ```
 
 ```{r results='hide'}
-predict(lrmFit, type="fitted.ind")
+predict(ormFit, type="fitted.ind")
 predict(clmFit, subset(dfOrd, select=c("X1", "X2"), type="prob"))$fit
 predict(polrFit, type="probs")
 # not shown
@@ -160,11 +159,11 @@ dfNew <- data.frame(X1=rnorm(Nnew, 175, 7),
 ### Predicted class probabilities
 
 ```{r}
-predict(vglmFit, dfNew, type="response")
+VGAM::predict(vglmFit, dfNew, type="response")
 ```
 
 ```{r results='hide'}
-predict(lrmFit,  dfNew, type="fitted.ind")
+predict(ormFit,  dfNew, type="fitted.ind")
 predict(polrFit, dfNew, type="probs")
 predict(clmFit,  subset(dfNew, select=c("X1", "X2"), type="prob"))$fit
 # not shown
@@ -177,7 +176,7 @@ Assess model fit
 
 ```{r}
 facHat <- factor(categHat, levels=levels(dfOrd$Yord))
-cTab   <- table(dfOrd$Yord, facHat, dnn=c("Yord", "facHat"))
+cTab   <- xtabs(~ Yord + facHat, data=dfOrd)
 addmargins(cTab)
 ```
 
@@ -190,9 +189,9 @@ Correct classification rate
 ### Deviance, log-likelihood and AIC
 
 ```{r}
-deviance(vglmFit)
-logLik(vglmFit)
-AIC(vglmFit)
+VGAM::deviance(vglmFit)
+VGAM::logLik(vglmFit)
+VGAM::AIC(vglmFit)
 ```
 
 ### McFadden, Cox & Snell and Nagelkerke pseudo \(R^{2}\)
@@ -201,8 +200,8 @@ Log-likelihoods for full model and 0-model without predictors X1, X2
 
 ```{r}
 vglm0 <- vglm(Yord ~ 1, family=propodds, data=dfOrd)
-LLf   <- logLik(vglmFit)
-LL0   <- logLik(vglm0)
+LLf   <- VGAM::logLik(vglmFit)
+LL0   <- VGAM::logLik(vglm0)
 ```
 
 McFadden pseudo-\(R^2\)
@@ -248,7 +247,7 @@ p-values for two-sided paramter tests based on assumption that z-values are asym
 2*(1 - pnorm(abs(coefOrd[ , "z value"])))
 ```
 
-```{r results='hide', dependson=c("regressionOrdinalDf", "regressionOrdinalPolrFit")}
+```{r results='hide'}
 summary(polrFit)
 summary(clmFit)
 # not shown
@@ -277,9 +276,9 @@ Test assumption of proportional odds (=parallel logits)
 vglmP <- vglm(Yord ~ X1 + X2, family=cumulative(parallel=TRUE,  reverse=TRUE),
               data=dfOrd)
 
-vglmNP <- vglm(Yord ~ X1 + X2, family=cumulative(parallel=FALSE, reverse=TRUE),
-                data=dfOrd)
-VGAM::lrtest(vglmP, vglmNP)
+# vglmNP <- vglm(Yord ~ X1 + X2, family=cumulative(parallel=FALSE, reverse=TRUE),
+#                 data=dfOrd)
+# VGAM::lrtest(vglmP, vglmNP)
 ```
 
 Detach (automatically) loaded packages (if possible)
@@ -287,14 +286,15 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:ordinal))
-try(detach(package:ucminf))
-try(detach(package:Matrix))
-try(detach(package:lattice))
-try(detach(package:MASS))
 try(detach(package:rms))
 try(detach(package:Hmisc))
+try(detach(package:lattice))
 try(detach(package:survival))
 try(detach(package:VGAM))
 try(detach(package:splines))
 try(detach(package:stats4))
+try(detach(package:MASS))
+try(detach(package:Formula))
+try(detach(package:grid))
+try(detach(package:SparseM))
 ```

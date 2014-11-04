@@ -1,11 +1,11 @@
 
-## @knitr 
+## ------------------------------------------------------------------------
 wants <- c("mvtnorm", "MASS")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 set.seed(123)
 library(mvtnorm)
 Nj    <- c(15, 25, 20)
@@ -21,57 +21,56 @@ IV    <- factor(rep(1:length(Nj), Nj))
 Ydf   <- data.frame(IV, DV1=Y[ , 1], DV2=Y[ , 2])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(MASS)
 (ldaRes <- lda(IV ~ DV1 + DV2, data=Ydf))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 ldaP <- lda(IV ~ DV1 + DV2, CV=TRUE, data=Ydf)
 head(ldaP$posterior)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 ldaPred <- predict(ldaRes, Ydf)
 ld      <- ldaPred$x
 head(ld)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 cls <- ldaPred$class
 head(cls)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 cTab <- table(IV, cls, dnn=c("IV", "ldaPred"))
 addmargins(cTab)
 sum(diag(cTab)) / sum(cTab)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 anova(lm(ld[ , 1] ~ IV))
 anova(lm(ld[ , 2] ~ IV))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 priorP <- rep(1/nlevels(IV), nlevels(IV))
 ldaEq  <- lda(IV ~ DV1 + DV2, prior=priorP, data=Ydf)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(MASS)
 (ldaRob <- lda(IV ~ DV1 + DV2, method="mve", data=Ydf))
 predict(ldaRob)$class
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(MASS)
 (qdaRes <- qda(IV ~ DV1 + DV2, data=Ydf))
 predict(qdaRes)$class
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 try(detach(package:MASS))
 try(detach(package:mvtnorm))
-
 

@@ -14,15 +14,15 @@ $(POSTS_DIR)/%.md: %.Rmd
 .PHONY: clean
 clean:
 ## uncomment if on Linux
-#	$(RM) ../R/*
-#	$(RM) ../md/*
-#	$(RM) -rf ../tmp/*.Rmd
-#	$(RM) ../content/posts/*
-#	$(RM) ../content/assets/figure/*
+	$(RM) ../R/*
+	$(RM) ../md/*
+	$(RM) -rf ../tmp/*
+	$(RM) ../content/posts/*
+	$(RM) ../content/assets/figure/*
 ## comment if on Linux
-	cmd /c del /q ..\R\\*.*
-	cmd /c del /q ..\md\\*.*
-	cmd /c for /d %f in (..\tmp\\*) do rmdir /s /q %f
-	cmd /c del /q ..\tmp\\*.Rmd
-	cmd /c del /q ..\content\posts\\*.*
-	cmd /c del /q ..\content\assets\figure\\*.*
+#	cmd /c del /q ..\R\\*.*
+#	cmd /c del /q ..\md\\*.*
+#	cmd /c for /d %f in (..\tmp\\*) do rmdir /s /q %f
+#	cmd /c del /q ..\tmp\\*.Rmd
+#	cmd /c del /q ..\content\posts\\*.*
+#	cmd /c del /q ..\content\assets\figure\\*.*

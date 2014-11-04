@@ -47,7 +47,6 @@ rating <- round(runif(N, min=0, max=6))
 ```
 
 
-
 ```r
 isSingle <- sample(c(TRUE, FALSE), nrow(myDf1), replace=TRUE)
 myDf2    <- myDf1
@@ -82,7 +81,6 @@ head(myDf4)
 6  6   f    CG  20  89      3    FALSE   9
 ```
 
-
 Remove variables from a data frame
 -------------------------
 
@@ -104,7 +102,6 @@ head(dfTemp)
 ```
 
 
-
 ```r
 delVars         <- c("sex", "IQ")
 dfTemp[delVars] <- list(NULL)
@@ -120,7 +117,6 @@ head(dfTemp)
 5  5  23      5
 6  6  20      3
 ```
-
 
 Sort data frames
 -------------------------
@@ -210,7 +206,6 @@ myDf1[idx3, ]
 3   3   f    WL  27  84      2
 ```
 
-
 Select subsets of data
 -------------------------
 
@@ -248,7 +243,6 @@ myDf1[idxNum, ]
 ```
 
 
-
 ```r
 (idx2 <- (myDf1$sex == "m") & (myDf1$rating > 2))
 ```
@@ -270,7 +264,6 @@ myDf1[which(idx2), ]
 9   9   m    CG  30 113      5
 11 11   m     T  18  83      5
 ```
-
 
 
 ```r
@@ -299,7 +292,6 @@ myDf1[which(idx3), ]
 ```
 
 
-
 ```r
 myDf1[1:3, c("group", "IQ")]
 ```
@@ -321,7 +313,6 @@ myDf1[1:3, 2:4]
 2   m    CG  30
 3   f    WL  27
 ```
-
 
 
 ```r
@@ -351,7 +342,6 @@ dfTemp[1:3, colIdx]
 2   30   93    1
 3   27   84    2
 ```
-
 
 See `?Extract` for help on this topic.
 
@@ -429,7 +419,6 @@ subset(myDf1, group %in% c("CG", "WL"))
 12 12   f    WL  26 119      4
 ```
 
-
 Remove duplicated cases
 -------------------------
 
@@ -448,7 +437,6 @@ duplicated(myDfDouble)
 myDfUnique <- unique(myDfDouble)
 ```
 
-
 Treat missing values
 -------------------------
 
@@ -458,7 +446,6 @@ myDfNA           <- myDf1
 myDfNA$IQ[4]     <- NA
 myDfNA$rating[5] <- NA
 ```
-
 
 
 ```r
@@ -516,11 +503,10 @@ head(na.omit(myDfNA))
 8  8   m    WL  34  75      5
 ```
 
-
 Useful packages
 -------------------------
 
-Package [`plyr`](http://cran.r-project.org/package=plyr) provides very handy functions for the split-apply-combine approach to aggregating data frames. In order to work with data frames like with a database, use [`sqldf`](http://cran.r-project.org/package=sqldf). You can then use standard SQL commands to select data. This is useful for extremely large datasets where `sqldf` provides increased performance.
+Package [`dplyr`](http://cran.r-project.org/package=dplyr) provides very handy functions for the split-apply-combine approach to aggregating data frames. In order to work with data frames like with a database, use [`sqldf`](http://cran.r-project.org/package=sqldf). You can then use standard SQL commands to select data. [`data.table`](http://cran.r-project.org/package=data.table) provides an alternative (compatible) class of data frames with better performance for large amounts of data.
 
 Get the article source from GitHub
 ----------------------------------------------

@@ -5,7 +5,10 @@ include Nanoc::Helpers::Tagging
 def copy_static
   targetDir = 'output/content/assets/'
   FileUtils.mkdir_p targetDir
-  FileUtils.cp_r 'content/assets/.', targetDir
+  FileUtils.cp_r 'content/assets/css/.', targetDir + '/css'
+  FileUtils.cp_r 'content/assets/figure/.', targetDir + '/figure'
+  FileUtils.cp_r 'content/assets/img/.', targetDir + 'img'
+  FileUtils.cp_r 'content/assets/js/.', targetDir + 'js'
 end
 
 ## set pandoc options here (passing them with params hash currently does not work)

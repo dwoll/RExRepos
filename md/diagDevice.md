@@ -71,7 +71,6 @@ pdf
 graphics.off()
 ```
 
-
 Saving plots to a graphics file
 -------------------------
 
@@ -83,13 +82,11 @@ dev.off()
 ```
 
 
-
 ```r
 plot(1:10, rnorm(10))
 dev.copy(jpeg, filename="copied.jpg", quality=90)
 graphics.off()
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

@@ -29,8 +29,7 @@ y <- 0.3*x + rnorm(N, 0, 5)
 plot(x, y)
 ```
 
-![plot of chunk rerDiagScatter01](../content/assets/figure/rerDiagScatter01.png) 
-
+![plot of chunk rerDiagScatter01](../content/assets/figure/rerDiagScatter01-1.png) 
 
 
 ```r
@@ -38,8 +37,7 @@ plot(x, y, main="Customized scatter plot", xlim=c(50, 150), ylim=c(10, 50),
      xlab="x axis", ylab="y axis", pch=16, col="darkgray")
 ```
 
-![plot of chunk rerDiagScatter02](../content/assets/figure/rerDiagScatter02.png) 
-
+![plot of chunk rerDiagScatter02](../content/assets/figure/rerDiagScatter02-1.png) 
 
 
 ```r
@@ -47,8 +45,7 @@ plot(y, main="Univeriate scatter plot", ylim=c(10, 50),
      xlab="Index", ylab="y axis", pch=4, lwd=2, col="blue")
 ```
 
-![plot of chunk rerDiagScatter03](../content/assets/figure/rerDiagScatter03.png) 
-
+![plot of chunk rerDiagScatter03](../content/assets/figure/rerDiagScatter03-1.png) 
 
 ### Options for specifying $(x, y)$-coordinate pairs
 
@@ -60,7 +57,6 @@ plot(y ~ x)
 # not shown
 ```
 
-
 ### Jittering points
 
 Useful if one variable can take on only a few values, and one plot symbol represents many observations.
@@ -71,15 +67,14 @@ z <- sample(0:5, N, replace=TRUE)
 plot(z ~ x, pch=1, col="red", cex=1.5, main="Scatter plot")
 ```
 
-![plot of chunk rerDiagScatter04](../content/assets/figure/rerDiagScatter041.png) 
+![plot of chunk rerDiagScatter04](../content/assets/figure/rerDiagScatter04-1.png) 
 
 ```r
 plot(jitter(z) ~ x, pch=1, col="red", cex=1.5,
      main="Scatter plot with jittered y-coordinate")
 ```
 
-![plot of chunk rerDiagScatter04](../content/assets/figure/rerDiagScatter042.png) 
-
+![plot of chunk rerDiagScatter04](../content/assets/figure/rerDiagScatter04-2.png) 
 
 ### Plot types available with `plot()`
 
@@ -89,38 +84,37 @@ vec <- rnorm(10)
 plot(vec, type="p", xlab=NA, main="type p", cex=1.5)
 ```
 
-![plot of chunk rerDiagScatter05](../content/assets/figure/rerDiagScatter051.png) 
+![plot of chunk rerDiagScatter05](../content/assets/figure/rerDiagScatter05-1.png) 
 
 ```r
 plot(vec, type="l", xlab=NA, main="type l", cex=1.5)
 ```
 
-![plot of chunk rerDiagScatter05](../content/assets/figure/rerDiagScatter052.png) 
+![plot of chunk rerDiagScatter05](../content/assets/figure/rerDiagScatter05-2.png) 
 
 ```r
 plot(vec, type="b", xlab=NA, main="type b", cex=1.5)
 ```
 
-![plot of chunk rerDiagScatter05](../content/assets/figure/rerDiagScatter053.png) 
+![plot of chunk rerDiagScatter05](../content/assets/figure/rerDiagScatter05-3.png) 
 
 ```r
 plot(vec, type="o", xlab=NA, main="type o", cex=1.5)
 ```
 
-![plot of chunk rerDiagScatter05](../content/assets/figure/rerDiagScatter054.png) 
+![plot of chunk rerDiagScatter05](../content/assets/figure/rerDiagScatter05-4.png) 
 
 ```r
 plot(vec, type="s", xlab=NA, main="type s", cex=1.5)
 ```
 
-![plot of chunk rerDiagScatter05](../content/assets/figure/rerDiagScatter055.png) 
+![plot of chunk rerDiagScatter05](../content/assets/figure/rerDiagScatter05-5.png) 
 
 ```r
 plot(vec, type="h", xlab=NA, main="type h", cex=1.5)
 ```
 
-![plot of chunk rerDiagScatter05](../content/assets/figure/rerDiagScatter056.png) 
-
+![plot of chunk rerDiagScatter05](../content/assets/figure/rerDiagScatter05-6.png) 
 
 Simultaneously plot several variable pairs
 -------------------------
@@ -132,8 +126,7 @@ mat <- cbind(2*sin(vec), sin(vec-(pi/4)), 0.5*sin(vec-(pi/2)))
 matplot(vec, mat, type="b", xlab=NA, ylab=NA, pch=1:3, main="Sine-curves")
 ```
 
-![plot of chunk rerDiagScatter06](../content/assets/figure/rerDiagScatter06.png) 
-
+![plot of chunk rerDiagScatter06](../content/assets/figure/rerDiagScatter06-1.png) 
 
 Identify observations from plot points
 -------------------------
@@ -143,7 +136,6 @@ Identify observations from plot points
 plot(vec)
 identify(vec)
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

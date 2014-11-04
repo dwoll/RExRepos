@@ -20,10 +20,10 @@ opts_chunk$set(tidy=FALSE, message=FALSE, warning=FALSE, comment=NA)
 Install required packages
 -------------------------
 
-[`lmtest`](http://cran.r-project.org/package=lmtest), [`MASS`](http://cran.r-project.org/package=MASS), [`pscl`](http://cran.r-project.org/package=pscl), [`sandwich`](http://cran.r-project.org/package=sandwich), [`VGAM`](http://cran.r-project.org/package=VGAM)
+[`lmtest`](http://cran.r-project.org/package=lmtest), [`MASS`](http://cran.r-project.org/package=MASS), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm), [`pscl`](http://cran.r-project.org/package=pscl), [`sandwich`](http://cran.r-project.org/package=sandwich), [`VGAM`](http://cran.r-project.org/package=VGAM)
 
 ```{r}
-wants <- c("lmtest", "MASS", "pscl", "sandwich", "VGAM")
+wants <- c("lmtest", "MASS", "mvtnorm", "pscl", "sandwich", "VGAM")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -33,7 +33,7 @@ Poisson regression
     
 ### Simulate data
     
-```{r regressionPoissonDf, cache=TRUE}
+```{r}
 library(mvtnorm)
 set.seed(123)
 N     <- 200
@@ -120,7 +120,7 @@ coeftest(glmFitP, vcov=hcSE)
 
 Using `glm.nb()` from package `MASS`
 
-```{r regressionGlmFitNB, cache=TRUE}
+```{r}
 library(MASS)
 glmFitNB <- glm.nb(Y ~ X1 + X2, data=dfCount)
 summary(glmFitNB)
@@ -136,7 +136,7 @@ vglm(Y ~ X1 + X2, family=negbinomial, data=dfCount)
 
 ### Test the negative binomial model against the Poisson model
 
-```{r dependson=c("regressionPoissonDf", "regressionGlmFitNB")}
+```{r}
 library(pscl)
 odTest(glmFitNB)
 ```
@@ -193,17 +193,14 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
+try(detach(package:VGAM))
 try(detach(package:sandwich))
 try(detach(package:lmtest))
 try(detach(package:zoo))
 try(detach(package:pscl))
 try(detach(package:mvtnorm))
-try(detach(package:coda))
 try(detach(package:lattice))
-try(detach(package:gam))
 try(detach(package:splines))
-try(detach(package:vcd))
-try(detach(package:grid))
-try(detach(package:colorspace))
+try(detach(package:stats4))
 try(detach(package:MASS))
 ```

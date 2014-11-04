@@ -1,5 +1,5 @@
 
-## @knitr 
+## ------------------------------------------------------------------------
 Njk   <- 2
 P     <- 2
 Q     <- 3
@@ -9,16 +9,16 @@ group <- factor(rep(c("T", "WL", "CG"), each=P*Njk))
 table(sex, group)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 ave(IQ, sex, FUN=mean)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 tapply(IQ, group, FUN=mean)
 tapply(IQ, list(sex, group), FUN=mean)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 set.seed(123)
 N      <- 12
 sex    <- sample(c("f", "m"), N, replace=TRUE)
@@ -29,18 +29,18 @@ rating <- round(runif(N, min=0, max=6))
 (myDf1 <- data.frame(id=1:N, sex, group, age, IQ, rating))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 lapply(myDf1[ , c("age", "IQ", "rating")], mean)
 sapply(myDf1[ , c("age", "IQ", "rating")], range)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 (numIdx <- sapply(myDf1, is.numeric))
 dataNum <- myDf1[ , numIdx]
 head(dataNum)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 N    <- 100
 x1   <- rnorm(N, 10, 10)
 y1   <- rnorm(N, 10, 10)
@@ -50,21 +50,27 @@ tDf1 <- data.frame(x1, y1)
 tDf2 <- data.frame(x2, y2)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 mapply(t.test, tDf1, tDf2, MoreArgs=list(alternative="less", var.equal=TRUE))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
+(splitRes <- split(myDf1, myDf1$group))
+sapply(splitRes, function(x) mean(x$IQ))
+
+
+## ------------------------------------------------------------------------
 tapply(myDf1$IQ, myDf1$group, FUN=mean)
 
 
-## @knitr 
-aggregate(myDf1[ , c("age", "IQ", "rating")],
-          list(myDf1$sex, myDf1$group), FUN=mean)
+## ------------------------------------------------------------------------
+numDf <- subset(myDf1, select=c("age", "IQ", "rating"))
+aggregate(numDf, list(myDf1$sex, myDf1$group), FUN=mean)
 aggregate(cbind(age, IQ, rating) ~ sex + group, FUN=mean, data=myDf1)
+aggregate(cbind(age, IQ, rating) ~ 1, FUN=mean, data=myDf1)
 
 
-## @knitr 
-by(myDf1[ , c("age", "IQ", "rating")], list(myDf1$sex, myDf1$group), FUN=mean)
+## ------------------------------------------------------------------------
+by(numDf, list(myDf1$sex, myDf1$group), FUN=function(x) sapply(x, mean))
 
 

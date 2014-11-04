@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Formatting elements for all kinds of diagrams
 -------------------------
 
@@ -50,8 +49,7 @@ text(X[1:26]-0.3, Y[1:26], labels=0:25)
 text(0.2, 3, labels="symbols for pch", srt=90, cex=1.2)
 ```
 
-![plot of chunk rerDiagFormat01](../content/assets/figure/rerDiagFormat01.png) 
-
+![plot of chunk rerDiagFormat01](../content/assets/figure/rerDiagFormat01-1.png) 
 
 Line types are chosen with option `lty`, line widths with option `lwd`, and round vs. square line ends with `lend`.
 
@@ -72,8 +70,7 @@ text(0.32, 9, labels="line ending: lend=1", srt=90, cex=1.2)
 text(0.32, 3, labels="line ending: lend=0", srt=90, cex=1.2)
 ```
 
-![plot of chunk rerDiagFormat02](../content/assets/figure/rerDiagFormat02.png) 
-
+![plot of chunk rerDiagFormat02](../content/assets/figure/rerDiagFormat02-1.png) 
 
 ### Diagram title, axis labels, axis limits, aspect ratio
 
@@ -88,8 +85,7 @@ plot(x, y, main="Scatter plot", sub="aspect ratio = 1",
      xlim=c(60, 140), asp=1, pch=16, col="blue")
 ```
 
-![plot of chunk rerDiagFormat03](../content/assets/figure/rerDiagFormat03.png) 
-
+![plot of chunk rerDiagFormat03](../content/assets/figure/rerDiagFormat03-1.png) 
 
 Setting parameters with `par()`
 -------------------------
@@ -115,8 +111,7 @@ par(op)
 plot(rnorm(10), main="Standard format")
 ```
 
-![plot of chunk rerDiagFormat04](../content/assets/figure/rerDiagFormat04.png) 
-
+![plot of chunk rerDiagFormat04](../content/assets/figure/rerDiagFormat04-1.png) 
 
 Colors
 -------------------------
@@ -143,14 +138,12 @@ N <- 6
 ```
 
 
-
 ```r
 colRain <- rainbow(N)
 colTopo <- topo.colors(N)
 colCm   <- cm.colors(N)
 colHeat <- heat.colors(N)
 ```
-
 
 
 ```r
@@ -170,8 +163,7 @@ text(-0.05, seq(0, 1-len, length.out=N) + len/2, adj=1,
      labels=c("default", "sample", "rainbow", "topo", "cm", "heat"))
 ```
 
-![plot of chunk rerDiagFormat05](../content/assets/figure/rerDiagFormat05.png) 
-
+![plot of chunk rerDiagFormat05](../content/assets/figure/rerDiagFormat05-1.png) 
 
 ### RGB colors and transparency
 
@@ -193,7 +185,6 @@ rgb(t(col2rgb("red")/255))
 ```
 
 
-
 ```r
 rgb(1, 0, 0, 0.5)
 ```
@@ -201,7 +192,6 @@ rgb(1, 0, 0, 0.5)
 ```
 [1] "#FF000080"
 ```
-
 
 
 ```r
@@ -213,8 +203,7 @@ points(xx-20, yy-20, pch=16, cex=3.5, col=rgb(1, 0, 0, 0.3))
 points(xx+20, yy-20, pch=16, cex=3.5, col=rgb(0, 1, 0, 0.3))
 ```
 
-![plot of chunk rerDiagFormat06](../content/assets/figure/rerDiagFormat06.png) 
-
+![plot of chunk rerDiagFormat06](../content/assets/figure/rerDiagFormat06-1.png) 
 
 ### Other color spaces
 
@@ -232,10 +221,10 @@ rgb2hsv(matrix(c(0, 1, 1), nrow=3))
 ```
 
 ```
-      [,1]
-h 0.500000
-s 1.000000
-v 0.003922
+         [,1]
+h 0.500000000
+s 1.000000000
+v 0.003921569
 ```
 
 ```r
@@ -253,7 +242,6 @@ gray(0.5)
 ```
 [1] "#808080"
 ```
-
 
 ### Color palettes with `RColorBrewer`
 
@@ -273,11 +261,10 @@ colorRampPalette(bPal)(15)
 ```
 
 ```
- [1] "#EFF3FF" "#E0EAF9" "#D1E1F3" "#C3D9EE" "#B4D3E9" "#A6CDE3" "#96C6DF"
+ [1] "#EFF3FF" "#E0EAF9" "#D1E1F3" "#C3D9EE" "#B4D3E9" "#A6CDE4" "#96C6DF"
  [8] "#84BCDB" "#72B2D7" "#5EA4D0" "#4994C7" "#3585BE" "#2574B3" "#1662A7"
 [15] "#08519C"
 ```
-
 
 
 ```r
@@ -301,8 +288,7 @@ rect(xLeft, yBot, xRight, yTop, border=NA,
      col=c(b1, b2, b3, b4, b5, b6))
 ```
 
-![plot of chunk rerDiagFormat07](../content/assets/figure/rerDiagFormat07.png) 
-
+![plot of chunk rerDiagFormat07](../content/assets/figure/rerDiagFormat07-1.png) 
 
 Useful packages
 -------------------------
@@ -316,7 +302,6 @@ Detach (automatically) loaded packages (if possible)
 ```r
 try(detach(package:RColorBrewer))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

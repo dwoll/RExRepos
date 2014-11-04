@@ -20,10 +20,10 @@ Traditional univariate analysis and multivariate approach.
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`multcomp`](http://cran.r-project.org/package=multcomp)
+[`car`](http://cran.r-project.org/package=car), [`DescTools`](http://cran.r-project.org/package=DescTools), [`multcomp`](http://cran.r-project.org/package=multcomp)
 
 ```{r}
-wants <- c("car", "multcomp")
+wants <- c("car", "DescTools", "multcomp")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -46,7 +46,8 @@ dfSPFpqL <- data.frame(id=factor(rep(1:(P*Nj), times=Q)),
 ```
 
 ```{r}
-summary(aov(DV ~ IVbtw*IVwth + Error(id/IVwth), data=dfSPFpqL))
+aovSPFpq <- aov(DV ~ IVbtw*IVwth + Error(id/IVwth), data=dfSPFpqL)
+summary(aovSPFpq)
 ```
 
 ### Using `Anova()` from package `car` with data in wide format
@@ -79,23 +80,9 @@ Effect size estimates: generalized \(\hat{\eta}_{g}^{2}\)
 -------------------------
 
 ```{r}
-(anRes <- anova(lm(DV ~ IVbtw*IVwth*id, data=dfSPFpqL)))
+library(DescTools)
+EtaSq(aovSPFpq, type=1)
 ```
-
-```{r}
-SSEtot <- anRes["id", "Sum Sq"] + anRes["IVwth:id", "Sum Sq"]
-SSbtw  <- anRes["IVbtw", "Sum Sq"]
-SSwth  <- anRes["IVwth", "Sum Sq"]
-SSI    <- anRes["IVbtw:IVwth", "Sum Sq"]
-```
-
-```{r}
-(gEtaSqB <- SSbtw / (SSbtw + SSEtot))
-(gEtaSqW <- SSwth / (SSwth + SSEtot))
-(gEtaSqI <- SSI   / (SSI   + SSEtot))
-```
-
-Or from function `ezANOVA()` from package [`ez`](http://cran.r-project.org/package=ez)
 
 Simple effects
 -------------------------
@@ -143,11 +130,11 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
+try(detach(package:DescTools))
 try(detach(package:multcomp))
 try(detach(package:mvtnorm))
 try(detach(package:car))
 try(detach(package:survival))
 try(detach(package:splines))
-try(detach(package:nnet))
-try(detach(package:MASS))
+try(detach(package:TH.data))
 ```

@@ -130,7 +130,7 @@ summary(aov(Y ~ Xw1 + Error(id/Xw1), data=d1))
 
 #### Using `lme()` from package `nlme`
 
-no explicit assumption of compound symmetry, but
+No explicit assumption of compound symmetry, but
 random intercept model equivalent to compound symmetry
 iff all var comps positive (id > id:Xw1 and IV > id:Xw1)
 
@@ -139,7 +139,7 @@ library(nlme)
 anova(lme(Y ~ Xw1, random=~1 | id, method="ML", data=d1))
 ```
 
-assume compound symmetry
+Assume compound symmetry
 
 ```{r}
 lmeFit <- lme(Y ~ Xw1, random=~1 | id, correlation=corCompSymm(form=~1|id),
@@ -185,7 +185,7 @@ anova(lme(Y ~ Xw1*Xw2, random=list(id=pdBlocked(list(~1, pdIdent(~Xw1-1), pdIden
           method="ML", data=d2))
 ```
 
-assume compound symmetry
+Assume compound symmetry
 
 ```{r}
 anova(lme(Y ~ Xw1*Xw2,
@@ -212,16 +212,16 @@ summary(aov(Y ~ Xb1*Xw1 + Error(id/Xw1), data=d1))
 
 #### Using `lme()` from package `nlme`
 
-random intercept model equivalent to compound symmetry
+Random intercept model equivalent to compound symmetry
 iff all var comps positive
 
-no explicit assumption of compound symmetry
+No explicit assumption of compound symmetry
 
 ```{r}
 anova(lme(Y ~ Xb1*Xw1, random=~1 | id, method="ML", data=d1))
 ```
 
-assume compound symmetry
+Assume compound symmetry
 
 ```{r}
 anova(lme(Y ~ Xb1*Xw1, random=~1 | id, correlation=corCompSymm(form=~1|id),
@@ -255,7 +255,7 @@ summary(aov(Y ~ Xb1*Xb2*Xw1 + Error(id/Xw1), data=d1))
 anova(lme(Y ~ Xb1*Xb2*Xw1, random=~1 | id, method="ML", data=d1))
 ```
 
-assume compound symmetry
+Assume compound symmetry
 
 ```{r}
 anova(lme(Y ~ Xb1*Xb2*Xw1, random=~1 | id,
@@ -293,7 +293,7 @@ anova(lme(Y ~ Xb1*Xw1*Xw2,
           method="ML", data=d2))
 ```
 
-assume compound symmetry
+Assume compound symmetry
 
 ```{r}
 anova(lme(Y ~ Xb1*Xw1*Xw2,
@@ -320,7 +320,7 @@ summary(aov(Y ~ Xb1*Xb2*Xw1*Xw2 + Error(id/(Xw1*Xw2)), data=d2))
 
 #### Using `lme()` from package `nlme`
 
-no explicit assumption of compound symmetry
+No explicit assumption of compound symmetry
 
 ```{r}
 anova(lme(Y ~ Xb1*Xb2*Xw1*Xw2,
@@ -328,7 +328,7 @@ anova(lme(Y ~ Xb1*Xb2*Xw1*Xw2,
           method="ML", data=d2))
 ```
 
-assume compound symmetry
+Assume compound symmetry
 
 ```{r}
 anova(lme(Y ~ Xb1*Xb2*Xw1*Xw2,
@@ -349,5 +349,5 @@ Detach (automatically) loaded packages (if possible)
 try(detach(package:lme4))
 try(detach(package:nlme))
 try(detach(package:Matrix))
-try(detach(package:lattice))
+try(detach(package:Rcpp))
 ```

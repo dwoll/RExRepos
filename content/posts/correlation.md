@@ -28,7 +28,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Bivariate covariance and correlation
 -------------------------
 
@@ -47,7 +46,6 @@ cov(x, y)
 [1] 19.2
 ```
 
-
 #### Uncorrected (population) covariance
 
 
@@ -56,11 +54,10 @@ cov(x, y)
 ```
 
 ```
-      x     y
-x 21.89 16.00
-y 16.00 14.92
+         x        y
+x 21.88889 16.00000
+y 16.00000 14.91667
 ```
-
 
 
 ```r
@@ -70,7 +67,6 @@ cmML[upper.tri(cmML)]
 ```
 [1] 16
 ```
-
 
 ### Correlation
 
@@ -82,9 +78,8 @@ cmML[upper.tri(cmML)]
 ```
 
 ```
-[1] 0.8855
+[1] 0.8854667
 ```
-
 
 #### Fisher's $Z$-transformation
 
@@ -97,7 +92,7 @@ library(psych)
 ```
 
 ```
-[1] 1.401
+[1] 1.400533
 ```
 
 ```r
@@ -105,9 +100,8 @@ fisherz2r(rZ)
 ```
 
 ```
-[1] 0.8855
+[1] 0.8854667
 ```
-
 
 ### Partial and semi-partial correlation
 
@@ -123,9 +117,8 @@ cor(x, y)
 ```
 
 ```
-[1] -0.162
+[1] -0.1620401
 ```
-
 
 #### Partial correlation $r_{(xy).z}$
 
@@ -137,9 +130,8 @@ cor(x.z1, y.z1)
 ```
 
 ```
-[1] -0.05298
+[1] -0.05298174
 ```
-
 
 
 ```r
@@ -149,9 +141,8 @@ cor(x.z12, y.z12)
 ```
 
 ```
-[1] 0.02471
+[1] 0.02470899
 ```
-
 
 #### Semi-partial correlation $r_{(x.z)y}$
 
@@ -161,9 +152,8 @@ cor(x.z1, y)
 ```
 
 ```
-[1] -0.04772
+[1] -0.04772153
 ```
-
 
 ### Covariance matrix
 
@@ -183,7 +173,6 @@ X3 <- c(197, 178, 189, 184, 173)
 [4,] 19 76 184
 [5,] 24 76 173
 ```
-
 
 
 ```r
@@ -227,7 +216,6 @@ X2 18.04 82.24 65.92
 X3  0.32 65.92 70.16
 ```
 
-
 ### Correlation matrix
 
 
@@ -236,16 +224,15 @@ cor(X)
 ```
 
 ```
-         X1     X2       X3
-X1 1.000000 0.4218 0.008101
-X2 0.421820 1.0000 0.867822
-X3 0.008101 0.8678 1.000000
+            X1        X2          X3
+X1 1.000000000 0.4218204 0.008100984
+X2 0.421820411 1.0000000 0.867822404
+X3 0.008100984 0.8678224 1.000000000
 ```
 
 ```r
 cov2cor(covX)
 ```
-
 
 
 ```r
@@ -254,10 +241,9 @@ cor(vec, X)
 ```
 
 ```
-           X1      X2      X3
-[1,] -0.04054 -0.1729 -0.4406
+              X1         X2         X3
+[1,] -0.04054191 -0.1729373 -0.4405556
 ```
-
 
 Correlation for ordinal continuous variables
 -------------------------
@@ -274,13 +260,12 @@ DVmat <- cbind(DV1, DV2, DV3, DV4)
 ```
 
 
-
 ```r
 cor(DV1, DV2, method="spearman")
 ```
 
 ```
-[1] 0.7333
+[1] 0.7333333
 ```
 
 ```r
@@ -288,13 +273,12 @@ cor(DVmat, method="spearman")
 ```
 
 ```
-         DV1     DV2     DV3     DV4
-DV1  1.00000  0.7333 0.05488 -0.1879
-DV2  0.73333  1.0000 0.11586 -0.1636
-DV3  0.05488  0.1159 1.00000  0.8964
-DV4 -0.18788 -0.1636 0.89636  1.0000
+            DV1        DV2        DV3        DV4
+DV1  1.00000000  0.7333333 0.05487907 -0.1878788
+DV2  0.73333333  1.0000000 0.11585581 -0.1636364
+DV3  0.05487907  0.1158558 1.00000000  0.8963581
+DV4 -0.18787879 -0.1636364 0.89635813  1.0000000
 ```
-
 
 ### Kendall's $\tau$
 
@@ -304,7 +288,7 @@ cor(DV1, DV2, method="kendall")
 ```
 
 ```
-[1] 0.6444
+[1] 0.6444444
 ```
 
 ```r
@@ -312,13 +296,12 @@ cor(DVmat, method="kendall")
 ```
 
 ```
-         DV1      DV2     DV3      DV4
-DV1  1.00000  0.64444 0.02273 -0.15556
-DV2  0.64444  1.00000 0.11367 -0.06667
-DV3  0.02273  0.11367 1.00000  0.79566
-DV4 -0.15556 -0.06667 0.79566  1.00000
+            DV1         DV2        DV3         DV4
+DV1  1.00000000  0.64444444 0.02273314 -0.15555556
+DV2  0.64444444  1.00000000 0.11366572 -0.06666667
+DV3  0.02273314  0.11366572 1.00000000  0.79566006
+DV4 -0.15555556 -0.06666667 0.79566006  1.00000000
 ```
-
 
 Correlation tests
 -------------------------
@@ -334,16 +317,15 @@ cor.test(DV1, DV2)
 
 	Pearson's product-moment correlation
 
-data:  DV1 and DV2 
-t = 3.5, df = 8, p-value = 0.008084
-alternative hypothesis: true correlation is not equal to 0 
+data:  DV1 and DV2
+t = 3.4996, df = 8, p-value = 0.008084
+alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- 0.2902 0.9447 
+ 0.2902442 0.9447410
 sample estimates:
-   cor 
-0.7777 
+      cor 
+0.7777418 
 ```
-
 
 
 ```r
@@ -360,19 +342,16 @@ DV2  0.78  1.00 -0.07 -0.39
 DV3 -0.09 -0.07  1.00  0.89
 DV4 -0.35 -0.39  0.89  1.00
 Sample Size 
-    DV1 DV2 DV3 DV4
-DV1  10  10  10  10
-DV2  10  10  10  10
-DV3  10  10  10  10
-DV4  10  10  10  10
+[1] 10
 Probability values (Entries above the diagonal are adjusted for multiple tests.) 
      DV1  DV2 DV3 DV4
-DV1 0.00 0.04   1   1
+DV1 0.00 0.05   1   1
 DV2 0.01 0.00   1   1
 DV3 0.80 0.86   0   0
 DV4 0.32 0.27   0   0
-```
 
+ To see confidence intervals of the correlations, print with the short=FALSE option
+```
 
 ### Spearman's $\rho$
 
@@ -385,12 +364,12 @@ cor.test(DV1, DV2, method="spearman")
 
 	Spearman's rank correlation rho
 
-data:  DV1 and DV2 
+data:  DV1 and DV2
 S = 44, p-value = 0.02117
-alternative hypothesis: true rho is not equal to 0 
+alternative hypothesis: true rho is not equal to 0
 sample estimates:
-   rho 
-0.7333 
+      rho 
+0.7333333 
 ```
 
 ```r
@@ -402,11 +381,10 @@ spearman_test(DV1 ~ DV2, distribution=approximate(B=9999))
 
 	Approximative Spearman Correlation Test
 
-data:  DV1 by DV2 
+data:  DV1 by DV2
 Z = 2.2, p-value = 0.0207
-alternative hypothesis: true mu is not equal to 0 
+alternative hypothesis: true mu is not equal to 0
 ```
-
 
 
 ```r
@@ -423,19 +401,16 @@ DV2  0.73  1.00 0.12 -0.16
 DV3  0.05  0.12 1.00  0.90
 DV4 -0.19 -0.16 0.90  1.00
 Sample Size 
-    DV1 DV2 DV3 DV4
-DV1  10  10  10  10
-DV2  10  10  10  10
-DV3  10  10  10  10
-DV4  10  10  10  10
+[1] 10
 Probability values (Entries above the diagonal are adjusted for multiple tests.) 
      DV1  DV2 DV3 DV4
-DV1 0.00 0.08   1   1
+DV1 0.00 0.09   1   1
 DV2 0.02 0.00   1   1
 DV3 0.88 0.75   0   0
 DV4 0.60 0.65   0   0
-```
 
+ To see confidence intervals of the correlations, print with the short=FALSE option
+```
 
 ### Kendall's $\tau$
 
@@ -448,14 +423,13 @@ cor.test(DV1, DV2, method="kendall")
 
 	Kendall's rank correlation tau
 
-data:  DV1 and DV2 
+data:  DV1 and DV2
 T = 37, p-value = 0.009148
-alternative hypothesis: true tau is not equal to 0 
+alternative hypothesis: true tau is not equal to 0
 sample estimates:
-   tau 
-0.6444 
+      tau 
+0.6444444 
 ```
-
 
 
 ```r
@@ -472,19 +446,16 @@ DV2  0.64  1.00 0.11 -0.07
 DV3  0.02  0.11 1.00  0.80
 DV4 -0.16 -0.07 0.80  1.00
 Sample Size 
-    DV1 DV2 DV3 DV4
-DV1  10  10  10  10
-DV2  10  10  10  10
-DV3  10  10  10  10
-DV4  10  10  10  10
+[1] 10
 Probability values (Entries above the diagonal are adjusted for multiple tests.) 
      DV1  DV2  DV3  DV4
-DV1 0.00 0.22 1.00 1.00
+DV1 0.00 0.27 1.00 1.00
 DV2 0.04 0.00 1.00 1.00
 DV3 0.95 0.75 0.00 0.04
 DV4 0.67 0.85 0.01 0.00
-```
 
+ To see confidence intervals of the correlations, print with the short=FALSE option
+```
 
 ### Difference between two independent correlations
 
@@ -502,7 +473,6 @@ Test of difference between two independent correlations
  z value 0.73    with probability  0.46
 ```
 
-
 Detach (automatically) loaded packages (if possible)
 -------------------------
     
@@ -510,13 +480,9 @@ Detach (automatically) loaded packages (if possible)
 ```r
 try(detach(package:psych))
 try(detach(package:coin))
-try(detach(package:modeltools))
-try(detach(package:stats4))
-try(detach(package:mvtnorm))
 try(detach(package:survival))
 try(detach(package:splines))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

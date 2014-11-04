@@ -1,11 +1,11 @@
 
-## @knitr 
-wants <- c("mvtnorm", "psych", "robustbase", "pcaPP")
+## ------------------------------------------------------------------------
+wants <- c("mvtnorm", "robustbase", "pcaPP")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 set.seed(123)
 library(mvtnorm)
 Sigma <- matrix(c(4, 2, 2, 3), ncol=2)
@@ -14,36 +14,44 @@ N     <- 50
 X     <- rmvnorm(N, mean=mu, sigma=Sigma)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 (pca <- prcomp(X))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 summary(pca)
 pca$sdev^2 / sum(diag(cov(X)))
 
 
-## @knitr rerMultPCA01
+## ----rerMultPCA01--------------------------------------------------------
 plot(pca)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 (pcaPrin <- princomp(X))
 (G <- pcaPrin$loadings)
-pc <- pcaPrin$scores
-head(pc)
 
 
-## @knitr 
-Gscl <- G %*% diag(pca$sdev)
+## ------------------------------------------------------------------------
+pcVal <- predict(pca)
+head(pcVal, n=5)
+
+
+## ------------------------------------------------------------------------
+Xnew <- matrix(1:4, ncol=2)
+predict(pca, newdata=Xnew)
+
+
+## ------------------------------------------------------------------------
+B    <- G %*% diag(pca$sdev)
 ctr  <- colMeans(X)
-xMat <- rbind(ctr[1] - Gscl[1, ], ctr[1])
-yMat <- rbind(ctr[2] - Gscl[2, ], ctr[2])
+xMat <- rbind(ctr[1] - B[1, ], ctr[1])
+yMat <- rbind(ctr[2] - B[2, ], ctr[2])
 ab1  <- solve(cbind(1, xMat[ , 1]), yMat[ , 1])
 ab2  <- solve(cbind(1, xMat[ , 2]), yMat[ , 2])
 
 
-## @knitr rerMultPCA02
+## ----rerMultPCA02--------------------------------------------------------
 plot(X, xlab="x", ylab="y", pch=20, asp=1,
      main="Data und principal components")
 abline(coef=ab1, lwd=2, col="gray")
@@ -55,22 +63,26 @@ legend(x="topleft", legend=c("data", "PC axes", "SDs of PC", "centroid"),
        col=c("black", "gray", "blue", "red"), bg="white")
 
 
-## @knitr 
-Hs   <- scale(pc)
-BHs  <- t(Gscl %*% t(Hs))
-repr <- sweep(BHs, 2, ctr, "+")
+## ------------------------------------------------------------------------
+Xdot <- scale(X, center=TRUE, scale=FALSE)
+Y    <- Xdot %*% G
+B    <- G %*% diag(pca$sdev)
+H    <- scale(Y)
+HB   <- H %*% t(B)
+
+repr <- sweep(HB, 2, ctr, "+")
 all.equal(X, repr)
 sum((X-repr)^2)
 
 
-## @knitr 
-BHs1  <- t(Gscl[ , 1] %*% t(Hs[ , 1]))
-repr1 <- sweep(BHs1, 2, ctr, "+")
+## ------------------------------------------------------------------------
+HB1   <- H[ , 1] %*% t(B[ , 1])
+repr1 <- sweep(HB1, 2, ctr, "+")
 sum((X-repr1)^2)
 qr(scale(repr1, center=TRUE, scale=FALSE))$rank
 
 
-## @knitr rerMultPCA03
+## ----rerMultPCA03--------------------------------------------------------
 plot(X, xlab="x", ylab="y", pch=20, asp=1, main="Data und approximation")
 abline(coef=ab1, lwd=2, col="gray")
 abline(coef=ab2, lwd=2, col="gray")
@@ -82,26 +94,24 @@ legend(x="topleft", legend=c("data", "PC axes", "centroid", "approximation"),
        col=c("black", "gray", "red", "blue"), bg="white")
 
 
-## @knitr 
-Gscl %*% t(Gscl)
+## ------------------------------------------------------------------------
+B %*% t(B)
 cov(X)
-Gscl[ , 1] %*% t(Gscl[ , 1])
+B[ , 1] %*% t(B[ , 1])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(robustbase)
 princomp(X, cov=covMcd(X))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(pcaPP)
 PCAproj(X, k=ncol(X), method="qn")
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 try(detach(package:pcaPP))
 try(detach(package:mvtnorm))
-try(detach(package:psych))
 try(detach(package:robustbase))
-
 

@@ -22,7 +22,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Barplots
 -------------------------
 
@@ -41,7 +40,6 @@ dice
 17 16 20 14 18 15 
 ```
 
-
 ###  Simple barplot
 
 
@@ -50,8 +48,7 @@ barplot(dTab, ylim=c(0, 30), xlab="Result", ylab="N", col="black",
         main="Absolute frequency")
 ```
 
-![plot of chunk rerDiagCategorical01](../content/assets/figure/rerDiagCategorical01.png) 
-
+![plot of chunk rerDiagCategorical01](../content/assets/figure/rerDiagCategorical01-1.png) 
 
 
 ```r
@@ -60,7 +57,6 @@ barplot(prop.table(dTab), ylim=c(0, 0.3), xlab="Result",
 		main="Relative frequency")
 # not shown
 ```
-
 
 ### Barplots for contingency tables of two variables
 
@@ -81,13 +77,11 @@ second 9 7 12 7 11  4
 ```
 
 ```r
-
 barplot(rollAll, beside=FALSE, legend.text=TRUE, xlab="Result", ylab="N",
         main="Absolute frequency in two samples")
 ```
 
-![plot of chunk rerDiagCategorical02](../content/assets/figure/rerDiagCategorical02.png) 
-
+![plot of chunk rerDiagCategorical02](../content/assets/figure/rerDiagCategorical02-1.png) 
 
 #### Grouped barplot
 
@@ -98,8 +92,7 @@ barplot(rollAll, beside=TRUE, ylim=c(0, 15), col=c("red", "green"),
         main="Absolute frequency in two samples")
 ```
 
-![plot of chunk rerDiagCategorical03](../content/assets/figure/rerDiagCategorical03.png) 
-
+![plot of chunk rerDiagCategorical03](../content/assets/figure/rerDiagCategorical03-1.png) 
 
 Spineplot
 -------------------------
@@ -116,8 +109,7 @@ spineplot(x=age, y=pref, xlab="Age class", ylab="drink", breaks=lims,
           main="Preferred drink by age class")
 ```
 
-![plot of chunk rerDiagCategorical04](../content/assets/figure/rerDiagCategorical04.png) 
-
+![plot of chunk rerDiagCategorical04](../content/assets/figure/rerDiagCategorical04-1.png) 
 
 Mosaic-plot
 -------------------------
@@ -130,8 +122,7 @@ cTab   <- table(ageCls, pref, group)
 mosaicplot(cTab, cex.axis=1)
 ```
 
-![plot of chunk rerDiagCategorical05](../content/assets/figure/rerDiagCategorical05.png) 
-
+![plot of chunk rerDiagCategorical05](../content/assets/figure/rerDiagCategorical05-1.png) 
 
 Pie-charts
 -------------------------
@@ -155,8 +146,7 @@ textY    <- textRad * sin(csAngles)
 text(x=textX, y=textY, labels=dTabFreq)
 ```
 
-![plot of chunk rerDiagCategorical06](../content/assets/figure/rerDiagCategorical06.png) 
-
+![plot of chunk rerDiagCategorical06](../content/assets/figure/rerDiagCategorical06-1.png) 
 
 ### 3-D pie-chart
 
@@ -166,8 +156,7 @@ library(plotrix)
 pie3D(dTab, theta=pi/4, explode=0.1, labels=names(dTab))
 ```
 
-![plot of chunk rerDiagCategorical07](../content/assets/figure/rerDiagCategorical07.png) 
-
+![plot of chunk rerDiagCategorical07](../content/assets/figure/rerDiagCategorical07-1.png) 
 
 Conditional density plot
 -------------------------
@@ -182,13 +171,11 @@ myDf <- data.frame(X, Yfac)
 ```
 
 
-
 ```r
 cdplot(Yfac ~ X, data=myDf)
 ```
 
-![plot of chunk rerDiagCategorical08](../content/assets/figure/rerDiagCategorical08.png) 
-
+![plot of chunk rerDiagCategorical08](../content/assets/figure/rerDiagCategorical08-1.png) 
 
 Useful packages
 -------------------------
@@ -202,7 +189,6 @@ Detach (automatically) loaded packages (if possible)
 ```r
 try(detach(package:plotrix))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

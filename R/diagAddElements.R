@@ -1,17 +1,17 @@
 
-## @knitr 
+## ------------------------------------------------------------------------
 wants <- c("Hmisc", "mvtnorm", "plotrix")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 vec <- rnorm(10)
 plot(vec, pch=16)
 (xy <- locator(n=3))
 
 
-## @knitr rerDiagAddElements01
+## ----rerDiagAddElements01------------------------------------------------
 library(Hmisc)
 set.seed(123)
 par(xpd=NA, mar=c(5, 5, 5, 5))
@@ -30,7 +30,7 @@ text(pt2$usr$x[1] + 0.5, pt2$usr$y[1], adj=c(0, 0),
      labels="arrow across total device-region", cex=1.5)
 
 
-## @knitr rerDiagAddElements02
+## ----rerDiagAddElements02------------------------------------------------
 xA <- seq(-15, 15, length.out=200)
 yA <- sin(xA) / xA                ## sinc function
 plot(xA, yA, type="l", xlab="x", ylab="sinc(x)",
@@ -43,7 +43,7 @@ yB <- sin(pi * xA) / (pi * xA)    ## normalized sinc function
 lines(xA, yB, col="blue", type="l", lwd=2)
 
 
-## @knitr rerDiagAddElements03
+## ----rerDiagAddElements03------------------------------------------------
 X    <- rnorm(20, 175, 7)
 Y    <- 0.5*X + 10 + rnorm(20, 0, 4)
 fit  <- lm(Y ~ X)
@@ -66,7 +66,7 @@ arrows(x0=X[4]+0.1*(X[7]-X[4]),
 points(Y ~ X, pch=16, cex=1.5, col="blue")
 
 
-## @knitr rerDiagAddElements04
+## ----rerDiagAddElements04------------------------------------------------
 n      <- 7
 len    <- 1/n
 colsR  <- rep(seq(0.9, 0.2, length.out=n),  each=n)
@@ -86,7 +86,7 @@ yText <- yBot[idx]  + (yTop[idx]  - yBot[idx])/2
 text(xText, yText, labels=cols[idx])
 
 
-## @knitr rerDiagAddElements05
+## ----rerDiagAddElements05------------------------------------------------
 mu    <- 0
 sigma <- 3
 xLims <- c(mu-4*sigma, mu+4*sigma)
@@ -132,7 +132,7 @@ text(mu+sigma/2, 0,    expression(sigma), col="darkgreen", cex=1.2)
 text(mu+0.5,     0.02, expression(mu),    col="red",       cex=1.2)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 N      <- 10
 muH0   <- 0
 muH1   <- 1.6
@@ -140,7 +140,7 @@ alpha  <- 0.05
 sigma  <- 2
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 (d <- (muH1-muH0) / sigma)
 (delta <- (muH1-muH0) / (sigma/sqrt(N)))
 (tCrit <- qt(1-alpha, N-1))
@@ -148,7 +148,7 @@ sigma  <- 2
 xLims <- c(-5, 10)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 tLeft  <- seq(xLims[1], tCrit, length.out=100)
 tRight <- seq(tCrit, xLims[2], length.out=100)
 yH0r   <- dt(tRight, N-1, 0)
@@ -156,7 +156,7 @@ yH1l   <- dt(tLeft,  N-1, delta)
 yH1r   <- dt(tRight, N-1, delta)
 
 
-## @knitr rerDiagAddElements06
+## ----rerDiagAddElements06------------------------------------------------
 curve(dt(x, N-1, 0), xlim=xLims, ylim=c(0, 0.4), lwd=2, col="red",
       xlab="t", ylab="probability density",
       main="t distribution under H0 und H1", xaxs="i")
@@ -176,7 +176,7 @@ text(tCrit-0.7, 0.05,  expression(beta))
 text(tCrit+0.5, 0.015, expression(alpha))
 
 
-## @knitr rerDiagAddElements07
+## ----rerDiagAddElements07------------------------------------------------
 mu    <- 0
 sigma <- 2
 curve(dnorm(x, mean=1, sd=1), from=-7, to=7, col="blue", lwd=2, cex.lab=1.4)
@@ -190,7 +190,7 @@ mtext(text="Probability density", side=3)
 text(-4, 0.3, expression(frac(1, sigma*sqrt(2*pi))~exp*bgroup("(", -frac(1, 2)~bgroup("(", frac(x-mu, sigma), ")")^2, ")")))
 
 
-## @knitr rerDiagAddElements08
+## ----rerDiagAddElements08------------------------------------------------
 vec <- seq(from=-2*pi, to=2*pi, length.out=200)
 mat <- cbind(sin(vec), cos(vec))
 pts <- tan(vec)
@@ -210,7 +210,7 @@ legend(x="bottomleft", legend=c("sin(x)", "cos(x)", "tan(x)"), cex=1.3,
        lty=c(1, 1, NA), pch=c(NA, NA, 16), col=c(12, 14, 17), bg="white")
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 Nj <- c(15, 20, 18, 22)
 P  <- length(Nj)
 DV <- rnorm(sum(Nj), rep(c(30, 20, 25, 15), Nj), 8)
@@ -220,7 +220,7 @@ Sj <- tapply(DV, IV, FUN=sd)
 ciWidths <- qt(0.975, df=Nj-1) * Sj / sqrt(Nj)
 
 
-## @knitr rerDiagAddElements09
+## ----rerDiagAddElements09------------------------------------------------
 library(plotrix)
 stripchart(DV ~ IV, method="jitter", xlab="Group",
            main="Data und confidence intervals", xaxt="n",
@@ -230,7 +230,7 @@ plotCI(x=Mj, uiw=ciWidths, sfrac=0, col="blue",
 axis(side=1, at=1:P, labels=LETTERS[1:P])
 
 
-## @knitr rerDiagAddElements10
+## ----rerDiagAddElements10------------------------------------------------
 Mj1 <- c(2, 3, 6, 3, 5)
 Sj1 <- c(1.7, 1.8, 1.7, 1.9, 1.8)
 Mj2 <- c(4, 3, 2, 1, 3)
@@ -238,7 +238,7 @@ Sj2 <- c(1.4, 1.7, 1.7, 1.3, 1.5)
 Q   <- length(Mj1)
 
 
-## @knitr rerDiagAddElements11
+## ----rerDiagAddElements11------------------------------------------------
 xOff <- 0.1
 plotCI(y=c(Mj1, Mj2), x=c((1:Q)-xOff, (1:Q)+xOff), uiw=c(Sj1, Sj2),
        xlab="Factor A", ylab="Means", ylim=c(0, 8),
@@ -248,7 +248,7 @@ legend(x="topleft", legend=c("B-1", "B-2"), pch=c(19, 19),
        col=c("blue", "red"))
 
 
-## @knitr rerDiagAddElements12
+## ----rerDiagAddElements12------------------------------------------------
 barsX <- barplot(height=Mj, ylim=c(0, 40), xaxt="n", xlab="Group",
                  ylab="Means", main="Means and confidence intervals")
 axis(side=1, at=barsX, labels=LETTERS[1:P])
@@ -258,7 +258,7 @@ arrows(x0=barsX, y0=limLo, x1=barsX, y1=limHi, code=3, angle=90,
        length=0.1, col="blue", lwd=2)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 pxSq  <- 6
 colsR <- rep(0.4, pxSq^2)
 colsG <- rep(seq(0, 1, length.out=pxSq), times=pxSq)
@@ -267,7 +267,7 @@ arrSq <- array(c(colsR, colsG, colsB), c(pxSq, pxSq, 3))
 sqIm  <- as.raster(arrSq)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 pxG    <- 500
 alpha  <- 0.4
 beta   <- min(1-alpha, 1+alpha)
@@ -279,7 +279,7 @@ phi    <- alpha*x + beta*y
 cosMat <- 0.5*cos(freq*phi) + 0.5
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(mvtnorm)
 mu       <- c(0, 0)
 sigma    <- diag(2)*9
@@ -288,17 +288,16 @@ gaussMat <- matrix(gaussVal, nrow=pxG) / max(gaussVal)
 gabIm    <- as.raster(cosMat*gaussMat)
 
 
-## @knitr rerDiagAddElements13
+## ----rerDiagAddElements13------------------------------------------------
 plot(c(0, 1), c(0, 1), type="n", main="Bitmaps", xlab="", ylab="", asp=1)
 rasterImage(sqIm,  0,   0,   0.4, 0.4, angle=0,  interpolate=FALSE)
 rasterImage(gabIm, 0.5, 0.3, 1.1, 0.9, angle=10, interpolate=TRUE)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 try(detach(package:Hmisc))
 try(detach(package:survival))
 try(detach(package:splines))
 try(detach(package:mvtnorm))
 try(detach(package:plotrix))
-
 

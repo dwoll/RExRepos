@@ -42,9 +42,6 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
 ```

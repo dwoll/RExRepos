@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Compare two groups
 -------------------------
 
@@ -45,14 +44,12 @@ varDf <- data.frame(DV=c(DV1, DV2),
 ```
 
 
-
 ```r
 boxplot(DV ~ IV, data=varDf)
 stripchart(DV ~ IV, data=varDf, pch=16, vert=TRUE, add=TRUE)
 ```
 
-![plot of chunk rerVarHom01](../content/assets/figure/rerVarHom01.png) 
-
+![plot of chunk rerVarHom01](../content/assets/figure/rerVarHom01-1.png) 
 
 ### $F$-test for variance ratio in two groups
 
@@ -60,7 +57,6 @@ stripchart(DV ~ IV, data=varDf, pch=16, vert=TRUE, add=TRUE)
 ```r
 var.test(DV1, DV2)
 ```
-
 
 
 ```r
@@ -71,16 +67,15 @@ var.test(DV ~ IV, data=varDf)
 
 	F test to compare two variances
 
-data:  DV by IV 
-F = 1.544, num df = 49, denom df = 39, p-value = 0.1632
-alternative hypothesis: true ratio of variances is not equal to 1 
+data:  DV by IV
+F = 1.5437, num df = 49, denom df = 39, p-value = 0.1632
+alternative hypothesis: true ratio of variances is not equal to 1
 95 percent confidence interval:
- 0.8361 2.7914 
+ 0.8361247 2.7913772
 sample estimates:
 ratio of variances 
-             1.544 
+          1.543726 
 ```
-
 
 ### Mood-test for two groups (nonparametric)
 
@@ -93,11 +88,10 @@ mood.test(DV ~ IV, alternative="greater", data=varDf)
 
 	Mood two-sample test of scale
 
-data:  DV by IV 
-Z = 1.806, p-value = 0.03542
-alternative hypothesis: greater 
+data:  DV by IV
+Z = 1.8065, p-value = 0.03542
+alternative hypothesis: greater
 ```
-
 
 ### Ansari-Bradley-test for two groups (nonparametric)
 
@@ -110,11 +104,10 @@ ansari.test(DV ~ IV, alternative="greater", exact=FALSE, data=varDf)
 
 	Ansari-Bradley test
 
-data:  DV by IV 
+data:  DV by IV
 AB = 1025, p-value = 0.02116
-alternative hypothesis: true ratio of scales is greater than 1 
+alternative hypothesis: true ratio of scales is greater than 1
 ```
-
 
 
 ```r
@@ -126,11 +119,10 @@ ansari_test(DV ~ IV, alternative="greater", distribution="exact", data=varDf)
 
 	Exact Ansari-Bradley Test
 
-data:  DV by IV (1, 2) 
-Z = -2.03, p-value = 0.02138
-alternative hypothesis: true mu is less than 1 
+data:  DV by IV (1, 2)
+Z = -2.0304, p-value = 0.02138
+alternative hypothesis: true mu is less than 1
 ```
-
 
 Compare more than two groups
 -------------------------
@@ -147,14 +139,12 @@ levDf <- data.frame(DV=sample(0:100, N, replace=TRUE),
 ```
 
 
-
 ```r
 boxplot(DV ~ IV, data=levDf)
 stripchart(DV ~ IV, data=levDf, pch=20, vert=TRUE, add=TRUE)
 ```
 
-![plot of chunk rerVarHom02](../content/assets/figure/rerVarHom02.png) 
-
+![plot of chunk rerVarHom02](../content/assets/figure/rerVarHom02-1.png) 
 
 ### Levene-test
 
@@ -167,7 +157,7 @@ leveneTest(DV ~ IV, center=median, data=levDf)
 ```
 Levene's Test for Homogeneity of Variance (center = median)
       Df F value Pr(>F)
-group  2    0.15   0.86
+group  2  0.1456 0.8648
       57               
 ```
 
@@ -178,10 +168,9 @@ leveneTest(DV ~ IV, center=mean, data=levDf)
 ```
 Levene's Test for Homogeneity of Variance (center = mean)
       Df F value Pr(>F)
-group  2     0.1   0.91
+group  2  0.0961 0.9085
       57               
 ```
-
 
 ### Fligner-Killeen-test
 
@@ -194,10 +183,9 @@ fligner.test(DV ~ IV, data=levDf)
 
 	Fligner-Killeen test of homogeneity of variances
 
-data:  DV by IV 
+data:  DV by IV
 Fligner-Killeen:med chi-squared = 0.0936, df = 2, p-value = 0.9543
 ```
-
 
 
 ```r
@@ -209,10 +197,9 @@ fligner_test(DV ~ IV, distribution=approximate(B=9999), data=levDf)
 
 	Approximative Fligner-Killeen Test
 
-data:  DV by IV (1, 2, 3) 
+data:  DV by IV (1, 2, 3)
 chi-squared = 0.0936, p-value = 0.9546
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -220,16 +207,10 @@ Detach (automatically) loaded packages (if possible)
 
 ```r
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

@@ -1,11 +1,11 @@
 
-## @knitr 
+## ------------------------------------------------------------------------
 wants <- c("survival")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 set.seed(123)
 N      <- 180                  # number of observations
 P      <- 3                    # number of groups
@@ -27,24 +27,28 @@ status <- eventT <= censT      # has event occured?
 dfSurv <- data.frame(obsT, status, sex, X, IV)          # data frame
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(survival)                     # for survreg()
 fitWeib <- survreg(Surv(obsT, status) ~ X + IV, dist="weibull", data=dfSurv)
 summary(fitWeib)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
+(betaHat <- -coef(fitWeib) / fitWeib$scale)
+
+
+## ------------------------------------------------------------------------
 fitExp <- survreg(Surv(obsT, status) ~ X + IV, dist="exponential", data=dfSurv)
 anova(fitExp, fitWeib)               # model comparison
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 # restricted model without IV
 fitR <- survreg(Surv(obsT, status) ~ X, dist="weibull", data=dfSurv)
 anova(fitR, fitWeib)                 # model comparison
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 dfNew <- data.frame(sex=factor(c("m", "m"), levels=levels(dfSurv$sex)),
                       X=c(0, 0),
                      IV=factor(c("A", "C"), levels=levels(dfSurv$IV)))
@@ -52,7 +56,7 @@ percs <- (1:99)/100
 FWeib <- predict(fitWeib, newdata=dfNew, type="quantile", p=percs, se=TRUE)
 
 
-## @knitr rerSurvivalParametric01
+## ----rerSurvivalParametric01---------------------------------------------
 matplot(cbind(FWeib$fit[1, ],
               FWeib$fit[1, ] - 2*FWeib$se.fit[1, ],
               FWeib$fit[1, ] + 2*FWeib$se.fit[1, ]), 1-percs,
@@ -65,8 +69,7 @@ legend(x="topright", lwd=2, lty=c(1, 2, 1, 2), col=c("blue", "blue", "red", "red
        legend=c("sex=m, X=0, IV=A", "+- 2*SE", "sex=m, X=0, IV=C", "+- 2*SE"))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 try(detach(package:survival))
 try(detach(package:splines))
-
 

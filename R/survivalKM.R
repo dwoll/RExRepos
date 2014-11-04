@@ -1,11 +1,11 @@
 
-## @knitr 
+## ------------------------------------------------------------------------
 wants <- c("survival")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 set.seed(123)
 N      <- 180                  # number of observations
 P      <- 3                    # number of groups
@@ -27,14 +27,20 @@ status <- eventT <= censT      # has event occured?
 dfSurv <- data.frame(obsT, status, sex, X, IV)          # data frame
 
 
-## @knitr rerSurvivalKM01
+## ------------------------------------------------------------------------
+library(survival)
+dfSurvCP <- survSplit(dfSurv, cut=seq(30, 90, by=30), end="obsT",
+                      event="status", start="start", id="ID", zero=0)
+
+
+## ----rerSurvivalKM01-----------------------------------------------------
 plot(ecdf(eventT), xlim=c(0, 200), main="Cumulative survival distribution",
      xlab="t", ylab="F(t)", cex.lab=1.4)
 abline(v=obsLen, col="blue", lwd=2)
 text(obsLen-5, 0.2, adj=1, labels="end of study", cex=1.4)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(survival)                # for Surv(), survfit()
 ## global estimate
 KM0 <- survfit(Surv(obsT, status) ~ 1,  type="kaplan-meier", conf.type="log", data=dfSurv)
@@ -43,41 +49,41 @@ KM0 <- survfit(Surv(obsT, status) ~ 1,  type="kaplan-meier", conf.type="log", da
 (KM <- survfit(Surv(obsT, status) ~ IV, type="kaplan-meier", conf.type="log", data=dfSurv))
 
 
-## @knitr 
-## survival 2.37-2 has a bug in quantile(), so this currently doesn't work
-# quantile(KM0, probs = c(0.25, 0.5, 0.75), conf.int=FALSE)
+## ------------------------------------------------------------------------
+quantile(KM0, probs=c(0.25, 0.5, 0.75), conf.int=FALSE)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 summary(KM0)
 
 
-## @knitr rerSurvivalKM02
+## ----rerSurvivalKM02-----------------------------------------------------
 plot(KM0, main=expression(paste("Kaplan-Meier-estimate ", hat(S)(t), " with CI")),
      xlab="t", ylab="Survival", lwd=2)
 
 
-## @knitr rerSurvivalKM03
+## ----rerSurvivalKM03-----------------------------------------------------
 plot(KM, main=expression(paste("Kaplan-Meier-estimate ", hat(S)[g](t), " for groups g")),
      xlab="t", ylab="Survival", lwd=2, col=1:3)
 legend(x="topright", col=1:3, lwd=2, legend=LETTERS[1:3])
 
 
-## @knitr rerSurvivalKM04
+## ----rerSurvivalKM04-----------------------------------------------------
 plot(KM0, main=expression(paste("Kaplan-Meier-estimate ", hat(Lambda)(t))),
      xlab="t", ylab="cumulative hazard", fun="cumhaz", lwd=2)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
+library(survival)
 survdiff(Surv(obsT, status) ~ IV, data=dfSurv)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
+library(survival)
 survdiff(Surv(obsT, status) ~ IV + strata(sex), data=dfSurv)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 try(detach(package:survival))
 try(detach(package:splines))
-
 

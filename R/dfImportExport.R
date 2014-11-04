@@ -1,55 +1,55 @@
 
-## @knitr 
+## ------------------------------------------------------------------------
 wants <- c("foreign", "RODBC")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 myVar <- c(4, 19, 22)
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 vec     <- scan()
 charVec <- scan(what="character")
 # not shown
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 myDf <- data.frame(IV=factor(rep(c("A", "B"), 5)), DV=rnorm(10))
 myDf <- edit(myDf)
 fix(myDf)
 # not shown
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 newDf <- edit(data.frame())
 # not shown
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 sink("d:/daniel/logfile.txt", split=TRUE)
 # not shown
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 dump("myDf", file="dumpMyDf.txt")
 source("dumpMyDf.txt")
 # not shown
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 myDf <- data.frame(IV=factor(rep(c("A", "B"), 5)), DV=rnorm(10))
 write.table(myDf, file="data.txt", row.names=FALSE)
 # not shown
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 readLines(file="data.txt")
 # not shown
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 read.table(file="data.txt", header=TRUE)
 read.table(file="data.txt", header=FALSE)
 read.table(file="data.txt", sep="\t")
@@ -57,34 +57,35 @@ read.table(file="data.txt", stringsAsFactors=FALSE)
 # not shown
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 read.table(file=stdin(), header=TRUE)
 read.table(file="clipboard", header=TRUE))
 read.table(file="http://www.uni-kiel.de/psychologie/dwoll/data.txt", header=TRUE)
 # not shown
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 myDf <- data.frame(IV=factor(rep(c("A", "B"), 5)), DV=rnorm(10))
 save(myDf, file="data.RData")
 load("data.RData")
 # not shown
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 library(foreign)
 read.spss(file="data.sav", use.value.labels=TRUE, to.data.frame=FALSE,
           trim.factor.names=FALSE)
 # not shown
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 write.foreign(df=myDf, datafile="d:/daniel/dataGoesHere.dat",
               codefile="d:/daniel/syntaxGoesHere.sps", package="SPSS")
 # not shown
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
+# data.xls is the registered DSN
 library(RODBC)
 xlsCon <- odbcConnectExcel2007("data.xls", readOnly=FALSE)
 odbcGetInfo(xlsCon)
@@ -98,8 +99,39 @@ odbcClose(xlsCon)
 # not shown
 
 
-## @knitr 
+## ------------------------------------------------------------------------
+IQ     <- rnorm(2*50, mean=100, sd=15)
+rating <- sample(LETTERS[1:3], 2*50, replace=TRUE)
+sex    <- factor(rep(c("f", "m"), times=50))
+myDf   <- data.frame(sex, IQ, rating, stringsAsFactors=FALSE)
+
+
+## ----eval=FALSE----------------------------------------------------------
+library("RSQLite")
+drv <- dbDriver("SQLite")
+con <- dbConnect(drv, "myDf.db")
+dbWriteTable(con, name="MyDataFrame", value=myDf, row.names=FALSE)
+dbListTables(con)
+dbListFields(con, "MyDataFrame")
+out <- dbReadTable(con, "MyDataFrame")
+head(out, n=4)
+dbGetQuery(con, "SELECT sex, AVG(IQ) AS mIQ, SUM(IQ) as sIQ FROM MyDataFrame GROUP BY sex")
+res <- dbSendQuery(con, "SELECT IQ, rating FROM MyDataFrame WHERE rating = 'A'")
+
+while(!dbHasCompleted(res)) {
+  partial <- dbFetch(res, n=3)
+  print(partial)
+}
+
+dbClearResult(res)
+dbRemoveTable(con, "MyDataFrame")
+dbDisconnect(con)
+# not shown
+
+
+## ----eval=FALSE----------------------------------------------------------
 try(detach(package:foreign))
 try(detach(package:RODBC))
-
+try(detach(package:RSQLite))
+try(detach(package:DBI))
 

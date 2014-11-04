@@ -12,19 +12,17 @@ Poisson-regression
 
 
 
-
 Install required packages
 -------------------------
 
-[`lmtest`](http://cran.r-project.org/package=lmtest), [`MASS`](http://cran.r-project.org/package=MASS), [`pscl`](http://cran.r-project.org/package=pscl), [`sandwich`](http://cran.r-project.org/package=sandwich), [`VGAM`](http://cran.r-project.org/package=VGAM)
+[`lmtest`](http://cran.r-project.org/package=lmtest), [`MASS`](http://cran.r-project.org/package=MASS), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm), [`pscl`](http://cran.r-project.org/package=pscl), [`sandwich`](http://cran.r-project.org/package=sandwich), [`VGAM`](http://cran.r-project.org/package=VGAM)
 
 
 ```r
-wants <- c("lmtest", "MASS", "pscl", "sandwich", "VGAM")
+wants <- c("lmtest", "MASS", "mvtnorm", "pscl", "sandwich", "VGAM")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
 
 Poisson regression
 -------------------------
@@ -44,7 +42,6 @@ Y[Y < 0] <- 0
 dfCount <- data.frame(X1=XY[ , 1], X2=XY[ , 2], Y)
 ```
 
-
 ### Using `glm()`
 
 
@@ -59,26 +56,25 @@ Call:
 glm(formula = Y ~ X1 + X2, family = poisson(link = "log"), data = dfCount)
 
 Deviance Residuals: 
-   Min      1Q  Median      3Q     Max  
--3.324  -1.245  -0.293   0.820   2.925  
+    Min       1Q   Median       3Q      Max  
+-3.3237  -1.2454  -0.2932   0.8200   2.9249  
 
 Coefficients:
-             Estimate Std. Error z value Pr(>|z|)    
-(Intercept)  1.93e-01   1.03e-01    1.87    0.061 .  
-X1          -2.55e-01   2.26e-02  -11.28   <2e-16 ***
-X2          -8.65e-05   1.15e-02   -0.01    0.994    
+              Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  1.932e-01  1.032e-01   1.872   0.0612 .  
+X1          -2.549e-01  2.260e-02 -11.281   <2e-16 ***
+X2          -8.653e-05  1.149e-02  -0.008   0.9940    
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for poisson family taken to be 1)
 
     Null deviance: 494.5  on 199  degrees of freedom
 Residual deviance: 356.2  on 197  degrees of freedom
-AIC: 838.4
+AIC: 838.43
 
 Number of Fisher Scoring iterations: 5
 ```
-
 
 Change factors for rate parameter $\lambda$
 
@@ -89,9 +85,8 @@ exp(coef(glmFitP))
 
 ```
 (Intercept)          X1          X2 
-     1.2131      0.7750      0.9999 
+  1.2130876   0.7749815   0.9999135 
 ```
-
 
 Profile likelihood based confidence intervals for change factors
 
@@ -101,12 +96,11 @@ exp(confint(glmFitP))
 ```
 
 ```
-             2.5 % 97.5 %
-(Intercept) 0.9877  1.480
-X1          0.7413  0.810
-X2          0.9776  1.023
+                2.5 %    97.5 %
+(Intercept) 0.9877265 1.4802870
+X1          0.7412874 0.8099532
+X2          0.9776288 1.0226470
 ```
-
 
 ### Using `vglm()` from package `VGAM`
 
@@ -116,7 +110,6 @@ library(VGAM)
 summary(vglmFit <- vglm(Y ~ X1 + X2, family=poissonff, data=dfCount))
 # not shown
 ```
-
 
 ### Analyse event rates
 
@@ -140,10 +133,9 @@ Coefficients:
     -0.5466      -0.0017  
 
 Degrees of Freedom: 99 Total (i.e. Null);  98 Residual
-Null Deviance:	    51.7 
-Residual Deviance: 50.7 	AIC: 503 
+Null Deviance:	    51.74 
+Residual Deviance: 50.73 	AIC: 502.6
 ```
-
 
 Overdispersion
 -------------------------
@@ -165,18 +157,18 @@ glm(formula = Y ~ X1 + X2, family = quasipoisson(link = "log"),
     data = dfCount)
 
 Deviance Residuals: 
-   Min      1Q  Median      3Q     Max  
--3.324  -1.245  -0.293   0.820   2.925  
+    Min       1Q   Median       3Q      Max  
+-3.3237  -1.2454  -0.2932   0.8200   2.9249  
 
 Coefficients:
-             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  1.93e-01   1.30e-01    1.49     0.14    
-X1          -2.55e-01   2.84e-02   -8.98   <2e-16 ***
-X2          -8.65e-05   1.44e-02   -0.01     1.00    
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  1.932e-01  1.297e-01   1.490    0.138    
+X1          -2.549e-01  2.839e-02  -8.979   <2e-16 ***
+X2          -8.653e-05  1.443e-02  -0.006    0.995    
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for quasipoisson family taken to be 1.579)
+(Dispersion parameter for quasipoisson family taken to be 1.578522)
 
     Null deviance: 494.5  on 199  degrees of freedom
 Residual deviance: 356.2  on 197  degrees of freedom
@@ -184,7 +176,6 @@ AIC: NA
 
 Number of Fisher Scoring iterations: 5
 ```
-
 
 Using `vglm()` from package `VGAM`
 
@@ -194,7 +185,6 @@ library(VGAM)
 vglm(Y ~ X1 + X2, family=quasipoissonff, data=dfCount)
 # not shown
 ```
-
 
 ### Heteroscedasticity consistent standard errors
 
@@ -213,14 +203,13 @@ coeftest(glmFitP, vcov=hcSE)
 
 z test of coefficients:
 
-             Estimate Std. Error z value Pr(>|z|)    
-(Intercept)  1.93e-01   1.33e-01    1.46     0.15    
-X1          -2.55e-01   2.70e-02   -9.45   <2e-16 ***
-X2          -8.65e-05   1.32e-02   -0.01     0.99    
+               Estimate  Std. Error z value Pr(>|z|)    
+(Intercept)  0.19316888  0.13268996  1.4558   0.1455    
+X1          -0.25491612  0.02698458 -9.4467   <2e-16 ***
+X2          -0.00008653  0.01319493 -0.0066   0.9948    
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 ### Negative binomial regression
 
@@ -240,22 +229,22 @@ glm.nb(formula = Y ~ X1 + X2, data = dfCount, init.theta = 5.181857797,
     link = log)
 
 Deviance Residuals: 
-   Min      1Q  Median      3Q     Max  
--2.769  -1.053  -0.232   0.647   2.443  
+    Min       1Q   Median       3Q      Max  
+-2.7695  -1.0533  -0.2315   0.6472   2.4427  
 
 Coefficients:
-            Estimate Std. Error z value Pr(>|z|)    
-(Intercept)  0.16602    0.12596    1.32     0.19    
-X1          -0.26126    0.02912   -8.97   <2e-16 ***
-X2           0.00265    0.01473    0.18     0.86    
+             Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  0.166025   0.125963   1.318    0.187    
+X1          -0.261257   0.029119  -8.972   <2e-16 ***
+X2           0.002651   0.014735   0.180    0.857    
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for Negative Binomial(5.182) family taken to be 1)
+(Dispersion parameter for Negative Binomial(5.1819) family taken to be 1)
 
     Null deviance: 345.33  on 199  degrees of freedom
 Residual deviance: 256.60  on 197  degrees of freedom
-AIC: 824.6
+AIC: 824.58
 
 Number of Fisher Scoring iterations: 1
 
@@ -264,7 +253,6 @@ Number of Fisher Scoring iterations: 1
 
  2 x log-likelihood:  -816.58 
 ```
-
 
 Using `vglm()` from package `VGAM`
 
@@ -275,7 +263,6 @@ vglm(Y ~ X1 + X2, family=negbinomial, data=dfCount)
 # not shown
 ```
 
-
 ### Test the negative binomial model against the Poisson model
 
 
@@ -285,9 +272,13 @@ odTest(glmFitNB)
 ```
 
 ```
-Error: Objekt 'dfCount' nicht gefunden
-```
+Likelihood ratio test of H0: Poisson, as restricted NB model:
+n.b., the distribution of the test-statistic under H0 is non-standard
+e.g., see help(odTest) for details/references
 
+Critical value of test statistic at the alpha= 0.05 level: 2.7055 
+Chi-Square Test Statistic =  15.8533 p-value = 3.422e-05 
+```
 
 Zero-inflated Regression models
 -------------------------
@@ -307,25 +298,24 @@ Call:
 zeroinfl(formula = Y ~ X1 + X2 | 1, data = dfCount, dist = "poisson")
 
 Pearson residuals:
-   Min     1Q Median     3Q    Max 
--1.679 -0.889 -0.175  0.768  3.317 
+    Min      1Q  Median      3Q     Max 
+-1.6788 -0.8887 -0.1755  0.7678  3.3165 
 
 Count model coefficients (poisson with log link):
-            Estimate Std. Error z value Pr(>|z|)    
-(Intercept)  0.45683    0.12439    3.67  0.00024 ***
-X1          -0.21698    0.02588   -8.38  < 2e-16 ***
-X2          -0.00207    0.01218   -0.17  0.86516    
+             Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  0.456827   0.124391   3.672  0.00024 ***
+X1          -0.216984   0.025879  -8.385  < 2e-16 ***
+X2          -0.002068   0.012180  -0.170  0.86516    
 
 Zero-inflation model coefficients (binomial with logit link):
             Estimate Std. Error z value Pr(>|z|)    
-(Intercept)   -1.887      0.293   -6.45  1.1e-10 ***
+(Intercept)  -1.8868     0.2927  -6.446 1.15e-10 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Number of iterations in BFGS optimization: 10 
-Log-likelihood: -402 on 4 Df
+Log-likelihood: -402.4 on 4 Df
 ```
-
 
 Using `vglm()` from package `VGAM`
 
@@ -336,7 +326,6 @@ vglm(Y ~ X1 + X2, family=zipoissonff, data=dfCount)
 # not shown
 ```
 
-
 Vuong-Test using `vuong()` from package `pscl`: Poisson model against zero-inflated Poisson model
 
 
@@ -346,13 +335,12 @@ vuong(ziFitP, glmFitP)
 ```
 
 ```
-Vuong Non-Nested Hypothesis Test-Statistic: 2.045 
+Vuong Non-Nested Hypothesis Test-Statistic: -0.6038871 
 (test-statistic is asymptotically distributed N(0,1) under the
  null that the models are indistinguishible)
 in this case:
-model1 > model2, with p-value 0.02041 
+model2 > model1, with p-value 0.27296 
 ```
-
 
 ### Zero-inflated negative binomial regression
 
@@ -368,27 +356,26 @@ Call:
 zeroinfl(formula = Y ~ X1 + X2 | 1, data = dfCount, dist = "negbin")
 
 Pearson residuals:
-   Min     1Q Median     3Q    Max 
--1.635 -0.871 -0.163  0.742  3.317 
+    Min      1Q  Median      3Q     Max 
+-1.6352 -0.8709 -0.1633  0.7424  3.3172 
 
 Count model coefficients (negbin with log link):
-            Estimate Std. Error z value Pr(>|z|)    
-(Intercept)   0.4268     0.1367    3.12   0.0018 ** 
-X1           -0.2225     0.0284   -7.84  4.5e-15 ***
-X2           -0.0014     0.0129   -0.11   0.9135    
-Log(theta)    3.4747     1.4434    2.41   0.0161 *  
+             Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  0.426760   0.136718   3.121   0.0018 ** 
+X1          -0.222478   0.028374  -7.841 4.48e-15 ***
+X2          -0.001403   0.012926  -0.109   0.9135    
+Log(theta)   3.474664   1.443439   2.407   0.0161 *  
 
 Zero-inflation model coefficients (binomial with logit link):
             Estimate Std. Error z value Pr(>|z|)    
-(Intercept)   -1.973      0.341   -5.79  7.2e-09 ***
+(Intercept)   -1.973      0.341  -5.786  7.2e-09 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Theta = 32.287 
 Number of iterations in BFGS optimization: 26 
-Log-likelihood: -402 on 5 Df
+Log-likelihood: -402.1 on 5 Df
 ```
-
 
 Using `vglm()` from package `VGAM`
 
@@ -399,7 +386,6 @@ vglm(Y ~ X1 + X2, family=zinegbinomial, data=dfCount)
 # not shown
 ```
 
-
 Vuong-Test using `vuong()` from package `pscl`: negative binomial model against zero-inflated negative binomial model
 
 
@@ -409,34 +395,29 @@ vuong(ziFitNB, glmFitNB)
 ```
 
 ```
-Vuong Non-Nested Hypothesis Test-Statistic: 1.612 
+Vuong Non-Nested Hypothesis Test-Statistic: -1.037018 
 (test-statistic is asymptotically distributed N(0,1) under the
  null that the models are indistinguishible)
 in this case:
-model1 > model2, with p-value 0.05347 
+model2 > model1, with p-value 0.14986 
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
+try(detach(package:VGAM))
 try(detach(package:sandwich))
 try(detach(package:lmtest))
 try(detach(package:zoo))
 try(detach(package:pscl))
 try(detach(package:mvtnorm))
-try(detach(package:coda))
 try(detach(package:lattice))
-try(detach(package:gam))
 try(detach(package:splines))
-try(detach(package:vcd))
-try(detach(package:grid))
-try(detach(package:colorspace))
+try(detach(package:stats4))
 try(detach(package:MASS))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

@@ -31,7 +31,6 @@ sex CG T WL
   m  2 2  2
 ```
 
-
 ### `ave()`
 
 
@@ -40,10 +39,9 @@ ave(IQ, sex, FUN=mean)
 ```
 
 ```
- [1] 107.8 102.5 107.8 102.5 107.8 102.5 107.8 102.5 107.8 102.5 107.8
-[12] 102.5
+ [1] 102.6667  99.0000 102.6667  99.0000 102.6667  99.0000 102.6667
+ [8]  99.0000 102.6667  99.0000 102.6667  99.0000
 ```
-
 
 ### `tapply()`
 
@@ -53,8 +51,8 @@ tapply(IQ, group, FUN=mean)
 ```
 
 ```
-   CG     T    WL 
- 95.5 108.8 111.2 
+    CG      T     WL 
+103.75 102.50  96.25 
 ```
 
 ```r
@@ -62,11 +60,10 @@ tapply(IQ, list(sex, group), FUN=mean)
 ```
 
 ```
-    CG     T    WL
-f 91.5 111.5 120.5
-m 99.5 106.0 102.0
+     CG   T    WL
+f 105.5 102 100.5
+m 102.0 103  92.0
 ```
-
 
 Aggregate data frames
 -------------------------
@@ -101,7 +98,6 @@ rating <- round(runif(N, min=0, max=6))
 12 12   f    WL  26 119      4
 ```
 
-
 ### Apply the same function to different variables in a data frame
 
 
@@ -111,13 +107,13 @@ lapply(myDf1[ , c("age", "IQ", "rating")], mean)
 
 ```
 $age
-[1] 27.67
+[1] 27.66667
 
 $IQ
-[1] 95.17
+[1] 95.16667
 
 $rating
-[1] 3.667
+[1] 3.666667
 ```
 
 ```r
@@ -129,7 +125,6 @@ sapply(myDf1[ , c("age", "IQ", "rating")], range)
 [1,]  18  75      1
 [2,]  35 119      5
 ```
-
 
 
 ```r
@@ -156,7 +151,6 @@ head(dataNum)
 6  6  20  89      3
 ```
 
-
 ### Apply the same function to pairs of variables from two data frames
 
 
@@ -171,16 +165,15 @@ tDf2 <- data.frame(x2, y2)
 ```
 
 
-
 ```r
 mapply(t.test, tDf1, tDf2, MoreArgs=list(alternative="less", var.equal=TRUE))
 ```
 
 ```
             x1                                     
-statistic   -4.246                                 
+statistic   -4.245912                              
 parameter   198                                    
-p.value     1.673e-05                              
+p.value     1.672906e-05                           
 conf.int    Numeric,2                              
 estimate    Numeric,2                              
 null.value  0                                      
@@ -188,9 +181,9 @@ alternative "less"
 method      " Two Sample t-test"                   
 data.name   "dots[[1L]][[1L]] and dots[[2L]][[1L]]"
             y1                                     
-statistic   -6.568                                 
+statistic   -6.568381                              
 parameter   198                                    
-p.value     2.192e-10                              
+p.value     2.19182e-10                            
 conf.int    Numeric,2                              
 estimate    Numeric,2                              
 null.value  0                                      
@@ -199,8 +192,44 @@ method      " Two Sample t-test"
 data.name   "dots[[1L]][[2L]] and dots[[2L]][[2L]]"
 ```
 
-
 ### Separate descriptive statistics for each group for many variables
+
+
+```r
+(splitRes <- split(myDf1, myDf1$group))
+```
+
+```
+$CG
+  id sex group age  IQ rating
+2  2   m    CG  30  93      1
+5  5   m    CG  23  85      5
+6  6   f    CG  20  89      3
+9  9   m    CG  30 113      5
+
+$T
+   id sex group age  IQ rating
+1   1   f     T  29 111      4
+4   4   m     T  28  97      2
+10 10   f     T  32 102      3
+11 11   m     T  18  83      5
+
+$WL
+   id sex group age  IQ rating
+3   3   f    WL  27  84      2
+7   7   m    WL  35  91      5
+8   8   m    WL  34  75      5
+12 12   f    WL  26 119      4
+```
+
+```r
+sapply(splitRes, function(x) mean(x$IQ))
+```
+
+```
+   CG     T    WL 
+95.00 98.25 92.25 
+```
 
 
 ```r
@@ -213,20 +242,19 @@ tapply(myDf1$IQ, myDf1$group, FUN=mean)
 ```
 
 
-
 ```r
-aggregate(myDf1[ , c("age", "IQ", "rating")],
-          list(myDf1$sex, myDf1$group), FUN=mean)
+numDf <- subset(myDf1, select=c("age", "IQ", "rating"))
+aggregate(numDf, list(myDf1$sex, myDf1$group), FUN=mean)
 ```
 
 ```
-  Group.1 Group.2   age    IQ rating
-1       f      CG 20.00  89.0  3.000
-2       m      CG 27.67  97.0  3.667
-3       f       T 30.50 106.5  3.500
-4       m       T 23.00  90.0  3.500
-5       f      WL 26.50 101.5  3.000
-6       m      WL 34.50  83.0  5.000
+  Group.1 Group.2      age    IQ   rating
+1       f      CG 20.00000  89.0 3.000000
+2       m      CG 27.66667  97.0 3.666667
+3       f       T 30.50000 106.5 3.500000
+4       m       T 23.00000  90.0 3.500000
+5       f      WL 26.50000 101.5 3.000000
+6       m      WL 34.50000  83.0 5.000000
 ```
 
 ```r
@@ -234,19 +262,27 @@ aggregate(cbind(age, IQ, rating) ~ sex + group, FUN=mean, data=myDf1)
 ```
 
 ```
-  sex group   age    IQ rating
-1   f    CG 20.00  89.0  3.000
-2   m    CG 27.67  97.0  3.667
-3   f     T 30.50 106.5  3.500
-4   m     T 23.00  90.0  3.500
-5   f    WL 26.50 101.5  3.000
-6   m    WL 34.50  83.0  5.000
+  sex group      age    IQ   rating
+1   f    CG 20.00000  89.0 3.000000
+2   m    CG 27.66667  97.0 3.666667
+3   f     T 30.50000 106.5 3.500000
+4   m     T 23.00000  90.0 3.500000
+5   f    WL 26.50000 101.5 3.000000
+6   m    WL 34.50000  83.0 5.000000
+```
+
+```r
+aggregate(cbind(age, IQ, rating) ~ 1, FUN=mean, data=myDf1)
+```
+
+```
+       age       IQ   rating
+1 27.66667 95.16667 3.666667
 ```
 
 
-
 ```r
-by(myDf1[ , c("age", "IQ", "rating")], list(myDf1$sex, myDf1$group), FUN=mean)
+by(numDf, list(myDf1$sex, myDf1$group), FUN=function(x) sapply(x, mean))
 ```
 
 ```
@@ -257,8 +293,8 @@ by(myDf1[ , c("age", "IQ", "rating")], list(myDf1$sex, myDf1$group), FUN=mean)
 -------------------------------------------------------- 
 : m
 : CG
-   age     IQ rating 
-27.667 97.000  3.667 
+      age        IQ    rating 
+27.666667 97.000000  3.666667 
 -------------------------------------------------------- 
 : f
 : T
@@ -281,11 +317,10 @@ by(myDf1[ , c("age", "IQ", "rating")], list(myDf1$sex, myDf1$group), FUN=mean)
   34.5   83.0    5.0 
 ```
 
-
 Useful packages
 -------------------------
 
-Package [`plyr`](http://cran.r-project.org/package=plyr) provides more functions for efficiently and consistently handling character strings.
+Package [`dplyr`](http://cran.r-project.org/package=dplyr) provides more functions for efficiently as well as consistently transforming and aggregating data.
 
 Get the article source from GitHub
 ----------------------------------------------

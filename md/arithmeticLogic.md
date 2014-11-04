@@ -69,7 +69,6 @@ R as a pocket calculator
 [1] 1
 ```
 
-
 Also see `help(Syntax)` for operator precendence / associativity: This determines the order in which computations are carried out when multiple operators are present.
 
 Using operators as functions
@@ -90,7 +89,6 @@ Using operators as functions
 ```
 [1] 5
 ```
-
 
 ### Standard math functions
 
@@ -132,9 +130,8 @@ exp(1)
 ```
 
 ```
-[1] 2.718
+[1] 2.718282
 ```
-
 
 ### Rounding numbers
 
@@ -179,7 +176,6 @@ trunc(22.913)
 [1] 22
 ```
 
-
 ### Complex numbers
 
 
@@ -215,7 +211,6 @@ sqrt(-1+0i)
 [1] 0+1i
 ```
 
-
 ### Special values
 
 
@@ -232,9 +227,8 @@ sqrt(-1+0i)
 ```
 
 ```
-[1] 2.22e-16
+[1] 2.220446e-16
 ```
-
 
 
 ```r
@@ -278,7 +272,6 @@ is.null(NULL)
 [1] TRUE
 ```
 
-
 ### Using variables (objects)
 
 
@@ -300,7 +293,6 @@ x2^x1 + x3
 ```
 [1] 93
 ```
-
 
 Logic
 -------------------------
@@ -341,7 +333,6 @@ FALSE
 ```
 
 
-
 ```r
 isTRUE(TRUE)
 ```
@@ -357,7 +348,6 @@ isTRUE(FALSE)
 ```
 [1] FALSE
 ```
-
 
 ### Logical comparisons
 
@@ -474,7 +464,6 @@ xor(TRUE, TRUE)
 [1] FALSE
 ```
 
-
 Short-circuit logical comparisons with vectors
 
 
@@ -493,7 +482,6 @@ c(FALSE, FALSE, TRUE)  || c(FALSE, TRUE, FALSE)
 ```
 [1] FALSE
 ```
-
 
 ### Arithmetic comparisons
 
@@ -530,7 +518,6 @@ c(FALSE, FALSE, TRUE)  || c(FALSE, TRUE, FALSE)
 [1] TRUE
 ```
 
-
 ### Checking whether any or all elements are `TRUE`
 
 
@@ -566,7 +553,6 @@ any(c(TRUE, TRUE, TRUE))
 [1] TRUE
 ```
 
-
 In an empty vector, there is no element that is `FALSE`, therefore:
 
 
@@ -578,7 +564,6 @@ all(numeric(0))
 [1] TRUE
 ```
 
-
 In an empty vector, you cannot pick an element that is `TRUE`, therefore:
 
 
@@ -589,7 +574,6 @@ any(numeric(0))
 ```
 [1] FALSE
 ```
-
 
 Numeric representations
 -------------------------
@@ -613,7 +597,6 @@ identical(4L, 4)
 [1] FALSE
 ```
 
-
 ### Floating point arithmetic
 
 
@@ -630,7 +613,7 @@ identical(4L, 4)
 ```
 
 ```
-[1] 9
+[1] 10
 ```
 
 ```r
@@ -638,7 +621,7 @@ sin(pi)
 ```
 
 ```
-[1] 1.225e-16
+[1] 1.224647e-16
 ```
 
 ```r
@@ -646,7 +629,7 @@ sin(pi)
 ```
 
 ```
-[1] 1.11e-16
+[1] 1.110223e-16
 ```
 
 ```r
@@ -656,7 +639,6 @@ sin(pi)
 ```
 [1] 0
 ```
-
 
 [What every computer scientist should know about floating-point arithmetic](http://docs.sun.com/source/806-3568/ncg_goldberg.html)
 
@@ -684,7 +666,7 @@ all.equal(0.12345001, 0.12345000)
 ```
 
 ```
-[1] "Mean relative difference: 8.1e-08"
+[1] "Mean relative difference: 8.100445e-08"
 ```
 
 ```r
@@ -694,7 +676,6 @@ isTRUE(all.equal(0.12345001,  0.12345000))
 ```
 [1] FALSE
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

@@ -18,15 +18,14 @@ TODO
 Install required packages
 -------------------------
 
-[`modeest`](http://cran.r-project.org/package=modeest), [`psych`](http://cran.r-project.org/package=psych), [`robustbase`](http://cran.r-project.org/package=robustbase)
+[`DescTools`](http://cran.r-project.org/package=DescTools), [`modeest`](http://cran.r-project.org/package=modeest), [`robustbase`](http://cran.r-project.org/package=robustbase)
 
 
 ```r
-wants <- c("modeest", "psych", "robustbase")
+wants <- c("DescTools", "modeest", "robustbase")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
 
 Mean, weighted mean, geometric mean, harmonic mean, and mode
 -------------------------
@@ -40,9 +39,8 @@ mean(age)
 ```
 
 ```
-[1] 24.33
+[1] 24.33333
 ```
-
 
 ### Weighted mean
 
@@ -53,35 +51,32 @@ weighted.mean(age, weights)
 ```
 
 ```
-[1] 23.7
+[1] 23.7037
 ```
-
 
 ### Geometric mean
 
 
 ```r
-library(psych)
-geometric.mean(age)
+library(DescTools)
+Gmean(age)
 ```
 
 ```
-[1] 23.87
+[1] 23.86509
 ```
-
 
 ### Harmonic mean
 
 
 ```r
-library(psych)
-harmonic.mean(age)
+library(DescTools)
+Hmean(age)
 ```
 
 ```
-[1] 23.38
+[1] 23.38384
 ```
-
 
 ### Mode
 
@@ -102,10 +97,9 @@ mlv(vec, method="mfv")
 
 ```
 Mode (most likely value): 33 
-Bickel's modal skewness: -0.4286 
+Bickel's modal skewness: -0.4285714 
 Call: mlv.default(x = vec, method = "mfv") 
 ```
-
 
 Robust location measures
 -------------------------
@@ -121,7 +115,6 @@ median(age)
 [1] 24
 ```
 
-
 ### Trimmed mean
 
 
@@ -133,13 +126,12 @@ mean(age, trim=0.2)
 [1] 24.75
 ```
 
-
 ### Winsorized mean
 
 
 ```r
-library(psych)
-(ageWins <- winsor(age, trim=0.2))
+library(DescTools)
+(ageWins <- Winsorize(age, probs=c(0.2, 0.8)))
 ```
 
 ```
@@ -154,7 +146,6 @@ mean(ageWins)
 [1] 25
 ```
 
-
 ### Huber-$M$ estimator
 
 
@@ -165,22 +156,21 @@ hM$mu
 ```
 
 ```
-[1] 24.33
+[1] 24.33333
 ```
-
 
 ### Hodges-Lehmann estimator (pseudo-median)
 
 
 ```r
-wilcox.test(age, conf.int=TRUE)$estimate
+library(DescTools)
+HodgesLehmann(age, conf.level=0.95)
 ```
 
 ```
-(pseudo)median 
-            24 
+     est   lwr.ci   upr.ci 
+23.99998 20.99997 27.50005 
 ```
-
 
 ### Hodges-Lehmann estimator of difference between two location parameters
 
@@ -194,9 +184,8 @@ wilcox.test(X, Y, conf.int=TRUE)$estimate
 
 ```
 difference in location 
-                 -2.19 
+             -7.357877 
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -204,10 +193,9 @@ Detach (automatically) loaded packages (if possible)
 
 ```r
 try(detach(package:modeest))
-try(detach(package:psych))
+try(detach(package:DescTools))
 try(detach(package:robustbase))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

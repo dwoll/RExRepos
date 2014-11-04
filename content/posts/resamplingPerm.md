@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Two-sample $t$-test / one-way ANOVA for independent groups
 -------------------------
 
@@ -40,28 +39,28 @@ Not limited to just two independent samples.
 set.seed(123)
 Nj     <- c(7, 8)
 sigma  <- 20
-DVa    <- rnorm(Nj[1], 100, sigma)
-DVb    <- rnorm(Nj[2], 110, sigma)
+DVa    <- round(rnorm(Nj[1], 100, sigma))
+DVb    <- round(rnorm(Nj[2], 110, sigma))
 tIndDf <- data.frame(DV=c(DVa, DVb),
                      IV=factor(rep(c("A", "B"), Nj)))
 ```
 
 
-
 ```r
 library(coin)
-oneway_test(DV ~ IV, alternative="less", distribution="exact", data=tIndDf)
+(ot <- oneway_test(DV ~ IV, alternative="less", data=tIndDf, distribution="exact"))
 ```
 
 ```
 
 	Exact 2-Sample Permutation Test
 
-data:  DV by IV (A, B) 
-Z = 0.1369, p-value = 0.5549
-alternative hypothesis: true mu is less than 0 
+data:  DV by IV (A, B)
+Z = 0.1356, p-value = 0.5602
+alternative hypothesis: true mu is less than 0
 ```
 
+Compare with parametric $t$-test
 
 
 ```r
@@ -70,9 +69,8 @@ tRes$p.value
 ```
 
 ```
-[1] 0.5515
+[1] 0.5510091
 ```
-
 
 ### Manual exact test
 
@@ -83,41 +81,54 @@ idxA  <- combn(idx, Nj[1])
 getDM <- function(x) { mean(tIndDf$DV[!(idx %in% x)]) - mean(tIndDf$DV[x]) }
 resDM <- apply(idxA, 2, getDM)
 diffM <- diff(tapply(tIndDf$DV, tIndDf$IV, mean))
-(pVal <- sum(resDM >= diffM) / length(resDM))
+
+# don't use <= because of floating point arithmetic problems
+DMstar   <- apply(idxA, 2, getDM)
+DMbase   <- mean(DVa) - mean(DVb)
+tol      <- .Machine$double.eps^0.5
+DMsIsLEQ <- (DMstar < DMbase) | (abs(DMstar-DMbase) < tol)
+(pVal    <- sum(DMsIsLEQ) / length(DMstar))
 ```
 
 ```
-[1] 0.5549
+[1] 0.55338
 ```
-
 
 ### Diagram: permutation distribution
 
+Check density of permutation distribution.
+
 
 ```r
-hist(resDM, freq=FALSE, breaks="FD", xlab="Difference in means",
-     main="Permutation test: Histogram difference in means")
-curve(dnorm(x, 0, sigma/sqrt(Nj[1]) + sigma/sqrt(Nj[2])), lwd=2, add=TRUE)
-legend(x="topright", lty=1, lwd=2, legend=expression(paste("N(0, ", sigma[1]^2 / n[1] + sigma[2]^2 / n[2], ")")))
+supp <- support(ot)
+dens <- sapply(supp, dperm, object=ot)
+plot(supp, dens, xlab="Support", ylab=NA, pch=20, main="Density permutation distribution")
 ```
 
-![plot of chunk rerResamplingPerm01](../content/assets/figure/rerResamplingPerm01.png) 
+![plot of chunk rerResamplingPerm01](../content/assets/figure/rerResamplingPerm01-1.png) 
 
+QQ-plot against standard normal distribution.
 
 
 ```r
-plot(resDM, ecdf(resDM)(resDM), col="gray60", pch=16,
+qEmp <- sapply(ppoints(supp), qperm, object=ot)
+qqnorm(qEmp, xlab="Quantile Normalverteilung", ylab="Permutation quantiles",
+       pch=20, main="Permutation quantiles vs. normal quantiles")
+abline(a=0, b=1, lwd=2, col="blue")
+```
+
+![plot of chunk rerResamplingPerm02](../content/assets/figure/rerResamplingPerm02-1.png) 
+
+Empirical cumulative distribution function.
+
+
+```r
+plot(qEmp, ecdf(qEmp)(qEmp), col="gray60", pch=16,
      xlab="Difference in means", ylab="cumulative relative frequency",
      main="Cumulative relative frequency and normal CDF")
-curve(pnorm(x, 0, sigma/sqrt(Nj[1]) + sigma/sqrt(Nj[2])), lwd=2, add=TRUE)
-legend(x="bottomright", lty=c(NA, 1), pch=c(16, NA), lwd=c(1, 2),
-       col=c("gray60", "black"),
-       legend=c("Permutations",
-       expression(paste("N(0, ", sigma[1]^2 / n[1] + sigma[2]^2 / n[2], ")"))))
 ```
 
-![plot of chunk rerResamplingPerm02](../content/assets/figure/rerResamplingPerm02.png) 
-
+![plot of chunk rerResamplingPerm03](../content/assets/figure/rerResamplingPerm03-1.png) 
 
 Two-sample $t$-test / one-way ANOVA for dependent groups
 -------------------------
@@ -137,7 +148,6 @@ tDepDf <- data.frame(DV=c(DVpre, DVpost),
 ```
 
 
-
 ```r
 library(coin)
 oneway_test(DV ~ IV | id, alternative="less", distribution=approximate(B=9999), data=tDepDf)
@@ -148,11 +158,10 @@ oneway_test(DV ~ IV | id, alternative="less", distribution=approximate(B=9999), 
 	Approximative 2-Sample Permutation Test
 
 data:  DV by IV (pre, post) 
-	 stratified by id 
-Z = -2.123, p-value = 0.0138
-alternative hypothesis: true mu is less than 0 
+	 stratified by id
+Z = -2.1232, p-value = 0.0138
+alternative hypothesis: true mu is less than 0
 ```
-
 
 
 ```r
@@ -160,9 +169,8 @@ t.test(DV ~ IV, alternative="less", paired=TRUE, data=tDepDf)$p.value
 ```
 
 ```
-[1] 0.01296
+[1] 0.0129621
 ```
-
 
 ### Manual exact test
 
@@ -172,14 +180,18 @@ DVd    <- DVpre - DVpost
 sgnLst <- lapply(numeric(N), function(x) { c(-1, 1) } )
 sgnMat <- data.matrix(expand.grid(sgnLst))
 getMD  <- function(x) { mean(abs(DVd) * x) }
-resMD  <- apply(sgnMat, 1, getMD)
-(pVal  <- sum(resMD <= mean(DVd)) / length(resMD))
+MDstar <- apply(sgnMat, 1, getMD)
+MDbase <- mean(DVd)
+
+# don't use <= because of floating point arithmetic problems
+tol      <- .Machine$double.eps^0.5
+MDsIsLEQ <- (MDstar < MDbase) | (abs(MDstar-MDbase) < tol)
+(pVal    <- sum(MDsIsLEQ) / length(MDstar))
 ```
 
 ```
-[1] 0.01392
+[1] 0.01391602
 ```
-
 
 Independence of two variables
 -------------------------
@@ -187,16 +199,15 @@ Independence of two variables
 ### Fisher's exact test
 
 ```r
-Nf  <- 7
+Nf  <- 8
 DV1 <- rbinom(Nf, size=1, prob=0.5)
 DV2 <- rbinom(Nf, size=1, prob=0.5)
 fisher.test(DV1, DV2, alternative="greater")$p.value
 ```
 
 ```
-[1] 1
+[1] 0.6428571
 ```
-
 
 ### Manual exact test
 
@@ -204,19 +215,15 @@ fisher.test(DV1, DV2, alternative="greater")$p.value
 ```r
 library(e1071)
 permIdx  <- permutations(Nf)
-getAgree <- function(idx) {
-    sum(diag(table(DV1, DV2[idx])))
-}
-
+getAgree <- function(idx) { sum(diag(table(DV1, DV2[idx]))) }
 resAgree <- apply(permIdx, 1, getAgree)
 agree12  <- sum(diag(table(DV1, DV2)))
 (pVal    <- sum(resAgree >= agree12) / length(resAgree))
 ```
 
 ```
-[1] 1
+[1] 0.6428571
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -224,15 +231,10 @@ Detach (automatically) loaded packages (if possible)
 
 ```r
 try(detach(package:e1071))
-try(detach(package:class))
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

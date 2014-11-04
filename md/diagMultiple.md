@@ -32,8 +32,7 @@ par(lwd=3, cex=2)
 layout.show(4)
 ```
 
-![plot of chunk rerDiagMultiple01](../content/assets/figure/rerDiagMultiple01.png) 
-
+![plot of chunk rerDiagMultiple01](../content/assets/figure/rerDiagMultiple01-1.png) 
 
 
 ```r
@@ -45,8 +44,7 @@ stripchart(sample(1:20, 40, replace=TRUE), method="stack", main="Stripchart")
 pie(table(sample(1:6, 20, replace=TRUE)), main="Piechart")
 ```
 
-![plot of chunk rerDiagMultiple02](../content/assets/figure/rerDiagMultiple02.png) 
-
+![plot of chunk rerDiagMultiple02](../content/assets/figure/rerDiagMultiple02-1.png) 
 
 ### Four cells of different size
 
@@ -57,8 +55,7 @@ par(lwd=3, cex=2)
 layout.show(4)
 ```
 
-![plot of chunk rerDiagMultiple03](../content/assets/figure/rerDiagMultiple03.png) 
-
+![plot of chunk rerDiagMultiple03](../content/assets/figure/rerDiagMultiple03-1.png) 
 
 
 ```r
@@ -69,8 +66,7 @@ stripchart(sample(1:20, 40, replace=TRUE), method="stack", main="Stripchart")
 pie(table(sample(1:6, 20, replace=TRUE)), main="Piechart")
 ```
 
-![plot of chunk rerDiagMultiple04](../content/assets/figure/rerDiagMultiple04.png) 
-
+![plot of chunk rerDiagMultiple04](../content/assets/figure/rerDiagMultiple04-1.png) 
 
 ### Combining and omitting cells
 
@@ -91,8 +87,7 @@ stripchart(sample(1:20, 40, replace=TRUE), method="stack", main="Stripchart")
 barplot(table(round(rnorm(100))), main="Barplot")
 ```
 
-![plot of chunk rerDiagMultiple05](../content/assets/figure/rerDiagMultiple05.png) 
-
+![plot of chunk rerDiagMultiple05](../content/assets/figure/rerDiagMultiple05-1.png) 
 
 Using `par(mfrow, mfcol)`
 -------------------------
@@ -104,8 +99,7 @@ boxplot(rt(100, 5), xlab=NA, notch=TRUE, main="Boxplot")
 plot(rnorm(10), pch=16, xlab=NA, ylab=NA, main="Barplot")
 ```
 
-![plot of chunk rerDiagMultiple06](../content/assets/figure/rerDiagMultiple06.png) 
-
+![plot of chunk rerDiagMultiple06](../content/assets/figure/rerDiagMultiple06-1.png) 
 
 Using `par(fig)`
 -------------------------
@@ -116,7 +110,6 @@ resBinom <- rbinom(1000, size=10, prob=0.3)
 facBinom <- factor(resBinom, levels=0:10)
 tabBinom <- table(facBinom)
 ```
-
 
 
 ```r
@@ -131,8 +124,7 @@ boxplot(resBinom, horizontal=TRUE, notch=TRUE, ylim=c(0, 10),
         xlab="Number of successes", col="blue")
 ```
 
-![plot of chunk rerDiagMultiple07](../content/assets/figure/rerDiagMultiple07.png) 
-
+![plot of chunk rerDiagMultiple07](../content/assets/figure/rerDiagMultiple07-1.png) 
 
 Using `split.screen()`
 -------------------------
@@ -160,12 +152,11 @@ plot(sample(1:20, 40, replace=TRUE), pch=20, xlab=NA, ylab=NA,
      main="Scatter plot")
 ```
 
-![plot of chunk rerDiagMultiple08](../content/assets/figure/rerDiagMultiple08.png) 
+![plot of chunk rerDiagMultiple08](../content/assets/figure/rerDiagMultiple08-1.png) 
 
 ```r
 close.screen(all.screens=TRUE)
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

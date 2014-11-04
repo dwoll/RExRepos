@@ -18,10 +18,10 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`multcomp`](http://cran.r-project.org/package=multcomp)
+[`car`](http://cran.r-project.org/package=car), [`DescTools`](http://cran.r-project.org/package=DescTools), [`multcomp`](http://cran.r-project.org/package=multcomp)
 
 ```{r}
-wants <- c("car", "multcomp")
+wants <- c("car", "DescTools", "multcomp")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -91,15 +91,22 @@ SSw   <- anovaCRp["Residuals", "Sum Sq"]
 MSw   <- anovaCRp["Residuals", "Mean Sq"]
 ```
 
+\(\hat{\eta^{2}}\)
+
 ```{r}
 (etaSq <- SSb / (SSb + SSw))
+library(DescTools)                     # for EtaSq()
+EtaSq(aovCRp, type=1)
+```
+
+\(\hat{\omega^{2}}\), \(\hat{f^{2}}\)
+
+```{r}
 (omegaSq <- dfSSb * (MSb-MSw) / (SSb + SSw + MSw))
 (f <- sqrt(etaSq / (1-etaSq)))
 ```
 
-Or from function `ezANOVA()` from package [`ez`](http://cran.r-project.org/package=ez)
-
-Planned comparisons
+Planned comparisons - a-priori
 -------------------------
 
 ### General contrasts using `glht()` from package `multcomp`
@@ -108,7 +115,7 @@ Planned comparisons
 cntrMat <- rbind("A-D"          =c(  1,   0,   0,  -1),
                  "1/3*(A+B+C)-D"=c(1/3, 1/3, 1/3,  -1),
                  "B-C"          =c(  0,   1,  -1,   0))
-library(multcomp)
+library(multcomp)                      # for glht()
 summary(glht(aovCRp, linfct=mcp(IV=cntrMat), alternative="less"),
         test=adjusted("none"))
 ```
@@ -119,6 +126,16 @@ summary(glht(aovCRp, linfct=mcp(IV=cntrMat), alternative="less"),
 pairwise.t.test(dfCRp$DV, dfCRp$IV, p.adjust.method="bonferroni")
 ```
 
+Planned comparisons - post-hoc
+-------------------------
+
+### Scheffe tests
+
+```{r}
+library(DescTools)                  # for ScheffeTest()
+ScheffeTest(aovCRp, which="IV", contrasts=t(cntrMat))
+```
+
 ### Tukey's simultaneous confidence intervals
 
 ```{r}
@@ -127,6 +144,15 @@ pairwise.t.test(dfCRp$DV, dfCRp$IV, p.adjust.method="bonferroni")
 
 ```{r rerAnovaCRp02}
 plot(tHSD)
+```
+
+Using `glht()` from package `multcomp`
+
+```{r}
+library(multcomp)                      # for glht()
+tukey <- glht(aovCRp, linfct=mcp(IV="Tukey"))
+summary(tukey)
+confint(tukey)
 ```
 
 Assess test assumptions
@@ -160,10 +186,10 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
 try(detach(package:multcomp))
 try(detach(package:survival))
 try(detach(package:mvtnorm))
 try(detach(package:splines))
+try(detach(package:TH.data))
+try(detach(package:DescTools))
 ```

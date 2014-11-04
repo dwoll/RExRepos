@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Simulated right-censored event times with Weibull distribution
 -------------------------
 
@@ -57,7 +56,6 @@ obsT   <- pmin(eventT, censT)  # observed censored event times
 status <- eventT <= censT      # has event occured?
 dfSurv <- data.frame(obsT, status, sex, X, IV)          # data frame
 ```
-
 
 Parametric Proportional Hazards Models
 -------------------------
@@ -143,6 +141,17 @@ Number of Newton-Raphson Iterations: 5
 n= 180 
 ```
 
+Transform AFT parameter $\hat{\gamma}_{j} = - \hat{\beta}_{j} \cdot \hat{a}$ to parameter $\hat{\beta}_{j}$ a Cox PH model.
+
+
+```r
+(betaHat <- -coef(fitWeib) / fitWeib$scale)
+```
+
+```
+(Intercept)           X         IVB         IVC 
+ -2.4932013   0.5183936  -0.8613157   0.4597344 
+```
 
 ### Model comparisons
 
@@ -155,11 +164,10 @@ anova(fitExp, fitWeib)               # model comparison
 ```
 
 ```
-   Terms Resid. Df -2*LL Test Df Deviance  Pr(>Chi)
-1 X + IV       176  1364      NA       NA        NA
-2 X + IV       175  1348    =  1    16.57 4.676e-05
+   Terms Resid. Df    -2*LL Test Df Deviance     Pr(>Chi)
+1 X + IV       176 1364.383      NA       NA           NA
+2 X + IV       175 1347.808    =  1   16.575 4.676351e-05
 ```
-
 
 Test significance of factor `IV` (associated with multiple effect parameters) as a whole by doing a model comparison against the restricted model without factor `IV`.
 
@@ -171,11 +179,10 @@ anova(fitR, fitWeib)                 # model comparison
 ```
 
 ```
-   Terms Resid. Df -2*LL Test Df Deviance  Pr(>Chi)
-1      X       177  1390      NA       NA        NA
-2 X + IV       175  1348  +IV  2    42.51 5.882e-10
+   Terms Resid. Df    -2*LL Test Df Deviance     Pr(>Chi)
+1      X       177 1390.316      NA       NA           NA
+2 X + IV       175 1347.808    =  2  42.5078 5.882312e-10
 ```
-
 
 Estimate survival-function
 -------------------------
@@ -190,7 +197,6 @@ dfNew <- data.frame(sex=factor(c("m", "m"), levels=levels(dfSurv$sex)),
 percs <- (1:99)/100
 FWeib <- predict(fitWeib, newdata=dfNew, type="quantile", p=percs, se=TRUE)
 ```
-
 
 To plot estimated survival function for two new observations, calculate $S(t) = 1-F(t)$ and use `newdata` argument.
 
@@ -208,8 +214,7 @@ legend(x="topright", lwd=2, lty=c(1, 2, 1, 2), col=c("blue", "blue", "red", "red
        legend=c("sex=m, X=0, IV=A", "+- 2*SE", "sex=m, X=0, IV=C", "+- 2*SE"))
 ```
 
-![plot of chunk rerSurvivalParametric01](../content/assets/figure/rerSurvivalParametric01.png) 
-
+![plot of chunk rerSurvivalParametric01](../content/assets/figure/rerSurvivalParametric01-1.png) 
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -219,7 +224,6 @@ Detach (automatically) loaded packages (if possible)
 try(detach(package:survival))
 try(detach(package:splines))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

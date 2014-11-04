@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Simulated right-censored event times with Weibull distribution
 -------------------------
 
@@ -56,6 +55,14 @@ status <- eventT <= censT
 dfSurv <- data.frame(obsT, status, sex, X, IV)
 ```
 
+Survival data in counting process (start-stop) notation.
+
+
+```r
+library(survival)
+dfSurvCP <- survSplit(dfSurv, cut=seq(30, 90, by=30), end="obsT",
+                      event="status", start="start", id="ID", zero=0)
+```
 
 Fit the Cox proportional hazards model
 -------------------------
@@ -92,6 +99,23 @@ Likelihood ratio test=51.6  on 3 df, p=3.62e-11  n= 180, number of events= 157
 ```
 
 ```r
+# use counting process data
+coxph(Surv(start, obsT, status) ~ X + IV, data=dfSurvCP)
+```
+
+```
+Call:
+coxph(formula = Surv(start, obsT, status) ~ X + IV, data = dfSurvCP)
+
+      coef exp(coef) se(coef)     z       p
+X    0.493     1.637   0.0937  5.26 1.4e-07
+IVB -0.822     0.439   0.2108 -3.90 9.6e-05
+IVC  0.377     1.457   0.1934  1.95 5.1e-02
+
+Likelihood ratio test=51.6  on 3 df, p=3.62e-11  n= 303, number of events= 157 
+```
+
+```r
 summary(fitCPH)
 ```
 
@@ -101,25 +125,24 @@ coxph(formula = Surv(obsT, status) ~ X + IV, data = dfSurv)
 
   n= 180, number of events= 157 
 
-       coef exp(coef) se(coef)     z Pr(>|z|)    
-X    0.4930    1.6373   0.0937  5.26  1.4e-07 ***
-IVB -0.8224    0.4394   0.2108 -3.90  9.6e-05 ***
-IVC  0.3767    1.4575   0.1934  1.95    0.051 .  
+        coef exp(coef) se(coef)      z Pr(>|z|)    
+X    0.49304   1.63728  0.09374  5.260 1.44e-07 ***
+IVB -0.82245   0.43935  0.21081 -3.901 9.56e-05 ***
+IVC  0.37670   1.45746  0.19336  1.948   0.0514 .  
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
     exp(coef) exp(-coef) lower .95 upper .95
-X       1.637      0.611     1.362     1.967
-IVB     0.439      2.276     0.291     0.664
-IVC     1.457      0.686     0.998     2.129
+X      1.6373     0.6108    1.3625    1.9675
+IVB    0.4394     2.2761    0.2907    0.6641
+IVC    1.4575     0.6861    0.9977    2.1291
 
 Concordance= 0.68  (se = 0.027 )
 Rsquare= 0.249   (max possible= 1 )
-Likelihood ratio test= 51.6  on 3 df,   p=3.62e-11
-Wald test            = 51  on 3 df,   p=4.92e-11
-Score (logrank) test = 53.3  on 3 df,   p=1.55e-11
+Likelihood ratio test= 51.62  on 3 df,   p=3.617e-11
+Wald test            = 50.99  on 3 df,   p=4.92e-11
+Score (logrank) test = 53.34  on 3 df,   p=1.548e-11
 ```
-
 
 Assess model fit
 -------------------------
@@ -133,9 +156,8 @@ extractAIC(fitCPH)
 ```
 
 ```
-[1]    3 1368
+[1]    3.000 1367.667
 ```
-
 
 ### McFadden, Cox & Snell and Nagelkerke pseudo $R^{2}$
 
@@ -147,7 +169,6 @@ LLf <- fitCPH$loglik[2]
 LL0 <- fitCPH$loglik[1]
 ```
 
-
 McFadden pseudo-$R^2$
 
 
@@ -156,9 +177,8 @@ as.vector(1 - (LLf / LL0))
 ```
 
 ```
-[1] 0.03652
+[1] 0.0365218
 ```
-
 
 Cox & Snell
 
@@ -168,9 +188,8 @@ as.vector(1 - exp((2/N) * (LL0 - LLf)))
 ```
 
 ```
-[1] 0.2493
+[1] 0.2493033
 ```
-
 
 Nagelkerke
 
@@ -180,9 +199,8 @@ as.vector((1 - exp((2/N) * (LL0 - LLf))) / (1 - exp(LL0)^(2/N)))
 ```
 
 ```
-[1] 0.2494
+[1] 0.2494003
 ```
-
 
 ### Model comparisons
 
@@ -190,6 +208,7 @@ Restricted model without factor `IV`
 
 
 ```r
+library(survival)
 fitCPH1 <- coxph(Surv(obsT, status) ~ X, data=dfSurv)
 anova(fitCPH1, fitCPH)          # model comparison
 ```
@@ -199,13 +218,12 @@ Analysis of Deviance Table
  Cox model: response is  Surv(obsT, status)
  Model 1: ~ X
  Model 2: ~ X + IV
-  loglik Chisq Df P(>|Chi|)    
-1   -699                       
-2   -681  35.9  2   1.6e-08 ***
+   loglik  Chisq Df P(>|Chi|)    
+1 -698.77                        
+2 -680.83 35.867  2 1.628e-08 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 Estimate survival-function und cumulative baseline hazard
 -------------------------
@@ -228,11 +246,13 @@ records   n.max n.start  events  median 0.95LCL 0.95UCL
 ```
 
 ```r
-
-## survival 2.37-2 has a bug in quantile() so this currently doesn't work
-# quantile(CPH, probs=c(0.25, 0.5, 0.75), conf.int=FALSE)
+quantile(CPH, probs=c(0.25, 0.5, 0.75), conf.int=FALSE)
 ```
 
+```
+25 50 75 
+ 4 14 39 
+```
 
 More meaningful: Estimated survival function for new specific data
 
@@ -241,6 +261,8 @@ More meaningful: Estimated survival function for new specific data
 dfNew  <- data.frame(sex=factor(c("f", "f"), levels=levels(dfSurv$sex)),
                        X=c(-2, -2),
                       IV=factor(c("A", "C"), levels=levels(dfSurv$IV)))
+
+library(survival)
 CPHnew <- survfit(fitCPH, newdata=dfNew)
 
 par(mar=c(5, 4.5, 4, 2)+0.1, cex.lab=1.4, cex.main=1.4)
@@ -252,8 +274,7 @@ legend(x="topright", lwd=2, col=c("black", "blue", "red"),
        legend=c("pseudo-observation", "sex=f, X=-2, IV=A", "sex=f, X=-2, IV=C"))
 ```
 
-![plot of chunk rerSurvivalCoxPH01](../content/assets/figure/rerSurvivalCoxPH01.png) 
-
+![plot of chunk rerSurvivalCoxPH01](../content/assets/figure/rerSurvivalCoxPH01-1.png) 
 
 ### Cumulative baseline hazard
 
@@ -271,13 +292,39 @@ lines(Lambda0A$time, Lambda0C, lwd=2, col="green")
 legend(x="bottomright", lwd=2, col=1:3, legend=LETTERS[1:3])
 ```
 
-![plot of chunk rerSurvivalCoxPH02](../content/assets/figure/rerSurvivalCoxPH02.png) 
-
+![plot of chunk rerSurvivalCoxPH02](../content/assets/figure/rerSurvivalCoxPH02-1.png) 
 
 Model diagnostics
 -------------------------
 
 ### Proportional hazards assumption
+
+log-log plot for categorized predictor `X`.
+
+
+```r
+library(survival)                # for survfit()
+dfSurv <- transform(dfSurv, Xcut=cut(X, breaks=c(-Inf, median(X), Inf),
+                                        labels=c("lo", "hi")))
+KMiv   <- survfit(Surv(obsT, status) ~ IV,   type="kaplan-meier", data=dfSurv)
+KMxcut <- survfit(Surv(obsT, status) ~ Xcut, type="kaplan-meier", data=dfSurv)
+
+plot(KMiv, fun="cloglog", main="cloglog-Plot for IV1", xlab="ln t",
+     ylab=expression(ln(-ln(hat(S)[g](t)))), col=c("black", "blue", "red"), lty=1:3)
+
+legend(x="topleft", col=c("black", "blue", "red"), lwd=2, lty=1:3, legend=LETTERS[1:3])
+```
+
+![plot of chunk rerSurvivalCoxPH03](../content/assets/figure/rerSurvivalCoxPH03-1.png) 
+
+```r
+plot(KMxcut, fun="cloglog", main="cloglog-Plot for Xcut", xlab="ln t",
+     ylab=expression(ln(-ln(hat(S)[g](t)))), col=c("black", "blue"), lty=1:2)
+
+legend(x="topleft", col=c("black", "blue"), lwd=2, lty=1:2, legend=c("lo", "hi"))
+```
+
+![plot of chunk rerSurvivalCoxPH03](../content/assets/figure/rerSurvivalCoxPH03-2.png) 
 
 Test based on scaled Schoenfeld-residuals
 
@@ -295,7 +342,6 @@ IVC     0.0406 0.265 0.6069
 GLOBAL      NA 5.053 0.1680
 ```
 
-
 Plot scaled Schoenfeld-residuals against covariates
 
 
@@ -304,8 +350,7 @@ par(mfrow=c(2, 2), cex.main=1.4, cex.lab=1.4)
 plot(czph)
 ```
 
-![plot of chunk rerSurvivalCoxPH03](../content/assets/figure/rerSurvivalCoxPH03.png) 
-
+![plot of chunk rerSurvivalCoxPH04](../content/assets/figure/rerSurvivalCoxPH04-1.png) 
 
 ### Influential observations
 
@@ -319,8 +364,7 @@ plot(dfbetas[ , 2], type="h", main="DfBETAS for IV-B", ylab="DfBETAS", lwd=2)
 plot(dfbetas[ , 3], type="h", main="DfBETAS for IV-C", ylab="DfBETAS", lwd=2)
 ```
 
-![plot of chunk rerSurvivalCoxPH04](../content/assets/figure/rerSurvivalCoxPH04.png) 
-
+![plot of chunk rerSurvivalCoxPH05](../content/assets/figure/rerSurvivalCoxPH05-1.png) 
 
 ### Linearity of log hazard
 
@@ -335,8 +379,7 @@ lines(loess.smooth(dfSurv$X, resMart), lwd=2, col="blue")
 legend(x="bottomleft", col="blue", lwd=2, legend="LOESS fit", cex=1.4)
 ```
 
-![plot of chunk rerSurvivalCoxPH05](../content/assets/figure/rerSurvivalCoxPH05.png) 
-
+![plot of chunk rerSurvivalCoxPH06](../content/assets/figure/rerSurvivalCoxPH06-1.png) 
 
 Predicted hazard ratios
 -------------------------
@@ -346,14 +389,48 @@ With respect to an average pseudo-observation with covariate values equal to the
 
 ```r
 library(survival)
-hazRat <- predict(fitCPH, type="risk")
-head(hazRat)
+predRes <- predict(fitCPH, type="risk")
+head(predRes, n=10)
 ```
 
 ```
-[1] 1.9166 1.5390 1.3211 0.8617 2.2970 0.8735
+ [1] 1.9166403 1.5389801 1.3210722 0.8617067 2.2969713 0.8735328 3.4527637
+ [8] 2.5002058 1.0455378 0.7079919
 ```
 
+Estimated global survival function.
+
+
+```r
+library(survival)
+Shat1 <- survexp(~ 1, ratetable=fitCPH, data=dfSurv)
+with(Shat1, head(data.frame(time, surv), n=4))
+```
+
+```
+  time      surv
+1    1 0.9269729
+2    2 0.8643413
+3    3 0.7681378
+4    4 0.7173365
+```
+
+Estimated survival function per group.
+
+
+```r
+library(survival)
+Shat2 <- survexp(~ IV, ratetable=fitCPH, data=dfSurv)
+with(Shat2, head(data.frame(time, surv), n=4))
+```
+
+```
+  time      IV.A      IV.B      IV.C
+1    1 0.9265656 0.9633824 0.8909708
+2    2 0.8626937 0.9299972 0.8003328
+3    3 0.7630677 0.8746553 0.6666905
+4    4 0.7097748 0.8431836 0.5990511
+```
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -363,7 +440,6 @@ Detach (automatically) loaded packages (if possible)
 try(detach(package:survival))
 try(detach(package:splines))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

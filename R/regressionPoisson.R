@@ -1,18 +1,18 @@
 
-## @knitr echo=FALSE
+## ----echo=FALSE----------------------------------------------------------
 library(knitr)
 opts_knit$set(self.contained=FALSE)
 opts_chunk$set(tidy=FALSE, message=FALSE, warning=FALSE, comment=NA)
 # render_jekyll()
 
 
-## @knitr 
-wants <- c("lmtest", "MASS", "pscl", "sandwich", "VGAM")
+## ------------------------------------------------------------------------
+wants <- c("lmtest", "MASS", "mvtnorm", "pscl", "sandwich", "VGAM")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
 
-## @knitr regressionPoissonDf, cache=TRUE
+## ------------------------------------------------------------------------
 library(mvtnorm)
 set.seed(123)
 N     <- 200
@@ -24,26 +24,26 @@ Y[Y < 0] <- 0
 dfCount <- data.frame(X1=XY[ , 1], X2=XY[ , 2], Y)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 glmFitP <- glm(Y ~ X1 + X2, family=poisson(link="log"), data=dfCount)
 summary(glmFitP)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 exp(coef(glmFitP))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 exp(confint(glmFitP))
 
 
-## @knitr results='hide'
+## ----results='hide'------------------------------------------------------
 library(VGAM)
 summary(vglmFit <- vglm(Y ~ X1 + X2, family=poissonff, data=dfCount))
 # not shown
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 Nt   <- 100
 Ti   <- sample(20:40, Nt, replace=TRUE)
 Xt   <- rnorm(Nt, 100, 15)
@@ -51,18 +51,18 @@ Yt   <- rbinom(Nt, size=Ti, prob=0.5)
 glm(Yt ~ Xt, family=poisson(link="log"), offset=log(Ti))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 glmFitQP <- glm(Y ~ X1 + X2, family=quasipoisson(link="log"), data=dfCount)
 summary(glmFitQP)
 
 
-## @knitr results='hide'
+## ----results='hide'------------------------------------------------------
 library(VGAM)
 vglm(Y ~ X1 + X2, family=quasipoissonff, data=dfCount)
 # not shown
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(sandwich)
 hcSE <- vcovHC(glmFitP, type="HC0")
 
@@ -70,69 +70,65 @@ library(lmtest)
 coeftest(glmFitP, vcov=hcSE)
 
 
-## @knitr regressionGlmFitNB, cache=TRUE
+## ------------------------------------------------------------------------
 library(MASS)
 glmFitNB <- glm.nb(Y ~ X1 + X2, data=dfCount)
 summary(glmFitNB)
 
 
-## @knitr results='hide'
+## ----results='hide'------------------------------------------------------
 library(VGAM)
 vglm(Y ~ X1 + X2, family=negbinomial, data=dfCount)
 # not shown
 
 
-## @knitr dependson=c("regressionPoissonDf", "regressionGlmFitNB")
+## ------------------------------------------------------------------------
 library(pscl)
 odTest(glmFitNB)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(pscl)
 ziFitP <- zeroinfl(Y ~ X1 + X2 | 1, dist="poisson", data=dfCount)
 summary(ziFitP)
 
 
-## @knitr results='hide'
+## ----results='hide'------------------------------------------------------
 library(VGAM)
 vglm(Y ~ X1 + X2, family=zipoissonff, data=dfCount)
 # not shown
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(pscl)
 vuong(ziFitP, glmFitP)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 ziFitNB <- zeroinfl(Y ~ X1 + X2 | 1, dist="negbin", data=dfCount)
 summary(ziFitNB)
 
 
-## @knitr results='hide'
+## ----results='hide'------------------------------------------------------
 library(VGAM)
 vglm(Y ~ X1 + X2, family=zinegbinomial, data=dfCount)
 # not shown
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(pscl)
 vuong(ziFitNB, glmFitNB)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
+try(detach(package:VGAM))
 try(detach(package:sandwich))
 try(detach(package:lmtest))
 try(detach(package:zoo))
 try(detach(package:pscl))
 try(detach(package:mvtnorm))
-try(detach(package:coda))
 try(detach(package:lattice))
-try(detach(package:gam))
 try(detach(package:splines))
-try(detach(package:vcd))
-try(detach(package:grid))
-try(detach(package:colorspace))
+try(detach(package:stats4))
 try(detach(package:MASS))
-
 

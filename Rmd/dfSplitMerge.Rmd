@@ -55,6 +55,19 @@ Check with `duplicated()` and `unique()` for duplicate cases.
 
 ### Different variables from the same cases
 
+Data frames like from normalized data base.
+
+```{r}
+(IDDV <- data.frame(ID=factor(rep(1:3, each=2)),
+                    DV=round(rnorm(6, 100, 15))))
+
+(IV <- data.frame(ID=factor(1:3),
+                  IV=factor(c("A", "B", "A")),
+                  sex=factor(c("f", "f", "m"))))
+
+merge(IDDV, IV)
+```
+
 ```{r}
 (dfA <- data.frame(id=1:4,
                    initials=c("AB", "CD", "EF", "GH"),

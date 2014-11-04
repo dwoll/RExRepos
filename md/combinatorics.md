@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Combinations
 -------------------------
 
@@ -53,7 +52,6 @@ factorial(myN) / (factorial(myK)*factorial(myN-myK))
 ```
 [1] 5
 ```
-
 
 ### Enumerate all combinations
 
@@ -82,7 +80,6 @@ combn(c(1, 2, 3, 4), 3)
 ```
 
 
-
 ```r
 combn(c(1, 2, 3, 4), 3, sum)
 ```
@@ -99,7 +96,6 @@ combn(c(1, 2, 3, 4), 3, weighted.mean, w=c(0.5, 0.2, 0.3))
 [1] 1.8 2.1 2.3 2.8
 ```
 
-
 Permutations
 -------------------------
 
@@ -113,7 +109,6 @@ factorial(7)
 ```
 [1] 5040
 ```
-
 
 ### Random permutation
 
@@ -129,7 +124,6 @@ sample(set, length(set), replace=FALSE)
 ```
 
 
-
 ```r
 library(permute)
 shuffle(length(set))
@@ -138,7 +132,6 @@ shuffle(length(set))
 ```
  [1] 10  5  6  9  1  7  8  4  3  2
 ```
-
 
 ### Enumerate all permutations
 
@@ -173,7 +166,6 @@ apply(mat, 1, function(x) set[x])
 [3,] "C"  "C"  "A"  "B"  "B"  "A" 
 ```
 
-
 #### Each permutation individually
 
 
@@ -189,7 +181,7 @@ apply(mat, 1, function(x) set[x])
 N      <- length(grp)
 nPerms <- 100
 library(permute)
-pCtrl <- permControl(nperm=nPerms, complete=FALSE)
+pCtrl <- how(nperm=nPerms, complete=FALSE)
 for(i in 1:5) {
     perm <- permute(i, n=N, control=pCtrl)
     print(grp[perm])
@@ -203,7 +195,6 @@ for(i in 1:5) {
 [1] "b" "a" "c" "a" "c" "b" "b" "a" "c"
 [1] "a" "c" "c" "a" "b" "a" "c" "b" "b"
 ```
-
 
 #### Restricted permutations
 
@@ -251,17 +242,15 @@ IV2    <- factor(rep(1:Q, times=Njk*P))  ## factor B
 ```
 
 ```r
-
 # choose permutation schemes for tests of factor A and B
-library(permute)         ## for permControl(), permute()
+library(permute)         ## for how(), permute()
 
 ## only permute across A (within B)
-pCtrlA <- permControl(strata=IV2, complete=FALSE, nperm=nPerms)
+pCtrlA <- how(plots=Plots(strata=IV2), complete=FALSE, nperm=nPerms)
 
 ## only permute across B (within A)
-pCtrlB <- permControl(strata=IV1, complete=FALSE, nperm=nPerms)
+pCtrlB <- how(plots=Plots(strata=IV1), complete=FALSE, nperm=nPerms)
 ```
-
 
 Get permutations for test of factor A
 
@@ -274,7 +263,6 @@ for(i in 1:3) {
 }
 ```
 
-
 Get permutations for test of factor B
 
 
@@ -285,7 +273,6 @@ for(i in 1:3) {
 # not shown
 }
 ```
-
 
 Enumerate all $n$-tuples
 -------------------------
@@ -312,7 +299,6 @@ expand.grid(IV1, IV2, IV3)
 8 treatment    m    2
 ```
 
-
 Apply a function to all pairs of elements from two sets
 -------------------------
 
@@ -330,17 +316,14 @@ outer(1:5, 1:5, FUN="*")
 [5,]    5   10   15   20   25
 ```
 
-
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
 try(detach(package:e1071))
-try(detach(package:class))
 try(detach(package:permute))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

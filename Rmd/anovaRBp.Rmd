@@ -20,10 +20,10 @@ Traditional univariate analysis and multivariate approach.
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`ICSNP`](http://cran.r-project.org/package=ICSNP)
+[`car`](http://cran.r-project.org/package=car), [`DescTools`](http://cran.r-project.org/package=DescTools)
 
 ```{r}
-wants <- c("car", "ICSNP")
+wants <- c("car", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -44,25 +44,16 @@ dfRBpL <- data.frame(id=factor(rep(1:N, times=P)),
 ```
 
 ```{r}
-summary(aov(DV ~ IV + Error(id/IV), data=dfRBpL))
+aovRBp <- aov(DV ~ IV + Error(id/IV), data=dfRBpL)
+summary(aovRBp)
 ```
 
 ### Effect size estimate: generalized \(\hat{\eta}_{g}^{2}\)
 
 ```{r}
-(anRes <- anova(lm(DV ~ IV*id, data=dfRBpL)))
+library(DescTools)
+EtaSq(aovRBp, type=1)
 ```
-
-```{r}
-SSEtot <- anRes["id", "Sum Sq"] + anRes["IV:id", "Sum Sq"]
-SSb    <- anRes["IV", "Sum Sq"]
-```
-
-```{r}
-(gEtaSq <- SSb / (SSb + SSEtot))
-```
-
-Or from function `ezANOVA()` from package [`ez`](http://cran.r-project.org/package=ez)
 
 ### Using `Anova()` from package `car` with data in wide format
 
@@ -92,7 +83,7 @@ mauchly.test(fitRBp, M=~IV, X=~1, idata=inRBp)
 Multivariate approach
 -------------------------
 
-### Hotelling's \(T^{2}\)-test using `HotellingsT2()` from package `ICSNP`
+### Hotelling's \(T^{2}\)-test using `HotellingsT2Test()` from package `DescTools`
 
 ```{r}
 DVw     <- data.matrix(subset(dfRBpW,
@@ -103,8 +94,8 @@ muH0    <- rep(0, ncol(DVdiff))
 ```
 
 ```{r}
-library(ICSNP)
-HotellingsT2(DVdiff, mu=muH0)
+library(DescTools)
+HotellingsT2Test(DVdiff, mu=muH0)
 ```
 
 ### Using `Anova()` from package `car`
@@ -119,10 +110,5 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
-try(detach(package:ICSNP))
-try(detach(package:ICS))
-try(detach(package:survey))
-try(detach(package:mvtnorm))
+try(detach(package:DescTools))
 ```

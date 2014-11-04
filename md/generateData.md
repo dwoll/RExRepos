@@ -65,7 +65,6 @@ NULL
 NULL
 ```
 
-
 Systematic numerical sequences
 -------------------------
 
@@ -129,7 +128,6 @@ seq(from=0, to=-1, length.out=5)
 ```
 
 
-
 ```r
 age <- c(18, 20, 30, 24, 23, 21)
 seq(along=age)
@@ -164,7 +162,6 @@ seq(along=vec)
 integer(0)
 ```
 
-
 ### Repeated sequences
 
 
@@ -191,7 +188,6 @@ rep(age, each=2)
 ```
  [1] 18 18 20 20 30 30 24 24 23 23 21 21
 ```
-
 
 Random data
 -------------------------
@@ -235,7 +231,6 @@ sample(x[(x %% 8) == 0])
 [1] 8 7 5 4 1 2 3 6
 ```
 
-
 ### Data from random variables with different distributions
 
 
@@ -244,7 +239,7 @@ runif(5, min=1, max=6)
 ```
 
 ```
-[1] 2.591 2.158 1.714 3.073 3.069
+[1] 2.590905 2.158129 1.714000 3.072732 3.068622
 ```
 
 ```r
@@ -260,7 +255,7 @@ rchisq(4, df=7)
 ```
 
 ```
-[1] 4.103 9.428 9.184 8.623
+[1] 4.102661 9.427503 9.183538 8.622633
 ```
 
 ```r
@@ -268,7 +263,7 @@ rnorm(6, mean=100, sd=15)
 ```
 
 ```
-[1] 108.31  99.07  95.41  94.29  89.58  96.88
+[1] 108.30876  99.07132  95.41056  94.29293  89.57940  96.88124
 ```
 
 ```r
@@ -276,7 +271,7 @@ rt(5, df=5, ncp=1)
 ```
 
 ```
-[1] -0.3554  6.6387  2.2657 -0.1390  0.4654
+[1] -0.3553506  6.6387468  2.2656603 -0.1390429  0.4654493
 ```
 
 ```r
@@ -284,9 +279,8 @@ rf(5, df1=2, df2=10)
 ```
 
 ```
-[1] 1.4005 2.9532 0.4914 7.5094 0.6705
+[1] 1.4005108 2.9532047 0.4913562 7.5093655 0.6704753
 ```
-
 
 See `?Distributions` for more distribution types. Even more information can be found in CRAN task view [Probability Distributions](http://cran.r-project.org/web/views/Distributions.html).
 

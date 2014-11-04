@@ -1,71 +1,71 @@
 
-## @knitr 
-wants <- c("modeest", "psych", "robustbase")
+## ------------------------------------------------------------------------
+wants <- c("DescTools", "modeest", "robustbase")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 age <- c(17, 30, 30, 25, 23, 21)
 mean(age)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 weights <- c(0.6, 0.6, 0.3, 0.2, 0.4, 0.6)
 weighted.mean(age, weights)
 
 
-## @knitr 
-library(psych)
-geometric.mean(age)
+## ------------------------------------------------------------------------
+library(DescTools)
+Gmean(age)
 
 
-## @knitr 
-library(psych)
-harmonic.mean(age)
+## ------------------------------------------------------------------------
+library(DescTools)
+Hmean(age)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 vec <- c(11, 22, 22, 33, 33, 33, 33)
 library(modeest)
 mfv(vec)
 mlv(vec, method="mfv")
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 median(age)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 mean(age, trim=0.2)
 
 
-## @knitr 
-library(psych)
-(ageWins <- winsor(age, trim=0.2))
+## ------------------------------------------------------------------------
+library(DescTools)
+(ageWins <- Winsorize(age, probs=c(0.2, 0.8)))
 mean(ageWins)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(robustbase)
 hM <- huberM(age)
 hM$mu
 
 
-## @knitr 
-wilcox.test(age, conf.int=TRUE)$estimate
+## ------------------------------------------------------------------------
+library(DescTools)
+HodgesLehmann(age, conf.level=0.95)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 N <- 8
 X <- rnorm(N, 100, 15)
 Y <- rnorm(N, 110, 15)
 wilcox.test(X, Y, conf.int=TRUE)$estimate
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 try(detach(package:modeest))
-try(detach(package:psych))
+try(detach(package:DescTools))
 try(detach(package:robustbase))
-
 

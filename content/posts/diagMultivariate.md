@@ -12,7 +12,6 @@ tags: [Diagrams]
 
 
 
-
 TODO
 -------------------------
 
@@ -30,7 +29,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 3-D data
 -------------------------
 
@@ -47,7 +45,6 @@ Y     <- seq(mu[2]-rng*sigma[2, 2], mu[2]+rng*sigma[2, 2], length.out=N)
 ```
 
 
-
 ```r
 set.seed(123)
 library(mvtnorm)
@@ -56,19 +53,17 @@ matZ <- outer(X, Y, FUN="genZ")
 ```
 
 
-
 ```r
 contour(X, Y, matZ, main="Contours for 2D-normal density")
 ```
 
-![plot of chunk rerDiagMultivariate01](../content/assets/figure/rerDiagMultivariate011.png) 
+![plot of chunk rerDiagMultivariate01](../content/assets/figure/rerDiagMultivariate01-1.png) 
 
 ```r
 filled.contour(X, Y, matZ, main="Colored contours for 2D-normal density")
 ```
 
-![plot of chunk rerDiagMultivariate01](../content/assets/figure/rerDiagMultivariate012.png) 
-
+![plot of chunk rerDiagMultivariate01](../content/assets/figure/rerDiagMultivariate01-2.png) 
 
 ### Bubble plot et c.
 
@@ -83,8 +78,7 @@ symbols(age, sport, circles=wScale, inch=0.6, fg=NULL, bg=rainbow(N),
         main="Weight against age and sport")
 ```
 
-![plot of chunk rerDiagMultivariate02](../content/assets/figure/rerDiagMultivariate02.png) 
-
+![plot of chunk rerDiagMultivariate02](../content/assets/figure/rerDiagMultivariate02-1.png) 
 
 See `sunflowerplot()` and `stars()` for altenative approaches.
 
@@ -98,8 +92,7 @@ persp(X, Y, matZ, xlab="x", ylab="y", zlab="Density", theta=5, phi=35,
       main="2D-normal probability density")
 ```
 
-![plot of chunk rerDiagMultivariate03](../content/assets/figure/rerDiagMultivariate03.png) 
-
+![plot of chunk rerDiagMultivariate03](../content/assets/figure/rerDiagMultivariate03-1.png) 
 
 ### Interactive 3-D scatter plot
 
@@ -115,8 +108,7 @@ spheres3d(vecX, vecY, vecZ, col="red", radius=2)
 grid3d(c("x", "y+", "z"))
 ```
 
-![plot of chunk rerDiagMultivariate04](../content/assets/figure/rerDiagMultivariate04.png) 
-
+![plot of chunk rerDiagMultivariate04](../content/assets/figure/rerDiagMultivariate04-1.png) 
 
 
 ```r
@@ -124,7 +116,6 @@ demo(rgl)
 example(persp3d)
 # not shown
 ```
-
 
 Conditioning plots
 -------------------------
@@ -142,8 +133,7 @@ myDf   <- data.frame(IV1, IV2, IQ, height)
 coplot(IQ ~ height | IV1*IV2, pch=16, data=myDf)
 ```
 
-![plot of chunk rerDiagMultivariate06](../content/assets/figure/rerDiagMultivariate06.png) 
-
+![plot of chunk rerDiagMultivariate06](../content/assets/figure/rerDiagMultivariate06-1.png) 
 
 
 ```r
@@ -153,8 +143,7 @@ res <- histogram(IQ ~ height | IV1*IV2, data=myDf,
 print(res)
 ```
 
-![plot of chunk rerDiagMultivariate07](../content/assets/figure/rerDiagMultivariate07.png) 
-
+![plot of chunk rerDiagMultivariate07](../content/assets/figure/rerDiagMultivariate07-1.png) 
 
 Scatterplot matrices
 -------------------------
@@ -172,14 +161,12 @@ mvDf   <- data.frame(IV, age, IQ, rating, score)
 ```
 
 
-
 ```r
 pairs(mvDf[c("age", "IQ", "rating", "score")], main="Scatter plot matrix",
       pch=16, col=c("red", "blue")[unclass(mvDf$IV)])
 ```
 
-![plot of chunk rerDiagMultivariate08](../content/assets/figure/rerDiagMultivariate08.png) 
-
+![plot of chunk rerDiagMultivariate08](../content/assets/figure/rerDiagMultivariate08-1.png) 
 
 
 ```r
@@ -198,15 +185,13 @@ myEll  <- function(x, y, nSegments=100, rad=1, ...) {
 ```
 
 
-
 ```r
 pairs(mvDf[c("age", "IQ", "rating", "score")], diag.panel=myHist,
       upper.panel=myEll, main="Scatter plot matrix", pch=16,
       col=c("red", "blue")[unclass(mvDf$IV)])
 ```
 
-![plot of chunk rerDiagMultivariate09](../content/assets/figure/rerDiagMultivariate09.png) 
-
+![plot of chunk rerDiagMultivariate09](../content/assets/figure/rerDiagMultivariate09-1.png) 
 
 Heatmap
 -------------------------
@@ -224,7 +209,6 @@ FF <- rmvnorm(N, mean=c(0, 0),   sigma=diag(Q))
 E  <- rmvnorm(N, mean=rep(0, P), sigma=diag(P)*0.3)
 X  <- FF %*% t(Lambda) + E
 ```
-
 
 
 ```r
@@ -247,15 +231,13 @@ X8 -0.61  0.19 -0.23 -0.53 -0.63  0.63 -0.29  1.00
 ```
 
 
-
 ```r
 image(corMat, axes=FALSE, main=paste("Correlation matrix of", P, "variables"))
 axis(side=1, at=seq(0, 1, length.out=P), labels=rownames(corMat))
 axis(side=2, at=seq(0, 1, length.out=P), labels=colnames(corMat))
 ```
 
-![plot of chunk rerDiagMultivariate10](../content/assets/figure/rerDiagMultivariate10.png) 
-
+![plot of chunk rerDiagMultivariate10](../content/assets/figure/rerDiagMultivariate10-1.png) 
 
 See `heatmap()` for a heatmap including dendograms added to the plot sides and correlation for an alternative approach to visualize correlation matrices.
 
@@ -268,15 +250,15 @@ library(ellipse)
 plotcorr(corMat, type="lower", diag=FALSE, main="Bivariate correlations")
 ```
 
-![plot of chunk rerDiagMultivariate11](../content/assets/figure/rerDiagMultivariate11.png) 
-
+![plot of chunk rerDiagMultivariate11](../content/assets/figure/rerDiagMultivariate11-1.png) 
 
 Useful packages
 -------------------------
 
  - See package [`tourr`](http://cran.r-project.org/package=tourr) for an alternative to visualizing high-dimensional data.
  - Packages [`ggplot2`](http://cran.r-project.org/package=ggplot2) and [`lattice`](http://cran.r-project.org/package=lattice) provide their own graphics system and many functions for multi-panel plots.
- - Packages [`iplots`](http://www.rosuda.org/iplots/), [`rggobi`](http://cran.r-project.org/package=rggobi), and [`playwith`](http://cran.r-project.org/package=playwith) also create interactive diagrams.
+ - Packages [`rggobi`](http://cran.r-project.org/package=rggobi), and [`playwith`](http://cran.r-project.org/package=playwith) also create interactive diagrams.
+ - Packages [`googleVis`](http://cran.r-project.org/package=googleVis), [`ggvis`](http://cran.r-project.org/package=ggvis), and [`rCharts`](http://rcharts.io/) create online interactive diagrams based on JavaScript libraries.
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -285,13 +267,10 @@ Detach (automatically) loaded packages (if possible)
 ```r
 try(detach(package:car))
 try(detach(package:ellipse))
-try(detach(package:nnet))
-try(detach(package:MASS))
 try(detach(package:mvtnorm))
 try(detach(package:rgl))
 try(detach(package:lattice))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

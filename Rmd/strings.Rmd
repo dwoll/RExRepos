@@ -10,6 +10,17 @@ tags: [Strings]
 Character strings
 =========================
 
+Install required packages
+-------------------------
+
+[`DescTools`](http://cran.r-project.org/package=DescTools)
+
+```{r}
+wants <- c("DescTools")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
 Create strings from existing objects
 -------------------------
     
@@ -39,6 +50,12 @@ paste(1:5, palette()[1:5], sep=": ")
 paste(1:5, letters[1:5], sep=".", collapse=" ")
 ```
 
+Beware of the way `NA` and `NULL` are treated in `paste()`.
+
+```{r}
+paste(1, NA, 2, NULL, 3, character(0), sep="_")
+```
+
 ```{r}
 N     <- 20
 gName <- "A"
@@ -65,11 +82,12 @@ Manipulate strings
 ```{r}
 tolower(c("A", "BC", "DEF"))
 toupper(c("ghi", "jk", "i"))
+abbreviate("AfairlyLongString", minlength=6)
 ```
 
 ```{r}
-strReverse <- function(x) { sapply(lapply(strsplit(x, NULL), rev), paste, collapse="") }
-strReverse(c("Lorem", "ipsum", "dolor", "sit"))
+library(DescTools)
+StrRev(c("Lorem", "ipsum", "dolor", "sit"))
 ```
 
 ```{r}
@@ -127,6 +145,7 @@ substring(charVec, 4, 5) <- c("..", "xx", "++", "**"); charVec
 ```{r}
 sub("em", "XX", "Lorem ipsum dolor sit Lorem ipsum")
 gsub("em", "XX", "Lorem ipsum dolor sit Lorem ipsum")
+gsub("^[[:alpha:]]+-([[:digit:]]+)-[[:alpha:]]+$", "\\1", "abc-412-def")
 ```
 
 Evaluate strings as instructions
@@ -143,3 +162,10 @@ Useful packages
 -------------------------
 
 Package [`stringr`](http://cran.r-project.org/package=stringr) provides more functions for efficiently and consistently handling character strings.
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:DescTools))
+```

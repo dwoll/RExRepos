@@ -96,7 +96,8 @@ x   <- rnorm(N)
 y   <- x + rnorm(N, 0, 2)
 yDi <- ifelse(y <= median(y), 0, 1)
 ```
-Nagelkerke's pseudo-\(R^{2}\) (R2), area under the ROC-Kurve (C), Somers' \(D_{xy}\) (Dxy), Goodman & Kruskal's \(\gamma\) (gamma), Kendall's \(\tau\) (tau-a)
+
+Nagelkerke's pseudo-\(R^{2}\) (R2), area under the ROC-Kurve (C), Somers' \(D_{xy}\) (Dxy), Goodman & Kruskal's \(\gamma\) (Gamma), Kendall's \(\tau\) (Tau-a)
 
 ```{r}
 library(rms)
@@ -117,16 +118,17 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:pROC))
-try(detach(package:plyr))
 try(detach(package:rms))
 try(detach(package:Hmisc))
+try(detach(package:grid))
+try(detach(package:lattice))
+try(detach(package:Formula))
+try(detach(package:SparseM))
+try(detach(package:pROC))
 try(detach(package:polycor))
 try(detach(package:sfsmisc))
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
 try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
 ```

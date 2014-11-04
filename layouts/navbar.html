@@ -1,16 +1,16 @@
-<ul class="nav">
+<ul class="nav navbar-nav">
   <% @config[:rer][:rerCategs].each_with_index do |(categ, posts), index|
      unless index == @config[:rer][:rerCategs].size - 1 %>
   <li class="dropdown <% if @item[:rerCat] == categ.to_s %>active<% end %> ">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= categ.to_s.gsub("_", " ") %> <b class="caret"></b></a>
-    <ul class="dropdown-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= categ.to_s.gsub("_", " ") %> <span class="caret"></span></a>
+    <ul class="dropdown-menu <% if index == @config[:rer][:rerCategs].size - 2 %>dropdown-menu-right<% end %>" role="menu">
       <li><a href="<%= @config[:base_url] + "/rer" + categ.to_s + ".html" %>">Overview</a></li>
       <li class="divider"></li>
 	  <% ## check to see if we have sub-categories
 	     ## then title is a hash with fileName : title entries %>
       <% posts.each do |posting, title|
         unless title.class.name == "String" %>
-      <li class="nav-header"><%= posting.to_s.gsub("_", " ") %></li>
+      <li class="dropdown-header"><%= posting.to_s.gsub("_", " ") %></li>
       <% title.each do |thePosting, theTitle| %>
       <li<% if File.basename(@item.identifier) == thePosting.to_s %> class="active"><%= theTitle %></li>
 	  <% else %>><a href="<%= @config[:base_url] + "/posts/" + thePosting.to_s %>.html"><%= theTitle %></a></li>
@@ -26,10 +26,10 @@
   </li>
   <% else %>
 </ul>
-<ul class="nav pull-right">
+<ul class="nav navbar-nav pull-right">
   <li class="dropdown <% if @item[:rerCat] == categ.to_s %>active<% end %> ">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= categ.to_s.gsub("_", " ") %> <b class="caret"></b></a>
-    <ul class="dropdown-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= categ.to_s.gsub("_", " ") %> <span class="caret"></span></a>
+    <ul class="dropdown-menu dropdown-menu-right" role="menu">
       <li><a href="<%= @config[:base_url] + "/rer" + categ.to_s + ".html" %>">Overview</a></li>
       <li class="divider"></li>
 	  <% ## check to see if we have sub-categories

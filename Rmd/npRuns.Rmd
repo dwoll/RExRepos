@@ -13,10 +13,10 @@ Runs-test
 Install required packages
 -------------------------
 
-[`tseries`](http://cran.r-project.org/package=tseries)
+[`DescTools`](http://cran.r-project.org/package=DescTools)
 
 ```{r}
-wants <- c("tseries")
+wants <- c("DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -24,12 +24,12 @@ if(any(!has)) install.packages(wants[!has])
 Runs-test
 -------------------------
 
-### Using `runs.test()` from package `tseries` (asymptotic test)
+### Using `RunsTest()` from package `DescTools`
 
 ```{r}
 queue <- factor(c("f", "m", "m", "f", "m", "f", "f", "f"))
-library(tseries)
-runs.test(queue, alternative="greater")
+library(DescTools)
+RunsTest(queue, alternative="greater")
 ```
 
 ### Manual permutation test
@@ -100,5 +100,5 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:tseries))
+try(detach(package:DescTools))
 ```

@@ -47,7 +47,6 @@ rating <- round(runif(N, min=0, max=6))
 ```
 
 
-
 ```r
 (lDf <- split(myDf, myDf$group))
 ```
@@ -131,7 +130,6 @@ unsplit(lDf, myDf$group)
 12 12   f    WL  26 119      4
 ```
 
-
 Merge data frames
 -------------------------
 
@@ -168,10 +166,54 @@ dfComb[11:15, ]
 15 15   m     T  21  99      1
 ```
 
-
 Check with `duplicated()` and `unique()` for duplicate cases.
 
 ### Different variables from the same cases
+
+Data frames like from normalized data base.
+
+
+```r
+(IDDV <- data.frame(ID=factor(rep(1:3, each=2)),
+                    DV=round(rnorm(6, 100, 15))))
+```
+
+```
+  ID  DV
+1  1 108
+2  1  99
+3  2  95
+4  2  94
+5  3  90
+6  3  97
+```
+
+```r
+(IV <- data.frame(ID=factor(1:3),
+                  IV=factor(c("A", "B", "A")),
+                  sex=factor(c("f", "f", "m"))))
+```
+
+```
+  ID IV sex
+1  1  A   f
+2  2  B   f
+3  3  A   m
+```
+
+```r
+merge(IDDV, IV)
+```
+
+```
+  ID  DV IV sex
+1  1 108  A   f
+2  1  99  A   f
+3  2  95  B   f
+4  2  94  B   f
+5  3  90  A   m
+6  3  97  A   m
+```
 
 
 ```r
@@ -205,7 +247,6 @@ Check with `duplicated()` and `unique()` for duplicate cases.
 ```
 
 
-
 ```r
 merge(dfA, dfB)
 ```
@@ -231,7 +272,6 @@ merge(dfA, dfB, by.x=c(TRUE, FALSE, FALSE, FALSE),
 4  4         GH   +  14         GH   B  79
 ```
 
-
 ### Keep cases with partial data
 
 
@@ -249,7 +289,6 @@ merge(dfA, dfB, by.x=c(TRUE, FALSE, FALSE, FALSE),
 3  5       IJ   A 101
 4  6       KL   B  81
 ```
-
 
 
 ```r
@@ -287,7 +326,6 @@ merge(dfA, dfC, all.x=TRUE, all.y=TRUE)
 5  5       IJ <NA>  NA    A 101
 6  6       KL <NA>  NA    B  81
 ```
-
 
 Useful packages
 -------------------------

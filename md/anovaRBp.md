@@ -20,15 +20,14 @@ Traditional univariate analysis and multivariate approach.
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`ICSNP`](http://cran.r-project.org/package=ICSNP)
+[`car`](http://cran.r-project.org/package=car), [`DescTools`](http://cran.r-project.org/package=DescTools)
 
 
 ```r
-wants <- c("car", "ICSNP")
+wants <- c("car", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
 
 Traditional univariate approach
 -------------------------
@@ -47,63 +46,37 @@ dfRBpL <- data.frame(id=factor(rep(1:N, times=P)),
 ```
 
 
-
 ```r
-summary(aov(DV ~ IV + Error(id/IV), data=dfRBpL))
+aovRBp <- aov(DV ~ IV + Error(id/IV), data=dfRBpL)
+summary(aovRBp)
 ```
 
 ```
 
 Error: id
           Df Sum Sq Mean Sq F value Pr(>F)
-Residuals  9   60.8    6.76               
+Residuals  9  60.81   6.757               
 
 Error: id:IV
           Df Sum Sq Mean Sq F value Pr(>F)  
-IV         3   82.5   27.50    3.85   0.02 *
-Residuals 27  192.9    7.14                 
+IV         3  82.51  27.504   3.851 0.0205 *
+Residuals 27 192.86   7.143                 
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 ### Effect size estimate: generalized $\hat{\eta}_{g}^{2}$
 
 
 ```r
-(anRes <- anova(lm(DV ~ IV*id, data=dfRBpL)))
+library(DescTools)
+EtaSq(aovRBp, type=1)
 ```
 
 ```
-Analysis of Variance Table
-
-Response: DV
-          Df Sum Sq Mean Sq F value Pr(>F)
-IV         3   82.5   27.50               
-id         9   60.8    6.76               
-IV:id     27  192.9    7.14               
-Residuals  0    0.0                       
+      eta.sq eta.sq.part eta.sq.gen
+IV 0.2454376   0.2996396  0.2454376
 ```
-
-
-
-```r
-SSEtot <- anRes["id", "Sum Sq"] + anRes["IV:id", "Sum Sq"]
-SSb    <- anRes["IV", "Sum Sq"]
-```
-
-
-
-```r
-(gEtaSq <- SSb / (SSb + SSEtot))
-```
-
-```
-[1] 0.2454
-```
-
-
-Or from function `ezANOVA()` from package [`ez`](http://cran.r-project.org/package=ez)
 
 ### Using `Anova()` from package `car` with data in wide format
 
@@ -112,7 +85,6 @@ Or from function `ezANOVA()` from package [`ez`](http://cran.r-project.org/packa
 dfRBpW <- reshape(dfRBpL, v.names="DV", timevar="IV", idvar="id",
                   direction="wide")
 ```
-
 
 
 ```r
@@ -127,33 +99,30 @@ summary(AnovaRBp, multivariate=FALSE, univariate=TRUE)
 
 Univariate Type III Repeated-Measures ANOVA Assuming Sphericity
 
-              SS num Df Error SS den Df    F Pr(>F)  
-(Intercept) 16.2      1     60.8      9 2.39   0.16  
-IV          82.5      3    192.9     27 3.85   0.02 *
+                SS num Df Error SS den Df      F  Pr(>F)  
+(Intercept) 16.157      1   60.813      9 2.3912 0.15643  
+IV          82.512      3  192.859     27 3.8505 0.02047 *
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 
 Mauchly Tests for Sphericity
 
    Test statistic p-value
-IV          0.304   0.104
+IV        0.30399 0.10403
 
 
 Greenhouse-Geisser and Huynh-Feldt Corrections
  for Departure from Sphericity
 
-   GG eps Pr(>F[GG])  
-IV  0.585      0.048 *
+    GG eps Pr(>F[GG])  
+IV 0.58505    0.04805 *
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-   HF eps Pr(>F[HF])  
-IV  0.716      0.037 *
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+      HF eps Pr(>F[HF])
+IV 0.7155256 0.03663577
 ```
-
 
 ### Using `anova.mlm()` and `mauchly.test()` with data in wide format
 
@@ -176,11 +145,10 @@ Contrasts spanned by
 Greenhouse-Geisser epsilon: 0.5851
 Huynh-Feldt epsilon:        0.7155
 
-            Df    F num Df den Df Pr(>F) G-G Pr H-F Pr
-(Intercept)  1 3.85      3     27 0.0205 0.0481 0.0366
-Residuals    9                                        
+            Df      F num Df den Df   Pr(>F)   G-G Pr   H-F Pr
+(Intercept)  1 3.8505      3     27 0.020472 0.048054 0.036636
+Residuals    9                                                
 ```
-
 
 
 ```r
@@ -197,15 +165,14 @@ mauchly.test(fitRBp, M=~IV, X=~1, idata=inRBp)
 	~IV
 
 
-data:  SSD matrix from lm(formula = cbind(DV.1, DV.2, DV.3, DV.4) ~ 1, data = dfRBpW) 
+data:  SSD matrix from lm(formula = cbind(DV.1, DV.2, DV.3, DV.4) ~ 1, data = dfRBpW)
 W = 0.304, p-value = 0.104
 ```
-
 
 Multivariate approach
 -------------------------
 
-### Hotelling's $T^{2}$-test using `HotellingsT2()` from package `ICSNP`
+### Hotelling's $T^{2}$-test using `HotellingsT2Test()` from package `DescTools`
 
 
 ```r
@@ -217,21 +184,19 @@ muH0    <- rep(0, ncol(DVdiff))
 ```
 
 
-
 ```r
-library(ICSNP)
-HotellingsT2(DVdiff, mu=muH0)
+library(DescTools)
+HotellingsT2Test(DVdiff, mu=muH0)
 ```
 
 ```
 
 	Hotelling's one sample T2-test
 
-data:  DVdiff 
-T.2 = 12.27, df1 = 3, df2 = 7, p-value = 0.003555
-alternative hypothesis: true location is not equal to c(0,0,0) 
+data:  DVdiff
+T.2 = 12.2668, df1 = 3, df2 = 7, p-value = 0.003555
+alternative hypothesis: true location is not equal to c(0,0,0)
 ```
-
 
 ### Using `Anova()` from package `car`
 
@@ -258,18 +223,18 @@ DV.4           1
 
 Sum of squares and products for the hypothesis:
             (Intercept)
-(Intercept)       64.63
+(Intercept)     64.6278
 
 Sum of squares and products for error:
             (Intercept)
-(Intercept)       243.3
+(Intercept)    243.2504
 
 Multivariate Tests: (Intercept)
-                 Df test stat approx F num Df den Df Pr(>F)
-Pillai            1    0.2099    2.391      1      9  0.156
-Wilks             1    0.7901    2.391      1      9  0.156
-Hotelling-Lawley  1    0.2657    2.391      1      9  0.156
-Roy               1    0.2657    2.391      1      9  0.156
+                 Df test stat approx F num Df den Df  Pr(>F)
+Pillai            1 0.2099135 2.391158      1      9 0.15643
+Wilks             1 0.7900865 2.391158      1      9 0.15643
+Hotelling-Lawley  1 0.2656842 2.391158      1      9 0.15643
+Roy               1 0.2656842 2.391158      1      9 0.15643
 
 ------------------------------------------
  
@@ -283,27 +248,26 @@ DV.3   0   0   1
 DV.4  -1  -1  -1
 
 Sum of squares and products for the hypothesis:
-       IV1   IV2    IV3
-IV1 140.04 87.58 121.24
-IV2  87.58 54.77  75.82
-IV3 121.24 75.82 104.96
+          IV1      IV2       IV3
+IV1 140.04485 87.57883 121.24202
+IV2  87.57883 54.76853  75.82024
+IV3 121.24202 75.82024 104.96371
 
 Sum of squares and products for error:
-       IV1    IV2    IV3
-IV1  41.37  29.40 -16.70
-IV2  29.40  85.75 -16.53
-IV3 -16.70 -16.53 127.47
+          IV1       IV2       IV3
+IV1  41.37357  29.39860 -16.70424
+IV2  29.39860  85.74790 -16.52793
+IV3 -16.70424 -16.52793 127.46877
 
 Multivariate Tests: IV
-                 Df test stat approx F num Df den Df  Pr(>F)   
-Pillai            1     0.840    12.27      3      7 0.00355 **
-Wilks             1     0.160    12.27      3      7 0.00355 **
-Hotelling-Lawley  1     5.257    12.27      3      7 0.00355 **
-Roy               1     5.257    12.27      3      7 0.00355 **
+                 Df test stat approx F num Df den Df    Pr(>F)   
+Pillai            1  0.840184 12.26683      3      7 0.0035548 **
+Wilks             1  0.159816 12.26683      3      7 0.0035548 **
+Hotelling-Lawley  1  5.257214 12.26683      3      7 0.0035548 **
+Roy               1  5.257214 12.26683      3      7 0.0035548 **
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -311,14 +275,8 @@ Detach (automatically) loaded packages (if possible)
 
 ```r
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
-try(detach(package:ICSNP))
-try(detach(package:ICS))
-try(detach(package:survey))
-try(detach(package:mvtnorm))
+try(detach(package:DescTools))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

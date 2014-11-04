@@ -18,10 +18,10 @@ TODO
 Install required packages
 -------------------------
 
-[`e1071`](http://cran.r-project.org/package=e1071), [`psych`](http://cran.r-project.org/package=psych), [`robustbase`](http://cran.r-project.org/package=robustbase), [`vegan`](http://cran.r-project.org/package=vegan)
+[`DescTools`](http://cran.r-project.org/package=DescTools), [`robustbase`](http://cran.r-project.org/package=robustbase)
 
 ```{r}
-wants <- c("e1071", "psych", "robustbase", "vegan")
+wants <- c("DescTools", "robustbase")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -53,8 +53,8 @@ Robust spread measures
 ### Winsorized variance and standard deviation
 
 ```{r}
-library(psych)
-ageWins <- winsor(age, trim=0.2)
+library(DescTools)
+ageWins <- Winsorize(age, probs=c(0.2, 0.8))
 var(ageWins)
 sd(ageWins)
 ```
@@ -68,7 +68,8 @@ IQR(age)
 ### Mean absolute difference to the median
 
 ```{r}
-mean(abs(age-median(age)))
+library(DescTools)
+MeanAD(age)
 ```
 
 ### Median absolute difference to the median (MAD)
@@ -100,9 +101,11 @@ P   <- nlevels(fac)
 (Fj <- prop.table(table(fac)))
 ```
 
+First, calculate Shannon index, then diversity measure.
+
 ```{r}
-library(vegan)
-shannonIdx <- diversity(Fj, index="shannon")
+library(DescTools)
+shannonIdx <- Entropy(Fj, base=exp(1))
 (H <- (1/log(P)) * shannonIdx)
 ```
 
@@ -110,19 +113,15 @@ Higher moments: skewness and kurtosis
 -------------------------
 
 ```{r}
-library(e1071)
-skewness(age)
-kurtosis(age)
+library(DescTools)
+Skew(age)
+Kurt(age)
 ```
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:psych))
 try(detach(package:robustbase))
-try(detach(package:vegan))
-try(detach(package:permute))
-try(detach(package:e1071))
-try(detach(package:class))
+try(detach(package:DescTools))
 ```

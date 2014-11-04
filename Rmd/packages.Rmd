@@ -68,6 +68,8 @@ update.packages()
 # not shown
 ```
 
+See `install_github()` from package [`devtools`](http://cran.r-project.org/package=devtools) for installing from [GitHub](http://github.com/) repositories.
+
 ### Information provided by add-on packages
 
 ```{r eval=FALSE}
@@ -100,6 +102,12 @@ library(coin, logical.return=TRUE)
 require(doesNotExist)
 ```
 
+Explicitly state which package a function is from - if multiple packages export a function with the same name.
+
+```{r}
+base::mean(c(1, 3, 4))
+```
+
 ### Know which packages are currently loaded
 
 ```{r}
@@ -127,9 +135,6 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
 ```

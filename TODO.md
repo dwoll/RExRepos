@@ -6,24 +6,25 @@ Workflow
 
 ### R-Markdown
 
-These posts currently need manual knitting in RStudio -> fix
-
- * regressionDiag (`ncvTest(fit)`, `pRes <- perturb(fit, pvars=c("X1", "X2", "X3"), prange=c(1, 1, 1))`)
- * regressionOrdinal (`exp(confint(polrFit))`, `summary(polrFit)`)
- * regressionPoisson (`odTest(glmFitNB)`)
-
 Additional content
 -------------------------
 
- * [knitr to WP](http://yihui.name/en/2013/02/publishing-from-r-knitr-to-wordpress/)
  * Internal links
  * More tags
- * Code comments
- * Explanations
- * Examples: arithmetic, vectors, matrices/arrays, lists, data input/output, model formula
- * resamplingBootALM -> GLM
+ * Code comments & explanations
+ * New: lists, model formula
+ * aggregate -> `do.call("cbind", lapply(ls(pattern="V[[:digit:]]"), get))`
+ * dfImportExport ->
+
+```r
+fPaths <- list.files(path="D:/Julian/CSV", pattern="csv", full.names=TRUE)
+DFlist <- lapply(fPaths, function(f) {
+                 read.table(f, header=TRUE, stringsAsFactors=FALSE) } )
+DFroh <- do.call("rbind", DFlist)
+```
+
  * anovaCRFpq -> `model.tables()`
  * anovaMixed -> RBF-pq, SPF-p.q with compound symmetry
+ * crossvalidation -> `rms::validate()` for `rms::ols()`, `rms::lrm()`, `rms::cph()`
+ * resamplingPerm -> Monte-Carlo permutation tests instead of exact ones
  * diagMultivariate -> `psych::cor.plot()`
- * dataTransform -> `grepl()` for subsetting variables
- * dataImportExport -> mention `read.xport()`, `read.dta()`, `write.dta()`

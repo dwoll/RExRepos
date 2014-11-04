@@ -1,17 +1,17 @@
 
-## @knitr 
-wants <- c("tseries")
+## ------------------------------------------------------------------------
+wants <- c("DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 queue <- factor(c("f", "m", "m", "f", "m", "f", "f", "f"))
-library(tseries)
-runs.test(queue, alternative="greater")
+library(DescTools)
+RunsTest(queue, alternative="greater")
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 Nj    <- table(queue)
 (runs <- rle(levels(queue)[as.numeric(queue)]))
 (rr <- length(runs$lengths))
@@ -19,7 +19,7 @@ Nj    <- table(queue)
 (rr2 <- table(runs$values)[2])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 getP <- function(r1, r2, n1, n2) {
     # iterations of a symbol <= total number of this symbol?
     stopifnot(r1 <= n1, r2 <= n2)
@@ -32,7 +32,7 @@ getP <- function(r1, r2, n1, n2) {
 }
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 n1    <- Nj[1]
 n2    <- Nj[2]
 N     <- sum(Nj)
@@ -40,37 +40,35 @@ rMin  <- 2
 (rMax <- ifelse(n1 == n2, N, 2*min(n1, n2) + 1))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 p3.2 <- getP(3, 2, n1, n2)
 p2.3 <- getP(2, 3, n1, n2)
 p3.3 <- getP(3, 3, n1, n2)
 p4.3 <- getP(4, 3, n1, n2)
 
-
-## @knitr 
+## ------------------------------------------------------------------------
 (pGrEq <- p3.2 + p2.3 + p3.3 + p4.3)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 p2.2 <- getP(2, 2, n1, n2)
 p1.2 <- getP(1, 2, n1, n2)
 p2.1 <- getP(2, 1, n1, n2)
 p1.1 <- getP(1, 1, n1, n2)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 (pLess <- p2.2 + p1.2 + p2.1 + p1.1)
 pGrEq + pLess
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 muR   <- 1 + ((2*n1*n2) / N)
 varR  <- (2*n1*n2*(2*n1*n2 - N)) / (N^2 * (N-1))
 rZ    <- (rr-muR) / sqrt(varR)
 (pVal <- 1-pnorm(rZ))
 
 
-## @knitr 
-try(detach(package:tseries))
-
+## ------------------------------------------------------------------------
+try(detach(package:DescTools))
 

@@ -22,10 +22,10 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`leaps`](http://cran.r-project.org/package=leaps), [`lmtest`](http://cran.r-project.org/package=lmtest), [`QuantPsyc`](http://cran.r-project.org/package=QuantPsyc), [`robustbase`](http://cran.r-project.org/package=robustbase), [`sandwich`](http://cran.r-project.org/package=sandwich)
+[`car`](http://cran.r-project.org/package=car), [`leaps`](http://cran.r-project.org/package=leaps), [`lmtest`](http://cran.r-project.org/package=lmtest), [`robustbase`](http://cran.r-project.org/package=robustbase), [`sandwich`](http://cran.r-project.org/package=sandwich)
 
 ```{r}
-wants <- c("car", "leaps", "lmtest", "QuantPsyc", "robustbase", "sandwich")
+wants <- c("car", "leaps", "lmtest", "robustbase", "sandwich")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -226,12 +226,10 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:QuantPsyc))
 try(detach(package:leaps))
 try(detach(package:lmtest))
 try(detach(package:sandwich))
 try(detach(package:zoo))
 try(detach(package:car))
-try(detach(package:nnet))
 try(detach(package:MASS))
 ```

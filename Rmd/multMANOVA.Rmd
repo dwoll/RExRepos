@@ -106,6 +106,4 @@ Detach (automatically) loaded packages (if possible)
 ```{r}
 try(detach(package:mvtnorm))
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
 ```

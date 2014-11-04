@@ -43,7 +43,6 @@ matrix(age, nrow=3, ncol=2, byrow=FALSE)
 [2,]   25   23   21
 ```
 
-
 ### Combine rows and columns to a matrix
 
 
@@ -73,7 +72,6 @@ cbind(age, weight, height)
 [4,]  19     76    184
 [5,]  24     76    173
 ```
-
 
 ### Information about matrices
 
@@ -110,7 +108,6 @@ prod(dim(ageMat))
 [1] 6
 ```
 
-
 ### Transpose matrices
 
 
@@ -124,7 +121,6 @@ t(ageMat)
 [2,]   30   23
 [3,]   30   21
 ```
-
 
 
 ```r
@@ -145,7 +141,6 @@ c(ageMat)
 ```
 [1] 17 25 30 23 30 21
 ```
-
 
 ### Rows and columns
 
@@ -183,7 +178,6 @@ Q       <- 3
 ```
 
 
-
 ```r
 cbind(rowIdx=c(rowMat), colIdx=c(colMat), val=c(pqMat))
 ```
@@ -197,7 +191,6 @@ cbind(rowIdx=c(rowMat), colIdx=c(colMat), val=c(pqMat))
 [5,]      1      3   5
 [6,]      2      3   6
 ```
-
 
 
 ```r
@@ -225,7 +218,6 @@ lower.tri(mat)
 [4,]  TRUE  TRUE  TRUE FALSE
 ```
 
-
 ### Extract and change elements
 
 Row and column indices
@@ -237,7 +229,7 @@ ageMat[2, 2]
 ```
 
 ```
-[1] 27
+[1] 34
 ```
 
 ```r
@@ -254,7 +246,7 @@ ageMat[2,  ]
 ```
 
 ```
-[1] 23 24 19
+[1] 21 24 32
 ```
 
 ```r
@@ -262,7 +254,7 @@ ageMat[ , 1]
 ```
 
 ```
-[1] 24 23
+[1] 29 21
 ```
 
 ```r
@@ -271,8 +263,8 @@ ageMat[ ,  ]
 
 ```
      [,1] [,2] [,3]
-[1,]   24   17   31
-[2,]   23   24   19
+[1,]   29   34   30
+[2,]   21   24   32
 ```
 
 ```r
@@ -281,8 +273,8 @@ ageMat[ , 1, drop=FALSE]
 
 ```
      [,1]
-[1,]   24
-[2,]   23
+[1,]   29
+[2,]   21
 ```
 
 ```r
@@ -291,8 +283,8 @@ ageMat[ , 2:3]
 
 ```
      [,1] [,2]
-[1,]   17   31
-[2,]   24   19
+[1,]   34   30
+[2,]   24   32
 ```
 
 ```r
@@ -301,10 +293,9 @@ ageMat[ , c(1, 3)]
 
 ```
      [,1] [,2]
-[1,]   24   31
-[2,]   23   19
+[1,]   29   30
+[2,]   21   32
 ```
-
 
 Index vector
 
@@ -315,9 +306,8 @@ ageMat[idxVec]
 ```
 
 ```
-[1] 24 17 24
+[1] 29 34 24
 ```
-
 
 Index matrix
 
@@ -340,10 +330,9 @@ ageMatNew
 
 ```
      [,1] [,2] [,3]
-[1,]   11   17   12
+[1,]   11   34   12
 [2,]   21   24   22
 ```
-
 
 Logical index matrix
 
@@ -353,9 +342,9 @@ Logical index matrix
 ```
 
 ```
-      [,1]  [,2]  [,3]
-[1,] FALSE FALSE  TRUE
-[2,] FALSE FALSE FALSE
+      [,1]  [,2] [,3]
+[1,]  TRUE  TRUE TRUE
+[2,] FALSE FALSE TRUE
 ```
 
 ```r
@@ -363,9 +352,8 @@ ageMat[idxMatLog]
 ```
 
 ```
-[1] 31
+[1] 29 34 30 32
 ```
-
 
 
 ```r
@@ -374,7 +362,10 @@ ageMat[idxMatLog]
 
 ```
      row col
-[1,]   1   3
+[1,]   1   1
+[2,]   1   2
+[3,]   1   3
+[4,]   2   3
 ```
 
 ```r
@@ -382,7 +373,7 @@ ageMat[idxMatNum]
 ```
 
 ```
-[1] 31
+[1] 29 34 30 32
 ```
 
 ```r
@@ -395,7 +386,6 @@ ageMat[idxMatNum]
 [2,]    1    2
 [3,]    2    2
 ```
-
 
 Also see `help(Extract)`
 
@@ -428,7 +418,6 @@ mat[rowOrder1, ]
 ```
 
 
-
 ```r
 rowOrder2 <- order(mat[ , "age"], partial=mat[ , "weight"])
 mat[rowOrder2, ]
@@ -444,7 +433,6 @@ mat[rowOrder2, ]
 ```
 
 
-
 ```r
 rowOrder3 <- order(mat[ , "weight"], -mat[ , "height"])
 mat[rowOrder3, ]
@@ -458,7 +446,6 @@ mat[rowOrder3, ]
 [4,]  31     94    189
 [5,]  19     95    197
 ```
-
 
 Arrays
 -------------------------
@@ -488,7 +475,6 @@ row CG WL  T
   m  8 10 12
 ```
 
-
 ### Extract and change elements
 
 
@@ -512,7 +498,6 @@ row CG WL  T
   f  2  6 10
   m  4  8 12
 ```
-
 
 ### Transpose arrays
 
@@ -541,7 +526,6 @@ column  f  m
     T  11 12
 ```
 
-
 Switch rows and layers
 
 
@@ -564,7 +548,6 @@ layer  CG WL  T
   high  2  4  6
   low  19 10 12
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

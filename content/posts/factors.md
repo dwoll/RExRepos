@@ -18,15 +18,14 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`gdata`](http://cran.r-project.org/package=gdata)
+[`DescTools`](http://cran.r-project.org/package=DescTools)
 
 
 ```r
-wants <- c("car", "gdata")
+wants <- c("DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
 
 Unordered factors
 -------------------------
@@ -45,7 +44,6 @@ Levels: f m
 ```
 
 
-
 ```r
 factor(c(1, 1, 3, 3, 4, 4), levels=1:5)
 ```
@@ -60,7 +58,7 @@ Levels: 1 2 3 4 5
 ```
 
 ```
- [1] 0 1 0 0 0 0 0 1 1 0
+ [1] 1 1 0 1 1 1 0 1 1 1
 ```
 
 ```r
@@ -68,7 +66,7 @@ factor(sexNum, labels=c("man", "woman"))
 ```
 
 ```
- [1] man   woman man   man   man   man   man   woman woman man  
+ [1] woman woman man   woman woman woman man   woman woman woman
 Levels: man woman
 ```
 
@@ -81,7 +79,6 @@ sexFac
 [1] male   female female male   male   male   female female
 Levels: female male
 ```
-
 
 ### Generate factors
 
@@ -109,10 +106,9 @@ sample(fac2, length(fac2), replace=FALSE)
 ```
 
 ```
- [1] more less more less more more more less less less
+ [1] less less less more more less more more less more
 Levels: less < more
 ```
-
 
 
 ```r
@@ -134,7 +130,6 @@ expand.grid(IV1=gl(2, 2, labels=c("a", "b")), IV2=gl(3, 1))
 11   b   3
 12   b   3
 ```
-
 
 ### Information about factors
 
@@ -173,7 +168,6 @@ str(sexFac)
 ```
 
 
-
 ```r
 unclass(sexFac)
 ```
@@ -202,7 +196,6 @@ as.character(sexFac)
 [1] "male"   "female" "female" "male"   "male"   "male"   "female" "female"
 ```
 
-
 Joining factors
 -------------------------
 
@@ -214,8 +207,8 @@ Joining factors
 ```
 
 ```
-[1] J G B L U
-Levels: B G J L U
+[1] G I C U E
+Levels: C E G I U
 ```
 
 ```r
@@ -223,8 +216,8 @@ Levels: B G J L U
 ```
 
 ```
-[1] f j n
-Levels: f j n
+[1] e x t
+Levels: e t x
 ```
 
 ```r
@@ -232,7 +225,7 @@ Levels: f j n
 ```
 
 ```
-[1] "J" "G" "B" "L" "U"
+[1] "G" "I" "C" "U" "E"
 ```
 
 ```r
@@ -240,7 +233,7 @@ Levels: f j n
 ```
 
 ```
-[1] "f" "j" "n"
+[1] "e" "x" "t"
 ```
 
 ```r
@@ -248,10 +241,9 @@ factor(c(charVec1, charVec2))
 ```
 
 ```
-[1] J G B L U f j n
-Levels: B f G j J L n U
+[1] G I C U E e x t
+Levels: C e E G I t U x
 ```
-
 
 ### Repeating factors
 
@@ -261,10 +253,9 @@ rep(fac1, times=2)
 ```
 
 ```
- [1] J G B L U J G B L U
-Levels: B G J L U
+ [1] G I C U E G I C U E
+Levels: C E G I U
 ```
-
 
 ### Crossing two factors
 
@@ -299,7 +290,6 @@ interaction(IV1, IV2)
 Levels: hi.1 lo.1 hi.2 lo.2 hi.3 lo.3
 ```
 
-
 Ordered factors
 -------------------------
 
@@ -330,7 +320,6 @@ ordStat[1] > ordStat[2]
 [1] TRUE
 ```
 
-
 Control the order of factor levels
 -------------------------
 
@@ -346,7 +335,7 @@ Control the order of factor levels
 ```
 
 ```r
-(fac1 <- factor(chars))
+(fac1  <- factor(chars))
 ```
 
 ```
@@ -363,12 +352,11 @@ factor(chars, levels=c("C", "A", "B"))
 Levels: C A B
 ```
 
-
-### Using `reorder.factor()` from package `gdata`
+### Using `reorder.factor()` from package `DescTools`
 
 
 ```r
-library(gdata)
+library(DescTools)
 (facRe <- reorder.factor(fac1, new.order=c("C", "B", "A")))
 ```
 
@@ -376,7 +364,6 @@ library(gdata)
  [1] A A A A A B B B B B C C C C C
 Levels: C B A
 ```
-
 
 ### Reorder group levels according to group statistics
 
@@ -387,8 +374,8 @@ tapply(vec, fac1, FUN=mean)
 ```
 
 ```
-     A      B      C 
-11.735  5.242 14.978 
+        A         B         C 
+13.095524  5.887549 17.420498 
 ```
 
 ```r
@@ -400,7 +387,6 @@ reorder(fac1, vec, FUN=mean)
 Levels: B A C
 ```
 
-
 ### Relevance of level order for sorting factors
 
 
@@ -409,7 +395,7 @@ Levels: B A C
 ```
 
 ```
- [1] B B B A B B B A B B
+ [1] A B A A A B B B A A
 Levels: B A
 ```
 
@@ -418,7 +404,7 @@ sort(fac2)
 ```
 
 ```
- [1] B B B B B B B B A A
+ [1] B B B B A A A A A A
 Levels: B A
 ```
 
@@ -427,21 +413,16 @@ sort(as.character(fac2))
 ```
 
 ```
- [1] "A" "A" "B" "B" "B" "B" "B" "B" "B" "B"
+ [1] "A" "A" "A" "A" "A" "A" "B" "B" "B" "B"
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
-try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
-try(detach(package:gdata))
+try(detach(package:DescTools))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

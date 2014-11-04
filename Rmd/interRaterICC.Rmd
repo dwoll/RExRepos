@@ -13,10 +13,10 @@ Inter-rater-reliability and Intra-class-correlation
 Install required packages
 -------------------------
 
-[`irr`](http://cran.r-project.org/package=irr), [`psych`](http://cran.r-project.org/package=psych)
+[`DescTools`](http://cran.r-project.org/package=psych), [`irr`](http://cran.r-project.org/package=irr)
 
 ```{r}
-wants <- c("irr", "psych")
+wants <- c("DescTools", "irr")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -125,7 +125,7 @@ ratings <- cbind(rtr1, rtr2, rtr3, rtr4)
 ```
 
 ```{r}
-library(psych)
+library(DescTools)
 ICC(ratings)
 ```
 
@@ -133,7 +133,7 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:psych))
+try(detach(package:DescTools))
 try(detach(package:irr))
 try(detach(package:lpSolve))
 ```

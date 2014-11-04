@@ -117,6 +117,12 @@ fitWeib <- survreg(Surv(obsT, status) ~ X + IV, dist="weibull", data=dfSurv)
 summary(fitWeib)
 ```
 
+Transform AFT parameter \(\hat{\gamma}_{j} = - \hat{\beta}_{j} \cdot \hat{a}\) to parameter \(\hat{\beta}_{j}\) a Cox PH model.
+
+```{r}
+(betaHat <- -coef(fitWeib) / fitWeib$scale)
+```
+
 ### Model comparisons
 
 Exponential model = restricted Weibull model with shape parameter \(a = 1\).

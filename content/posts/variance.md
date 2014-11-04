@@ -18,15 +18,14 @@ TODO
 Install required packages
 -------------------------
 
-[`e1071`](http://cran.r-project.org/package=e1071), [`psych`](http://cran.r-project.org/package=psych), [`robustbase`](http://cran.r-project.org/package=robustbase), [`vegan`](http://cran.r-project.org/package=vegan)
+[`DescTools`](http://cran.r-project.org/package=DescTools), [`robustbase`](http://cran.r-project.org/package=robustbase)
 
 
 ```r
-wants <- c("e1071", "psych", "robustbase", "vegan")
+wants <- c("DescTools", "robustbase")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
 
 Variance and standard deviation
 -------------------------
@@ -42,7 +41,7 @@ var(age)
 ```
 
 ```
-[1] 26.27
+[1] 26.26667
 ```
 
 ```r
@@ -50,9 +49,8 @@ sd(age)
 ```
 
 ```
-[1] 5.125
+[1] 5.125102
 ```
-
 
 ### Uncorrected (population) variance and standard deviation
 
@@ -63,11 +61,11 @@ sd(age)
 
 ```
 $cov
-      [,1]
-[1,] 21.89
+         [,1]
+[1,] 21.88889
 
 $center
-[1] 24.33
+[1] 24.33333
 
 $n.obs
 [1] 6
@@ -78,7 +76,7 @@ $n.obs
 ```
 
 ```
-[1] 21.89
+[1] 21.88889
 ```
 
 ```r
@@ -86,9 +84,8 @@ sqrt(vML)
 ```
 
 ```
-[1] 4.679
+[1] 4.678556
 ```
-
 
 Robust spread measures
 -------------------------
@@ -97,8 +94,8 @@ Robust spread measures
 
 
 ```r
-library(psych)
-ageWins <- winsor(age, trim=0.2)
+library(DescTools)
+ageWins <- Winsorize(age, probs=c(0.2, 0.8))
 var(ageWins)
 ```
 
@@ -111,9 +108,8 @@ sd(ageWins)
 ```
 
 ```
-[1] 4.147
+[1] 4.147288
 ```
-
 
 ### Inter-quartile-range
 
@@ -134,18 +130,17 @@ IQR(age)
 ```
 [1] 7.25
 ```
-
 ### Mean absolute difference to the median
 
 
 ```r
-mean(abs(age-median(age)))
+library(DescTools)
+MeanAD(age)
 ```
 
 ```
 [1] 4
 ```
-
 
 ### Median absolute difference to the median (MAD)
 
@@ -155,9 +150,8 @@ mad(age)
 ```
 
 ```
-[1] 6.672
+[1] 6.6717
 ```
-
 
 ### $Q_{n}$: more efficient alternative to MAD
 
@@ -168,9 +162,8 @@ Qn(age)
 ```
 
 ```
-[1] 6.793
+[1] 6.792788
 ```
-
 
 ### $\tau$ estimate of scale
 
@@ -180,9 +173,8 @@ scaleTau2(age)
 ```
 
 ```
-[1] 4.865
+[1] 4.865323
 ```
-
 
 Diversity of categorical data
 -------------------------
@@ -197,58 +189,52 @@ P   <- nlevels(fac)
 
 ```
 fac
-      A       B       C       D       E       Q 
-0.09091 0.09091 0.18182 0.27273 0.36364 0.00000 
+         A          B          C          D          E          Q 
+0.09090909 0.09090909 0.18181818 0.27272727 0.36363636 0.00000000 
 ```
 
+First, calculate Shannon index, then diversity measure.
 
 
 ```r
-library(vegan)
-shannonIdx <- diversity(Fj, index="shannon")
+library(DescTools)
+shannonIdx <- Entropy(Fj, base=exp(1))
 (H <- (1/log(P)) * shannonIdx)
 ```
 
 ```
-[1] 0.8194
+[1] 0.8193845
 ```
-
 
 Higher moments: skewness and kurtosis
 -------------------------
 
 
 ```r
-library(e1071)
-skewness(age)
+library(DescTools)
+Skew(age)
 ```
 
 ```
-[1] -0.08611
+[1] -0.08611387
 ```
 
 ```r
-kurtosis(age)
+Kurt(age)
 ```
 
 ```
-[1] -1.773
+[1] -1.772568
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
-try(detach(package:psych))
 try(detach(package:robustbase))
-try(detach(package:vegan))
-try(detach(package:permute))
-try(detach(package:e1071))
-try(detach(package:class))
+try(detach(package:DescTools))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

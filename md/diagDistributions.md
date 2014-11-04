@@ -28,7 +28,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Histograms
 -------------------------
 
@@ -41,8 +40,7 @@ x <- rnorm(200, 175, 10)
 hist(x, xlab="x", ylab="N", breaks="FD")
 ```
 
-![plot of chunk rerDiagDistributions01](../content/assets/figure/rerDiagDistributions01.png) 
-
+![plot of chunk rerDiagDistributions01](../content/assets/figure/rerDiagDistributions01-1.png) 
 
 ### Add individual values and normal probability density function
 
@@ -54,8 +52,7 @@ rug(jitter(x))
 curve(dnorm(x, mean(x), sd(x)), lwd=2, col="blue", add=TRUE)
 ```
 
-![plot of chunk rerDiagDistributions02](../content/assets/figure/rerDiagDistributions02.png) 
-
+![plot of chunk rerDiagDistributions02](../content/assets/figure/rerDiagDistributions02-1.png) 
 
 ### Add estimated probability density function
 
@@ -67,8 +64,7 @@ lines(density(x), lwd=2, col="blue")
 rug(jitter(x))
 ```
 
-![plot of chunk rerDiagDistributions03](../content/assets/figure/rerDiagDistributions03.png) 
-
+![plot of chunk rerDiagDistributions03](../content/assets/figure/rerDiagDistributions03-1.png) 
 
 To compare the histograms from two groups, see `histbackback()` from package [`Hmisc`](http://cran.r-project.org/package=Hmisc).
 
@@ -95,7 +91,6 @@ stem(y)
   19 | 2
 ```
 
-
 Boxplot
 -------------------------
 
@@ -108,15 +103,13 @@ IV <- gl(P, Nj, labels=c("Control", "Group A", "Group B"))
 ```
 
 
-
 ```r
 boxplot(DV ~ IV, ylab="Score", col=c("red", "blue", "green"),
         main="Boxplot of scores in 3 groups")
 stripchart(DV ~ IV, pch=16, col="darkgray", vert=TRUE, add=TRUE)
 ```
 
-![plot of chunk rerDiagDistributions04](../content/assets/figure/rerDiagDistributions04.png) 
-
+![plot of chunk rerDiagDistributions04](../content/assets/figure/rerDiagDistributions04-1.png) 
 
 
 ```r
@@ -125,8 +118,7 @@ xA <- DV[IV == "Group A"]
 boxplot(xC, xA)
 ```
 
-![plot of chunk rerDiagDistributions05](../content/assets/figure/rerDiagDistributions05.png) 
-
+![plot of chunk rerDiagDistributions05](../content/assets/figure/rerDiagDistributions05-1.png) 
 
 Dotchart
 -------------------------
@@ -142,7 +134,6 @@ Mj  <- tapply(DV, IV, FUN=mean)
 ```
 
 
-
 ```r
 dotchart(DV, gdata=Mj, pch=16, color=rep(c("red", "blue"), each=Nj),
          gcolor="black", labels=rep(LETTERS[1:Nj], 2), groups=IV,
@@ -150,8 +141,7 @@ dotchart(DV, gdata=Mj, pch=16, color=rep(c("red", "blue"), each=Nj),
          main="individual results and means from 2 groups")
 ```
 
-![plot of chunk rerDiagDistributions06](../content/assets/figure/rerDiagDistributions06.png) 
-
+![plot of chunk rerDiagDistributions06](../content/assets/figure/rerDiagDistributions06-1.png) 
 
 Stripchart
 -------------------------
@@ -165,21 +155,19 @@ IV   <- gl(P, Nj)
 ```
 
 
-
 ```r
 stripchart(dice ~ IV, xlab="Result", ylab="group", pch=1, col="blue",
            main="Dice results: 4 groups", sub="jitter-method", method="jitter")
 ```
 
-![plot of chunk rerDiagDistributions07](../content/assets/figure/rerDiagDistributions071.png) 
+![plot of chunk rerDiagDistributions07](../content/assets/figure/rerDiagDistributions07-1.png) 
 
 ```r
 stripchart(dice ~ IV, xlab="Result", ylab="group", pch=16, col="red",
            main="Dice results: 4 groups", sub="stack-method", method="stack")
 ```
 
-![plot of chunk rerDiagDistributions07](../content/assets/figure/rerDiagDistributions072.png) 
-
+![plot of chunk rerDiagDistributions07](../content/assets/figure/rerDiagDistributions07-2.png) 
 
 QQ-plot
 -------------------------
@@ -192,8 +180,7 @@ qqplot(DV1, DV2, xlab="quantile N(0, 1)", ylab="quantile F(3, 15)",
        main="Comparison of quantiles from N(0, 1) and F(3, 15)")
 ```
 
-![plot of chunk rerDiagDistributions08](../content/assets/figure/rerDiagDistributions08.png) 
-
+![plot of chunk rerDiagDistributions08](../content/assets/figure/rerDiagDistributions08-1.png) 
 
 
 ```r
@@ -202,8 +189,7 @@ qqnorm(height)
 qqline(height, col="red", lwd=2)
 ```
 
-![plot of chunk rerDiagDistributions09](../content/assets/figure/rerDiagDistributions09.png) 
-
+![plot of chunk rerDiagDistributions09](../content/assets/figure/rerDiagDistributions09-1.png) 
 
 Empirical cumulative distribution function
 -------------------------
@@ -216,8 +202,7 @@ plot(Fn, main="Empirical cumulative distribution function")
 curve(pnorm, add=TRUE, col="gray", lwd=2)
 ```
 
-![plot of chunk rerDiagDistributions10](../content/assets/figure/rerDiagDistributions10.png) 
-
+![plot of chunk rerDiagDistributions10](../content/assets/figure/rerDiagDistributions10-1.png) 
 
 Joint distribution of two variables in separate groups
 -------------------------
@@ -233,7 +218,6 @@ y  <- 0.5*x + rnorm(N, 0, 10)
 IV <- gl(P, N/P, labels=LETTERS[1:P])
 ```
 
-
 ### Identify group membership by plot symbol and color
 
 
@@ -245,8 +229,7 @@ legend(x="topleft", legend=c("group A", "group B"),
        pch=c(4, 16), col=c("black", "blue"))
 ```
 
-![plot of chunk rerDiagDistributions11](../content/assets/figure/rerDiagDistributions11.png) 
-
+![plot of chunk rerDiagDistributions11](../content/assets/figure/rerDiagDistributions11-1.png) 
 
 ### Add distribution ellipse
 
@@ -261,8 +244,7 @@ legend(x="bottomright", legend=c("Data", "centroid", "distribution ellipse"),
        pch=c(1, 16, NA), lty=c(NA, NA, 1), col=c("black", "blue", "blue"))
 ```
 
-![plot of chunk rerDiagDistributions12](../content/assets/figure/rerDiagDistributions12.png) 
-
+![plot of chunk rerDiagDistributions12](../content/assets/figure/rerDiagDistributions12-1.png) 
 
 Joint distribution of two variables with many observations
 -------------------------
@@ -277,8 +259,7 @@ yy <- 0.4*xx + rnorm(N, 0, 10)
 plot(xx, yy, pch=16, col=rgb(0, 0, 1, 0.3))
 ```
 
-![plot of chunk rerDiagDistributions13](../content/assets/figure/rerDiagDistributions13.png) 
-
+![plot of chunk rerDiagDistributions13](../content/assets/figure/rerDiagDistributions13-1.png) 
 
 ### Smooth scatter plot
 
@@ -289,8 +270,7 @@ Based on a 2-D kernel density estimate
 smoothScatter(xx, yy, bandwidth=4)
 ```
 
-![plot of chunk rerDiagDistributions14](../content/assets/figure/rerDiagDistributions14.png) 
-
+![plot of chunk rerDiagDistributions14](../content/assets/figure/rerDiagDistributions14-1.png) 
 
 ### Hexagonal 2-D binning
 
@@ -301,7 +281,7 @@ res <- hexbin(xx, yy, xbins=20)
 plot(res)
 ```
 
-![plot of chunk rerDiagDistributions15](../content/assets/figure/rerDiagDistributions15.png) 
+![plot of chunk rerDiagDistributions15](../content/assets/figure/rerDiagDistributions15-1.png) 
 
 ```r
 summary(res)
@@ -310,15 +290,14 @@ summary(res)
 ```
 'hexbin' object from call: hexbin(x = xx, y = yy, xbins = 20) 
 n = 5000  points in	nc = 233  hexagon cells in grid dimensions  26 by 21 
-      cell         count            xcm             ycm       
- Min.   :  5   Min.   :  1.0   Min.   : 49.7   Min.   :-10.6  
- 1st Qu.:191   1st Qu.:  2.0   1st Qu.: 78.5   1st Qu.: 24.4  
- Median :277   Median :  8.0   Median : 99.5   Median : 42.0  
- Mean   :271   Mean   : 21.5   Mean   : 99.2   Mean   : 40.1  
- 3rd Qu.:351   3rd Qu.: 30.0   3rd Qu.:118.3   3rd Qu.: 54.7  
- Max.   :501   Max.   :119.0   Max.   :155.7   Max.   : 83.7  
+      cell           count             xcm              ycm        
+ Min.   :  5.0   Min.   :  1.00   Min.   : 49.73   Min.   :-10.59  
+ 1st Qu.:191.0   1st Qu.:  2.00   1st Qu.: 78.49   1st Qu.: 24.40  
+ Median :277.0   Median :  8.00   Median : 99.53   Median : 42.01  
+ Mean   :270.8   Mean   : 21.46   Mean   : 99.22   Mean   : 40.08  
+ 3rd Qu.:351.0   3rd Qu.: 30.00   3rd Qu.:118.31   3rd Qu.: 54.68  
+ Max.   :501.0   Max.   :119.00   Max.   :155.74   Max.   : 83.74  
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -326,13 +305,8 @@ Detach (automatically) loaded packages (if possible)
 
 ```r
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
 try(detach(package:hexbin))
-try(detach(package:grid))
-try(detach(package:lattice))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

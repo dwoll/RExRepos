@@ -1,11 +1,11 @@
 
-## @knitr 
-wants <- c("coin")
+## ------------------------------------------------------------------------
+wants <- c("coin", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 IQ1  <- c( 99, 131, 118, 112, 128, 136, 120, 107, 134, 122)
 IQ2  <- c(134, 103, 127, 121, 139, 114, 121, 132)
 IQ3  <- c(110, 123, 100, 131, 108, 114, 101, 128, 110)
@@ -15,24 +15,24 @@ KWdf <- data.frame(DV=c(IQ1, IQ2, IQ3, IQ4),
                    IV=factor(rep(1:4, Nj), labels=c("I", "II", "III", "IV")))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 kruskal.test(DV ~ IV, data=KWdf)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(coin)
 kruskal_test(DV ~ IV, distribution=approximate(B=9999), data=KWdf)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 pairwise.wilcox.test(KWdf$DV, KWdf$IV, p.adjust.method="holm")
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 oneway_test(DV ~ IV, distribution=approximate(B=9999), data=KWdf)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 set.seed(123)
 P    <- 4
 Nj   <- c(41, 37, 42, 40)
@@ -41,12 +41,17 @@ JTdf <- data.frame(IV=ordered(rep(LETTERS[1:P], Nj)),
                    DV=rnorm(sum(Nj), muJ, 7))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
+library(DescTools)
+JonckheereTerpstraTest(DV ~ IV, data=JTdf)
+
+
+## ------------------------------------------------------------------------
 library(coin)
 kruskal_test(DV ~ IV, distribution=approximate(B=9999), data=JTdf)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 N   <- 5
 P   <- 4
 DV1 <- c(14, 13, 12, 11, 10)
@@ -59,19 +64,19 @@ Fdf <- data.frame(id=factor(rep(1:N, times=P)),
                             labels=LETTERS[1:P]))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 friedman.test(DV ~ IV | id, data=Fdf)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 friedman_test(DV ~ IV | id, distribution=approximate(B=9999), data=Fdf)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 oneway_test(DV ~ IV | id, distribution=approximate(B=9999), data=Fdf)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 N   <- 10
 P   <- 4
 muJ <- rep(c(-1, 0, 1, 2), each=N)
@@ -80,16 +85,19 @@ Pdf <- data.frame(id=factor(rep(1:N, times=P)),
                   IV=ordered(rep(LETTERS[1:P], each=N)))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
+library(DescTools)
+PageTest(DV ~ IV | id, data=Pdf)
+
+
+## ------------------------------------------------------------------------
+library(coin)
 friedman_test(DV ~ IV | id, distribution=approximate(B=9999), data=Pdf)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
+try(detach(package:DescTools))
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
-
 

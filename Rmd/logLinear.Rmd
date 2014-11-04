@@ -1,0 +1,120 @@
+---
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
+title: "Loglinear models"
+categories: [Univariate, Regression]
+rerCat: Univariate
+tags: [Regression, GLM]
+---
+
+Log-linear models
+=========================
+
+```{r echo=FALSE}
+library(knitr)
+opts_knit$set(self.contained=FALSE)
+opts_chunk$set(tidy=FALSE, message=FALSE, warning=FALSE, comment=NA)
+# render_jekyll()
+```
+
+Install required packages
+-------------------------
+
+[`MASS`](http://cran.r-project.org/package=MASS)
+
+```{r}
+wants <- c("MASS")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Log-linear model
+-------------------------
+    
+### Data
+
+`UCBAdmissions` is a built in \((2 \times 2 \times 6)\) contingency table.
+
+```{r}
+library(MASS)
+str(UCBAdmissions)
+```
+
+Test model of complete independence (= full additivity) based on data in a contingency table.
+
+```{r}
+(llFit <- loglm(~ Admit + Dept + Gender, data=UCBAdmissions))
+```
+
+Test the same model based on data in a data frame with variable `Freq` as the observed category frequencies.
+
+```{r}
+UCBAdf <- as.data.frame(UCBAdmissions)
+loglm(Freq ~ Admit + Dept + Gender, data=UCBAdf)
+```
+
+Specific model of conditional independence.
+
+```{r}
+loglm(~ Admit + Dept + Gender + Admit:Dept + Dept:Gender, data=UCBAdmissions)
+```
+
+Mosaic-plot of category frequencies.
+
+```{r rerLogLinear01}
+mosaicplot(~ Admit + Dept + Gender, shade=TRUE, data=UCBAdmissions)
+```
+
+Coefficient estimates - automatically uses effect coding.
+
+```{r}
+(llCoef <- coef(llFit))
+exp(llCoef$Gender)
+```
+
+### Standard errors for parameter estimates
+
+Get standard errors for parameter estimates from fitting the corresponding Poisson-regression with `glm()` - default with treatment coding.
+
+```{r}
+glmFitT <- glm(Freq ~ Admit + Dept + Gender, family=poisson(link="log"), data=UCBAdf)
+coef(summary(glmFitT))
+
+# glm() fitted values are the same as loglm() ones
+all.equal(c(fitted(llFit)), fitted(glmFitT), check.attributes=FALSE)
+```
+
+### Convert parameter estimates from `glm()` and `loglm()`
+
+With `glm()`, the default coding scheme for categorical variables is treatment coding where the first group in a factor is the reference level, and the respective parameter of each remaining group is its difference to this reference. The (Intercept) estimate is for the cell with all groups = reference level for their factor. `glm()` does not list those parameter estimates that are fully determined (aliased) through the sum-to-zero constraint for the parameters for one factor.
+
+With `loglm()`, the parameters are for deviation coding, meaning that each group gets its own parameter, and the parameters for one factor sum to zero. (Intercept) is the grand mean that gets added to all group effects.
+
+Effect coding coefficient estimates from `loglm()` can be converted to treatment coding estimates from `glm()`.
+
+```{r}
+(glmTcoef <- coef(glmFitT))
+
+glmTcoef["(Intercept)"]
+llCoef$`(Intercept)` + llCoef$Admit["Admitted"] + llCoef$Gender["Male"]  + llCoef$Dept["A"]
+
+glmTcoef["(Intercept)"] + glmTcoef["DeptC"] + glmTcoef["GenderFemale"]
+llCoef$`(Intercept)` + llCoef$Admit["Admitted"] + llCoef$Dept["C"] + llCoef$Gender["Female"]
+```
+
+`glm()` can directly use effect coding to get the same paramter estimates as `loglm()`, but also standard errors.
+
+```{r}
+glmFitE <- glm(Freq ~ Admit + Dept + Gender, family=poisson(link="log"),
+               contrasts=list(Admit=contr.sum,
+                               Dept=contr.sum,
+                             Gender=contr.sum), data=UCBAdf)
+coef(summary(glmFitE))
+```
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:MASS))
+```

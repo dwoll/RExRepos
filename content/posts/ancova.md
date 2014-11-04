@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Test the effects of group membership and of covariate
 -------------------------
 
@@ -44,7 +43,6 @@ WLpost   <- c(17, 25, 10, 22, 23, 10,  2, 10, 14,  7)
 ```
 
 
-
 ```r
 P     <- 3
 Nj    <- rep(length(SSRIpre), times=P)
@@ -54,19 +52,17 @@ dfAnc <- data.frame(IV=factor(rep(1:P, Nj), labels=c("SSRI", "Placebo", "WL")),
 ```
 
 
-
 ```r
 plot(DVpre  ~ IV, data=dfAnc, main="Pre-scores per group")
 ```
 
-![plot of chunk rerAncova01](../content/assets/figure/rerAncova011.png) 
+![plot of chunk rerAncova01](../content/assets/figure/rerAncova01-1.png) 
 
 ```r
 plot(DVpost ~ IV, data=dfAnc, main="Post-Scores per group")
 ```
 
-![plot of chunk rerAncova01](../content/assets/figure/rerAncova012.png) 
-
+![plot of chunk rerAncova01](../content/assets/figure/rerAncova01-2.png) 
 
 ### Type I sum of squares
 
@@ -78,7 +74,6 @@ fitRegr <- lm(DVpost ~      DVpre, data=dfAnc)
 ```
 
 
-
 ```r
 anova(fitFull)
 ```
@@ -87,14 +82,13 @@ anova(fitFull)
 Analysis of Variance Table
 
 Response: DVpost
-          Df Sum Sq Mean Sq F value Pr(>F)   
-IV         2    240   120.2    4.13 0.0276 * 
-DVpre      1    313   313.4   10.77 0.0029 **
-Residuals 26    756    29.1                  
+          Df Sum Sq Mean Sq F value   Pr(>F)   
+IV         2 240.47  120.23  4.1332 0.027629 * 
+DVpre      1 313.37  313.37 10.7723 0.002937 **
+Residuals 26 756.33   29.09                    
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 ### Type II/III sum of squares
 
@@ -114,15 +108,14 @@ Anova(fitFiii, type="III")
 Anova Table (Type III tests)
 
 Response: DVpost
-            Sum Sq Df F value Pr(>F)   
-(Intercept)      0  1    0.00 0.9910   
-IV             217  2    3.73 0.0376 * 
-DVpre          313  1   10.77 0.0029 **
-Residuals      756 26                  
+            Sum Sq Df F value   Pr(>F)   
+(Intercept)   0.00  1  0.0001 0.991035   
+IV          217.15  2  3.7324 0.037584 * 
+DVpre       313.37  1 10.7723 0.002937 **
+Residuals   756.33 26                    
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 #### Using model comparisons for SS type II
 
@@ -136,15 +129,15 @@ Analysis of Variance Table
 
 Model 1: DVpost ~ DVpre
 Model 2: DVpost ~ IV + DVpre
-  Res.Df RSS Df Sum of Sq    F Pr(>F)  
-1     28 973                           
-2     26 756  2       217 3.73  0.038 *
+  Res.Df    RSS Df Sum of Sq      F  Pr(>F)  
+1     28 973.48                              
+2     26 756.33  2    217.15 3.7324 0.03758 *
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 ```r
-anova(fitGrp, fitFull)
+anova(fitGrp,  fitFull)
 ```
 
 ```
@@ -152,13 +145,12 @@ Analysis of Variance Table
 
 Model 1: DVpost ~ IV
 Model 2: DVpost ~ IV + DVpre
-  Res.Df  RSS Df Sum of Sq    F Pr(>F)   
-1     27 1070                            
-2     26  756  1       313 10.8 0.0029 **
+  Res.Df     RSS Df Sum of Sq      F   Pr(>F)   
+1     27 1069.70                                
+2     26  756.33  1    313.37 10.772 0.002937 **
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 ### Test individual regression coefficients
 
@@ -173,21 +165,21 @@ Call:
 lm(formula = DVpost ~ IV + DVpre, data = dfAnc)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--10.684  -3.961   0.645   3.877   9.967 
+     Min       1Q   Median       3Q      Max 
+-10.6842  -3.9615   0.6448   3.8773   9.9675 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)   
-(Intercept)   -3.670      3.752   -0.98   0.3370   
-IVPlacebo      4.448      2.416    1.84   0.0770 . 
-IVWL           6.442      2.413    2.67   0.0129 * 
-DVpre          0.645      0.197    3.28   0.0029 **
+(Intercept)  -3.6704     3.7525  -0.978  0.33703   
+IVPlacebo     4.4483     2.4160   1.841  0.07703 . 
+IVWL          6.4419     2.4133   2.669  0.01292 * 
+DVpre         0.6453     0.1966   3.282  0.00294 **
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 5.39 on 26 degrees of freedom
-Multiple R-squared: 0.423,	Adjusted R-squared: 0.356 
-F-statistic: 6.35 on 3 and 26 DF,  p-value: 0.00225 
+Residual standard error: 5.393 on 26 degrees of freedom
+Multiple R-squared:  0.4227,	Adjusted R-squared:  0.3561 
+F-statistic: 6.346 on 3 and 26 DF,  p-value: 0.002252
 ```
 
 ```r
@@ -195,13 +187,12 @@ confint(fitFull)
 ```
 
 ```
-               2.5 % 97.5 %
-(Intercept) -11.3837  4.043
-IVPlacebo    -0.5178  9.414
-IVWL          1.4812 11.403
-DVpre         0.2412  1.049
+                  2.5 %    97.5 %
+(Intercept) -11.3836718  4.042941
+IVPlacebo    -0.5178144  9.414373
+IVWL          1.4812101 11.402537
+DVpre         0.2411673  1.049464
 ```
-
 
 ### Vsisualize ANCOVA coefficients
 
@@ -213,7 +204,6 @@ iCeptPlac <- coeffs[2, 1] + iCeptSSRI
 iCeptWL   <- coeffs[3, 1] + iCeptSSRI
 slopeAll  <- coeffs[4, 1]
 ```
-
 
 
 ```r
@@ -230,8 +220,7 @@ abline(iCeptPlac, slopeAll, col="green")
 abline(iCeptWL,   slopeAll, col="blue")
 ```
 
-![plot of chunk rerAncova02](../content/assets/figure/rerAncova02.png) 
-
+![plot of chunk rerAncova02](../content/assets/figure/rerAncova02-1.png) 
 
 Effect size estimate
 -------------------------
@@ -253,9 +242,8 @@ SST   <- sum(anova(fitFull)[ , "Sum Sq"])
 ```
 
 ```
-[1] 0.1187
+[1] 0.1187001
 ```
-
 
 Planned comparisons between groups
 -------------------------
@@ -274,20 +262,19 @@ summary(YMjAdj)
 
  IV effect
 IV
-   SSRI Placebo      WL 
-  7.537  11.985  13.978 
+     SSRI   Placebo        WL 
+ 7.536616 11.984895 13.978489 
 
  Lower 95 Percent Confidence Limits
 IV
-   SSRI Placebo      WL 
-  4.028   8.476  10.473 
+     SSRI   Placebo        WL 
+ 4.027629  8.476452 10.472608 
 
  Upper 95 Percent Confidence Limits
 IV
-   SSRI Placebo      WL 
-  11.05   15.49   17.48 
+    SSRI  Placebo       WL 
+11.04560 15.49334 17.48437 
 ```
-
 
 ### Planned comparisons
 
@@ -297,7 +284,6 @@ cMat <- rbind("SSRI-Placebo"  = c(-1,  1, 0),
               "SSRI-WL"       = c(-1,  0, 1),
               "SSRI-0.5(P+WL)"= c(-2,  1, 1))
 ```
-
 
 
 ```r
@@ -317,15 +303,14 @@ Multiple Comparisons of Means: User-defined Contrasts
 Fit: aov(formula = DVpost ~ IV + DVpre, data = dfAnc)
 
 Linear Hypotheses:
-                    Estimate Std. Error t value Pr(>t)   
-SSRI-Placebo <= 0       4.45       2.42    1.84 0.0385 * 
-SSRI-WL <= 0            6.44       2.41    2.67 0.0065 **
-SSRI-0.5(P+WL) <= 0    10.89       4.18    2.60 0.0075 **
+                    Estimate Std. Error t value  Pr(>t)   
+SSRI-Placebo <= 0      4.448      2.416   1.841 0.03852 * 
+SSRI-WL <= 0           6.442      2.413   2.669 0.00646 **
+SSRI-0.5(P+WL) <= 0   10.890      4.183   2.603 0.00753 **
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 (Adjusted p values reported -- none method)
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -337,14 +322,12 @@ try(detach(package:colorspace))
 try(detach(package:lattice))
 try(detach(package:grid))
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
 try(detach(package:multcomp))
 try(detach(package:survival))
 try(detach(package:mvtnorm))
 try(detach(package:splines))
+try(detach(package:TH.data))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

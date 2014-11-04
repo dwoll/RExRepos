@@ -45,7 +45,6 @@ logical(5)
 [1] FALSE FALSE FALSE FALSE FALSE
 ```
 
-
 ### Create and combine vectors
 
 Numeric vectors
@@ -75,7 +74,6 @@ append(age, c(17, 31))
 ```
 [1] 18 20 30 24 23 21 17 31
 ```
-
 
 Character vectors
 
@@ -113,7 +111,6 @@ letters[c(5, 9, 13)]
 [1] "ipsum" "dolor" "sit"  
 ```
 
-
 Information about vectors
 
 
@@ -141,7 +138,6 @@ nchar(chars)
 [1] 5 5 3
 ```
 
-
 Extract and change vector elements
 -------------------------
 
@@ -165,7 +161,6 @@ age
 [1] 18 20 30 22 23 21
 ```
 
-
 Get and change the last element
 
 
@@ -185,7 +180,6 @@ age[length(age) + 1]
 [1] NA
 ```
 
-
 A vector does not need a name for getting one of its values
 
 
@@ -196,7 +190,6 @@ c(11, 12, 13, 14)[2]
 ```
 [1] 12
 ```
-
 
 ### Extract elements with index vectors
 
@@ -236,7 +229,6 @@ age[c(4, NA, 1)]
 [1] 22 NA 18
 ```
 
-
 Change elements
 
 
@@ -248,7 +240,6 @@ age
 ```
 [1] 17 30 30 25 23 21
 ```
-
 
 ### Exclude elements
 
@@ -285,7 +276,6 @@ age[-idx]
 [1] 30 23 21
 ```
 
-
 Also see `help(Extract)`
 
 Types of values in vectors
@@ -309,7 +299,6 @@ mode(combVec)
 ```
 [1] "character"
 ```
-
 
 Named elements
 -------------------------
@@ -360,7 +349,6 @@ namedVec2
  10 -12  33 
 ```
 
-
 Delete elements
 -------------------------
 
@@ -384,7 +372,6 @@ vec
 ```
 [1] 1 2 3
 ```
-
 
 Vector valued comparisons
 -------------------------
@@ -418,7 +405,6 @@ x < y
 ```
 [1]  TRUE FALSE FALSE
 ```
-
 
 Information about elements satisfying some condition
 
@@ -473,7 +459,6 @@ length(which(age < 24))
 [1] 3
 ```
 
-
 Checking for equality of vectors
 
 
@@ -504,7 +489,6 @@ isTRUE(all.equal(y, z))
 [1] FALSE
 ```
 
-
 ### Combine multiple logical comparisons
 
 
@@ -523,7 +507,6 @@ isTRUE(all.equal(y, z))
 ```
 [1] FALSE FALSE FALSE  TRUE  TRUE  TRUE
 ```
-
 
 Logical index vectors
 -------------------------
@@ -563,7 +546,6 @@ age[(age >= 30) | (age <= 20)]
 [1] 17 30 30
 ```
 
-
 ### The recycling rule
 
 
@@ -582,7 +564,6 @@ age[c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)]
 ```
 [1] 17 30 23
 ```
-
 
 ### Convert logical index vectors to numerical ones
 
@@ -605,7 +586,6 @@ vecNA[logIdx]
 ```
 [1]  2 NA  5
 ```
-
 
 Solution:
 
@@ -633,7 +613,6 @@ seq(along=logIdx) %in% numIdx
 ```
 [1] FALSE  TRUE FALSE FALSE FALSE  TRUE
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

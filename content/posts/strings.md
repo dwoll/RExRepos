@@ -10,6 +10,18 @@ tags: [Strings]
 
 
 
+Install required packages
+-------------------------
+
+[`DescTools`](http://cran.r-project.org/package=DescTools)
+
+
+```r
+wants <- c("DescTools")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
 Create strings from existing objects
 -------------------------
     
@@ -20,9 +32,8 @@ toString(randVals)
 ```
 
 ```
-[1] "0.23, -0.76, 0.29, 0.02, 0"
+[1] "0.12, 0.68, 0.29, -0.35, -0.92"
 ```
-
 
 
 ```r
@@ -32,7 +43,6 @@ formatC(c(1, 2.345), width=5, format="f")
 ```
 [1] "1.0000" "2.3450"
 ```
-
 
 Create new strings and control their output
 -------------------------
@@ -65,7 +75,6 @@ nchar(c("A", "BC", "DEF"))
 ```
 
 
-
 ```r
 paste("group", LETTERS[1:5], sep="_")
 ```
@@ -90,6 +99,16 @@ paste(1:5, letters[1:5], sep=".", collapse=" ")
 [1] "1.a 2.b 3.c 4.d 5.e"
 ```
 
+Beware of the way `NA` and `NULL` are treated in `paste()`.
+
+
+```r
+paste(1, NA, 2, NULL, 3, character(0), sep="_")
+```
+
+```
+[1] "1_NA_2__3_"
+```
 
 
 ```r
@@ -111,7 +130,6 @@ sprintf("%.3f", 1.23456)
 [1] "1.235"
 ```
 
-
 ### String output with `cat()` and `print()`
 
 
@@ -125,7 +143,6 @@ A string+with
 +4+
 words
 ```
-
 
 
 ```r
@@ -143,7 +160,6 @@ noquote(cVar)
 ```
 [1] A string
 ```
-
 
 Manipulate strings
 -------------------------
@@ -165,17 +181,24 @@ toupper(c("ghi", "jk", "i"))
 [1] "GHI" "JK"  "I"  
 ```
 
+```r
+abbreviate("AfairlyLongString", minlength=6)
+```
+
+```
+AfairlyLongString 
+         "AfrlLS" 
+```
 
 
 ```r
-strReverse <- function(x) { sapply(lapply(strsplit(x, NULL), rev), paste, collapse="") }
-strReverse(c("Lorem", "ipsum", "dolor", "sit"))
+library(DescTools)
+StrRev(c("Lorem", "ipsum", "dolor", "sit"))
 ```
 
 ```
 [1] "meroL" "muspi" "rolod" "tis"  
 ```
-
 
 
 ```r
@@ -185,7 +208,6 @@ substring(c("ABCDEF", "GHIJK", "LMNO", "PQR"), first=4, last=5)
 ```
 [1] "DE" "JK" "O"  ""  
 ```
-
 
 
 ```r
@@ -209,7 +231,6 @@ strsplit("Xylophon", split=NULL)
 [1] "X" "y" "l" "o" "p" "h" "o" "n"
 ```
 
-
 Find substrings
 -------------------------
 
@@ -231,7 +252,6 @@ pmatch(c("abc", "de", "f", "h"), c("abcde", "abc", "de", "fg", "ih"))
 ```
 [1]  2  3  4 NA
 ```
-
 
 ### Create and use regular expressions
 
@@ -255,7 +275,6 @@ grepl("A[BC][[:blank:]]", c("AB ", "AB", "AC ", "A "))
 ```
 
 
-
 ```r
 pat    <- "[[:upper:]]+"
 txt    <- c("abcDEFG", "ABCdefg", "abcdefg")
@@ -271,7 +290,6 @@ attr(,"useBytes")
 ```
 
 
-
 ```r
 len <- attr(start, "match.length")
 end <- start + len - 1
@@ -283,7 +301,6 @@ substring(txt, start, end)
 ```
 
 
-
 ```r
 glob2rx("asdf*.txt")
 ```
@@ -291,7 +308,6 @@ glob2rx("asdf*.txt")
 ```
 [1] "^asdf.*\\.txt$"
 ```
-
 
 Replace substrings
 -------------------------
@@ -305,7 +321,6 @@ substring(charVec, 4, 5) <- c("..", "xx", "++", "**"); charVec
 ```
 [1] "ABC..F" "GHIxx"  "LMN+"   "PQR"   
 ```
-
 
 
 ```r
@@ -324,6 +339,13 @@ gsub("em", "XX", "Lorem ipsum dolor sit Lorem ipsum")
 [1] "LorXX ipsum dolor sit LorXX ipsum"
 ```
 
+```r
+gsub("^[[:alpha:]]+-([[:digit:]]+)-[[:alpha:]]+$", "\\1", "abc-412-def")
+```
+
+```
+[1] "412"
+```
 
 Evaluate strings as instructions
 -------------------------
@@ -347,11 +369,18 @@ eval(obj2)
 [1] 1 4 9
 ```
 
-
 Useful packages
 -------------------------
 
 Package [`stringr`](http://cran.r-project.org/package=stringr) provides more functions for efficiently and consistently handling character strings.
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+
+```r
+try(detach(package:DescTools))
+```
 
 Get the article source from GitHub
 ----------------------------------------------

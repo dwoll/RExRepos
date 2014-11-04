@@ -18,15 +18,14 @@ TODO
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin), [`epitools`](http://cran.r-project.org/package=epitools), [`vcd`](http://cran.r-project.org/package=vcd)
+[`coin`](http://cran.r-project.org/package=coin), [`DescTools`](http://cran.r-project.org/package=DescTools)
 
 
 ```r
-wants <- c("coin", "epitools", "vcd")
+wants <- c("coin", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
 
 $(2 \times 2)$-tables
 -------------------------
@@ -52,7 +51,6 @@ disease isHealthy isIll Sum
 ```
 
 
-
 ```r
 fisher.test(contT1, alternative="greater")
 ```
@@ -61,16 +59,15 @@ fisher.test(contT1, alternative="greater")
 
 	Fisher's Exact Test for Count Data
 
-data:  contT1 
+data:  contT1
 p-value = 0.04695
-alternative hypothesis: true odds ratio is greater than 1 
+alternative hypothesis: true odds ratio is greater than 1
 95 percent confidence interval:
- 1.031   Inf 
+ 1.031491      Inf
 sample estimates:
 odds ratio 
-      12.5 
+  12.49706 
 ```
-
 
 ### Prevalence, sensitivity, specificity, CCR, $F$-score
 
@@ -83,15 +80,13 @@ FN <- c21 <- contT1[2, 1]       ## false negative / miss
 ```
 
 
-
 ```r
 (prevalence <- sum(contT1[2, ]) / sum(contT1))
 ```
 
 ```
-[1] 0.3333
+[1] 0.3333333
 ```
-
 
 
 ```r
@@ -103,7 +98,6 @@ FN <- c21 <- contT1[2, 1]       ## false negative / miss
 ```
 
 
-
 ```r
 (specificity <- TN / (TN+FP))
 ```
@@ -113,15 +107,13 @@ FN <- c21 <- contT1[2, 1]       ## false negative / miss
 ```
 
 
-
 ```r
 (relevance <- precision <- TP / (TP+FP))
 ```
 
 ```
-[1] 0.6667
+[1] 0.6666667
 ```
-
 
 Correct classification rate (CCR)
 
@@ -134,7 +126,6 @@ Correct classification rate (CCR)
 [1] 0.8
 ```
 
-
 $F$-score
 
 
@@ -143,9 +134,8 @@ $F$-score
 ```
 
 ```
-[1] 0.7273
+[1] 0.7272727
 ```
-
 
 ### Odds ratio, Yule's $Q$ and risk ratio
 
@@ -153,111 +143,58 @@ $F$-score
 
 
 ```r
-library(vcd)                          ## for oddsratio()
-(OR <- oddsratio(contT1, log=FALSE))  ## odds ratio
+library(DescTools)                    # for OddsRatio()
+(OR <- OddsRatio(contT1, conf.level=0.95))  # odds ratio
 ```
 
 ```
-[1] 16
+odds ratio     lwr.ci     upr.ci 
+ 16.000000   1.092859 234.247896 
 ```
-
-```r
-(ORln <- oddsratio(contT1))           ## log odds ratio
-```
-
-```
-[1] 2.773
-```
-
-
-
-```r
-summary(ORln)            ## significance test log OR
-```
-
-```
-     Log Odds Ratio Std. Error z value Pr(>|z|)   
-[1,]           2.77       1.19    2.34   0.0097 **
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-```
-
-
-
-```r
-(CIln <- confint(ORln))  ## confidence interval log OR
-```
-
-```
-        lwr   upr
-[1,] 0.4481 5.097
-```
-
-```r
-exp(CIln)                ## confidence interval OR (not log)
-```
-
-```
-       lwr   upr
-[1,] 1.565 163.5
-```
-
 
 #### Yule's $Q$
 
 
 ```r
-(Q <- (c11*c22 - c12*c21) / (c11*c22 + c12*c21))  ## Yule's Q
+library(DescTools)                    # for YuleQ()
+YuleQ(contT1)  ## Yule's Q
 ```
 
 ```
-[1] 0.8824
+[1] 0.8823529
 ```
-
-```r
-(OR-1) / (OR+1)          ## alternative calculation given OR
-```
-
-```
-[1] 0.8824
-```
-
 
 #### Risk ratio
 
 
 ```r
-library(epitools)
-riskratio(contT1, method="small")
+library(DescTools)                    # for RelRisk()
+RelRisk(contT1)                       # relative risk
 ```
 
 ```
-$data
+[1] 4
+```
+
+
+```r
+(risk    <- prop.table(contT1, margin=1))
+```
+
+```
        diagT
-disease isHealthy isIll Total
-  no            8     2    10
-  yes           1     4     5
-  Total         9     6    15
-
-$measure
-       risk ratio with 95% C.I.
-disease estimate  lower upper
-    no     1.000     NA    NA
-    yes    2.933 0.7877 10.92
-
-$p.value
-       two-sided
-disease midp.exact fisher.exact chi.square
-    no          NA           NA         NA
-    yes    0.04895      0.08891    0.02535
-
-$correction
-[1] FALSE
-
-attr(,"method")
-[1] "small sample-adjusted UMLE & normal approx (Wald) CI"
+disease isHealthy isIll
+    no        0.8   0.2
+    yes       0.2   0.8
 ```
 
+```r
+(relRisk <- risk[1, 1] / risk[2, 1])
+```
+
+```
+[1] 4
+```
 
 $(r \times c)$-tables
 -------------------------
@@ -283,7 +220,6 @@ smokes  0  1  2 Sum
 ```
 
 
-
 ```r
 chisq.test(cTab)
 ```
@@ -292,10 +228,9 @@ chisq.test(cTab)
 
 	Pearson's Chi-squared test
 
-data:  cTab 
+data:  cTab
 X-squared = 0.9, df = 2, p-value = 0.6376
 ```
-
 
 Also for higher-order tables
 
@@ -321,22 +256,31 @@ DV1    A  B  C Sum
 ```
 
 
-
 ```r
-library(vcd)
-assocstats(cTab)
+library(DescTools)
+Assocs(cTab)
 ```
 
 ```
-                    X^2 df P(> X^2)
-Likelihood Ratio 10.549  4 0.032126
-Pearson          10.667  4 0.030577
-
-Phi-Coefficient   : 1.033 
-Contingency Coeff.: 0.718 
-Cramer's V        : 0.73 
+                       estimate  lwr.ci  upr.ci
+Phi Coeff.               1.0328       -       -
+Contingency Coeff.       0.7184       -       -
+Cramer V                 0.7303  0.0000  1.0000
+Goodman Kruskal Gamma    0.8333  0.4513  1.0000
+Kendall Tau-b            0.6350  0.1884  1.0000
+Stuart Tau-c             0.6000  0.1151  1.0000
+Somers D C|R             0.6452  0.2040  1.0000
+Somers D R|C             0.6250  0.1897  1.0000
+Pearson Correlation      0.7254  0.1763  0.9302
+Spearman Correlation     0.6761  0.0810  0.9159
+Lambda C|R               0.5000  0.0000  1.0000
+Lambda R|C               0.4000  0.0000  0.8294
+Lambda sym               0.4545  0.0591  0.8500
+Uncertainty Coeff. C|R   0.4774  0.1492  0.8055
+Uncertainty Coeff. R|C   0.4890  0.1519  0.8260
+Uncertainty Coeff. sym   0.4831  0.1522  0.8140
+Mutual Information       0.7610       -       -
 ```
-
 
 Cochran-Mantel-Haenszel test for three-way tables
 -------------------------
@@ -351,7 +295,6 @@ tab3 <- xtabs(~ work + sex + group, data=myDf)
 ```
 
 
-
 ```r
 library(coin)
 cmh_test(tab3, distribution=approximate(B=9999))
@@ -363,28 +306,20 @@ cmh_test(tab3, distribution=approximate(B=9999))
 
 data:  sex by
 	 work (home, office) 
-	 stratified by group 
-chi-squared = 2.613, p-value = 0.19
+	 stratified by group
+chi-squared = 2.6129, p-value = 0.19
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
-try(detach(package:vcd))
-try(detach(package:colorspace))
-try(detach(package:MASS))
-try(detach(package:grid))
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
+try(detach(package:DescTools))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

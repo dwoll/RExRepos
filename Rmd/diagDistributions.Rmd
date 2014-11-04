@@ -219,9 +219,5 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
 try(detach(package:hexbin))
-try(detach(package:grid))
-try(detach(package:lattice))
 ```

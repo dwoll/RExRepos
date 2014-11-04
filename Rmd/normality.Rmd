@@ -13,10 +13,10 @@ Assess univariate and multivariate normality
 Install required packages
 -------------------------
 
-[`energy`](http://cran.r-project.org/package=energy), [`ICS`](http://cran.r-project.org/package=ICS), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm), [`nortest`](http://cran.r-project.org/package=nortest), [`QuantPsyc`](http://cran.r-project.org/package=QuantPsyc), [`tseries`](http://cran.r-project.org/package=tseries)
+[`energy`](http://cran.r-project.org/package=energy), [`ICS`](http://cran.r-project.org/package=ICS), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm)
 
 ```{r}
-wants <- c("energy", "ICS", "mvtnorm", "nortest", "QuantPsyc", "tseries")
+wants <- c("energy", "ICS", "mvtnorm")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -46,8 +46,8 @@ shapiro.test(DV)
 Composite null hypothesis: any normal distribution
 
 ```{r}
-library(nortest)
-ad.test(DV)
+library(DescTools)
+AndersonDarlingTest(DV)
 ```
 
 ### Cramer-von-Mises-test
@@ -55,8 +55,8 @@ ad.test(DV)
 Composite null hypothesis: any normal distribution
 
 ```{r}
-library(nortest)
-cvm.test(DV)
+library(DescTools)
+CramerVonMisesTest(DV)
 ```
 
 ### Shapiro-Francia-test
@@ -64,8 +64,8 @@ cvm.test(DV)
 Composite null hypothesis: any normal distribution
 
 ```{r}
-library(nortest)
-sf.test(DV)
+library(DescTools)
+ShapiroFranciaTest(DV)
 ```
 
 ### Jarque-Bera-test
@@ -73,8 +73,8 @@ sf.test(DV)
 Composite null hypothesis: any normal distribution
 
 ```{r}
-library(tseries)
-jarque.bera.test(DV)
+library(DescTools)
+JarqueBeraTest(DV)
 ```
 
 ### Kolmogorov-Smirnov-test
@@ -90,8 +90,8 @@ ks.test(DV, "pnorm", mean=1, sd=2, alternative="two.sided")
 Composite null hypothesis: any normal distribution
 
 ```{r}
-library(nortest)
-lillie.test(DV)
+library(DescTools)
+LillieTest(DV)
 ```
 
 ### Pearson \(\chi^{2}\)-test
@@ -101,8 +101,8 @@ Tests weaker null hypothesis (any distribution with the same probabilities for t
 Wrong: `pearson.test()` does not use grouped ML-estimate or maximum \(\chi^{2}\)-estimate
 
 ```{r}
-library(nortest)
-pearson.test(DV, n.classes=6, adjust=TRUE)
+library(DescTools)
+PearsonTest(DV, n.classes=6, adjust=TRUE)
 ```
 
 Multivariate normality
@@ -120,14 +120,6 @@ X <- rmvnorm(100, mu, Sigma)
 ```{r}
 library(energy)                    # for mvnorm.etest()
 mvnorm.etest(X)
-```
-
-### Mardia-Kurtosis-test
-
-```{r}
-library(QuantPsyc)                 # for mult.norm()
-mn <- mult.norm(X, chicrit=0.001)
-mn$mult.test
 ```
 
 ### Kurtosis- and skew-test
@@ -150,13 +142,10 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:nortest))
-try(detach(package:QuantPsyc))
-try(detach(package:tseries))
+try(detach(package:DescTools))
 try(detach(package:energy))
-try(detach(package:boot))
-try(detach(package:MASS))
 try(detach(package:ICS))
 try(detach(package:mvtnorm))
 try(detach(package:survey))
+try(detach(package:CompQuadForm))
 ```

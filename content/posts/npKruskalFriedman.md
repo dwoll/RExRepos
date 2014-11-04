@@ -13,15 +13,14 @@ tags: [Nonparametric, ClassicalNonparametric]
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin)
+[`coin`](http://cran.r-project.org/package=coin), [`DescTools`](http://cran.r-project.org/package=DescTools)
 
 
 ```r
-wants <- c("coin")
+wants <- c("coin", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
 
 Independent samples - unordered groups
 -------------------------
@@ -42,7 +41,6 @@ KWdf <- data.frame(DV=c(IQ1, IQ2, IQ3, IQ4),
 ```
 
 
-
 ```r
 kruskal.test(DV ~ IV, data=KWdf)
 ```
@@ -51,10 +49,9 @@ kruskal.test(DV ~ IV, data=KWdf)
 
 	Kruskal-Wallis rank sum test
 
-data:  DV by IV 
-Kruskal-Wallis chi-squared = 6.059, df = 3, p-value = 0.1087
+data:  DV by IV
+Kruskal-Wallis chi-squared = 6.0595, df = 3, p-value = 0.1087
 ```
-
 
 #### Using `kruskal_test()` from package `coin`
 
@@ -68,10 +65,9 @@ kruskal_test(DV ~ IV, distribution=approximate(B=9999), data=KWdf)
 
 	Approximative Kruskal-Wallis Test
 
-data:  DV by IV (I, II, III, IV) 
-chi-squared = 6.059, p-value = 0.1017
+data:  DV by IV (I, II, III, IV)
+chi-squared = 6.0595, p-value = 0.09971
 ```
-
 
 #### Pairwise group-comparisons using Wilcoxon's rank-sum test
 
@@ -94,7 +90,6 @@ IV  0.84 0.97 0.16
 P value adjustment method: holm 
 ```
 
-
 ### Permutation test with untransformed response values
 
 
@@ -106,15 +101,14 @@ oneway_test(DV ~ IV, distribution=approximate(B=9999), data=KWdf)
 
 	Approximative K-Sample Permutation Test
 
-data:  DV by IV (I, II, III, IV) 
-maxT = 2.206, p-value = 0.09221
+data:  DV by IV (I, II, III, IV)
+maxT = 2.2056, p-value = 0.09071
 ```
-
 
 Independent samples - ordered groups
 ------------------------------------
 
-### Linear by linear association test
+### Jonckheere Terpstra trend test
 
 
 ```r
@@ -125,6 +119,25 @@ muJ  <- rep(c(-1, 0, 1, 2), Nj)
 JTdf <- data.frame(IV=ordered(rep(LETTERS[1:P], Nj)),
                    DV=rnorm(sum(Nj), muJ, 7))
 ```
+
+Using `JonckheereTerpstraTest()` from package `DescTools`.
+
+
+```r
+library(DescTools)
+JonckheereTerpstraTest(DV ~ IV, data=JTdf)
+```
+
+```
+
+	Jonckheere-Terpstra test
+
+data:  DV by IV
+JT = 5256, p-value = 0.1609
+alternative hypothesis: two.sided
+```
+
+### Linear by linear association test
 
 
 
@@ -137,10 +150,9 @@ kruskal_test(DV ~ IV, distribution=approximate(B=9999), data=JTdf)
 
 	Approximative Linear-by-Linear Association Test
 
-data:  DV by IV (A < B < C < D) 
-chi-squared = 1.903, p-value = 0.1701
+data:  DV by IV (A < B < C < D)
+chi-squared = 1.9035, p-value = 0.1701
 ```
-
 
 Dependent samples - unordered groups
 -------------------------
@@ -164,7 +176,6 @@ Fdf <- data.frame(id=factor(rep(1:N, times=P)),
 ```
 
 
-
 ```r
 friedman.test(DV ~ IV | id, data=Fdf)
 ```
@@ -173,10 +184,9 @@ friedman.test(DV ~ IV | id, data=Fdf)
 
 	Friedman rank sum test
 
-data:  DV and IV and id 
-Friedman chi-squared = 8.265, df = 3, p-value = 0.04084
+data:  DV and IV and id
+Friedman chi-squared = 8.2653, df = 3, p-value = 0.04084
 ```
-
 
 #### Using `friedman_test()` from package `coin`
 
@@ -190,10 +200,9 @@ friedman_test(DV ~ IV | id, distribution=approximate(B=9999), data=Fdf)
 	Approximative Friedman Test
 
 data:  DV by IV (A, B, C, D) 
-	 stratified by id 
-chi-squared = 8.265, p-value = 0.0296
+	 stratified by id
+chi-squared = 8.2653, p-value = 0.0296
 ```
-
 
 ### Permutation test with untransformed response values
 
@@ -207,10 +216,9 @@ oneway_test(DV ~ IV | id, distribution=approximate(B=9999), data=Fdf)
 	Approximative K-Sample Permutation Test
 
 data:  DV by IV (A, B, C, D) 
-	 stratified by id 
-maxT = 2.023, p-value = 0.1891
+	 stratified by id
+maxT = 2.0226, p-value = 0.1891
 ```
-
 
 Dependent samples - ordered groups
 -------------------------
@@ -227,9 +235,27 @@ Pdf <- data.frame(id=factor(rep(1:N, times=P)),
                   IV=ordered(rep(LETTERS[1:P], each=N)))
 ```
 
+Using `PageTest()` from package `DescTools`.
 
 
 ```r
+library(DescTools)
+PageTest(DV ~ IV | id, data=Pdf)
+```
+
+```
+
+	Page test for ordered alternatives
+
+data:  DV and IV and id
+L = 263, p-value = 0.08656
+```
+
+Using `friedman_test()` from package `coin`.
+
+
+```r
+library(coin)
 friedman_test(DV ~ IV | id, distribution=approximate(B=9999), data=Pdf)
 ```
 
@@ -239,24 +265,20 @@ friedman_test(DV ~ IV | id, distribution=approximate(B=9999), data=Pdf)
 
 data:  DV by
 	 IV (A < B < C < D) 
-	 stratified by id 
+	 stratified by id
 chi-squared = 2.028, p-value = 0.1735
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
+try(detach(package:DescTools))
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

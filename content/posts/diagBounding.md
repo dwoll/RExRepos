@@ -23,15 +23,13 @@ hullIdx <- chull(xy)
 ```
 
 
-
 ```r
 plot(xy, xlab="x", ylab="y", asp=1, type="n")
 polygon(xy[hullIdx, ], border="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
 ```
 
-![plot of chunk rerDiagBounding01](../content/assets/figure/rerDiagBounding01.png) 
-
+![plot of chunk rerDiagBounding01](../content/assets/figure/rerDiagBounding01-1.png) 
 
 Bounding box
 -------------------------
@@ -48,7 +46,6 @@ getBoundingBox <- function(xy) {
 ```
 
 
-
 ```r
 bb <- getBoundingBox(xy)
 plot(xy, xlab="x", ylab="y", asp=1, type="n")
@@ -56,8 +53,7 @@ rect(bb$pts[1], bb$pts[2], bb$pts[3], bb$pts[4], border="blue", lwd="2")
 points(xy, pch=16, cex=1.5)
 ```
 
-![plot of chunk rerDiagBounding02](../content/assets/figure/rerDiagBounding02.png) 
-
+![plot of chunk rerDiagBounding02](../content/assets/figure/rerDiagBounding02-1.png) 
 
 
 ```r
@@ -65,9 +61,8 @@ bb$width * bb$height
 ```
 
 ```
-[1] 2517
+[1] 2516.849
 ```
-
 
 Minimum bounding box
 -------------------------
@@ -140,7 +135,6 @@ getMinBBox <- function(xy) {
 }
 ```
 
-
 ### Draw the minimum bounding box
 
 
@@ -157,8 +151,7 @@ polygon(mbb$pts, border="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
 ```
 
-![plot of chunk rerDiagBounding03](../content/assets/figure/rerDiagBounding03.png) 
-
+![plot of chunk rerDiagBounding03](../content/assets/figure/rerDiagBounding03-1.png) 
 
 
 ```r
@@ -166,7 +159,7 @@ mbb$width * mbb$height      ## box area
 ```
 
 ```
-[1] 2127
+[1] 2127.255
 ```
 
 ```r
@@ -174,9 +167,8 @@ mbb$angle                   ## box orientation
 ```
 
 ```
-[1] 149.4
+[1] 149.4153
 ```
-
 
 Minimum enclosing circle
 -------------------------
@@ -224,7 +216,6 @@ getCircleFrom3 <- function(xy) {
 }
 ```
 
-
 ### Vertex that produces the circle with the maximum radius
 
 Used later in `getMinCircle()`
@@ -250,7 +241,6 @@ getMaxRad <- function(xy, S) {
 }
 ```
 
-
 ### Check if the angle at B in triangle ABC exceeds 90 degrees
 
 
@@ -264,7 +254,6 @@ isBiggerThan90 <- function(xy) {
     return((dAB^2 + dBC^2 - dAC^2) < 0)
 }
 ```
-
 
 ### Minimal enclosing circle
 
@@ -300,7 +289,6 @@ getMinCircle <- function(xy) {
 }
 ```
 
-
 ### Draw the minimal enclosing circle
 
 
@@ -318,8 +306,7 @@ lines(circ, col="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
 ```
 
-![plot of chunk rerDiagBounding04](../content/assets/figure/rerDiagBounding04.png) 
-
+![plot of chunk rerDiagBounding04](../content/assets/figure/rerDiagBounding04-1.png) 
 
 Get the article source from GitHub
 ----------------------------------------------

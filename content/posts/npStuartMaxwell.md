@@ -22,7 +22,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 MH-test
 -------------------------
 
@@ -45,7 +44,6 @@ drug   lo med  hi Sum
 ```
 
 
-
 ```r
 library(coin)
 mh_test(cTab, distribution=approximate(B=9999))
@@ -57,10 +55,9 @@ mh_test(cTab, distribution=approximate(B=9999))
 
 data:  response by
 	 groups (drug, plac) 
-	 stratified by block 
-chi-squared = 12.14, p-value = 0.0017
+	 stratified by block
+chi-squared = 12.1387, p-value = 0.0016
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -68,13 +65,9 @@ Detach (automatically) loaded packages (if possible)
 
 ```r
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

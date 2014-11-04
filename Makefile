@@ -10,8 +10,8 @@ knit:
 .PHONY: clean
 clean:
 ## uncomment if on Linux
-#	$(RM) -rf output/*
+	$(RM) -rf output/*
 ## comment if on Linux
-	cmd /c for /d %f in (output\\*) do rmdir /s /q %f
-	cmd /c del /q output\\*.*
+#	cmd /c for /d %f in (output\\*) do rmdir /s /q %f
+#	cmd /c del /q output\\*.*
 	$(MAKE) clean -C Rmd

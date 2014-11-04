@@ -82,7 +82,7 @@ Anova(fitFiii, type="III")
 
 ```{r}
 anova(fitRegr, fitFull)
-anova(fitGrp, fitFull)
+anova(fitGrp,  fitFull)
 ```
 
 ### Test individual regression coefficients
@@ -170,10 +170,9 @@ try(detach(package:colorspace))
 try(detach(package:lattice))
 try(detach(package:grid))
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
 try(detach(package:multcomp))
 try(detach(package:survival))
 try(detach(package:mvtnorm))
 try(detach(package:splines))
+try(detach(package:TH.data))
 ```

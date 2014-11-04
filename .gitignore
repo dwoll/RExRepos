@@ -3,3 +3,6 @@ Rmd/cache
 Rmd/figure
 Rmd/*.html
 Rmd/*.md
+copyFromRexrepos.sh
+makeLog.txt
+

@@ -204,7 +204,8 @@ Useful packages
 
  - See package [`tourr`](http://cran.r-project.org/package=tourr) for an alternative to visualizing high-dimensional data.
  - Packages [`ggplot2`](http://cran.r-project.org/package=ggplot2) and [`lattice`](http://cran.r-project.org/package=lattice) provide their own graphics system and many functions for multi-panel plots.
- - Packages [`iplots`](http://www.rosuda.org/iplots/), [`rggobi`](http://cran.r-project.org/package=rggobi), and [`playwith`](http://cran.r-project.org/package=playwith) also create interactive diagrams.
+ - Packages [`rggobi`](http://cran.r-project.org/package=rggobi), and [`playwith`](http://cran.r-project.org/package=playwith) also create interactive diagrams.
+ - Packages [`googleVis`](http://cran.r-project.org/package=googleVis), [`ggvis`](http://cran.r-project.org/package=ggvis), and [`rCharts`](http://rcharts.io/) create online interactive diagrams based on JavaScript libraries.
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -212,8 +213,6 @@ Detach (automatically) loaded packages (if possible)
 ```{r}
 try(detach(package:car))
 try(detach(package:ellipse))
-try(detach(package:nnet))
-try(detach(package:MASS))
 try(detach(package:mvtnorm))
 try(detach(package:rgl))
 try(detach(package:lattice))

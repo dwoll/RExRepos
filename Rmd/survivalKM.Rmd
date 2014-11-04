@@ -55,6 +55,14 @@ status <- eventT <= censT      # has event occured?
 dfSurv <- data.frame(obsT, status, sex, X, IV)          # data frame
 ```
 
+Survival data in counting process (start-stop) notation.
+
+```{r}
+library(survival)
+dfSurvCP <- survSplit(dfSurv, cut=seq(30, 90, by=30), end="obsT",
+                      event="status", start="start", id="ID", zero=0)
+```
+
 Plot simulated data
 
 ```{r rerSurvivalKM01}
@@ -89,8 +97,7 @@ KM0 <- survfit(Surv(obsT, status) ~ 1,  type="kaplan-meier", conf.type="log", da
 Arbitrary quantiles for estimated survival function.
 
 ```{r}
-## survival 2.37-2 has a bug in quantile(), so this currently doesn't work
-# quantile(KM0, probs = c(0.25, 0.5, 0.75), conf.int=FALSE)
+quantile(KM0, probs=c(0.25, 0.5, 0.75), conf.int=FALSE)
 ```
 
 All estimated values for survival function including point-wise confidence interval.
@@ -130,12 +137,14 @@ plot(KM0, main=expression(paste("Kaplan-Meier-estimate ", hat(Lambda)(t))),
 Global test
 
 ```{r}
+library(survival)
 survdiff(Surv(obsT, status) ~ IV, data=dfSurv)
 ```
 
 Stratified for factor `sex`
 
 ```{r}
+library(survival)
 survdiff(Surv(obsT, status) ~ IV + strata(sex), data=dfSurv)
 ```
 

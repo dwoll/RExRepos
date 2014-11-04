@@ -5,26 +5,45 @@ body {
   background-color: #dddddd;
 }
 
-.navbar .brand {
+.nav > li > a {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.navbar-brand {
+  height: 30px;
   margin-left: 0px;
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
-.navbar .nav > li > a {
+.navbar-nav > li > a {
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
-.navbar-inner {
+.navbar {
   min-height: 30px;
+}
+
+#top.container {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 /* The white background content wrapper */
 .content {
   background-color: #ffffff;
-  padding: 0px 20px 20px 20px;
+  padding: 0px 40px 20px 40px;
   margin: 0px -20px 0px -20px; /* negative indent the amount of the padding to maintain the grid system */
+}
+
+.dropdown-header {
+/*  margin-right: -15px;
+  margin-left: -15px; */
+  padding-left: 15px;
+  padding-right: 15px;
+  font-weight: bold;
 }
 
 /* page-header tweaks */
@@ -32,12 +51,13 @@ body {
   background-color: #f5f5f5;
   border-bottom: 0px;
   padding: 5px 10px 10px 20px;
-  margin: 20px -20px 10px -20px;
+  margin: 20px -40px 10px -40px; /* negative indent the amount of the padding in .content */
 }
 
 h1 {
-  font-size:30px;
-  line-height:36px;
+  font-size: 30px;
+  line-height: 36px;
+  margin-top: 10px;
 }
 
 h1 small {
@@ -64,7 +84,8 @@ h4 {
 /* breadcrumb */
 .breadcrumb {
   padding: 7px 14px 7px 14px;
-  margin: -5px -20px 5px 0px; /* negative right indent the amount of content padding system */
+  /*margin: -5px -20px 5px 0px; *//* negative right indent the amount of content padding system */
+  margin: -5px -10px 5px 0px; /* negative right indent the amount of content padding system */
   background-color: #ededed;
   border-left: 1px solid #d4d4d4;
   border-bottom: 1px solid #d4d4d4;
@@ -87,8 +108,10 @@ h4 {
           box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
 }
 
-.breadcrumb > li > .divider {
+.breadcrumb > li + li:before {
     color: rgb(100, 100, 100);
+    content: "\00BB";
+    padding: 0 5px;
 }
 
 /* dropdown menu */
@@ -105,14 +128,12 @@ h4 {
   background-repeat: repeat-x;
 }
 
-.dropdown-menu li.active a {
-  padding: 0px;
+.sidebar-module {
+  margin-left: -20px;
 }
 
 /* nav-list active */
 .nav-list > li.active {
-  margin-left:-15px;
-  margin-right:-15px;
   padding:3px 15px;
   text-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
   background-color: #eeeeee;
@@ -130,12 +151,6 @@ h4 {
   padding: 0px;
   background-color: #eeeeee;
   text-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-}
-
-ul.nav-list {
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 9px;
 }
 
 /* ToC */
@@ -170,7 +185,7 @@ pre.sourceCode {
 p.footer {
   background-color:rgb(200, 200, 200);
   text-color:rgb(120, 120, 120);
-  margin:0px -20px 0px -20px;
+  margin:0px -15px 0px -15px;
   padding:10px 10px 10px 10px;
   font-size:11px;
 }
@@ -182,13 +197,16 @@ p.footer {
   padding:5px 0 ;
   overflow:hidden;
 }
+
 .tag_box li {
   line-height:28px;
 }
+
 .tag_box.inline li {
   margin-right:2px;
   float:left;
 }
+
 .tag_box a {
   padding: 3px 6px;
   margin: 2px;
@@ -197,10 +215,12 @@ p.footer {
   border-radius: 3px;
   text-decoration:none;
 }
+
 .tag_box a span{
   vertical-align:super;
   font-size:0.8em;
 }
+
 .tag_box a.active {
   background:#57A957;
   border:1px solid #4C964D;
@@ -210,7 +230,7 @@ p.footer {
 /* top link */
 p.toplink {
   margin-top: 10px;
-  margin-left: -20px;
+  margin-left: -40px;
   margin-bottom: -17px;
 }
 

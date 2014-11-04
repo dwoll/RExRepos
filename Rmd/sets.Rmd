@@ -18,10 +18,10 @@ TODO
 Install required packages
 -------------------------
 
-[`sets`](http://cran.r-project.org/package=sets)
+[`DescTools`](http://cran.r-project.org/package=DescTools), [`sets`](http://cran.r-project.org/package=sets)
 
 ```{r}
-wants <- c("sets")
+wants <- c("DescTools", "sets")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -43,6 +43,13 @@ setequal(x, y)
 duplicated(c(1, 1, 1, 3, 3, 4, 4))
 unique(c(1, 1, 1, 3, 3, 4, 4))
 length(unique(c("A", "B", "C", "C", "B", "B", "A", "C", "C", "A")))
+```
+
+`AllDuplicated()` from package `DescTools` indicates all occurrences of a duplicated value, even the first one.
+
+```{r}
+library(DescTools)
+AllDuplicated(c(1, 1, 1, 3, 3, 4, 4))
 ```
 
 Set operations
@@ -113,5 +120,6 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
+try(detach(package:DescTools))
 try(detach(package:sets))
 ```

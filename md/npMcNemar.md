@@ -22,7 +22,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 McNemar-test
 -------------------------
 
@@ -49,7 +48,6 @@ preFac no yes Sum
 ```
 
 
-
 ```r
 mcnemar.test(cTab, correct=FALSE)
 ```
@@ -58,10 +56,9 @@ mcnemar.test(cTab, correct=FALSE)
 
 	McNemar's Chi-squared test
 
-data:  cTab 
+data:  cTab
 McNemar's chi-squared = 0.0909, df = 1, p-value = 0.763
 ```
-
 
 ### Using `symmetry_test()` from package `coin`
 
@@ -77,10 +74,9 @@ symmetry_test(cTab, teststat="quad", distribution=approximate(B=9999))
 
 data:  response by
 	 groups (postFac, preFac) 
-	 stratified by block 
+	 stratified by block
 chi-squared = 0.0909, p-value = 1
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -88,13 +84,9 @@ Detach (automatically) loaded packages (if possible)
 
 ```r
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

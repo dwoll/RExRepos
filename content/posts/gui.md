@@ -32,8 +32,7 @@ For interactive data analysis: type in commands, hit `Return` key and get text o
 [1] 8
 ```
 
-
-Comments start with `#`
+Comments start with `#`, they are not executed as a command
 
 
 ```r
@@ -43,7 +42,6 @@ Comments start with `#`
 ```
 [1] 27
 ```
-
 
  * Copy and paste to and from the clipboard as usual (Windows: `Ctrl+c` and `Ctrl+v`)
  * Interrupt R with `ESC` (on Windows) or `Ctrl+c` (Linux)
@@ -69,7 +67,6 @@ getOption("width")
 [1] 75
 ```
 
-
 Change option, save previous value, and restore previous value
 
 
@@ -77,7 +74,6 @@ Change option, save previous value, and restore previous value
 op <- options(width=70)
 options(op)
 ```
-
 
 Also see `help(Startup)` for files controlling the startup options.
 
@@ -89,7 +85,8 @@ Compared to the standard user interface that is already included with R, there a
 ### For working with R commands
 
  - [RStudio](http://www.rstudio.org/) integrated development environment: Cross platform (Windows, MacOS, Linux), great support for the [workflow for these posts](<%= @config[:rer][:baseurl] %>/rerWorkflow.html), my preferred choice
- - [Eclipse](http://www.eclipse.org/eclipse) integrated development environment with [StatET](http://www.walware.de/goto/statet) plugin: Cross platform (Windows, MacOS, Linux), powerful, visual debugging support, somewhat complicated to set up ([installation instructions](http://www.splusbook.com/RIntro/R_Eclipse_StatET.pdf)), somewhat sluggish on older computers
+ - [Eclipse](http://www.eclipse.org/eclipse) integrated development environment with [StatET](http://www.walware.de/goto/statet) plugin: Cross platform (Windows, MacOS, Linux), powerful, visual debugging support, somewhat complicated to set up ([installation instructions](http://www.catherinedalzell.ca/wp-content/uploads/2012/09/Installing-R-Sweave-and-Eclipse-on-Windows.pdf)), somewhat sluggish on older computers
+ - [Architect](http://www.openanalytics.eu/architect) by OpenAnalytics: Combines Eclipse and StatET into a pre-configured bundle that removes the complicated Eclipse configuration
  - [TinnR](http://sourceforge.net/projects/tinn-r) text editor with good support for communicating with R: Windows only
  - [Emacs](http://www.gnu.org/software/emacs/) / [XEmacs](http://www.xemacs.org/) text editor with [Emacs Speaks Statistics](http://ess.r-project.org/) add-on: Cross platform (Windows, MacOS, Linux), very powerful, somewhat hard to learn
 

@@ -15,7 +15,6 @@ Further resources
 
 ### Online
 
- * [R graph gallery](http://gallery.r-enthusiasts.com/): Many examples for custom diagrams of various types
  * [Cookbook for R: `ggplot2` diagrams](http://www.cookbook-r.com/Graphs/): Diagrams with the [`ggplot2`](http://ggplot2.org/) package
  * [Learning R blog: `ggplot2` tag](http://learnr.wordpress.com/tag/ggplot2/): Diagrams with the [`ggplot2`](http://ggplot2.org/) package
 

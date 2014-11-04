@@ -18,15 +18,14 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`gdata`](http://cran.r-project.org/package=gdata)
+[`car`](http://cran.r-project.org/package=car), [`DescTools`](http://cran.r-project.org/package=DescTools)
 
 
 ```r
-wants <- c("car", "gdata")
+wants <- c("car", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
 
 Recode numerical or character variables
 -------------------------
@@ -49,7 +48,6 @@ farben
 ```
 
 
-
 ```r
 replace(c(1, 2, 3, 4, 5), list=c(2, 4), values=c(200, 400))
 ```
@@ -57,7 +55,6 @@ replace(c(1, 2, 3, 4, 5), list=c(2, 4), values=c(200, 400))
 ```
 [1]   1 200   3 400   5
 ```
-
 
 ### Using `recode()` from package `car`
 
@@ -72,7 +69,6 @@ recode(myColors, "'red'='rot'; 'blue'='blau'; 'purple'='violett'")
 ```
 
 
-
 ```r
 recode(myColors, "c('red', 'blue')='basic'; else='complex'")
 ```
@@ -80,7 +76,6 @@ recode(myColors, "c('red', 'blue')='basic'; else='complex'")
 ```
 [1] "basic"   "complex" "basic"   "basic"   "complex" "basic"   "complex"
 ```
-
 
 ### Using `ifelse()`
 
@@ -96,7 +91,6 @@ cutoff <- 10
 ```
 
 
-
 ```r
 targetSet <- c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K")
 response  <- c("Z", "E", "O", "W", "H", "C", "I", "G", "A", "O", "B")
@@ -107,7 +101,6 @@ response  <- c("Z", "E", "O", "W", "H", "C", "I", "G", "A", "O", "B")
  [1] "other" "E"     "other" "other" "H"     "C"     "I"     "G"    
  [9] "A"     "other" "B"    
 ```
-
 
 Cut continuous variables into categorical variables
 -------------------------
@@ -127,7 +120,6 @@ ifelse(IQ >= 100, "hi", "lo")
 ```
 
 
-
 ```r
 library(car)
 recode(IQ, "0:100=1; 101:115=2; else=3")
@@ -136,7 +128,6 @@ recode(IQ, "0:100=1; 101:115=2; else=3")
 ```
  [1] 1 1 3 2 2 3 2 1 1 1 3 2 2 2 1 3 2 1 2 1
 ```
-
 
 ### Turn ordered value ranges into factor levels using `cut()`
 
@@ -152,7 +143,6 @@ Levels: lo mid hi
 ```
 
 
-
 ```r
 medSplit <- cut(IQ, breaks=c(-Inf, median(IQ), Inf))
 summary(medSplit)
@@ -164,7 +154,6 @@ summary(medSplit)
 ```
 
 
-
 ```r
 IQdiscr <- cut(IQ, quantile(IQ), include.lowest=TRUE)
 summary(IQdiscr)
@@ -174,7 +163,6 @@ summary(IQdiscr)
 [70.5,92.6]  (92.6,102]   (102,108]   (108,127] 
           5           5           5           5 
 ```
-
 
 Recode factors
 -------------------------
@@ -214,7 +202,6 @@ status
 Levels: hi lo mid
 ```
 
-
 #### Combine factor levels
 
 
@@ -230,7 +217,6 @@ Levels: hi notHi
 ```
 
 
-
 ```r
 library(car)
 (statNew <- recode(status, "'hi'='high'; c('mid', 'lo')='notHigh'"))
@@ -240,7 +226,6 @@ library(car)
 [1] high    notHigh high    notHigh
 Levels: high notHigh
 ```
-
 
 #### Remove factor levels
 
@@ -263,10 +248,9 @@ Levels: hi lo mid
 Levels: hi lo
 ```
 
-
 ### Reorder factor levels
 
-#### Using `reorder.factor()` from package `gdata`
+#### Using `reorder.factor()` from package `DescTools`
 
 
 ```r
@@ -279,7 +263,7 @@ Levels: A B C
 ```
 
 ```r
-library(gdata)
+library(DescTools)
 (facRe <- reorder.factor(facGrp, new.order=c("C", "B", "A")))
 ```
 
@@ -287,7 +271,6 @@ library(gdata)
  [1] A A A A A B B B B B C C C C C
 Levels: C B A
 ```
-
 
 #### Reorder group levels according to group statistics
 
@@ -298,8 +281,8 @@ tapply(vec, facGrp, FUN=mean)
 ```
 
 ```
-     A      B      C 
- 7.801  4.652 16.636 
+        A         B         C 
+ 7.800560  4.652087 16.635740 
 ```
 
 ```r
@@ -311,18 +294,14 @@ reorder(facGrp, vec, FUN=mean)
 Levels: B A C
 ```
 
-
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
-try(detach(package:gdata))
+try(detach(package:DescTools))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

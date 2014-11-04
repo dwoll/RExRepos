@@ -13,10 +13,10 @@ Nonparametric location tests for one and two samples
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin)
+[`coin`](http://cran.r-project.org/package=coin), [`DescTools`](http://cran.r-project.org/package=DescTools)
 
 ```{r}
-wants <- c("coin")
+wants <- c("coin", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -25,19 +25,16 @@ One-sample
 -------------------------
 
 ### Sign-test
-    
+
+Two-sided test
+
 ```{r}
 set.seed(123)
 medH0 <- 30
 DV    <- sample(0:100, 20, replace=TRUE)
-DV    <- DV[DV != medH0]
-N     <- length(DV)
-(obs  <- sum(DV > medH0))
-```
 
-```{r}
-(pGreater <- 1-pbinom(obs-1, N, 0.5))
-(pTwoSided <- 2 * pGreater)
+library(DescTools)
+SignTest(DV, mu=medH0)
 ```
 
 ### Wilcoxon signed rank test
@@ -97,14 +94,14 @@ wDepDf <- data.frame(id=factor(rep(1:N, times=2)),
                      IV=factor(rep(0:1, each=N), labels=c("pre", "post")))
 ```
 
+Two-sided test
+
 ```{r}
 medH0  <- 0
 DVdiff <- aggregate(DV ~ id, FUN=diff, data=wDepDf)
-(obs   <- sum(DVdiff$DV < medH0))
-```
 
-```{r}
-(pLess <- pbinom(obs, N, 0.5))
+library(DescTools)
+SignTest(DVdiff$DV, mu=medH0)
 ```
 
 ### Wilcoxon signed rank test
@@ -118,10 +115,8 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
+try(detach(package:DescTools))
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
 ```

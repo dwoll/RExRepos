@@ -93,7 +93,7 @@ apply(mat, 1, function(x) set[x])
 N      <- length(grp)
 nPerms <- 100
 library(permute)
-pCtrl <- permControl(nperm=nPerms, complete=FALSE)
+pCtrl <- how(nperm=nPerms, complete=FALSE)
 for(i in 1:5) {
     perm <- permute(i, n=N, control=pCtrl)
     print(grp[perm])
@@ -116,13 +116,13 @@ IV2    <- factor(rep(1:Q, times=Njk*P))  ## factor B
 (myDf  <- data.frame(id, IV1, IV2))
 
 # choose permutation schemes for tests of factor A and B
-library(permute)         ## for permControl(), permute()
+library(permute)         ## for how(), permute()
 
 ## only permute across A (within B)
-pCtrlA <- permControl(strata=IV2, complete=FALSE, nperm=nPerms)
+pCtrlA <- how(plots=Plots(strata=IV2), complete=FALSE, nperm=nPerms)
 
 ## only permute across B (within A)
-pCtrlB <- permControl(strata=IV1, complete=FALSE, nperm=nPerms)
+pCtrlB <- how(plots=Plots(strata=IV1), complete=FALSE, nperm=nPerms)
 ```
 
 Get permutations for test of factor A
@@ -169,6 +169,5 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:e1071))
-try(detach(package:class))
 try(detach(package:permute))
 ```

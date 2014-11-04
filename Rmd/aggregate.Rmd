@@ -84,20 +84,26 @@ mapply(t.test, tDf1, tDf2, MoreArgs=list(alternative="less", var.equal=TRUE))
 ### Separate descriptive statistics for each group for many variables
 
 ```{r}
+(splitRes <- split(myDf1, myDf1$group))
+sapply(splitRes, function(x) mean(x$IQ))
+```
+
+```{r}
 tapply(myDf1$IQ, myDf1$group, FUN=mean)
 ```
 
 ```{r}
-aggregate(myDf1[ , c("age", "IQ", "rating")],
-          list(myDf1$sex, myDf1$group), FUN=mean)
+numDf <- subset(myDf1, select=c("age", "IQ", "rating"))
+aggregate(numDf, list(myDf1$sex, myDf1$group), FUN=mean)
 aggregate(cbind(age, IQ, rating) ~ sex + group, FUN=mean, data=myDf1)
+aggregate(cbind(age, IQ, rating) ~ 1, FUN=mean, data=myDf1)
 ```
 
 ```{r}
-by(myDf1[ , c("age", "IQ", "rating")], list(myDf1$sex, myDf1$group), FUN=mean)
+by(numDf, list(myDf1$sex, myDf1$group), FUN=function(x) sapply(x, mean))
 ```
 
 Useful packages
 -------------------------
 
-Package [`plyr`](http://cran.r-project.org/package=plyr) provides more functions for efficiently and consistently handling character strings.
+Package [`dplyr`](http://cran.r-project.org/package=dplyr) provides more functions for efficiently as well as consistently transforming and aggregating data.

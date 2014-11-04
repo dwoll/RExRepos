@@ -36,7 +36,8 @@ ls()
 List available objects
 
 ```{r}
-ls(pattern="C")
+# objects in .GlobalEnv workspace that have a capital C in their name
+ls(".GlobalEnv", pattern="C")
 exists("Bval")
 exists("doesNotExist")
 ```

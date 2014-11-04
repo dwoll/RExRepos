@@ -7,8 +7,8 @@ rerCat: Univariate
 tags: [Regression]
 ---
 
-
-
+Moderated and mediated linear regression
+=========================
 
 TODO
 -------------------------
@@ -18,15 +18,14 @@ TODO
 Install required packages
 -------------------------
 
-[`mediation`](http://cran.r-project.org/package=mediation), [`multilevel`](http://cran.r-project.org/package=multilevel), [`QuantPsyc`](http://cran.r-project.org/package=QuantPsyc)
+[`mediation`](http://cran.r-project.org/package=mediation), [`multilevel`](http://cran.r-project.org/package=multilevel), [`rockchalk`](http://cran.r-project.org/package=rockchalk)
 
 
 ```r
-wants <- c("mediation", "multilevel", "QuantPsyc")
+wants <- c("mediation", "multilevel", "rockchalk")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
     
 Moderated regression
 -------------------------
@@ -34,61 +33,115 @@ Moderated regression
 
 ```r
 set.seed(123)
-N <- 100
-X <- rnorm(N, 175, 7)
-M <- rnorm(N,  30, 8)
-Y <- 0.5*X - 0.3*M + 10 + rnorm(N, 0, 3)
-dfRegr <- data.frame(X, M, Y)
+N  <- 100
+X1 <- rnorm(N, 175, 7)
+X2 <- abs(rnorm(N, 60, 30))
+M  <- rnorm(N,  30, 8)
+Y  <- 0.5*X1 - 0.3*M - 0.4*X2 + 10 + rnorm(N, 0, 3)
+```
+
+
+```r
+X1c    <- c(scale(X1, center=TRUE, scale=FALSE))
+Mc     <- c(scale(M,  center=TRUE, scale=FALSE))
+fitMod <- lm(Y ~ X1c + Mc + X1c:Mc)
+coef(summary(fitMod))
+```
+
+```
+              Estimate Std. Error   t value     Pr(>|t|)
+(Intercept) 65.4617132 1.19492420 54.783151 3.154328e-74
+X1c          0.6086687 0.19071197  3.191560 1.912979e-03
+Mc          -0.3591561 0.15821174 -2.270097 2.543797e-02
+X1c:Mc      -0.0377977 0.02323204 -1.626964 1.070227e-01
 ```
 
 
 
 ```r
-Xc <- c(scale(dfRegr$X, center=TRUE, scale=FALSE))
-Mc <- c(scale(dfRegr$M, center=TRUE, scale=FALSE))
-fitMod <- lm(Y ~ Xc + Mc + Xc:Mc, data=dfRegr)
-summary(fitMod)
+library(rockchalk)
+ps  <- plotSlopes(fitMod, plotx="X1c", modx="Mc", modxVals="std.dev")
 ```
 
-```
-
-Call:
-lm(formula = Y ~ Xc + Mc + Xc:Mc, data = dfRegr)
-
-Residuals:
-   Min     1Q Median     3Q    Max 
--5.616 -2.033 -0.326  1.769  6.950 
-
-Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 89.45659    0.28442  314.52  < 2e-16 ***
-Xc           0.45289    0.04530   10.00  < 2e-16 ***
-Mc          -0.28173    0.03755   -7.50  3.2e-11 ***
-Xc:Mc        0.00852    0.00613    1.39     0.17    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-
-Residual standard error: 2.84 on 96 degrees of freedom
-Multiple R-squared: 0.639,	Adjusted R-squared: 0.628 
-F-statistic: 56.7 on 3 and 96 DF,  p-value: <2e-16 
-```
-
-
-Only valid for models with exactly one predictor, one moderator, and one predicted variable. Function will appear to work in more complex models, but results will then be wrong.
-
+![plot of chunk moderation](../content/assets/figure/moderation-1.png) 
 
 ```r
-library(QuantPsyc)
-sim.slopes(fitMod, Mc)
+(ts <- testSlopes(ps))
 ```
 
 ```
-           INT  Slope      SE    LCL    UCL
-at zHigh 87.28 0.5188 0.07060 0.3787 0.6590
-at zMean 89.46 0.4529 0.04530 0.3630 0.5428
-at zLow  91.64 0.3870 0.06019 0.2675 0.5064
+Values of Mc INSIDE this interval:
+        lo         hi 
+-62.927712   5.172316 
+cause the slope of (b1 + b2*Mc)X1c to be statistically significant
 ```
 
+```
+$hypotests
+       "Mc"     slope Std. Error  t value    Pr(>|t|)
+(m-sd) -7.6 0.8959312   0.280258 3.196809 0.001881830
+(m)     0.0 0.6086687   0.190712 3.191560 0.001912979
+(m+sd)  7.6 0.3214062   0.237796 1.351605 0.179677937
+
+$jn
+$jn$a
+       X1c:Mc 
+-0.0006979488 
+
+$jn$b
+        X1c 
+-0.04031031 
+
+$jn$c
+      X1c 
+0.2271698 
+
+$jn$inroot
+        X1c 
+0.002259132 
+
+$jn$roots
+        lo         hi 
+-62.927712   5.172316 
+
+
+$pso
+$call
+plotSlopes.lm(model = fitMod, plotx = "X1c", modx = "Mc", modxVals = "std.dev")
+
+$newdata
+        X1c   Mc      fit
+1 -16.79702 -7.6 53.14232
+2 -16.79702  0.0 55.23789
+3 -16.79702  7.6 57.33346
+4  14.67849 -7.6 81.34222
+5  14.67849  0.0 74.39605
+6  14.67849  7.6 67.44989
+
+$modxVals
+(m-sd)    (m) (m+sd) 
+  -7.6    0.0    7.6 
+
+$col
+(m-sd)    (m) (m+sd) 
+     1      2      3 
+
+$lty
+(m-sd)    (m) (m+sd) 
+     1      2      3 
+
+attr(,"class")
+[1] "plotSlopes" "rockchalk" 
+
+attr(,"class")
+[1] "testSlopes"
+```
+
+```r
+plot(ts)
+```
+
+![plot of chunk moderation](../content/assets/figure/moderation-2.png) 
 
 Mediation analysis
 -------------------------
@@ -105,7 +158,6 @@ dfMed <- data.frame(X, M, Y)
 ```
 
 
-
 ```r
 fit <- lm(Y ~ X + M, data=dfMed)
 summary(fit)
@@ -117,22 +169,21 @@ Call:
 lm(formula = Y ~ X + M, data = dfMed)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--13.869  -2.588  -0.017   3.445  14.097 
+     Min       1Q   Median       3Q      Max 
+-12.4088  -3.5870   0.0208   3.5566  12.6895 
 
 Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept)   9.3822    11.1750    0.84    0.403    
-X            -0.1916     0.0908   -2.11    0.037 *  
-M             0.5945     0.0939    6.33  7.6e-09 ***
+            Estimate Std. Error t value Pr(>|t|)   
+(Intercept) -1.69901   13.52495  -0.126  0.90029   
+X            0.05606    0.12139   0.462  0.64525   
+M            0.32752    0.11343   2.887  0.00479 **
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 4.62 on 97 degrees of freedom
-Multiple R-squared: 0.347,	Adjusted R-squared: 0.334 
-F-statistic: 25.8 on 2 and 97 DF,  p-value: 1.04e-09 
+Residual standard error: 5.183 on 97 degrees of freedom
+Multiple R-squared:  0.2223,	Adjusted R-squared:  0.2063 
+F-statistic: 13.86 on 2 and 97 DF,  p-value: 5.066e-06
 ```
-
 
 ### Sobel test
 
@@ -144,34 +195,33 @@ sobel(dfMed$X, dfMed$M, dfMed$Y)
 
 ```
 $`Mod1: Y~X`
-            Estimate Std. Error t value Pr(>|t|)
-(Intercept)  11.0579   13.21242  0.8369 0.404667
-pred          0.2167    0.07554  2.8688 0.005047
+              Estimate Std. Error    t value     Pr(>|t|)
+(Intercept) -9.8283102 13.7149511 -0.7166129 4.753174e-01
+pred         0.3311861  0.0779808  4.2470206 4.933825e-05
 
 $`Mod2: Y~X+M`
-            Estimate Std. Error t value  Pr(>|t|)
-(Intercept)   9.3822   11.17501  0.8396 4.032e-01
-pred         -0.1916    0.09078 -2.1107 3.737e-02
-med           0.5945    0.09391  6.3300 7.609e-09
+               Estimate Std. Error    t value    Pr(>|t|)
+(Intercept) -1.69900547 13.5249478 -0.1256201 0.900292638
+pred         0.05606161  0.1213932  0.4618182 0.645245742
+med          0.32751615  0.1134279  2.8874394 0.004788962
 
 $`Mod3: M~X`
-            Estimate Std. Error t value  Pr(>|t|)
-(Intercept)   2.8188   12.01663  0.2346 8.150e-01
-pred          0.6869    0.06871  9.9975 1.226e-16
+               Estimate  Std. Error   t value     Pr(>|t|)
+(Intercept) -24.8210806 11.78103163 -2.106868 3.768266e-02
+pred          0.8400333  0.06698488 12.540641 4.315325e-22
 
 $Indirect.Effect
-[1] 0.4083
+[1] 0.2751245
 
 $SE
-[1] 0.07635
+[1] 0.09777623
 
 $z.value
-[1] 5.348
+[1] 2.813817
 
 $N
 [1] 100
 ```
-
 
 ### Using package `mediation`
 
@@ -195,11 +245,11 @@ Causal Mediation Analysis
 
 Quasi-Bayesian Confidence Intervals
 
-                         Estimate 95% CI Lower 95% CI Upper p-value
-Mediation Effect           0.4076       0.2637       0.5651    0.00
-Direct Effect             -0.1899      -0.3623      -0.0128    0.03
-Total Effect               0.2177       0.0660       0.3672    0.01
-Proportion via Mediation   1.8360       1.0324       5.4378    0.15
+               Estimate 95% CI Lower 95% CI Upper p-value
+ACME             0.2731       0.0685       0.4673    0.01
+ADE              0.0577      -0.1790       0.2946    0.67
+Total Effect     0.3307       0.1782       0.4917    0.00
+Prop. Mediated   0.8303       0.1934       1.8214    0.01
 
 Sample Size Used: 100 
 
@@ -208,13 +258,11 @@ Simulations: 999
 ```
 
 
-
 ```r
 plot(fitMed)
 ```
 
-![plot of chunk rerRegressionModMed01](../content/assets/figure/rerRegressionModMed01.png) 
-
+![plot of chunk rerRegressionModMed01](../content/assets/figure/rerRegressionModMed01-1.png) 
 
 #### Estimation via nonparametric bootstrap
 
@@ -228,20 +276,19 @@ summary(fitMedBoot)
 
 Causal Mediation Analysis 
 
-Confidence Intervals Based on Nonparametric Bootstrap
+Nonparametric Bootstrap Confidence Intervals with the Percentile Method
 
-                         Estimate 95% CI Lower 95% CI Upper p-value
-Mediation Effect           0.4083       0.2598       0.5507    0.00
-Direct Effect             -0.1916      -0.3257      -0.0417    0.01
-Total Effect               0.2167       0.0791       0.3506    0.00
-Proportion via Mediation   1.8842       1.1362       4.6463    0.09
+               Estimate 95% CI Lower 95% CI Upper p-value
+ACME             0.2751       0.0685       0.4681    0.02
+ADE              0.0561      -0.1809       0.3059    0.67
+Total Effect     0.3312       0.1374       0.5008    0.00
+Prop. Mediated   0.8307       0.1890       2.0355    0.02
 
 Sample Size Used: 100 
 
 
 Simulations: 999 
 ```
-
 
 Useful packages
 -------------------------
@@ -253,17 +300,16 @@ Detach (automatically) loaded packages (if possible)
 
 
 ```r
-try(detach(package:QuantPsyc))
-try(detach(package:boot))
+try(detach(package:rockchalk))
 try(detach(package:mediation))
 try(detach(package:Matrix))
 try(detach(package:lpSolve))
-try(detach(package:lattice))
 try(detach(package:multilevel))
 try(detach(package:MASS))
 try(detach(package:nlme))
+try(detach(package:sandwich))
+try(detach(package:mvtnorm))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

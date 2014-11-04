@@ -22,7 +22,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Factor analysis
 -------------------------
 
@@ -49,7 +48,6 @@ Q <- 2
 [6,] -0.8  0.1
 ```
 
-
 Non correlated factors
 
 
@@ -62,7 +60,6 @@ FF <- rmvnorm(N, mean=mu,        sigma=Kf)
 E  <- rmvnorm(N, mean=rep(0, P), sigma=diag(P))
 X  <- FF %*% t(Lambda) + E
 ```
-
 
 ### Using `factanal()`
 
@@ -98,7 +95,6 @@ The chi square statistic is 1.43 on 4 degrees of freedom.
 The p-value is 0.84 
 ```
 
-
 ### Using `fa()` from package `psych` with rotation
 
 Rotation uses package `GPArotation`
@@ -114,13 +110,13 @@ corMat <- cor(X)
 Factor Analysis using method =  minres
 Call: fa(r = corMat, nfactors = 2, n.obs = N, rotate = "varimax")
 Standardized loadings (pattern matrix) based upon correlation matrix
-    MR2   MR1   h2   u2
-1  0.57 -0.24 0.38 0.62
-2  0.60  0.03 0.36 0.64
-3 -0.22  0.85 0.77 0.23
-4 -0.20  0.28 0.12 0.88
-5  0.33  0.49 0.34 0.66
-6 -0.62  0.07 0.39 0.61
+    MR2   MR1   h2   u2 com
+1  0.57 -0.24 0.38 0.62 1.4
+2  0.60  0.03 0.36 0.64 1.0
+3 -0.22  0.85 0.77 0.23 1.1
+4 -0.20  0.28 0.12 0.88 1.8
+5  0.33  0.49 0.34 0.66 1.8
+6 -0.62  0.07 0.39 0.61 1.0
 
                        MR2  MR1
 SS loadings           1.27 1.10
@@ -129,13 +125,14 @@ Cumulative Var        0.21 0.40
 Proportion Explained  0.53 0.47
 Cumulative Proportion 0.53 1.00
 
+Mean item complexity =  1.3
 Test of the hypothesis that 2 factors are sufficient.
 
-The degrees of freedom for the null model are  15  and the objective function was  0.82 with Chi Square of  160.4
+The degrees of freedom for the null model are  15  and the objective function was  0.82 with Chi Square of  160.38
 The degrees of freedom for the model are 4  and the objective function was  0.01 
 
 The root mean square of the residuals (RMSR) is  0.02 
-The df corrected root mean square of the residuals is  0.04 
+The df corrected root mean square of the residuals is  0.03 
 
 The harmonic number of observations is  200 with the empirical chi square  1.37  with prob <  0.85 
 The total number of observations was  200  with MLE Chi Square =  1.43  with prob <  0.84 
@@ -151,7 +148,6 @@ Multiple R square of scores with factors       0.66 0.78
 Minimum correlation of possible factor scores  0.33 0.56
 ```
 
-
 Factor scores
 -------------------------
 
@@ -162,15 +158,14 @@ head(bartlett)
 ```
 
 ```
-      Factor1 Factor2
-[1,] -0.14693 -0.4087
-[2,]  1.12205 -0.1700
-[3,]  0.06507  0.7207
-[4,] -0.11232  0.1412
-[5,] -0.24712  1.4317
-[6,]  1.09157  0.3979
+         Factor1    Factor2
+[1,] -0.14692704 -0.4087124
+[2,]  1.12204715 -0.1700198
+[3,]  0.06506737  0.7206915
+[4,] -0.11231953  0.1411704
+[5,] -0.24712181  1.4317221
+[6,]  1.09156957  0.3978757
 ```
-
 
 
 ```r
@@ -179,15 +174,14 @@ head(anderson$scores)
 ```
 
 ```
-         MR2     MR1
-[1,] -0.2025 -0.4724
-[2,]  1.3725 -0.1340
-[3,]  0.1182  0.8227
-[4,] -0.1308  0.1545
-[5,] -0.2286  1.6144
-[6,]  1.3650  0.5099
+            MR2        MR1
+[1,] -0.2024948 -0.4723557
+[2,]  1.3725281 -0.1339925
+[3,]  0.1181854  0.8226650
+[4,] -0.1308349  0.1545395
+[5,] -0.2286347  1.6144183
+[6,]  1.3650015  0.5099386
 ```
-
 
 Visualize loadings
 -------------------------
@@ -197,14 +191,13 @@ Visualize loadings
 factor.plot(faPC, cut=0.5)
 ```
 
-![plot of chunk rerMultFA01](../content/assets/figure/rerMultFA011.png) 
+![plot of chunk rerMultFA01](../content/assets/figure/rerMultFA01-1.png) 
 
 ```r
 fa.diagram(faPC)
 ```
 
-![plot of chunk rerMultFA01](../content/assets/figure/rerMultFA012.png) 
-
+![plot of chunk rerMultFA01](../content/assets/figure/rerMultFA01-2.png) 
 
 Determine number of factors
 -------------------------
@@ -216,7 +209,7 @@ Parallel analysis and a "very simple structure" analysis provide help in selecti
 fa.parallel(X)                     # parallel analysis
 ```
 
-![plot of chunk rerMultFA02](../content/assets/figure/rerMultFA021.png) 
+![plot of chunk rerMultFA02](../content/assets/figure/rerMultFA02-1.png) 
 
 ```
 Parallel analysis suggests that the number of factors =  2  and the number of components =  2 
@@ -226,28 +219,35 @@ Parallel analysis suggests that the number of factors =  2  and the number of co
 vss(X, n.obs=N, rotate="varimax")  # very simple structure
 ```
 
-![plot of chunk rerMultFA02](../content/assets/figure/rerMultFA022.png) 
+![plot of chunk rerMultFA02](../content/assets/figure/rerMultFA02-2.png) 
 
 ```
 
 Very Simple Structure
-Call: VSS(x = x, n = n, rotate = rotate, diagonal = diagonal, fm = fm, 
-    n.obs = n.obs, plot = plot, title = title)
+Call: vss(x = X, rotate = "varimax", n.obs = N)
 VSS complexity 1 achieves a maximimum of 0.59  with  3  factors
 VSS complexity 2 achieves a maximimum of 0.72  with  3  factors
 
-The Velicer MAP criterion achieves a minimum of NA  with  1  factors
- 
-Velicer MAP
-[1] 0.07 0.10 0.25 0.45 1.00   NA
+The Velicer MAP achieves a minimum of NA  with  1  factors 
+BIC achieves a minimum of  NA  with  2  factors
+Sample Size adjusted BIC achieves a minimum of  NA  with  2  factors
 
-Very Simple Structure Complexity 1
-[1] 0.45 0.57 0.59 0.57 0.52 0.53
-
-Very Simple Structure Complexity 2
-[1] 0.00 0.69 0.72 0.72 0.67 0.67
+Statistics by number of factors 
+  vss1 vss2  map dof   chisq    prob sqresid  fit RMSEA BIC SABIC complex
+1 0.45 0.00 0.07   9 6.1e+01 8.4e-10     4.3 0.45  0.17  13  41.9     1.0
+2 0.57 0.69 0.10   4 1.4e+00 8.4e-01     2.4 0.69  0.00 -20  -7.1     1.3
+3 0.59 0.72 0.25   0 4.5e-02      NA     2.0 0.74    NA  NA    NA     1.3
+4 0.57 0.72 0.45  -3 9.8e-11      NA     1.6 0.79    NA  NA    NA     1.4
+5 0.52 0.67 1.00  -5 1.5e-12      NA     1.5 0.80    NA  NA    NA     1.6
+6 0.53 0.67   NA  -6 0.0e+00      NA     1.5 0.81    NA  NA    NA     1.7
+   eChisq    SRMR eCRMS eBIC
+1 9.8e+01 1.3e-01 0.165   50
+2 1.4e+00 1.5e-02 0.029  -20
+3 4.3e-02 2.7e-03    NA   NA
+4 1.1e-10 1.4e-07    NA   NA
+5 1.8e-12 1.7e-08    NA   NA
+6 8.2e-27 1.2e-15    NA   NA
 ```
-
 
 Useful packages
 -------------------------
@@ -263,7 +263,6 @@ try(detach(package:psych))
 try(detach(package:GPArotation))
 try(detach(package:mvtnorm))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

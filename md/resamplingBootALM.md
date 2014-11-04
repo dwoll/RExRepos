@@ -28,7 +28,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Regression parameters: Case resampling
 -------------------------
 
@@ -44,7 +43,6 @@ dfRegr <- data.frame(X1, X2, X3, Y)
 ```
 
 
-
 ```r
 (fit <- lm(Y ~ X1 + X2 + X3, data=dfRegr))
 ```
@@ -56,7 +54,7 @@ lm(formula = Y ~ X1 + X2 + X3, data = dfRegr)
 
 Coefficients:
 (Intercept)           X1           X2           X3  
-     13.925        0.476       -0.283       -0.406  
+    13.9252       0.4762      -0.2827      -0.4057  
 ```
 
 ```r
@@ -65,7 +63,7 @@ sqrt(diag(vcov(fit)))
 
 ```
 (Intercept)          X1          X2          X3 
-    9.05358     0.05009     0.04105     0.01122 
+ 9.05357721  0.05008996  0.04104598  0.01122308 
 ```
 
 ```r
@@ -73,13 +71,12 @@ confint(fit)
 ```
 
 ```
-              2.5 %  97.5 %
-(Intercept) -4.0460 31.8964
-X1           0.3768  0.5757
-X2          -0.3641 -0.2012
-X3          -0.4280 -0.3835
+                 2.5 %     97.5 %
+(Intercept) -4.0460232 31.8963943
+X1           0.3768077  0.5756632
+X2          -0.3641438 -0.2011926
+X3          -0.4280163 -0.3834611
 ```
-
 
 
 ```r
@@ -88,7 +85,6 @@ getRegr <- function(dat, idx) {
     coef(bsFit)
 }
 ```
-
 
 
 ```r
@@ -107,13 +103,12 @@ boot(data = dfRegr, statistic = getRegr, R = nR)
 
 
 Bootstrap Statistics :
-    original     bias    std. error
-t1*  13.9252  0.0965488     8.00580
-t2*   0.4762 -0.0003379     0.04459
-t3*  -0.2827 -0.0007962     0.03971
-t4*  -0.4057 -0.0003035     0.01169
+      original        bias    std. error
+t1* 13.9251855  0.0965488381  8.00579816
+t2*  0.4762354 -0.0003379187  0.04459103
+t3* -0.2826682 -0.0007962273  0.03970876
+t4* -0.4057387 -0.0003034646  0.01168983
 ```
-
 
 
 ```r
@@ -121,8 +116,8 @@ boot.ci(bsRegr, conf=0.95, type="bca", index=1)$bca
 ```
 
 ```
-     conf                         
-[1,] 0.95 16.47 964.1 -3.212 28.48
+     conf                               
+[1,] 0.95 16.47 964.1 -3.211747 28.48014
 ```
 
 ```r
@@ -130,8 +125,8 @@ boot.ci(bsRegr, conf=0.95, type="bca", index=2)$bca
 ```
 
 ```
-     conf                          
-[1,] 0.95 32.58 981.5 0.3918 0.5687
+     conf                                
+[1,] 0.95 32.58 981.51 0.3918115 0.568677
 ```
 
 ```r
@@ -139,8 +134,8 @@ boot.ci(bsRegr, conf=0.95, type="bca", index=3)$bca
 ```
 
 ```
-     conf                            
-[1,] 0.95 20.67 969.9 -0.3723 -0.2112
+     conf                                   
+[1,] 0.95 20.67 969.91 -0.3723436 -0.2112341
 ```
 
 ```r
@@ -148,10 +143,9 @@ boot.ci(bsRegr, conf=0.95, type="bca", index=4)$bca
 ```
 
 ```
-     conf                            
-[1,] 0.95 23.16 973.1 -0.4293 -0.3837
+     conf                                  
+[1,] 0.95 23.16 973.1 -0.4292687 -0.3836797
 ```
-
 
 ANOVA
 -------------------------
@@ -170,7 +164,6 @@ dfCRp <- data.frame(IV=factor(rep(LETTERS[1:P], Nj)),
 ```
 
 
-
 ```r
 anBase <- anova(lm(DV ~ IV, data=dfCRp))
 Fbase  <- anBase["IV", "F value"]
@@ -178,9 +171,8 @@ Fbase  <- anBase["IV", "F value"]
 ```
 
 ```
-[1] 0.2184
+[1] 0.218359
 ```
-
 
 
 ```r
@@ -210,19 +202,22 @@ boot(data = dfCRp, statistic = getAnova, R = nR)
 
 
 Bootstrap Statistics :
-    original  bias    std. error
-t1*    1.494 -0.4779      0.8282
+    original     bias    std. error
+t1* 1.493977 -0.4779045   0.8281859
 ```
 
 ```r
 Fstar    <- bsAnova$t
-(pValBS  <- (sum(Fstar >= Fbase) + 1) / (length(Fstar) + 1))
+
+# don't use >= because of floating point arithmetic problems
+tol     <- .Machine$double.eps^0.5
+FsIsGEQ <- (Fstar > Fbase) | (abs(Fstar-Fbase) < tol)
+(pValBS <- (sum(FsIsGEQ) + 1) / (length(Fstar) + 1))
 ```
 
 ```
 [1] 0.215
 ```
-
 
 
 ```r
@@ -233,8 +228,7 @@ legend(x="topleft", lty=c(NA, 1), pch=c(1, NA), lwd=c(2, 2),
        col=c("gray60", "black"), legend=c("F*", "F"))
 ```
 
-![plot of chunk rerResamplingBootALM01](../content/assets/figure/rerResamplingBootALM01.png) 
-
+![plot of chunk rerResamplingBootALM01](../content/assets/figure/rerResamplingBootALM01-1.png) 
 
 ### Wild boostrap
 
@@ -259,19 +253,21 @@ getAnovaWild <- function(dat, idx) {
 ```
 
 
-
 ```r
 library(boot)
 nR       <- 999
 bsAnovaW <- boot(dfCRp, statistic=getAnovaWild, R=nR)
 FstarW   <- bsAnovaW$t
-(pValBSw <- (sum(FstarW >= Fbase) + 1) / (length(FstarW) + 1))
+
+# don't use >= because of floating point arithmetic problems
+tol      <- .Machine$double.eps^0.5
+FsIsGEQ  <- (FstarW > Fbase) | (abs(FstarW-Fbase) < tol)
+(pValBSw <- (sum(FsIsGEQ) + 1) / (length(FstarW) + 1))
 ```
 
 ```
 [1] 0.211
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -280,7 +276,6 @@ Detach (automatically) loaded packages (if possible)
 ```r
 try(detach(package:boot))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

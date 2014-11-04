@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Useful online resources
 -------------------------
 
@@ -47,10 +46,11 @@ Install and update add-on packages
 ```
 
 ```
-[1] "C:/Users/Daniel/Documents/R/win-library/2.15"
-[2] "C:/Program Files/R/R-2.15.2patched/library"  
+[1] "/home/dw/R/x86_64-pc-linux-gnu-library/3.1"
+[2] "/usr/local/lib/R/site-library"             
+[3] "/usr/lib/R/site-library"                   
+[4] "/usr/lib/R/library"                        
 ```
-
 
 
 ```r
@@ -59,133 +59,66 @@ installed.packages()
 ```
 
 
-
 ```r
 rownames(installed.packages())
 ```
 
 ```
-  [1] "abind"                   "adimpro"                
-  [3] "Amelia"                  "bdsmatrix"              
-  [5] "binom"                   "Biobase"                
-  [7] "BiocGenerics"            "BiocInstaller"          
-  [9] "bitops"                  "boot"                   
- [11] "brew"                    "BSDA"                   
- [13] "cairoDevice"             "car"                    
- [15] "caTools"                 "CircStats"              
- [17] "class"                   "cluster"                
- [19] "coda"                    "coin"                   
- [21] "colorspace"              "compositions"           
- [23] "corpcor"                 "coxme"                  
- [25] "DAAG"                    "dichromat"              
- [27] "digest"                  "e1071"                  
- [29] "EBImage"                 "effects"                
- [31] "ellipse"                 "energy"                 
- [33] "Epi"                     "epitools"               
- [35] "evaluate"                "expm"                   
- [37] "ez"                      "fastmatch"              
- [39] "fdrtool"                 "fields"                 
- [41] "filehash"                "foreign"                
- [43] "formatR"                 "Formula"                
- [45] "gam"                     "gdata"                  
- [47] "GeneNet"                 "ggm"                    
- [49] "ggplot2"                 "glmnet"                 
- [51] "googleVis"               "GPArotation"            
- [53] "gplots"                  "graph"                  
- [55] "gRbase"                  "gridBase"               
- [57] "gtable"                  "gtools"                 
- [59] "gWidgets"                "gWidgetsRGtk2"          
- [61] "hexbin"                  "Hmisc"                  
- [63] "HSAUR2"                  "ICS"                    
- [65] "ICSNP"                   "igraph"                 
- [67] "igraph0"                 "iplots"                 
- [69] "irr"                     "JavaGD"                 
- [71] "JGR"                     "knitr"                  
- [73] "labeling"                "lattice"                
- [75] "latticeExtra"            "lavaan"                 
- [77] "leaps"                   "lme4"                   
- [79] "lmPerm"                  "lmtest"                 
- [81] "longitudinal"            "lpSolve"                
- [83] "lubridate"               "markdown"               
- [85] "MASS"                    "Matrix"                 
- [87] "matrixcalc"              "maxLik"                 
- [89] "MBESS"                   "mediation"              
- [91] "memoise"                 "mgcv"                   
- [93] "mice"                    "miscTools"              
- [95] "mlogit"                  "mnormt"                 
- [97] "modeest"                 "modeltools"             
- [99] "multcomp"                "multcompView"           
-[101] "multilevel"              "multtest"               
-[103] "munsell"                 "mvoutlier"              
-[105] "mvtnorm"                 "nFactors"               
-[107] "nlme"                    "nnet"                   
-[109] "nortest"                 "numDeriv"               
-[111] "nutshell"                "nutshell.audioscrobbler"
-[113] "nutshell.bbdb"           "ordinal"                
-[115] "outliers"                "parcor"                 
-[117] "pbivnorm"                "pcaPP"                  
-[119] "permute"                 "perturb"                
-[121] "playwith"                "plotrix"                
-[123] "plyr"                    "polycor"                
-[125] "ppls"                    "pracma"                 
-[127] "pROC"                    "proto"                  
-[129] "pscl"                    "psych"                  
-[131] "pwr"                     "quadprog"               
-[133] "QuantPsyc"               "R2HTML"                 
-[135] "randomForest"            "RBGL"                   
-[137] "RColorBrewer"            "rcom"                   
-[139] "Rcpp"                    "RcppArmadillo"          
-[141] "RcppEigen"               "RCurl"                  
-[143] "reshape2"                "RExcelInstaller"        
-[145] "rgl"                     "RGtk2"                  
-[147] "rJava"                   "RJSONIO"                
-[149] "RMediation"              "rms"                    
-[151] "robCompositions"         "robust"                 
-[153] "robustbase"              "ROCR"                   
-[155] "RODBC"                   "rpart"                  
-[157] "rrcov"                   "rscproxy"               
-[159] "RWordPress"              "SAGx"                   
-[161] "sandwich"                "scales"                 
-[163] "scatterplot3d"           "sem"                    
-[165] "sets"                    "sfsmisc"                
-[167] "sgeostat"                "shotGroups"             
-[169] "sos"                     "spam"                   
-[171] "spatial"                 "statmod"                
-[173] "stringr"                 "survey"                 
-[175] "survival"                "svMisc"                 
-[177] "svSocket"                "TeachingDemos"          
-[179] "tensorA"                 "tikzDevice"             
-[181] "timeDate"                "TinnR"                  
-[183] "tourr"                   "tseries"                
-[185] "ucminf"                  "vcd"                    
-[187] "vegan"                   "verification"           
-[189] "VGAM"                    "waveslim"               
-[191] "XLConnect"               "XLConnectJars"          
-[193] "XML"                     "XMLRPC"                 
-[195] "zoo"                     "base"                   
-[197] "boot"                    "class"                  
-[199] "cluster"                 "codetools"              
-[201] "compiler"                "datasets"               
-[203] "foreign"                 "graphics"               
-[205] "grDevices"               "grid"                   
-[207] "KernSmooth"              "lattice"                
-[209] "MASS"                    "Matrix"                 
-[211] "methods"                 "mgcv"                   
-[213] "nlme"                    "nnet"                   
-[215] "parallel"                "rpart"                  
-[217] "spatial"                 "splines"                
-[219] "stats"                   "stats4"                 
-[221] "survival"                "tcltk"                  
-[223] "tools"                   "utils"                  
+  [1] "acepack"         "binom"           "bitops"         
+  [4] "brew"            "car"             "coin"           
+  [7] "colorspace"      "CompQuadForm"    "DBI"            
+ [10] "DEoptimR"        "DescTools"       "devtools"       
+ [13] "dichromat"       "digest"          "e1071"          
+ [16] "effects"         "ellipse"         "energy"         
+ [19] "epitools"        "evaluate"        "expm"           
+ [22] "formatR"         "Formula"         "gdata"          
+ [25] "GGally"          "ggplot2"         "GPArotation"    
+ [28] "gtable"          "gtools"          "hexbin"         
+ [31] "highr"           "Hmisc"           "httr"           
+ [34] "ICS"             "ICSNP"           "irr"            
+ [37] "jsonlite"        "knitr"           "labeling"       
+ [40] "latticeExtra"    "leaps"           "lme4"           
+ [43] "lmtest"          "lpSolve"         "manipulate"     
+ [46] "markdown"        "maxLik"          "mediation"      
+ [49] "memoise"         "mime"            "minqa"          
+ [52] "miscTools"       "mlogit"          "modeest"        
+ [55] "modeltools"      "multcomp"        "multilevel"     
+ [58] "munsell"         "mvoutlier"       "mvtnorm"        
+ [61] "nloptr"          "nortest"         "ordinal"        
+ [64] "pcaPP"           "permute"         "perturb"        
+ [67] "phia"            "plotrix"         "pls"            
+ [70] "plyr"            "polspline"       "polycor"        
+ [73] "pracma"          "pROC"            "proto"          
+ [76] "pscl"            "psych"           "quadprog"       
+ [79] "QuantPsyc"       "quantreg"        "RColorBrewer"   
+ [82] "Rcpp"            "RcppEigen"       "RCurl"          
+ [85] "reshape"         "reshape2"        "rgl"            
+ [88] "rms"             "robCompositions" "robustbase"     
+ [91] "rockchalk"       "rrcov"           "RSQLite"        
+ [94] "rstudio"         "rstudioapi"      "sandwich"       
+ [97] "scales"          "sets"            "sfsmisc"        
+[100] "sgeostat"        "shotGroups"      "sos"            
+[103] "SparseM"         "statmod"         "stringr"        
+[106] "survey"          "TH.data"         "tseries"        
+[109] "ucminf"          "vegan"           "VGAM"           
+[112] "whisker"         "zoo"             "base"           
+[115] "boot"            "class"           "cluster"        
+[118] "codetools"       "compiler"        "datasets"       
+[121] "foreign"         "graphics"        "grDevices"      
+[124] "grid"            "KernSmooth"      "lattice"        
+[127] "MASS"            "Matrix"          "methods"        
+[130] "mgcv"            "nlme"            "nnet"           
+[133] "parallel"        "rpart"           "spatial"        
+[136] "splines"         "stats"           "stats4"         
+[139] "survival"        "tcltk"           "tools"          
+[142] "utils"          
 ```
-
 
 
 ```r
 library()
 # not shown (opens separate window)
 ```
-
 
 ### Install and remove add-on packages
 
@@ -199,6 +132,7 @@ update.packages()
 # not shown
 ```
 
+See `install_github()` from package [`devtools`](http://cran.r-project.org/package=devtools) for installing from [GitHub](http://github.com/) repositories.
 
 ### Information provided by add-on packages
 
@@ -209,7 +143,6 @@ vignette()
 vignette("coin_implementation")
 # not shown (opens separate window)
 ```
-
 
 Use add-on packages
 -------------------------
@@ -223,7 +156,6 @@ Use add-on packages
 library(coin)
 ```
 
-
 Get a return value `TRUE` or `FALSE` that indicates whether package could be loaded
 
 
@@ -235,7 +167,6 @@ library(coin, logical.return=TRUE)
 [1] TRUE
 ```
 
-
 `require()` gives a warning if the package cannot be found
 
 
@@ -244,9 +175,20 @@ require(doesNotExist)
 ```
 
 ```
-Warning: there is no package called 'doesNotExist'
+Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
+logical.return = TRUE, : there is no package called 'doesNotExist'
 ```
 
+Explicitly state which package a function is from - if multiple packages export a function with the same name.
+
+
+```r
+base::mean(c(1, 3, 4))
+```
+
+```
+[1] 2.666667
+```
 
 ### Know which packages are currently loaded
 
@@ -256,27 +198,27 @@ sessionInfo()
 ```
 
 ```
-R version 2.15.2 Patched (2013-01-31 r61797)
-Platform: i386-w64-mingw32/i386 (32-bit)
+R version 3.1.1 (2014-07-10)
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 locale:
-[1] LC_COLLATE=German_Germany.1252  LC_CTYPE=German_Germany.1252   
-[3] LC_MONETARY=German_Germany.1252 LC_NUMERIC=C                   
-[5] LC_TIME=German_Germany.1252    
+ [1] LC_CTYPE=de_DE.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=de_DE.UTF-8        LC_COLLATE=de_DE.UTF-8    
+ [5] LC_MONETARY=de_DE.UTF-8    LC_MESSAGES=de_DE.UTF-8   
+ [7] LC_PAPER=de_DE.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=de_DE.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
- [1] stats4    grDevices datasets  splines   graphics  stats     methods  
- [8] tcltk     utils     base     
+[1] splines   methods   stats     graphics  grDevices utils     datasets 
+[8] base     
 
 other attached packages:
- [1] coin_1.0-21       modeltools_0.2-19 mvtnorm_0.9-9994 
- [4] stringr_0.6.2     knitr_1.0.5       svSocket_0.9-54  
- [7] TinnR_1.0-5       R2HTML_2.2        Hmisc_3.10-1     
-[10] survival_2.37-2  
+[1] coin_1.0-24     survival_2.37-7 stringr_0.6.2   knitr_1.7      
 
 loaded via a namespace (and not attached):
-[1] cluster_1.14.3  digest_0.6.2    evaluate_0.4.3  formatR_0.7    
-[5] grid_2.15.2     lattice_0.20-13 svMisc_0.9-68   tools_2.15.2   
+[1] evaluate_0.5.5    formatR_1.0       modeltools_0.2-21 mvtnorm_1.0-0    
+[5] stats4_3.1.1      tools_3.1.1      
 ```
 
 ```r
@@ -284,16 +226,12 @@ search()
 ```
 
 ```
- [1] ".GlobalEnv"         "package:coin"       "package:modeltools"
- [4] "package:stats4"     "package:mvtnorm"    "package:stringr"   
- [7] "package:knitr"      "package:grDevices"  "package:datasets"  
-[10] "package:svSocket"   "package:TinnR"      "package:R2HTML"    
-[13] "package:Hmisc"      "package:survival"   "package:splines"   
-[16] "package:graphics"   "package:stats"      "package:methods"   
-[19] "package:tcltk"      "package:utils"      "SciViews:TempEnv"  
-[22] "Autoloads"          "package:base"      
+ [1] ".GlobalEnv"        "package:coin"      "package:survival" 
+ [4] "package:splines"   "package:methods"   "package:stringr"  
+ [7] "package:knitr"     "package:stats"     "package:graphics" 
+[10] "package:grDevices" "package:utils"     "package:datasets" 
+[13] "Autoloads"         "package:base"     
 ```
-
 
 ### Un-load a package
 
@@ -301,7 +239,6 @@ search()
 ```r
 detach(package:coin)
 ```
-
 
 Data sets from add-on packages
 -------------------------
@@ -313,20 +250,15 @@ data(jobsatisfaction, package="coin")
 # not shown (opens separate window)
 ```
 
-
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

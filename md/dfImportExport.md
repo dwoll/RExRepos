@@ -22,7 +22,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Use R for data entry
 -------------------------
 
@@ -33,7 +32,6 @@ Use R for data entry
 myVar <- c(4, 19, 22)
 ```
 
-
 Read data from the console with `scan()`. Lines are terminated by hitting the `Return` key, `scan()` quits when `Return` is hit on a blank line.
 
 
@@ -42,7 +40,6 @@ vec     <- scan()
 charVec <- scan(what="character")
 # not shown
 ```
-
 
 ### R's own graphical data editor
 
@@ -54,7 +51,6 @@ fix(myDf)
 # not shown
 ```
 
-
 Create an empty data frame
 
 
@@ -63,18 +59,16 @@ newDf <- edit(data.frame())
 # not shown
 ```
 
-
 Save R data to file
 -------------------------
 
-### Create a log-file for commands and output
+### Create a logfile for commands and output
 
 
 ```r
 sink("d:/daniel/logfile.txt", split=TRUE)
 # not shown
 ```
-
 
 ### Save and read R objects in text format
 
@@ -85,7 +79,6 @@ source("dumpMyDf.txt")
 # not shown
 ```
 
-
 ### Save data frame to a text file
 
 
@@ -94,7 +87,6 @@ myDf <- data.frame(IV=factor(rep(c("A", "B"), 5)), DV=rnorm(10))
 write.table(myDf, file="data.txt", row.names=FALSE)
 # not shown
 ```
-
 
 Read in data in text format
 -------------------------
@@ -111,7 +103,6 @@ readLines(file="data.txt")
 # not shown
 ```
 
-
 If the result should be a data frame, use `read.table()`.
 
 
@@ -122,7 +113,6 @@ read.table(file="data.txt", sep="\t")
 read.table(file="data.txt", stringsAsFactors=FALSE)
 # not shown
 ```
-
 
 To read comma-separated-value files, use `read.csv()`, for fixed-with-files `read.fwf()`.
 
@@ -138,7 +128,6 @@ read.table(file="http://www.uni-kiel.de/psychologie/dwoll/data.txt", header=TRUE
 # not shown
 ```
 
-
 Read and write data in R binary format
 -------------------------
 
@@ -150,15 +139,14 @@ load("data.RData")
 # not shown
 ```
 
-
 Exchange data with other statistics software and spreadsheets
 -------------------------
 
 ### Exchange data with SPSS, SAS and Stata
 
-One option is to use text files (tab-separated or comma-separated) to exchange data with other statistics software packages.
+One option is to use text files (tab-separated or comma-separated) as described above to exchange data with other statistics software packages.
 
-Another option to exchange data with SPSS, SAS and Stata is the `foreign` package.
+Another option to exchange data with SPSS, SAS and Stata (among others) is the `foreign` package. Example for SPSS:
 
 
 ```r
@@ -169,13 +157,11 @@ read.spss(file="data.sav", use.value.labels=TRUE, to.data.frame=FALSE,
 ```
 
 
-
 ```r
 write.foreign(df=myDf, datafile="d:/daniel/dataGoesHere.dat",
               codefile="d:/daniel/syntaxGoesHere.sps", package="SPSS")
 # not shown
 ```
-
 
 To read these files with SPSS, you may have to modify the created `.sps` syntax file: First write down the full path to the data file in the first line because SPSS' current working directory is probably not where that file is located. You may also have to make SPSS recognize the `.` as a decimal point if it's a german SPSS installation.
 
@@ -189,7 +175,7 @@ To set SPSS back to using a `,` as a decimal point:
 SET LOCALE='German'.
 ```
 
-Exchanging data with SAS and Stata works the same way.
+Exchanging data with SAS and Stata works the same way: Package `foreign` provides functions `read.xport()` for reading files in SAS XPORT format, `read.dta()` and `write.dta()` read and write Stata files, respectively.
 
 ### Use SPSS essentials for R
 
@@ -207,17 +193,25 @@ END PROGRAM.
 
 ### Exchange data with Excel
 
-One option is to use text files (tab-separated or comma-separated) to exchange data with spreadsheet applications.
+One option is to use text files (tab-separated or comma-separated) as described above to exchange data with spreadsheet applications.
 
 To read and write Excel files directly, use package [`XLConnect`](http://cran.r-project.org/package=XLConnect).
 
 Read and write data from a database
 -------------------------
 
-Excel files can also be treated as a database with the `RODBC` package. One can then use standard SQL commands like `query` and `fetch` to select data.
+There are R packages that provide an interface to all common database types. Using databases is described in more detail in:
+
+ * Adler, J. (2012). R in a Nutshell (2nd ed.). Sebastopol, CA: O'Reilly.
+ * Spector, P. (2008). Data Manipulation with R. New York, NY: Springer.
+
+### Using the ODBC interface with `RODBC`
+
+Excel files can also be treated as a database with the `RODBC` package. First, you have to [register a data source name (DSN)](http://www.stata.com/support/faqs/data-management/configuring-odbc-win/) for the file under your operating system. One can then use standard SQL commands like `SELECT` to select data.
 
 
 ```r
+# data.xls is the registered DSN
 library(RODBC)
 xlsCon <- odbcConnectExcel2007("data.xls", readOnly=FALSE)
 odbcGetInfo(xlsCon)
@@ -231,8 +225,43 @@ odbcClose(xlsCon)
 # not shown
 ```
 
+### Using the DBI interface with `RSQLite`
 
-There are R packages that provide an interface to all common database types, e.g. to [MySQL](http://cran.r-project.org/package=RMySQL), [Oracle](http://cran.r-project.org/package=ROracle) or [SQLite](http://cran.r-project.org/package=RSQLite).
+Simulate data first.
+
+
+```r
+IQ     <- rnorm(2*50, mean=100, sd=15)
+rating <- sample(LETTERS[1:3], 2*50, replace=TRUE)
+sex    <- factor(rep(c("f", "m"), times=50))
+myDf   <- data.frame(sex, IQ, rating, stringsAsFactors=FALSE)
+```
+
+Save data frame in SQLite database (= a file).
+
+
+```r
+library("RSQLite")
+drv <- dbDriver("SQLite")
+con <- dbConnect(drv, "myDf.db")
+dbWriteTable(con, name="MyDataFrame", value=myDf, row.names=FALSE)
+dbListTables(con)
+dbListFields(con, "MyDataFrame")
+out <- dbReadTable(con, "MyDataFrame")
+head(out, n=4)
+dbGetQuery(con, "SELECT sex, AVG(IQ) AS mIQ, SUM(IQ) as sIQ FROM MyDataFrame GROUP BY sex")
+res <- dbSendQuery(con, "SELECT IQ, rating FROM MyDataFrame WHERE rating = 'A'")
+
+while(!dbHasCompleted(res)) {
+  partial <- dbFetch(res, n=3)
+  print(partial)
+}
+
+dbClearResult(res)
+dbRemoveTable(con, "MyDataFrame")
+dbDisconnect(con)
+# not shown
+```
 
 Useful documents
 -------------------------
@@ -244,7 +273,7 @@ Useful documents
 Useful packages
 -------------------------
 
-Scrape HTML pages directly with [`XML`](http://cran.r-project.org/package=XML) (e.g., `readHTMLTable()`).
+The [CRAN Web Technologies Task View](http://CRAN.R-project.org/view=WebTechnologies) presents packages to directly scrape data from online sources. [`data.table`](http://cran.r-project.org/package=data.table) provides function `fread()` for high performance reading of large plain text data files.
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -253,8 +282,9 @@ Detach (automatically) loaded packages (if possible)
 ```r
 try(detach(package:foreign))
 try(detach(package:RODBC))
+try(detach(package:RSQLite))
+try(detach(package:DBI))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

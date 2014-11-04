@@ -10,6 +10,8 @@ tags: [knitr, WordPress]
 
 
 
+**Note: The described setup was last tested on 02/2013 and may require changes to work with current versions of WordPress**
+
 Setup for WordPress
 -------------------------
 
@@ -19,15 +21,14 @@ For blogging from R to WP, I recommend:
 
  - [SyntaxHighlighter](http://wordpress.org/extend/plugins/syntaxhighlighter/) plugin for WordPress for code boxes with R syntax highlighting
  - [MathJax](http://wordpress.org/extend/plugins/mathjax-latex/) plugin for WordPress for nice math rendering using $\LaTeX$ syntax
- - [`RWordPress`](http://www.omegahat.org/R/src/contrib/) R package for uploading posts from R to WP
+ - [`RWordPress`](http://www.omegahat.org/RWordPress/) R package for uploading posts from R to WP
 
-You will need to build `RWordPress` yourself, even on Windows. `RWordPress` depends on the packages `RCurl`, `XML`, and `XMLRPC`, which are available as source from [OmegaHat](http://www.omegahat.org/R/src/contrib/), or as Windows binary packages from [Prof. Ripley's site](http://www.stats.ox.ac.uk/pub/RWin/bin/windows/contrib/2.15/). On Linux, all build tools should already be installed, on Windows, download `Rtools<version>.exe` and follow the instructions from [Building R for Windows](http://cran.r-project.org/bin/windows/Rtools/). Then build and install `RWordPress`:
+You will need to build `RWordPress` yourself, even on Windows. `RWordPress` depends on the packages `RCurl`, `XML`, and `XMLRPC`. Note that `XMLRPC` is available from the [BioConductor](http://bioconductor.org/packages/release/extra/html/XMLRPC.html) repository. On Linux, all build tools should already be installed, on Windows, download `Rtools<version>.exe` and follow the instructions from [Building R for Windows](http://cran.r-project.org/bin/windows/Rtools/). Then build and install `RWordPress`:
 
 
 ```r
 install.packages("RWordPress", repos="http://www.omegahat.org/R", build=TRUE)
 ```
-
 
 Set up `RWordPress` with your login credentials and the site URL.
 
@@ -37,7 +38,6 @@ library(RWordPress)
 options(WordpressLogin=c(user="password"),
         WordpressURL="http://your_wp_installation.org/xmlrpc.php")
 ```
-
 
 To make syntax highlighting work in WP with the [SyntaxHighlighter](http://wordpress.org/extend/plugins/syntaxhighlighter/) plugin, R code should be enclosed in WP-shortcode instead of the knitr html output default `<pre><code class="r">...</code></pre>` like so:
 
@@ -54,7 +54,6 @@ One option is to set up knitr itself to wrap code into WP-shortcode format. The 
 knit_hooks$set(output=function(x, options) paste("\\[code\\]\n", x, "\\[/code\\]\n", sep=""))
 knit_hooks$set(source=function(x, options) paste("\\[code lang='r'\\]\n", x, "\\[/code\\]\n", sep=""))
 ```
-
 
 As an alternative, you can use the `XML` package to extract the html body produced by knitr and clean it to make it work for WordPress. Adapted with small modifications from [William K. Morris](http://wkmor1.wordpress.com/2012/07/01/rchievement-of-the-day-3-bloggin-from-r-14/):
 
@@ -83,7 +82,6 @@ knit2wp <- function(file) {
 }
 ```
 
-
 ### Send the post from R to WordPress
 
 In WP, you have to enable the "XML-RPC" option in Settings -> Writing -> Remote Publishing.
@@ -98,7 +96,6 @@ newPost(content=list(description=knit2wp('rerWorkflow.html'),
         publish=FALSE)
 ```
 
-
 If you plan to edit the post later and upload the changed html, save the return value from `newPost()`: It is the post id, necessary to identify the post using `editPost()`.
 
 
@@ -112,8 +109,11 @@ editPost(postID,
 ```
 
 
-
 For me, all this works fine, but I need to make sure the draft is opened first with the WP html editor, not the visual editor. So the html editor has to be "active", i.e., was used last. After openening the draft with the html editor, I have to switch to the visual editor, and then hit "publish". Publishing the post while still in the html editor does not work. Further switching between visual and html editor messes everything up.
+
+### Use knitr's `knit2wp()` function
+
+knitr now provides it's own `knit2wp()` function that is similar to the one defined above. In addition, it also wraps the call to `newPost()`: see the [knitr to WP example](http://yihui.name/knitr/demo/wordpress/).
 
 Get the article source from GitHub
 ----------------------------------------------

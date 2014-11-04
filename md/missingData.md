@@ -28,7 +28,6 @@ vec[5]
 ```
 
 
-
 ```r
 (vec1 <- c(10, 20, NA, 40, 50, NA))
 ```
@@ -44,7 +43,6 @@ length(vec1)
 ```
 [1] 6
 ```
-
 
 Identify missing values with `is.na()`
 
@@ -81,7 +79,6 @@ sum(is.na(vec1))
 [1] 2
 ```
 
-
 ### Identify missing data in matrices
 
 
@@ -106,7 +103,6 @@ vec1 FALSE FALSE  TRUE FALSE FALSE  TRUE
 vec2  TRUE FALSE FALSE FALSE FALSE FALSE
 ```
 
-
 Behavior of `NA` in different situations
 -------------------------
 
@@ -120,7 +116,6 @@ LETTERS[c(1, NA, 3)]
 ```
 [1] "A" NA  "C"
 ```
-
 
 ### Missing data in factors
 
@@ -143,7 +138,6 @@ factor(LETTERS[c(1, NA, 3)], exclude=NULL)
 Levels: A C <NA>
 ```
 
-
 ### Missing data in logical expressions
 
 
@@ -162,7 +156,6 @@ TRUE | NA
 ```
 [1] TRUE
 ```
-
 
 
 ```r
@@ -190,7 +183,6 @@ vecNA[which(logIdx)]
 [1] 2 5
 ```
 
-
 Code missing values as `NA`
 -------------------------
 
@@ -208,7 +200,6 @@ vec
 ```
 [1] 30 25 23 21 NA NA
 ```
-
 
 ### In matrices
 
@@ -234,7 +225,6 @@ mat
 [2,]   25   21   NA
 ```
 
-
 Statistical analysis with missing data
 -------------------------
 
@@ -251,7 +241,6 @@ mean(vecNA)
 ```
 
 
-
 ```r
 goodIdx <- !is.na(vecNA)
 mean(vecNA[goodIdx])
@@ -266,7 +255,7 @@ sd(na.omit(vecNA))
 ```
 
 ```
-[1] 4.615
+[1] 4.615192
 ```
 
 ```r
@@ -276,7 +265,6 @@ sum(vecNA, na.rm=TRUE)
 ```
 [1] -3
 ```
-
 
 ### In matrices
 
@@ -297,13 +285,12 @@ DV2    <- c(9, 4, 2, 7)
 ```
 
 
-
 ```r
 apply(matNA, 1, FUN=mean)
 ```
 
 ```
-[1]     NA     NA 11.333  8.667
+[1]        NA        NA 11.333333  8.666667
 ```
 
 ```r
@@ -311,9 +298,8 @@ apply(matNA, 1, FUN=mean, na.rm=TRUE)
 ```
 
 ```
-[1] 13.500  2.500 11.333  8.667
+[1] 13.500000  2.500000 11.333333  8.666667
 ```
-
 
 ### Casewise deletion of missing data
 
@@ -335,7 +321,6 @@ matNA[!rowNAidx, ]
 [1,]    27   5   2
 [2,]    22  -3   7
 ```
-
 
 
 ```r
@@ -362,7 +347,6 @@ ageNA   DV1   DV2
 ```
 
 
-
 ```r
 cov(matNA, use="complete.obs")
 ```
@@ -382,14 +366,12 @@ all(cov(matNA, use="complete.obs") == cov(na.omit(matNA)))
 [1] TRUE
 ```
 
-
 Set casewise deletion as a permanent option for statistical functions (another choice is `"na.fail"`)
 
 
 ```r
 options(na.action="na.omit")
 ```
-
 
 ### Pairwise deletion of missing data
 
@@ -399,7 +381,7 @@ rowMeans(matNA)
 ```
 
 ```
-[1]     NA     NA 11.333  8.667
+[1]        NA        NA 11.333333  8.666667
 ```
 
 ```r
@@ -415,12 +397,11 @@ cov(matNA, use="pairwise.complete.obs")
 ```
 
 ```
-       ageNA DV1     DV2
-ageNA  20.33  20 -16.000
-DV1    20.00  16 -10.000
-DV2   -16.00 -10   9.667
+          ageNA DV1        DV2
+ageNA  20.33333  20 -16.000000
+DV1    20.00000  16 -10.000000
+DV2   -16.00000 -10   9.666667
 ```
-
 
 Useful packages
 -------------------------

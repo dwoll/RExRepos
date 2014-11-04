@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Conventional LDA
 -------------------------
 
@@ -50,7 +49,6 @@ IV    <- factor(rep(1:length(Nj), Nj))
 Ydf   <- data.frame(IV, DV1=Y[ , 1], DV2=Y[ , 2])
 ```
 
-
 ### Run the analysis
 
 
@@ -64,25 +62,24 @@ Call:
 lda(IV ~ DV1 + DV2, data = Ydf)
 
 Prior probabilities of groups:
-     1      2      3 
-0.2500 0.4167 0.3333 
+        1         2         3 
+0.2500000 0.4166667 0.3333333 
 
 Group means:
-      DV1     DV2
-1 -3.9301  3.6858
-2  3.0763  3.2683
-3  0.8326 -0.8284
+         DV1        DV2
+1 -3.9300600  3.6858137
+2  3.0763419  3.2682592
+3  0.8326377 -0.8284297
 
 Coefficients of linear discriminants:
-        LD1      LD2
-DV1 0.30282 -0.02979
-DV2 0.01135 -0.34212
+           LD1         LD2
+DV1 0.30281673 -0.02978952
+DV2 0.01135247 -0.34212141
 
 Proportion of trace:
    LD1    LD2 
 0.6019 0.3981 
 ```
-
 
 
 ```r
@@ -91,15 +88,14 @@ head(ldaP$posterior)
 ```
 
 ```
-        1       2       3
-1 0.87692 0.03893 0.08415
-2 0.05949 0.77917 0.16134
-3 0.75783 0.22929 0.01287
-4 0.23219 0.16280 0.60501
-5 0.87531 0.02860 0.09609
-6 0.15145 0.71535 0.13319
+           1          2          3
+1 0.87692334 0.03892749 0.08414917
+2 0.05948677 0.77916960 0.16134364
+3 0.75783381 0.22929176 0.01287443
+4 0.23218561 0.16280484 0.60500954
+5 0.87531088 0.02860185 0.09608726
+6 0.15145306 0.71535330 0.13319364
 ```
-
 
 
 ```r
@@ -109,15 +105,14 @@ head(ld)
 ```
 
 ```
-       LD1     LD2
-1 -2.02645 -0.3006
-2  0.51103 -0.6493
-3 -1.29829 -2.2857
-4 -0.74102  0.7266
-5 -2.16732 -0.0797
-6  0.09253 -0.9354
+          LD1         LD2
+1 -2.02645465 -0.30063936
+2  0.51103261 -0.64927925
+3 -1.29829423 -2.28573892
+4 -0.74102145  0.72661802
+5 -2.16732369 -0.07970205
+6  0.09253344 -0.93543324
 ```
-
 
 ### Predicted classification
 
@@ -131,7 +126,6 @@ head(cls)
 [1] 1 2 1 3 1 2
 Levels: 1 2 3
 ```
-
 
 
 ```r
@@ -153,9 +147,8 @@ sum(diag(cTab)) / sum(cTab)
 ```
 
 ```
-[1] 0.7167
+[1] 0.7166667
 ```
-
 
 
 ```r
@@ -166,11 +159,11 @@ anova(lm(ld[ , 1] ~ IV))
 Analysis of Variance Table
 
 Response: ld[, 1]
-          Df Sum Sq Mean Sq F value  Pr(>F)    
-IV         2   42.1      21      21 1.4e-07 ***
-Residuals 57   57.0       1                    
+          Df Sum Sq Mean Sq F value    Pr(>F)    
+IV         2 42.074  21.037  21.037 1.437e-07 ***
+Residuals 57 57.000   1.000                      
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 ```r
@@ -181,20 +174,18 @@ anova(lm(ld[ , 2] ~ IV))
 Analysis of Variance Table
 
 Response: ld[, 2]
-          Df Sum Sq Mean Sq F value  Pr(>F)    
-IV         2   27.8    13.9    13.9 1.2e-05 ***
-Residuals 57   57.0     1.0                    
+          Df Sum Sq Mean Sq F value    Pr(>F)    
+IV         2 27.831  13.916  13.916 1.198e-05 ***
+Residuals 57 57.000   1.000                      
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 
 ```r
 priorP <- rep(1/nlevels(IV), nlevels(IV))
 ldaEq  <- lda(IV ~ DV1 + DV2, prior=priorP, data=Ydf)
 ```
-
 
 Robust LDA
 -------------------------
@@ -210,19 +201,19 @@ Call:
 lda(IV ~ DV1 + DV2, data = Ydf, method = "mve")
 
 Prior probabilities of groups:
-     1      2      3 
-0.2500 0.4167 0.3333 
+        1         2         3 
+0.2500000 0.4166667 0.3333333 
 
 Group means:
-      DV1     DV2
-1 -3.9301  3.6858
-2  3.0763  3.2683
-3  0.8326 -0.8284
+         DV1        DV2
+1 -3.9300600  3.6858137
+2  3.0763419  3.2682592
+3  0.8326377 -0.8284297
 
 Coefficients of linear discriminants:
-        LD1     LD2
-DV1  0.1597 -0.2562
-DV2 -0.3714 -0.2407
+           LD1        LD2
+DV1  0.1597400 -0.2562351
+DV2 -0.3714238 -0.2406715
 
 Proportion of trace:
    LD1    LD2 
@@ -239,7 +230,6 @@ predict(ldaRob)$class
 Levels: 1 2 3
 ```
 
-
 Quadratic Discriminant Analysis
 -------------------------
 
@@ -254,14 +244,14 @@ Call:
 qda(IV ~ DV1 + DV2, data = Ydf)
 
 Prior probabilities of groups:
-     1      2      3 
-0.2500 0.4167 0.3333 
+        1         2         3 
+0.2500000 0.4166667 0.3333333 
 
 Group means:
-      DV1     DV2
-1 -3.9301  3.6858
-2  3.0763  3.2683
-3  0.8326 -0.8284
+         DV1        DV2
+1 -3.9300600  3.6858137
+2  3.0763419  3.2682592
+3  0.8326377 -0.8284297
 ```
 
 ```r
@@ -274,7 +264,6 @@ predict(qdaRes)$class
 Levels: 1 2 3
 ```
 
-
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
@@ -283,7 +272,6 @@ Detach (automatically) loaded packages (if possible)
 try(detach(package:MASS))
 try(detach(package:mvtnorm))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

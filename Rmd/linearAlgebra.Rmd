@@ -35,10 +35,18 @@ t(X)
 
 ### Extracting the diagnoal and creating a diagonal matrix
 
+Extract the diagonal of a given matrix.
+
 ```{r}
 diag(cov(X))
+```
+
+Create a diagonal matrix based on a vector.
+
+```{r}
 diag(1:3)
 diag(2)
+diag(5, nrow=1)
 ```
 
 ### Multiplication
@@ -273,7 +281,7 @@ Matrix decompositions
 
 ### Eigenvalues and eigenvectors
 
-```{r Xmat, cache=TRUE}
+```{r}
 X  <- matrix(c(20, 26, 10, 19, 29, 27, 20, 12, 17, 23, 27, 25), nrow=4)
 (S <- cov(X))
 eigS <- eigen(S)
@@ -380,7 +388,6 @@ Detach (automatically) loaded packages (if possible)
 try(detach(package:MASS))
 try(detach(package:expm))
 try(detach(package:Matrix))
-try(detach(package:lattice))
 try(detach(package:pracma))
 try(detach(package:mvtnorm))
 ```

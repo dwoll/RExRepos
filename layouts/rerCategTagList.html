@@ -1,5 +1,5 @@
 <ul class="nav nav-list">
-  <li class="nav-header">Tags</li>
+  <li class="dropdown-header">Tags</li>
   <% if @item[:tags].nil? %>
   <li><a href="<%= @config[:base_url] + @config[:rer][:tagsPath] %>">Tag-list</a></li>
   <% else %>

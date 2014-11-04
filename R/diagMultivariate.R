@@ -1,15 +1,15 @@
 
-## @knitr echo=FALSE
+## ----echo=FALSE----------------------------------------------------------
 knit_hooks$set(rgl=hook_rgl)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 wants <- c("car", "ellipse", "lattice", "mvtnorm", "rgl")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 mu    <- c(1, 3)
 sigma <- matrix(c(1, 0.6, 0.6, 1), nrow=2)
 rng   <- 2.5
@@ -18,19 +18,19 @@ X     <- seq(mu[1]-rng*sigma[1, 1], mu[1]+rng*sigma[1, 1], length.out=N)
 Y     <- seq(mu[2]-rng*sigma[2, 2], mu[2]+rng*sigma[2, 2], length.out=N)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 set.seed(123)
 library(mvtnorm)
 genZ <- function(x, y) { dmvnorm(cbind(x, y), mu, sigma) }
 matZ <- outer(X, Y, FUN="genZ")
 
 
-## @knitr rerDiagMultivariate01
+## ----rerDiagMultivariate01-----------------------------------------------
 contour(X, Y, matZ, main="Contours for 2D-normal density")
 filled.contour(X, Y, matZ, main="Colored contours for 2D-normal density")
 
 
-## @knitr rerDiagMultivariate02
+## ----rerDiagMultivariate02-----------------------------------------------
 N      <- 10
 age    <- rnorm(N, 30, 8)
 sport  <- abs(-0.25*age + rnorm(N, 60, 40))
@@ -40,13 +40,13 @@ symbols(age, sport, circles=wScale, inch=0.6, fg=NULL, bg=rainbow(N),
         main="Weight against age and sport")
 
 
-## @knitr rerDiagMultivariate03
+## ----rerDiagMultivariate03-----------------------------------------------
 par(cex.main=1.4, mar=c(2, 2, 4, 2) + 0.1)
 persp(X, Y, matZ, xlab="x", ylab="y", zlab="Density", theta=5, phi=35,
       main="2D-normal probability density")
 
 
-## @knitr rerDiagMultivariate04, rgl=TRUE
+## ----rerDiagMultivariate04, rgl=TRUE-------------------------------------
 library(rgl)
 vecX <- rep(seq(-10, 10, length.out=10), times=10)
 vecY <- rep(seq(-10, 10, length.out=10),  each=10)
@@ -57,13 +57,13 @@ spheres3d(vecX, vecY, vecZ, col="red", radius=2)
 grid3d(c("x", "y+", "z"))
 
 
-## @knitr rerDiagMultivariate05, eval=FALSE
+## ----rerDiagMultivariate05, eval=FALSE-----------------------------------
 demo(rgl)
 example(persp3d)
 # not shown
 
 
-## @knitr rerDiagMultivariate06
+## ----rerDiagMultivariate06-----------------------------------------------
 Njk    <- 25
 P      <- 2
 Q      <- 2
@@ -75,14 +75,14 @@ myDf   <- data.frame(IV1, IV2, IQ, height)
 coplot(IQ ~ height | IV1*IV2, pch=16, data=myDf)
 
 
-## @knitr rerDiagMultivariate07
+## ----rerDiagMultivariate07-----------------------------------------------
 library(lattice)
 res <- histogram(IQ ~ height | IV1*IV2, data=myDf,
                  main="Histograms per group")
 print(res)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 N      <- 20
 P      <- 2
 IV     <- rep(c("CG", "T"), each=N/P)
@@ -93,12 +93,12 @@ score  <- round(-0.3*IQ + 0.7*age + rnorm(N, 0, 8), 1)
 mvDf   <- data.frame(IV, age, IQ, rating, score)
 
 
-## @knitr rerDiagMultivariate08
+## ----rerDiagMultivariate08-----------------------------------------------
 pairs(mvDf[c("age", "IQ", "rating", "score")], main="Scatter plot matrix",
       pch=16, col=c("red", "blue")[unclass(mvDf$IV)])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 myHist <- function(x, ...) { par(new=TRUE); hist(x, ..., main="") }
 myEll  <- function(x, y, nSegments=100, rad=1, ...) {
     splLL <- split(data.frame(x, y), mvDf$IV)
@@ -113,13 +113,13 @@ myEll  <- function(x, y, nSegments=100, rad=1, ...) {
 }
 
 
-## @knitr rerDiagMultivariate09
+## ----rerDiagMultivariate09-----------------------------------------------
 pairs(mvDf[c("age", "IQ", "rating", "score")], diag.panel=myHist,
       upper.panel=myEll, main="Scatter plot matrix", pch=16,
       col=c("red", "blue")[unclass(mvDf$IV)])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(mvtnorm)
 N <- 200
 P <- 8
@@ -130,31 +130,28 @@ E  <- rmvnorm(N, mean=rep(0, P), sigma=diag(P)*0.3)
 X  <- FF %*% t(Lambda) + E
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 corMat <- cor(X)
 rownames(corMat) <- paste("X", 1:P, sep="")
 colnames(corMat) <- paste("X", 1:P, sep="")
 round(corMat, 2)
 
 
-## @knitr rerDiagMultivariate10
+## ----rerDiagMultivariate10-----------------------------------------------
 image(corMat, axes=FALSE, main=paste("Correlation matrix of", P, "variables"))
 axis(side=1, at=seq(0, 1, length.out=P), labels=rownames(corMat))
 axis(side=2, at=seq(0, 1, length.out=P), labels=colnames(corMat))
 
 
-## @knitr rerDiagMultivariate11
+## ----rerDiagMultivariate11-----------------------------------------------
 library(ellipse)
 plotcorr(corMat, type="lower", diag=FALSE, main="Bivariate correlations")
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 try(detach(package:car))
 try(detach(package:ellipse))
-try(detach(package:nnet))
-try(detach(package:MASS))
 try(detach(package:mvtnorm))
 try(detach(package:rgl))
 try(detach(package:lattice))
-
 

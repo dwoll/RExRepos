@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Create and analyze data frames
 -------------------------
 
@@ -63,7 +62,6 @@ rating <- round(runif(N, min=0, max=6))
 12 12   f    WL  26 119      4
 ```
 
-
 ### Analyze the structure of data frames
 
 
@@ -96,20 +94,20 @@ summary(myDf1)
 ```
 
 ```
-       id        sex   group       age             IQ       
- Min.   : 1.00   f:5   CG:4   Min.   :18.0   Min.   : 75.0  
- 1st Qu.: 3.75   m:7   T :4   1st Qu.:25.2   1st Qu.: 84.8  
- Median : 6.50         WL:4   Median :28.5   Median : 92.0  
- Mean   : 6.50                Mean   :27.7   Mean   : 95.2  
- 3rd Qu.: 9.25                3rd Qu.:30.5   3rd Qu.:104.2  
- Max.   :12.00                Max.   :35.0   Max.   :119.0  
-     rating    
- Min.   :1.00  
- 1st Qu.:2.75  
- Median :4.00  
- Mean   :3.67  
- 3rd Qu.:5.00  
- Max.   :5.00  
+       id        sex   group       age              IQ        
+ Min.   : 1.00   f:5   CG:4   Min.   :18.00   Min.   : 75.00  
+ 1st Qu.: 3.75   m:7   T :4   1st Qu.:25.25   1st Qu.: 84.75  
+ Median : 6.50         WL:4   Median :28.50   Median : 92.00  
+ Mean   : 6.50                Mean   :27.67   Mean   : 95.17  
+ 3rd Qu.: 9.25                3rd Qu.:30.50   3rd Qu.:104.25  
+ Max.   :12.00                Max.   :35.00   Max.   :119.00  
+     rating     
+ Min.   :1.000  
+ 1st Qu.:2.750  
+ Median :4.000  
+ Mean   :3.667  
+ 3rd Qu.:5.000  
+ Max.   :5.000  
 ```
 
 ```r
@@ -125,7 +123,6 @@ str(myDf1)
  $ IQ    : num  111 93 84 97 85 89 91 75 113 102 ...
  $ rating: num  4 1 2 2 5 3 5 5 5 3 ...
 ```
-
 
 
 ```r
@@ -157,7 +154,6 @@ tail(myDf1)
 ```
 
 
-
 ```r
 library(car)
 some(myDf1, n=5)
@@ -173,13 +169,11 @@ some(myDf1, n=5)
 ```
 
 
-
 ```r
 View(myDf1)
 fix(myDf1)
 # not shown
 ```
-
 
 ### Data types in data frames
 
@@ -200,7 +194,6 @@ str(myDf2)
 ```
 
 
-
 ```r
 fac   <- as.factor(fac)
 myDf3 <- data.frame(fac, DV1, DV2, stringsAsFactors=FALSE)
@@ -213,7 +206,6 @@ str(myDf3)
  $ DV1: num  14 22 18
  $ DV2: chr  "red" "blue" "blue"
 ```
-
 
 ### Names of cases and variables
 
@@ -265,7 +257,6 @@ names(myDf1)
 ```
 
 
-
 ```r
 (rows <- paste("Z", 1:12, sep=""))
 ```
@@ -289,7 +280,6 @@ Z4  4   m     T  28  97      2
 Z5  5   m    CG  23  85      5
 Z6  6   f    CG  20  89      3
 ```
-
 
 Select and change observations
 -------------------------
@@ -368,7 +358,6 @@ Z4  28
 Z5  23
 ```
 
-
 See dfTransform for selecting subsets of data
 
 Work with variables from a data frame
@@ -417,9 +406,8 @@ search()[1:4]
 ```
 
 ```
-[1] ".GlobalEnv"   "myDf1"        "package:car"  "package:nnet"
+[1] ".GlobalEnv"      "myDf1"           "package:car"     "package:stringr"
 ```
-
 
 
 ```r
@@ -447,17 +435,13 @@ IQ
  [1] 111  93 130  97  85  89  91  75 113 102  83 119
 ```
 
-
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

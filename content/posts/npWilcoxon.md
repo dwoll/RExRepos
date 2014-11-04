@@ -13,53 +13,45 @@ tags: [Nonparametric, ClassicalNonparametric]
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin)
+[`coin`](http://cran.r-project.org/package=coin), [`DescTools`](http://cran.r-project.org/package=DescTools)
 
 
 ```r
-wants <- c("coin")
+wants <- c("coin", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
 
 One-sample
 -------------------------
 
 ### Sign-test
-    
+
+Two-sided test
+
 
 ```r
 set.seed(123)
 medH0 <- 30
 DV    <- sample(0:100, 20, replace=TRUE)
-DV    <- DV[DV != medH0]
-N     <- length(DV)
-(obs  <- sum(DV > medH0))
+
+library(DescTools)
+SignTest(DV, mu=medH0)
 ```
 
 ```
-[1] 15
-```
 
+	One-sample Sign-Test
 
-
-```r
-(pGreater <- 1-pbinom(obs-1, N, 0.5))
+data:  DV
+S = 15, number of differences = 20, p-value = 0.04139
+alternative hypothesis: true median is not equal to 30
+95.9 percent confidence interval:
+ 33 89
+sample estimates:
+median of the differences 
+                       54 
 ```
-
-```
-[1] 0.02069
-```
-
-```r
-(pTwoSided <- 2 * pGreater)
-```
-
-```
-[1] 0.04139
-```
-
 
 ### Wilcoxon signed rank test
 
@@ -70,7 +62,6 @@ medH0 <- 110
 ```
 
 
-
 ```r
 wilcox.test(IQ, alternative="greater", mu=medH0, conf.int=TRUE)
 ```
@@ -79,16 +70,15 @@ wilcox.test(IQ, alternative="greater", mu=medH0, conf.int=TRUE)
 
 	Wilcoxon signed rank test
 
-data:  IQ 
+data:  IQ
 V = 48, p-value = 0.01855
-alternative hypothesis: true location is greater than 110 
+alternative hypothesis: true location is greater than 110
 95 percent confidence interval:
- 113.5   Inf 
+ 113.5   Inf
 sample estimates:
 (pseudo)median 
            121 
 ```
-
 
 Two independent samples
 -------------------------
@@ -104,7 +94,6 @@ wIndDf <- data.frame(DV=c(DVa, DVb),
                      IV=factor(rep(1:2, Nj), labels=LETTERS[1:2]))
 ```
 
-
 Looks at the number of cases in each group which are below or above the median of the combined data.
 
 
@@ -117,11 +106,10 @@ median_test(DV ~ IV, distribution="exact", data=wIndDf)
 
 	Exact Median Test
 
-data:  DV by IV (A, B) 
-Z = 1.143, p-value = 0.3868
-alternative hypothesis: true mu is not equal to 0 
+data:  DV by IV (A, B)
+Z = 1.1431, p-value = 0.3868
+alternative hypothesis: true mu is not equal to 0
 ```
-
 
 ### Wilcoxon rank-sum test ($=$ Mann-Whitney $U$-test)
 
@@ -134,16 +122,15 @@ wilcox.test(DV ~ IV, alternative="less", conf.int=TRUE, data=wIndDf)
 
 	Wilcoxon rank sum test
 
-data:  DV by IV 
+data:  DV by IV
 W = 202, p-value = 0.02647
-alternative hypothesis: true location shift is less than 0 
+alternative hypothesis: true location shift is less than 0
 95 percent confidence interval:
-   -Inf -1.771 
+      -Inf -1.770728
 sample estimates:
 difference in location 
-                -9.761 
+             -9.761436 
 ```
-
 
 
 ```r
@@ -156,16 +143,15 @@ wilcox_test(DV ~ IV, alternative="less", conf.int=TRUE,
 
 	Exact Wilcoxon Mann-Whitney Rank Sum Test
 
-data:  DV by IV (A, B) 
-Z = -1.941, p-value = 0.02647
-alternative hypothesis: true mu is less than 0 
+data:  DV by IV (A, B)
+Z = -1.9407, p-value = 0.02647
+alternative hypothesis: true mu is less than 0
 95 percent confidence interval:
-   -Inf -1.771 
+      -Inf -1.770728
 sample estimates:
 difference in location 
-                -9.761 
+             -9.761436 
 ```
-
 
 Two dependent samples
 -------------------------
@@ -182,28 +168,30 @@ wDepDf <- data.frame(id=factor(rep(1:N, times=2)),
                      IV=factor(rep(0:1, each=N), labels=c("pre", "post")))
 ```
 
+Two-sided test
 
 
 ```r
 medH0  <- 0
 DVdiff <- aggregate(DV ~ id, FUN=diff, data=wDepDf)
-(obs   <- sum(DVdiff$DV < medH0))
+
+library(DescTools)
+SignTest(DVdiff$DV, mu=medH0)
 ```
 
 ```
-[1] 7
+
+	One-sample Sign-Test
+
+data:  DVdiff$DV
+S = 13, number of differences = 20, p-value = 0.2632
+alternative hypothesis: true median is not equal to 0
+95.9 percent confidence interval:
+ -1.255058 27.268025
+sample estimates:
+median of the differences 
+                  8.47604 
 ```
-
-
-
-```r
-(pLess <- pbinom(obs, N, 0.5))
-```
-
-```
-[1] 0.1316
-```
-
 
 ### Wilcoxon signed rank test
 
@@ -218,25 +206,21 @@ wilcoxsign_test(DV ~ IV | id, alternative="greater",
 	Exact Wilcoxon-Signed-Rank Test
 
 data:  y by x (neg, pos) 
-	 stratified by block 
+	 stratified by block
 Z = 2.128, p-value = 0.01638
-alternative hypothesis: true mu is greater than 0 
+alternative hypothesis: true mu is greater than 0
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
+try(detach(package:DescTools))
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

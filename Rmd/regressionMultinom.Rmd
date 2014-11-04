@@ -54,7 +54,7 @@ vglmFitMN <- vglm(Ycateg ~ X1 + X2, family=multinomial(refLevel=1), data=dfMN)
 Odds ratios
 
 ```{r}
-exp(coef(vglmFitMN))
+exp(VGAM::coef(vglmFitMN))
 ```
 
 ### Using `multinom()` from package `nnet`
@@ -84,7 +84,7 @@ Predicted category membership
 ### Predicted category probabilities
 
 ```{r}
-PhatCateg <- predict(vglmFitMN, type="response")
+PhatCateg <- VGAM::predict(vglmFitMN, type="response")
 head(PhatCateg)
 ```
 
@@ -114,7 +114,7 @@ Assess model fit
 
 ```{r}
 facHat <- factor(categHat, levels=levels(dfMN$Ycateg))
-cTab   <- table(dfMN$Ycateg, facHat, dnn=c("Ycateg", "facHat"))
+cTab   <- xtabs(~ Ycateg + facHat, data=dfMN)
 addmargins(cTab)
 ```
 
@@ -127,9 +127,9 @@ Correct classification rate
 ### Deviance, log-likelihood and AIC
 
 ```{r}
-deviance(vglmFitMN)
-logLik(vglmFitMN)
-AIC(vglmFitMN)
+VGAM::deviance(vglmFitMN)
+VGAM::logLik(vglmFitMN)
+VGAM::AIC(vglmFitMN)
 ```
 
 ### McFadden, Cox & Snell and Nagelkerke pseudo \(R^{2}\)
@@ -138,8 +138,8 @@ Log-likelihoods for full model and 0-model without predictors X1, X2
 
 ```{r}
 vglm0 <- vglm(Ycateg ~ 1, family=multinomial(refLevel=1), data=dfMN)
-LLf   <- logLik(vglmFitMN)
-LL0   <- logLik(vglm0)
+LLf   <- VGAM::logLik(vglmFitMN)
+LL0   <- VGAM::logLik(vglm0)
 ```
 
 McFadden pseudo-\(R^2\)
@@ -178,7 +178,7 @@ dfNew <- data.frame(X1=rnorm(Nnew, 175, 7),
 ### Predicted class probabilities
 
 ```{r}
-predict(vglmFitMN, dfNew, type="response")
+VGAM::predict(vglmFitMN, dfNew, type="response")
 ```
 
 ```{r results='hide'}
@@ -197,8 +197,8 @@ Coefficient tests and overall model test
 Estimated standard deviations and z-values for parameters
 
 ```{r}
-sumMN   <- summary(vglmFitMN)
-(coefMN <- coef(sumMN))
+sumMN   <- VGAM::summary(vglmFitMN)
+(coefMN <- VGAM::coef(sumMN))
 ```
 
 Approximative Wald-based confidence intervals
@@ -242,9 +242,7 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:mlogit))
-try(detach(package:MASS))
 try(detach(package:Formula))
-try(detach(package:statmod))
 try(detach(package:maxLik))
 try(detach(package:miscTools))
 try(detach(package:nnet))

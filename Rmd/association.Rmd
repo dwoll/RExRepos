@@ -18,10 +18,10 @@ TODO
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin), [`epitools`](http://cran.r-project.org/package=epitools), [`vcd`](http://cran.r-project.org/package=vcd)
+[`coin`](http://cran.r-project.org/package=coin), [`DescTools`](http://cran.r-project.org/package=DescTools)
 
 ```{r}
-wants <- c("coin", "epitools", "vcd")
+wants <- c("coin", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -86,32 +86,27 @@ Correct classification rate (CCR)
 #### Odds ratio
 
 ```{r}
-library(vcd)                          ## for oddsratio()
-(OR <- oddsratio(contT1, log=FALSE))  ## odds ratio
-(ORln <- oddsratio(contT1))           ## log odds ratio
-```
-
-```{r}
-summary(ORln)            ## significance test log OR
-```
-
-```{r}
-(CIln <- confint(ORln))  ## confidence interval log OR
-exp(CIln)                ## confidence interval OR (not log)
+library(DescTools)                    # for OddsRatio()
+(OR <- OddsRatio(contT1, conf.level=0.95))  # odds ratio
 ```
 
 #### Yule's \(Q\)
 
 ```{r}
-(Q <- (c11*c22 - c12*c21) / (c11*c22 + c12*c21))  ## Yule's Q
-(OR-1) / (OR+1)          ## alternative calculation given OR
+library(DescTools)                    # for YuleQ()
+YuleQ(contT1)  ## Yule's Q
 ```
 
 #### Risk ratio
 
 ```{r}
-library(epitools)
-riskratio(contT1, method="small")
+library(DescTools)                    # for RelRisk()
+RelRisk(contT1)                       # relative risk
+```
+
+```{r}
+(risk    <- prop.table(contT1, margin=1))
+(relRisk <- risk[1, 1] / risk[2, 1])
 ```
 
 \((r \times c)\)-tables
@@ -146,8 +141,8 @@ addmargins(cTab)
 ```
 
 ```{r}
-library(vcd)
-assocstats(cTab)
+library(DescTools)
+Assocs(cTab)
 ```
 
 Cochran-Mantel-Haenszel test for three-way tables
@@ -170,14 +165,8 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:vcd))
-try(detach(package:colorspace))
-try(detach(package:MASS))
-try(detach(package:grid))
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
+try(detach(package:DescTools))
 ```

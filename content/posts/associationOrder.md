@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Linear-by-linear association test
 -------------------------
 
@@ -42,7 +41,6 @@ Xdf   <- data.frame(rmvnorm(n=N, mean=mu, sigma=Sigma))
 ```
 
 
-
 ```r
 lOrd   <- lapply(Xdf, function(x) {
                  cut(x, breaks=quantile(x), include.lowest=TRUE,
@@ -50,7 +48,6 @@ lOrd   <- lapply(Xdf, function(x) {
 dfOrd  <- data.frame(lOrd)
 matOrd <- data.matrix(dfOrd)
 ```
-
 
 
 ```r
@@ -77,10 +74,9 @@ lbl_test(cTab, distribution=approximate(B=9999))
 
 	Approximative Linear-by-Linear Association Test
 
-data:  X3 (ordered) by X1 (A < B < C < D) 
-chi-squared = 17.13, p-value < 2.2e-16
+data:  X3 (ordered) by X1 (A < B < C < D)
+chi-squared = 17.1325, p-value < 2.2e-16
 ```
-
 
 Polychoric and polyserial correlation
 -------------------------
@@ -94,9 +90,8 @@ polychor(dfOrd$X1, dfOrd$X2, ML=TRUE)
 ```
 
 ```
-[1] 0.3086
+[1] 0.308646
 ```
-
 
 
 ```r
@@ -104,9 +99,8 @@ polychor(cTab, ML=TRUE)
 ```
 
 ```
-[1] -0.4818
+[1] -0.4818203
 ```
-
 
 ### Polyserial correlation
 
@@ -117,9 +111,8 @@ polyserial(Xdf$X2, dfOrd$X3)
 ```
 
 ```
-[1] -0.1303
+[1] -0.1302779
 ```
-
 
 ### Heterogeneous correlation matrices
 
@@ -136,35 +129,34 @@ hetcor(dfBoth, ML=TRUE)
 Maximum-Likelihood Estimates
 
 Correlations/Type of Correlation:
-          1       2        3         X1         X2         X3
-1         1 Pearson  Pearson Polyserial Polyserial Polyserial
-2     0.279       1  Pearson Polyserial Polyserial Polyserial
-3     -0.39 -0.0719        1 Polyserial Polyserial Polyserial
-X1   -0.051  -0.134  -0.0787          1 Polychoric Polychoric
-X2   -0.176  -0.262    0.049      0.309          1 Polychoric
-X3 -0.00571 -0.0344 -0.00621     -0.482    -0.0856          1
+           1        2         3         X1         X2         X3
+1          1  Pearson   Pearson Polyserial Polyserial Polyserial
+2     0.2792        1   Pearson Polyserial Polyserial Polyserial
+3    -0.3899 -0.07191         1 Polyserial Polyserial Polyserial
+X1  -0.05105  -0.1335  -0.07871          1 Polychoric Polychoric
+X2   -0.1755  -0.2621   0.04899     0.3086          1 Polychoric
+X3 -0.005707 -0.03443 -0.006209    -0.4818   -0.08556          1
 
 Standard Errors:
-        1      2     3     X1    X2
-1                                  
-2  0.0926                          
-3  0.0852 0.0998                   
-X1  0.107  0.104 0.108             
-X2  0.103    0.1 0.108  0.106      
-X3  0.107  0.108 0.109 0.0923 0.113
+         1       2      3      X1     X2
+1                                       
+2  0.09257                              
+3  0.08522 0.09977                      
+X1  0.1069  0.1044 0.1077               
+X2  0.1033  0.1001 0.1082  0.1062       
+X3  0.1071  0.1082 0.1088 0.09226 0.1132
 
 n = 100 
 
 P-values for Tests of Bivariate Normality:
-       1     2     3    X1     X2
-1                                
-2  0.816                         
-3  0.684 0.488                   
-X1 0.107 0.561 0.555             
-X2   0.2 0.734 0.247 0.472       
-X3 0.442  0.99 0.728 0.358 0.0477
+        1      2      3     X1      X2
+1                                     
+2  0.8156                             
+3  0.6836  0.488                      
+X1  0.107 0.5607 0.5548               
+X2    0.2 0.7338 0.2466 0.4721        
+X3 0.4423 0.9903 0.7281 0.3579 0.04774
 ```
-
 
 Association measures involving categorical and continuous variables
 -------------------------
@@ -181,7 +173,7 @@ y   <- x + rnorm(N, 0, 2)
 yDi <- ifelse(y <= median(y), 0, 1)
 ```
 
-Nagelkerke's pseudo-$R^{2}$ (R2), area under the ROC-Kurve (C), Somers' $D_{xy}$ (Dxy), Goodman & Kruskal's $\gamma$ (gamma), Kendall's $\tau$ (tau-a)
+Nagelkerke's pseudo-$R^{2}$ (R2), area under the ROC-Kurve (C), Somers' $D_{xy}$ (Dxy), Goodman & Kruskal's $\gamma$ (Gamma), Kendall's $\tau$ (Tau-a)
 
 
 ```r
@@ -190,14 +182,13 @@ lrm(yDi ~ x)$stats
 ```
 
 ```
-       Obs  Max Deriv Model L.R.       d.f.          P          C 
- 1.000e+02  4.371e-07  5.975e+00  1.000e+00  1.451e-02  6.354e-01 
-       Dxy      Gamma      Tau-a         R2      Brier          g 
- 2.708e-01  2.729e-01  1.368e-01  7.733e-02  2.357e-01  5.794e-01 
-        gr         gp 
- 1.785e+00  1.380e-01 
+         Obs    Max Deriv   Model L.R.         d.f.            P 
+1.000000e+02 4.370579e-07 5.974581e+00 1.000000e+00 1.451353e-02 
+           C          Dxy        Gamma        Tau-a           R2 
+6.354000e-01 2.708000e-01 2.728738e-01 1.367677e-01 7.732807e-02 
+       Brier            g           gr           gp 
+2.356851e-01 5.793523e-01 1.784882e+00 1.379571e-01 
 ```
-
 
 ### Area under the ROC-curve (AUC)
 
@@ -215,7 +206,7 @@ roc.formula(formula = yDi ~ x, plot = TRUE, ci = TRUE, main = "ROC-curve",     x
 
 Data: x in 50 controls (yDi 0) < 50 cases (yDi 1).
 Area under the curve: 0.634
-95% CI: 0.525-0.743 (DeLong)
+95% CI: 0.5249-0.7431 (DeLong)
 ```
 
 ```r
@@ -223,28 +214,27 @@ rocCI <- ci.se(rocRes)
 plot(rocCI, type="shape")
 ```
 
-![plot of chunk associationOrder01](../content/assets/figure/associationOrder01.png) 
-
+![plot of chunk associationOrder01](../content/assets/figure/associationOrder01-1.png) 
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
-try(detach(package:pROC))
-try(detach(package:plyr))
 try(detach(package:rms))
 try(detach(package:Hmisc))
+try(detach(package:grid))
+try(detach(package:lattice))
+try(detach(package:Formula))
+try(detach(package:SparseM))
+try(detach(package:pROC))
 try(detach(package:polycor))
 try(detach(package:sfsmisc))
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
 try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

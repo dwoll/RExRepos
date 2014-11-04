@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Simulated right-censored event times with Weibull distribution
 -------------------------
 
@@ -58,6 +57,14 @@ status <- eventT <= censT      # has event occured?
 dfSurv <- data.frame(obsT, status, sex, X, IV)          # data frame
 ```
 
+Survival data in counting process (start-stop) notation.
+
+
+```r
+library(survival)
+dfSurvCP <- survSplit(dfSurv, cut=seq(30, 90, by=30), end="obsT",
+                      event="status", start="start", id="ID", zero=0)
+```
 
 Plot simulated data
 
@@ -69,8 +76,7 @@ abline(v=obsLen, col="blue", lwd=2)
 text(obsLen-5, 0.2, adj=1, labels="end of study", cex=1.4)
 ```
 
-![plot of chunk rerSurvivalKM01](../content/assets/figure/rerSurvivalKM01.png) 
-
+![plot of chunk rerSurvivalKM01](../content/assets/figure/rerSurvivalKM01-1.png) 
 
 Kaplan-Meier-Analysis
 -------------------------
@@ -105,15 +111,17 @@ IV=B      60    60      60     46   35.0      20      58
 IV=C      60    60      60     58    9.5       4      13
 ```
 
-
 Arbitrary quantiles for estimated survival function.
 
 
 ```r
-## survival 2.37-2 has a bug in quantile(), so this currently doesn't work
-# quantile(KM0, probs = c(0.25, 0.5, 0.75), conf.int=FALSE)
+quantile(KM0, probs=c(0.25, 0.5, 0.75), conf.int=FALSE)
 ```
 
+```
+  25   50   75 
+ 4.0 14.0 46.5 
+```
 
 All estimated values for survival function including point-wise confidence interval.
 
@@ -181,7 +189,6 @@ Call: survfit(formula = Surv(obsT, status) ~ 1, data = dfSurv, type = "kaplan-me
   112     24       1    0.128  0.0249       0.0872        0.187
 ```
 
-
 ### Plot estimated survival function
 
 Global estimate including pointwise confidence intervals.
@@ -192,8 +199,7 @@ plot(KM0, main=expression(paste("Kaplan-Meier-estimate ", hat(S)(t), " with CI")
      xlab="t", ylab="Survival", lwd=2)
 ```
 
-![plot of chunk rerSurvivalKM02](../content/assets/figure/rerSurvivalKM02.png) 
-
+![plot of chunk rerSurvivalKM02](../content/assets/figure/rerSurvivalKM02-1.png) 
 
 Separate estimates for levels of factor `IV`
 
@@ -204,8 +210,7 @@ plot(KM, main=expression(paste("Kaplan-Meier-estimate ", hat(S)[g](t), " for gro
 legend(x="topright", col=1:3, lwd=2, legend=LETTERS[1:3])
 ```
 
-![plot of chunk rerSurvivalKM03](../content/assets/figure/rerSurvivalKM03.png) 
-
+![plot of chunk rerSurvivalKM03](../content/assets/figure/rerSurvivalKM03-1.png) 
 
 ### Plot cumulative hazard
 
@@ -217,8 +222,7 @@ plot(KM0, main=expression(paste("Kaplan-Meier-estimate ", hat(Lambda)(t))),
      xlab="t", ylab="cumulative hazard", fun="cumhaz", lwd=2)
 ```
 
-![plot of chunk rerSurvivalKM04](../content/assets/figure/rerSurvivalKM04.png) 
-
+![plot of chunk rerSurvivalKM04](../content/assets/figure/rerSurvivalKM04-1.png) 
 
 ### Log-rank-test for equal survival-functions
 
@@ -226,6 +230,7 @@ Global test
 
 
 ```r
+library(survival)
 survdiff(Surv(obsT, status) ~ IV, data=dfSurv)
 ```
 
@@ -241,11 +246,11 @@ IV=C 60       58     35.4    14.402    20.264
  Chisq= 26.1  on 2 degrees of freedom, p= 2.16e-06 
 ```
 
-
 Stratified for factor `sex`
 
 
 ```r
+library(survival)
 survdiff(Surv(obsT, status) ~ IV + strata(sex), data=dfSurv)
 ```
 
@@ -261,7 +266,6 @@ IV=C 60       58     35.5    14.302    20.127
  Chisq= 26.1  on 2 degrees of freedom, p= 2.12e-06 
 ```
 
-
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
@@ -270,7 +274,6 @@ Detach (automatically) loaded packages (if possible)
 try(detach(package:survival))
 try(detach(package:splines))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

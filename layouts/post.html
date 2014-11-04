@@ -1,25 +1,27 @@
 <%= render 'top' %>
 <div class="page-header">
   <div class="row">
-    <div class="span3">
+    <div class="col-md-3">
       <h1><small><%= @config[:tagline] %></small><br /></h1>
-    </div> <!-- /span3 -->
-    <div class="span9">
+    </div> <!-- /col-md-9 -->
+    <div class="col-md-9">
       <%= render 'breadcrumbs' %>
-    </div> <!-- /span9 -->
+    </div> <!-- /col-md-9 -->
   </div> <!-- /row -->
 </div> <!-- /page-header -->
 
 <div class="row">
-  <div class="span3">
-    <%= render 'rerPostList' %>
-    <hr />
-    <%= render 'rerCategTagList' %>
-  </div> <!-- /span3 -->
+  <div class="col-md-3">
+    <div class="sidebar-module">
+      <%= render 'rerPostList' %>
+      <hr />
+      <%= render 'rerCategTagList' %>
+    </div> <!-- /col-md-3 -->
+  </div> <!-- /sidebar-module -->
 
-  <div class="span9">
+  <div class="col-md-9">
     <h1><%= @item[:title] %></h1>
     <%= yield %>
-  </div> <!-- /span9 -->
+  </div> <!-- /col-md-9 -->
 </div> <!-- /row -->
 <%= render 'bottom' %>

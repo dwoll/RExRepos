@@ -13,15 +13,14 @@ tags: [Descriptive]
 Install required packages
 -------------------------
 
-[`epitools`](http://cran.r-project.org/package=epitools)
+[`DescTools`](http://cran.r-project.org/package=DescTools)
 
 
 ```r
-wants <- c("epitools")
+wants <- c("DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
 
 Category frequencies for one variable
 -------------------------
@@ -66,13 +65,11 @@ B
 ```
 
 
-
 ```r
 barplot(tab, main="Counts")
 ```
 
-![plot of chunk rerFrequencies01](../content/assets/figure/rerFrequencies01.png) 
-
+![plot of chunk rerFrequencies01](../content/assets/figure/rerFrequencies01-1.png) 
 
 ### (Cumulative) relative frequencies
 
@@ -83,10 +80,9 @@ barplot(tab, main="Counts")
 
 ```
 myLetters
-      A       B       C       D       E 
-0.08333 0.08333 0.41667 0.08333 0.33333 
+         A          B          C          D          E 
+0.08333333 0.08333333 0.41666667 0.08333333 0.33333333 
 ```
-
 
 
 ```r
@@ -94,10 +90,9 @@ cumsum(relFreq)
 ```
 
 ```
-      A       B       C       D       E 
-0.08333 0.16667 0.58333 0.66667 1.00000 
+         A          B          C          D          E 
+0.08333333 0.16666667 0.58333333 0.66666667 1.00000000 
 ```
-
 
 ### Counting non-existent categories
 
@@ -122,7 +117,6 @@ A B C D E Q
 1 1 5 1 4 0 
 ```
 
-
 Counting runs
 -------------------------
 
@@ -136,7 +130,6 @@ Counting runs
 ```
 
 
-
 ```r
 (res <- rle(vec))
 ```
@@ -148,7 +141,6 @@ Run Length Encoding
 ```
 
 
-
 ```r
 length(res$lengths)
 ```
@@ -158,7 +150,6 @@ length(res$lengths)
 ```
 
 
-
 ```r
 inverse.rle(res)
 ```
@@ -166,7 +157,6 @@ inverse.rle(res)
 ```
  [1] "f" "m" "m" "m" "f" "f" "m" "m" "m" "m" "f" "m" "m"
 ```
-
 
 Contingency tables for two or more variables
 -------------------------
@@ -205,7 +195,6 @@ sex home office
 ```
 
 
-
 ```r
 summary(cTab)
 ```
@@ -214,18 +203,16 @@ summary(cTab)
 Number of cases in table: 10 
 Number of factors: 2 
 Test for independence of all factors:
-	Chisq = 0.1, df = 1, p-value = 0.7
+	Chisq = 0.10417, df = 1, p-value = 0.7469
 	Chi-squared approximation may be incorrect
 ```
-
 
 
 ```r
 barplot(cTab, beside=TRUE, legend.text=rownames(cTab), ylab="absolute frequency")
 ```
 
-![plot of chunk rerFrequencies02](../content/assets/figure/rerFrequencies02.png) 
-
+![plot of chunk rerFrequencies02](../content/assets/figure/rerFrequencies02-1.png) 
 
 ### Using `xtabs()`
 
@@ -250,7 +237,6 @@ counts   <- sample(0:5, N, replace=TRUE)
 ```
 
 
-
 ```r
 xtabs(~ sex + work, data=persons)
 ```
@@ -272,7 +258,6 @@ sex home office
   f    1      5
   m    1     12
 ```
-
 
 ### Marginal sums and means
 
@@ -314,7 +299,6 @@ sex    home office mean
   mean  1.0    4.0  2.5
 ```
 
-
 ### Relative frequencies
 
 
@@ -329,25 +313,23 @@ sex home office
   m  0.1    0.5
 ```
 
-
 ### Conditional relative frequencies
 
 
 ```r
-prop.table(cTab, 1)
+prop.table(cTab, margin=1)
 ```
 
 ```
    work
-sex   home office
-  f 0.2500 0.7500
-  m 0.1667 0.8333
+sex      home    office
+  f 0.2500000 0.7500000
+  m 0.1666667 0.8333333
 ```
 
 
-
 ```r
-prop.table(cTab, 2)
+prop.table(cTab, margin=2)
 ```
 
 ```
@@ -356,7 +338,6 @@ sex  home office
   f 0.500  0.375
   m 0.500  0.625
 ```
-
 
 ### Flat contingency tables for more than two variables
 
@@ -382,7 +363,6 @@ home         1 0 0 1
 office       3 0 5 0
 ```
 
-
 Recovering the original data from contingency tables
 -------------------------
 
@@ -390,24 +370,23 @@ Individual-level data frame
 
 
 ```r
-library(epitools)
-expand.table(cTab)
+library(DescTools)
+Untable(cTab)
 ```
 
 ```
    sex   work
 1    f   home
-2    f office
+2    m   home
 3    f office
 4    f office
-5    m   home
+5    f office
 6    m office
 7    m office
 8    m office
 9    m office
 10   m office
 ```
-
 
 Group-level data frame
 
@@ -423,7 +402,6 @@ as.data.frame(cTab, stringsAsFactors=TRUE)
 3   f office    3
 4   m office    5
 ```
-
 
 Percentile rank
 -------------------------
@@ -471,22 +449,19 @@ knots(Fn)
 ```
 
 
-
 ```r
 plot(Fn, main="cumulative frequencies")
 ```
 
-![plot of chunk rerFrequencies03](../content/assets/figure/rerFrequencies03.png) 
-
+![plot of chunk rerFrequencies03](../content/assets/figure/rerFrequencies03-1.png) 
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
-try(detach(package:epitools))
+try(detach(package:DescTools))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

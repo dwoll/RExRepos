@@ -1,11 +1,11 @@
 
-## @knitr 
+## ------------------------------------------------------------------------
 wants <- c("coin")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 set.seed(123)
 N       <- 20
 pre     <- rbinom(N, size=1, prob=0.6)
@@ -16,21 +16,17 @@ cTab    <- table(preFac, postFac)
 addmargins(cTab)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 mcnemar.test(cTab, correct=FALSE)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(coin)
 symmetry_test(cTab, teststat="quad", distribution=approximate(B=9999))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
-
 

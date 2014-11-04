@@ -1,20 +1,20 @@
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 install.packages("RWordPress", repos="http://www.omegahat.org/R", build=TRUE)
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 library(RWordPress)
 options(WordpressLogin=c(user="password"),
         WordpressURL="http://your_wp_installation.org/xmlrpc.php")
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 knit_hooks$set(output=function(x, options) paste("\\[code\\]\n", x, "\\[/code\\]\n", sep=""))
 knit_hooks$set(source=function(x, options) paste("\\[code lang='r'\\]\n", x, "\\[/code\\]\n", sep=""))
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 knit2wp <- function(file) {
     require(XML)
     content <- readLines(file)
@@ -38,14 +38,14 @@ knit2wp <- function(file) {
 }
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 newPost(content=list(description=knit2wp('rerWorkflow.html'),
                      title='Workflow: Post R markdown to WordPress',
                      categories=c('R')),
         publish=FALSE)
 
 
-## @knitr eval=FALSE
+## ----eval=FALSE----------------------------------------------------------
 postID <- 99                    # post id returned by newPost()
 editPost(postID,
          content=list(description=knit2wp('rerWorkflow.html'),

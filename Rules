@@ -13,18 +13,27 @@
 ##   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
 ##   because “*” matches zero or more characters.
 
+route '/assets/fonts/*/' do
+  # /fonts/foo-eot/ -> /fonts/foo.eot
+  '/content' + item.identifier.sub(/-[^-]*\/$/, '.') + item[:extension]
+end
+
 preprocess do
-  ## helper: copy all static assets (css, images) to output directory
+#  ## helper: copy all static assets (css, images) to output directory
   copy_static
-  ## make the files articles if they are in the posts directory
-  # items.each do |item|
-  #     if item.identifier =~ %r{^/posts/(.*)$}
-  #     item[:kind] = 'article'
-  #   end
-  # end
+#  ## make the files articles if they are in the posts directory
+#  # items.each do |item|
+#  #     if item.identifier =~ %r{^/posts/(.*)$}
+#  #     item[:kind] = 'article'
+#  #   end
+#  # end
 end
 
 compile '/assets/*' do
+  ## don’t filter or layout
+end
+
+route '/assets/*' do
   ## don’t filter or layout
 end
 
@@ -32,9 +41,9 @@ end
 compile '/posts/*' do
   filter :erb
   # filter :kramdown
+  #filter :pandoc
   ## custom pandoc filter (see lib/helpers.rb) that allows setting multiple options
   filter :pandoc_dw
-  ## requires filter from this pull request: <https://github.com/nanoc/nanoc/pull/200>
   # filter :redcarpet_toc, :with_toc => true, :renderer => ::Redcarpet::Render::XHTML,
   #                        :options => {
   #                          :fenced_code_blocks => true,
@@ -50,15 +59,15 @@ compile '*' do
     filter :erb
     if item[:extension] == 'md'
     #  filter :kramdown
-      filter :pandoc
+      filter :pandoc_dw
    end
-    layout 'default'
+   layout 'default'
   end
 end
 
-route '/assets/*' do
-  ## nothing - everything is copied in pre-processing
-end
+#route '/assets/*' do
+#  ## nothing - everything is copied in pre-processing
+#end
 
 route '*' do
   if item.binary?

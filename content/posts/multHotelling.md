@@ -13,15 +13,14 @@ tags: [tTests]
 Install required packages
 -------------------------
 
-[`ICSNP`](http://cran.r-project.org/package=ICSNP), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm)
+[`DescTools`](http://cran.r-project.org/package=DescTools), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm)
 
 
 ```r
-wants <- c("ICSNP", "mvtnorm")
+wants <- c("DescTools", "mvtnorm")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
 
 One-sample Hotelling's $T^{2}$-test
 -------------------------
@@ -38,25 +37,23 @@ mu1   <- c(-4, 4)
 Y1    <- round(rmvnorm(Nj[1], mean=mu1, sigma=Sigma))
 ```
 
-
-### Using `HotellingsT2()` from package `ICSNP`
+### Using `HotellingsT2()` from package `DescTools`
 
 
 ```r
 muH0 <- c(-1, 2)
-library(ICSNP)
-HotellingsT2(Y1, mu=muH0)
+library(DescTools)
+HotellingsT2Test(Y1, mu=muH0)
 ```
 
 ```
 
 	Hotelling's one sample T2-test
 
-data:  Y1 
-T.2 = 5.325, df1 = 2, df2 = 13, p-value = 0.02045
-alternative hypothesis: true location is not equal to c(-1,2) 
+data:  Y1
+T.2 = 5.3252, df1 = 2, df2 = 13, p-value = 0.02045
+alternative hypothesis: true location is not equal to c(-1,2)
 ```
-
 
 ### Using `anova.mlm()`
 
@@ -69,18 +66,17 @@ Y1ctr  <- sweep(Y1, 2, muH0, "-")
 ```
 Analysis of Variance Table
 
-            Df Hotelling-Lawley approx F num Df den Df Pr(>F)  
-(Intercept)  1            0.819     5.33      2     13   0.02 *
-Residuals   14                                                 
+            Df Hotelling-Lawley approx F num Df den Df  Pr(>F)  
+(Intercept)  1          0.81925   5.3252      2     13 0.02045 *
+Residuals   14                                                  
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 Hotelling's $T^{2}$-test for two independent samples
 -------------------------
 
-### Using `HotellingsT2()` from package `ICSNP`
+### Using `HotellingsT2()` from package `DescTools`
 
 
 ```r
@@ -91,21 +87,19 @@ IV  <- factor(rep(1:2, Nj))
 ```
 
 
-
 ```r
-library(ICSNP)
-HotellingsT2(Y12 ~ IV)
+library(DescTools)
+HotellingsT2Test(Y12 ~ IV)
 ```
 
 ```
 
 	Hotelling's two sample T2-test
 
-data:  Y12 by IV 
-T.2 = 23.24, df1 = 2, df2 = 37, p-value = 2.901e-07
-alternative hypothesis: true location difference is not equal to c(0,0) 
+data:  Y12 by IV
+T.2 = 23.2398, df1 = 2, df2 = 37, p-value = 2.901e-07
+alternative hypothesis: true location difference is not equal to c(0,0)
 ```
-
 
 ### Using `anova.mlm()` or `manova()`
 
@@ -117,12 +111,12 @@ anova(lm(Y12 ~ IV), test="Hotelling-Lawley")
 ```
 Analysis of Variance Table
 
-            Df Hotelling-Lawley approx F num Df den Df  Pr(>F)    
-(Intercept)  1             1.37     25.4      2     37 1.1e-07 ***
-IV           1             1.26     23.2      2     37 2.9e-07 ***
-Residuals   38                                                    
+            Df Hotelling-Lawley approx F num Df den Df    Pr(>F)    
+(Intercept)  1           1.3742   25.423      2     37 1.130e-07 ***
+IV           1           1.2562   23.240      2     37 2.901e-07 ***
+Residuals   38                                                      
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 ```r
@@ -130,13 +124,12 @@ summary(manova(Y12 ~ IV), test="Hotelling-Lawley")
 ```
 
 ```
-          Df Hotelling-Lawley approx F num Df den Df  Pr(>F)    
-IV         1             1.26     23.2      2     37 2.9e-07 ***
-Residuals 38                                                    
+          Df Hotelling-Lawley approx F num Df den Df    Pr(>F)    
+IV         1           1.2562    23.24      2     37 2.901e-07 ***
+Residuals 38                                                      
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 Hotelling's $T^{2}$-test for two dependent samples
 -------------------------
@@ -160,31 +153,28 @@ Ydf  <- data.frame(id=factor(rep(1:N, times=P)),
 ```
 
 
-
 ```r
 dfDiff <- aggregate(cbind(Y1, Y2) ~ id, data=Ydf, FUN=diff)
 DVdiff <- data.matrix(dfDiff[ , -1])
 muH0   <- c(0, 0)
 ```
 
-
-### Using `HotellingsT2()` from package `ICSNP`
+### Using `HotellingsT2()` from package `DescTools`
 
 
 ```r
-library(ICSNP)
-HotellingsT2(DVdiff, mu=muH0)
+library(DescTools)
+HotellingsT2Test(DVdiff, mu=muH0)
 ```
 
 ```
 
 	Hotelling's one sample T2-test
 
-data:  DVdiff 
-T.2 = 6.001, df1 = 2, df2 = 18, p-value = 0.01007
-alternative hypothesis: true location is not equal to c(0,0) 
+data:  DVdiff
+T.2 = 6.0014, df1 = 2, df2 = 18, p-value = 0.01007
+alternative hypothesis: true location is not equal to c(0,0)
 ```
-
 
 ### Using `anova.mlm()`
 
@@ -196,25 +186,21 @@ anova(lm(DVdiff ~ 1), test="Hotelling-Lawley")
 ```
 Analysis of Variance Table
 
-            Df Hotelling-Lawley approx F num Df den Df Pr(>F)  
-(Intercept)  1            0.667        6      2     18   0.01 *
-Residuals   19                                                 
+            Df Hotelling-Lawley approx F num Df den Df  Pr(>F)  
+(Intercept)  1          0.66682   6.0014      2     18 0.01007 *
+Residuals   19                                                  
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
-try(detach(package:ICSNP))
-try(detach(package:ICS))
-try(detach(package:survey))
+try(detach(package:DescTools))
 try(detach(package:mvtnorm))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

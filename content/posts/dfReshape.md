@@ -48,7 +48,6 @@ str(res)
  $ ind   : Factor w/ 2 levels "cond1","cond3": 1 1 1 1 2 2 2 2
 ```
 
-
 ### Long format -> wide format
 
 
@@ -63,7 +62,6 @@ unstack(res)
 3     5    10
 4     9     5
 ```
-
 
 
 ```r
@@ -94,7 +92,6 @@ unstack(res, DVnew ~ IVnew)
 4 151 155
 ```
 
-
 Using `reshape()` for more complex data frames
 -------------------------
 
@@ -124,7 +121,6 @@ IVbtw   <- factor(rep(c("A", "B"), Nj))
 ```
 
 
-
 ```r
 idL    <- rep(id, Q)
 DVl    <- c(DV_t1, DV_t2, DV_t3)
@@ -149,7 +145,6 @@ dfLong[order(dfLong$id), ]
 8   4     B     2 -0.22
 12  4     B     3 -0.69
 ```
-
 
 #### Wide format -> long format
 
@@ -178,7 +173,6 @@ resLong[order(resLong$id), ]
 ```
 
 
-
 ```r
 resLong$IVwth <- factor(resLong$IVwth)
 all.equal(dfLong, resLong, check.attributes=FALSE)
@@ -187,7 +181,6 @@ all.equal(dfLong, resLong, check.attributes=FALSE)
 ```
 [1] TRUE
 ```
-
 
 #### Long format -> wide format
 
@@ -205,7 +198,6 @@ reshape(dfLong, v.names="DV", timevar="IVwth", idvar=c("id", "IVbtw"),
 4  4     B -2.97 -0.22 -0.69
 ```
 
-
 ### Two within variables
 
 #### Simulate data
@@ -222,7 +214,6 @@ t_22 <- round(rnorm(Nj, 15, 2), 2)
 t_32 <- round(rnorm(Nj, 15, 2), 2)
 dfW  <- data.frame(id, t_11, t_21, t_31, t_12, t_22, t_32)
 ```
-
 
 #### Wide format -> long format
 
@@ -251,7 +242,6 @@ dfW  <- data.frame(id, t_11, t_21, t_31, t_12, t_22, t_32)
 ```
 
 
-
 ```r
 dfL2 <- reshape(dfL1, varying=c("IV2-1", "IV2-2"),
 				direction="long", timevar="IV2",
@@ -269,7 +259,6 @@ head(dfL2)
 2.2.1  2   2   1 12.41
 ```
 
-
 #### Long format -> wide format
 
 
@@ -277,7 +266,6 @@ head(dfL2)
 dfW1 <- reshape(dfL2, v.names="DV", timevar="IV1",
                 idvar=c("id", "IV2"), direction="wide")
 ```
-
 
 
 ```r
@@ -290,7 +278,6 @@ all.equal(dfW, dfW2, check.attributes=FALSE)
 ```
 [1] TRUE
 ```
-
 
 Useful packages
 -------------------------

@@ -13,10 +13,10 @@ Binomial test and chi^2-test for proportions
 Install required packages
 -------------------------
 
-[`binom`](http://cran.r-project.org/package=binom)
+[`DescTools`](http://cran.r-project.org/package=DescTools)
 
 ```{r}
-wants <- c("binom")
+wants <- c("DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -49,8 +49,8 @@ sum(dbinom(hits:N, N, p=pH0)) + sum(dbinom(0, N, p=pH0))
 ### Confidence intervals
 
 ```{r}
-library(binom)
-binom.confint(tab[1], sum(tab))
+library(DescTools)
+BinomCI(tab[1], sum(tab), method="wilson")
 ```
 
 \(\chi^{2}\)-test for proportions
@@ -66,6 +66,5 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:binom))
-try(detach(package:lattice))
+try(detach(package:DescTools))
 ```

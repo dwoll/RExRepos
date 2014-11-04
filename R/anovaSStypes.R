@@ -1,11 +1,11 @@
 
-## @knitr 
+## ------------------------------------------------------------------------
 wants <- c("car")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 P    <- 3
 Q    <- 3
 g11  <- c(41, 43, 50)
@@ -22,16 +22,16 @@ dfMD <- data.frame(IV1=factor(rep(1:P, c(3+5+7, 5+6+4, 5+4+6))),
                    DV =c(g11, g12, g13, g21, g22, g23, g31, g32, g33))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 xtabs(~ IV1 + IV2, data=dfMD)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 anova(lm(DV ~ IV1 + IV2 + IV1:IV2, data=dfMD))
 anova(lm(DV ~ IV2 + IV1 + IV1:IV2, data=dfMD))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 SS.I1 <- anova(lm(DV ~ 1,                 data=dfMD),
                lm(DV ~ IV1,               data=dfMD))
 SS.I2 <- anova(lm(DV ~ IV1,               data=dfMD),
@@ -40,25 +40,25 @@ SS.Ii <- anova(lm(DV ~ IV1+IV2,           data=dfMD),
                lm(DV ~ IV1+IV2 + IV1:IV2, data=dfMD))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 SS.I1[2, "Sum of Sq"]
 SS.I2[2, "Sum of Sq"]
 SS.Ii[2, "Sum of Sq"]
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 SST <- anova(lm(DV ~ 1,       data=dfMD),
              lm(DV ~ IV1*IV2, data=dfMD))
 SST[2, "Sum of Sq"]
 SS.I1[2, "Sum of Sq"] + SS.I2[2, "Sum of Sq"] + SS.Ii[2, "Sum of Sq"]
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(car)
 Anova(lm(DV ~ IV1*IV2, data=dfMD), type="II")
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 SS.II1 <- anova(lm(DV ~     IV2,         data=dfMD),
                 lm(DV ~ IV1+IV2,         data=dfMD))
 SS.II2 <- anova(lm(DV ~ IV1,             data=dfMD),
@@ -67,56 +67,53 @@ SS.IIi <- anova(lm(DV ~ IV1+IV2,         data=dfMD),
                 lm(DV ~ IV1+IV2+IV1:IV2, data=dfMD))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 SS.II1[2, "Sum of Sq"]
 SS.II2[2, "Sum of Sq"]
 SS.IIi[2, "Sum of Sq"]
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 SST <- anova(lm(DV ~ 1,       data=dfMD),
              lm(DV ~ IV1*IV2, data=dfMD))
 SST[2, "Sum of Sq"]
 SS.II1[2, "Sum of Sq"] + SS.II2[2, "Sum of Sq"] + SS.IIi[2, "Sum of Sq"]
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 # options(contrasts=c(unordered="contr.sum",       ordered="contr.poly"))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 # options(contrasts=c(unordered="contr.treatment", ordered="contr.poly"))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 fitIII <- lm(DV ~ IV1 + IV2 + IV1:IV2, data=dfMD,
              contrasts=list(IV1=contr.sum, IV2=contr.sum))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 library(car)
 Anova(fitIII, type="III")
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 # A: lm(DV ~     IV2 + IV1:IV2) vs. lm(DV ~ IV1 + IV2 + IV1:IV2)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 # B: lm(DV ~ IV1     + IV1:IV2) vs. lm(DV ~ IV1 + IV2 + IV1:IV2)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 drop1(fitIII, ~ ., test="F")
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 drop1(fitIII, ~ ., test="F")
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
-
 

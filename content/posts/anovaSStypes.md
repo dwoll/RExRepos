@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Background
 -------------------------
 
@@ -94,7 +93,6 @@ dfMD <- data.frame(IV1=factor(rep(1:P, c(3+5+7, 5+6+4, 5+4+6))),
 ```
 
 
-
 ```r
 xtabs(~ IV1 + IV2, data=dfMD)
 ```
@@ -106,7 +104,6 @@ IV1 1 2 3
   2 5 6 4
   3 5 4 6
 ```
-
 
 SS type I (sequential sum of squares)
 -------------------------
@@ -131,13 +128,13 @@ anova(lm(DV ~ IV1 + IV2 + IV1:IV2, data=dfMD))
 Analysis of Variance Table
 
 Response: DV
-          Df Sum Sq Mean Sq F value  Pr(>F)    
-IV1        2    101      51    1.81    0.18    
-IV2        2   1253     627   22.44 4.7e-07 ***
-IV1:IV2    4     14       4    0.13    0.97    
-Residuals 36   1005      28                    
+          Df  Sum Sq Mean Sq F value    Pr(>F)    
+IV1        2  101.11   50.56  1.8102    0.1782    
+IV2        2 1253.19  626.59 22.4357 4.711e-07 ***
+IV1:IV2    4   14.19    3.55  0.1270    0.9717    
+Residuals 36 1005.42   27.93                      
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 ```r
@@ -148,15 +145,14 @@ anova(lm(DV ~ IV2 + IV1 + IV1:IV2, data=dfMD))
 Analysis of Variance Table
 
 Response: DV
-          Df Sum Sq Mean Sq F value  Pr(>F)    
-IV2        2   1116     558   19.98 1.5e-06 ***
-IV1        2    238     119    4.27   0.022 *  
-IV2:IV1    4     14       4    0.13   0.972    
-Residuals 36   1005      28                    
+          Df  Sum Sq Mean Sq F value    Pr(>F)    
+IV2        2 1115.82  557.91 19.9764 1.458e-06 ***
+IV1        2  238.48  119.24  4.2695   0.02168 *  
+IV2:IV1    4   14.19    3.55  0.1270   0.97170    
+Residuals 36 1005.42   27.93                      
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 ### Sequential model comparisons
 
@@ -171,13 +167,12 @@ SS.Ii <- anova(lm(DV ~ IV1+IV2,           data=dfMD),
 ```
 
 
-
 ```r
 SS.I1[2, "Sum of Sq"]
 ```
 
 ```
-[1] 101.1
+[1] 101.1111
 ```
 
 ```r
@@ -185,7 +180,7 @@ SS.I2[2, "Sum of Sq"]
 ```
 
 ```
-[1] 1253
+[1] 1253.189
 ```
 
 ```r
@@ -193,9 +188,8 @@ SS.Ii[2, "Sum of Sq"]
 ```
 
 ```
-[1] 14.19
+[1] 14.18714
 ```
-
 
 ### Total SS $=$ sum of effect SS
 
@@ -207,7 +201,7 @@ SST[2, "Sum of Sq"]
 ```
 
 ```
-[1] 1368
+[1] 1368.487
 ```
 
 ```r
@@ -215,9 +209,8 @@ SS.I1[2, "Sum of Sq"] + SS.I2[2, "Sum of Sq"] + SS.Ii[2, "Sum of Sq"]
 ```
 
 ```
-[1] 1368
+[1] 1368.487
 ```
-
 
 SS type II
 -------------------------
@@ -243,15 +236,14 @@ Anova(lm(DV ~ IV1*IV2, data=dfMD), type="II")
 Anova Table (Type II tests)
 
 Response: DV
-          Sum Sq Df F value  Pr(>F)    
-IV1          238  2    4.27   0.022 *  
-IV2         1253  2   22.44 4.7e-07 ***
-IV1:IV2       14  4    0.13   0.972    
-Residuals   1005 36                    
+           Sum Sq Df F value    Pr(>F)    
+IV1        238.48  2  4.2695   0.02168 *  
+IV2       1253.19  2 22.4357 4.711e-07 ***
+IV1:IV2     14.19  4  0.1270   0.97170    
+Residuals 1005.42 36                      
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 ### Using model comparisons
 
@@ -266,13 +258,12 @@ SS.IIi <- anova(lm(DV ~ IV1+IV2,         data=dfMD),
 ```
 
 
-
 ```r
 SS.II1[2, "Sum of Sq"]
 ```
 
 ```
-[1] 238.5
+[1] 238.4826
 ```
 
 ```r
@@ -280,7 +271,7 @@ SS.II2[2, "Sum of Sq"]
 ```
 
 ```
-[1] 1253
+[1] 1253.189
 ```
 
 ```r
@@ -288,9 +279,8 @@ SS.IIi[2, "Sum of Sq"]
 ```
 
 ```
-[1] 14.19
+[1] 14.18714
 ```
-
 
 ### Total SS $\neq$ sum of effect SS
 
@@ -302,7 +292,7 @@ SST[2, "Sum of Sq"]
 ```
 
 ```
-[1] 1368
+[1] 1368.487
 ```
 
 ```r
@@ -310,9 +300,8 @@ SS.II1[2, "Sum of Sq"] + SS.II2[2, "Sum of Sq"] + SS.IIi[2, "Sum of Sq"]
 ```
 
 ```
-[1] 1506
+[1] 1505.859
 ```
-
 
 SS type III
 -------------------------
@@ -334,18 +323,15 @@ Type III sum of squares have the following properties:
 ```
 
 
-
 ```r
 # options(contrasts=c(unordered="contr.treatment", ordered="contr.poly"))
 ```
-
 
 
 ```r
 fitIII <- lm(DV ~ IV1 + IV2 + IV1:IV2, data=dfMD,
              contrasts=list(IV1=contr.sum, IV2=contr.sum))
 ```
-
 
 
 ```r
@@ -357,16 +343,15 @@ Anova(fitIII, type="III")
 Anova Table (Type III tests)
 
 Response: DV
-            Sum Sq Df F value  Pr(>F)    
-(Intercept) 121174  1 4338.72 < 2e-16 ***
-IV1            205  2    3.67   0.036 *  
-IV2           1181  2   21.15 8.4e-07 ***
-IV1:IV2         14  4    0.13   0.972    
-Residuals     1005 36                    
+            Sum Sq Df   F value    Pr(>F)    
+(Intercept) 121174  1 4338.7178 < 2.2e-16 ***
+IV1            205  2    3.6658   0.03556 *  
+IV2           1181  2   21.1452 8.447e-07 ***
+IV1:IV2         14  4    0.1270   0.97170    
+Residuals     1005 36                        
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 ### Model comparisons using `drop1()`
 
@@ -378,11 +363,9 @@ The model comparisons for main effects with SS type III cannot be done using `an
 ```
 
 
-
 ```r
 # B: lm(DV ~ IV1     + IV1:IV2) vs. lm(DV ~ IV1 + IV2 + IV1:IV2)
 ```
-
 
 In contrast, `drop1()` drops each term in turn even if marginality is violated, so it gives SS type III.
 
@@ -396,15 +379,14 @@ Single term deletions
 
 Model:
 DV ~ IV1 + IV2 + IV1:IV2
-        Df Sum of Sq  RSS AIC F value  Pr(>F)    
-<none>               1005 158                    
-IV1      2       205 1210 162    3.67   0.036 *  
-IV2      2      1181 2187 189   21.15 8.4e-07 ***
-IV1:IV2  4        14 1020 150    0.13   0.972    
+        Df Sum of Sq    RSS    AIC F value    Pr(>F)    
+<none>               1005.4 157.79                      
+IV1      2    204.76 1210.2 162.13  3.6658   0.03556 *  
+IV2      2   1181.11 2186.5 188.75 21.1452 8.447e-07 ***
+IV1:IV2  4     14.19 1019.6 150.42  0.1270   0.97170    
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 
 ```r
@@ -416,15 +398,14 @@ Single term deletions
 
 Model:
 DV ~ IV1 + IV2 + IV1:IV2
-        Df Sum of Sq  RSS AIC F value  Pr(>F)    
-<none>               1005 158                    
-IV1      2       205 1210 162    3.67   0.036 *  
-IV2      2      1181 2187 189   21.15 8.4e-07 ***
-IV1:IV2  4        14 1020 150    0.13   0.972    
+        Df Sum of Sq    RSS    AIC F value    Pr(>F)    
+<none>               1005.4 157.79                      
+IV1      2    204.76 1210.2 162.13  3.6658   0.03556 *  
+IV2      2   1181.11 2186.5 188.75 21.1452 8.447e-07 ***
+IV1:IV2  4     14.19 1019.6 150.42  0.1270   0.97170    
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -432,10 +413,7 @@ Detach (automatically) loaded packages (if possible)
 
 ```r
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

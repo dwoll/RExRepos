@@ -13,15 +13,14 @@ Inter-rater-reliability and Intra-class-correlation
 Install required packages
 -------------------------
 
-[`irr`](http://cran.r-project.org/package=irr), [`psych`](http://cran.r-project.org/package=psych)
+[`DescTools`](http://cran.r-project.org/package=psych), [`irr`](http://cran.r-project.org/package=irr)
 
 
 ```r
-wants <- c("irr", "psych")
+wants <- c("DescTools", "irr")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
 
 Inter-rater-reliability
 -------------------------
@@ -50,7 +49,6 @@ rtr1    V   N   P Sum
 ```
 
 
-
 ```r
 library(irr)
 agree(cbind(rtr1, rtr2))
@@ -63,7 +61,6 @@ agree(cbind(rtr1, rtr2))
    Raters = 2 
   %-agree = 70 
 ```
-
 
 #### Three raters
 
@@ -80,7 +77,6 @@ agree(cbind(rtr1, rtr2, rtr3))
    Raters = 3 
   %-agree = 60 
 ```
-
 
 ### Cohen's unweighted $\kappa$ for two raters
 
@@ -100,7 +96,6 @@ kappa2(cbind(rtr1, rtr2))
         z = 5.46 
   p-value = 4.79e-08 
 ```
-
 
 ### Cohen's weighted $\kappa$ for two raters
 
@@ -130,7 +125,6 @@ tv1      <10% 11-20% 21-30% 31-40% 41-50% >50% Sum
 ```
 
 
-
 ```r
 library(irr)
 kappa2(cbind(tv1, tv2), weight="equal")
@@ -147,7 +141,6 @@ kappa2(cbind(tv1, tv2), weight="equal")
   p-value = 7.3e-08 
 ```
 
-
 ### Fleiss' $\kappa$ for two or more raters
 
 
@@ -160,7 +153,6 @@ rtr5 <- letters[c(4,5,3,5,4, 3,5,3,4,5, 4,4,3,4,4, 3,5,1,4,5, 5,4,5,4,4, 2,5,4,3
 rtr6 <- letters[c(4,5,5,5,4, 3,5,4,4,5, 4,4,3,4,5, 5,5,2,4,5, 5,4,5,4,5, 4,5,4,3,5)]
 ratings <- cbind(rtr1, rtr2, rtr3, rtr4, rtr5, rtr6)
 ```
-
 
 
 ```r
@@ -179,7 +171,6 @@ kappam.fleiss(ratings)
   p-value = 0 
 ```
 
-
 ### Krippendorff's $\alpha$ for ordinal ratings and two or more raters
 
 
@@ -196,7 +187,6 @@ kripp.alpha(ratings, method="ordinal")
     alpha = 0.255 
 ```
 
-
 ### Kendall's $W$ for continuous ordinal ratings and two or more raters
 
 
@@ -206,7 +196,6 @@ rtr2 <- c(1, 5, 6, 2, 4, 3)
 rtr3 <- c(2, 3, 6, 5, 4, 1)
 ratings <- cbind(rtr1, rtr2, rtr3)
 ```
-
 
 
 ```r
@@ -225,7 +214,6 @@ kendall(ratings)
   p-value = 0.13 
 ```
 
-
 Intra-class-correlation for interval-scale ratings and two or more raters
 -------------------------
 
@@ -239,9 +227,8 @@ ratings <- cbind(rtr1, rtr2, rtr3, rtr4)
 ```
 
 
-
 ```r
-library(psych)
+library(DescTools)
 ICC(ratings)
 ```
 
@@ -267,17 +254,15 @@ Average_fixed_raters           0.99
  Number of subjects = 6     Number of Judges =  4
 ```
 
-
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
-try(detach(package:psych))
+try(detach(package:DescTools))
 try(detach(package:irr))
 try(detach(package:lpSolve))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

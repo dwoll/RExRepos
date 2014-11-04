@@ -18,10 +18,10 @@ TODO
 Install required packages
 -------------------------
 
-[`mediation`](http://cran.r-project.org/package=mediation), [`multilevel`](http://cran.r-project.org/package=multilevel), [`QuantPsyc`](http://cran.r-project.org/package=QuantPsyc)
+[`mediation`](http://cran.r-project.org/package=mediation), [`multilevel`](http://cran.r-project.org/package=multilevel), [`rockchalk`](http://cran.r-project.org/package=rockchalk)
 
 ```{r}
-wants <- c("mediation", "multilevel", "QuantPsyc")
+wants <- c("mediation", "multilevel", "rockchalk")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -31,25 +31,26 @@ Moderated regression
 
 ```{r}
 set.seed(123)
-N <- 100
-X <- rnorm(N, 175, 7)
-M <- rnorm(N,  30, 8)
-Y <- 0.5*X - 0.3*M + 10 + rnorm(N, 0, 3)
-dfRegr <- data.frame(X, M, Y)
+N  <- 100
+X1 <- rnorm(N, 175, 7)
+X2 <- abs(rnorm(N, 60, 30))
+M  <- rnorm(N,  30, 8)
+Y  <- 0.5*X1 - 0.3*M - 0.4*X2 + 10 + rnorm(N, 0, 3)
 ```
 
 ```{r}
-Xc <- c(scale(dfRegr$X, center=TRUE, scale=FALSE))
-Mc <- c(scale(dfRegr$M, center=TRUE, scale=FALSE))
-fitMod <- lm(Y ~ Xc + Mc + Xc:Mc, data=dfRegr)
-summary(fitMod)
+X1c    <- c(scale(X1, center=TRUE, scale=FALSE))
+Mc     <- c(scale(M,  center=TRUE, scale=FALSE))
+fitMod <- lm(Y ~ X1c + Mc + X1c:Mc)
+coef(summary(fitMod))
 ```
 
-Only valid for models with exactly one predictor, one moderator, and one predicted variable. Function will appear to work in more complex models, but results will then be wrong.
 
-```{r}
-library(QuantPsyc)
-sim.slopes(fitMod, Mc)
+```{r moderation}
+library(rockchalk)
+ps  <- plotSlopes(fitMod, plotx="X1c", modx="Mc", modxVals="std.dev")
+(ts <- testSlopes(ps))
+plot(ts)
 ```
 
 Mediation analysis
@@ -112,13 +113,13 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:QuantPsyc))
-try(detach(package:boot))
+try(detach(package:rockchalk))
 try(detach(package:mediation))
 try(detach(package:Matrix))
 try(detach(package:lpSolve))
-try(detach(package:lattice))
 try(detach(package:multilevel))
 try(detach(package:MASS))
 try(detach(package:nlme))
+try(detach(package:sandwich))
+try(detach(package:mvtnorm))
 ```

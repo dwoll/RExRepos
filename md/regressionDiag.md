@@ -12,7 +12,6 @@ Regression diagnostics
 
 
 
-
 TODO
 -------------------------
 
@@ -29,7 +28,6 @@ wants <- c("car", "lmtest", "mvoutlier", "perturb", "robustbase", "tseries")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
-
 
 Extreme values and outliers
 -------------------------
@@ -48,7 +46,6 @@ dfRegr <- data.frame(X1, X2, X3, Y)
 ```
 
 
-
 ```r
 library(robustbase)
 xyMat <- data.matrix(dfRegr)
@@ -58,17 +55,25 @@ summary(XYz)
 ```
 
 ```
-       X1                X2               X3               Y          
- Min.   :-2.5382   Min.   :-1.966   Min.   :-2.462   Min.   :-2.4511  
- 1st Qu.:-0.6334   1st Qu.:-0.689   1st Qu.:-0.547   1st Qu.:-0.6166  
- Median :-0.0505   Median :-0.103   Median : 0.147   Median :-0.0401  
- Mean   :-0.0204   Mean   : 0.018   Mean   : 0.141   Mean   :-0.0487  
- 3rd Qu.: 0.6106   3rd Qu.: 0.604   3rd Qu.: 0.787   3rd Qu.: 0.6044  
- Max.   : 2.1798   Max.   : 3.431   Max.   : 2.981   Max.   : 2.4565  
+       X1                 X2                 X3         
+ Min.   :-2.53818   Min.   :-1.96554   Min.   :-2.4625  
+ 1st Qu.:-0.63344   1st Qu.:-0.68918   1st Qu.:-0.5474  
+ Median :-0.05045   Median :-0.10278   Median : 0.1471  
+ Mean   :-0.02039   Mean   : 0.01779   Mean   : 0.1410  
+ 3rd Qu.: 0.61065   3rd Qu.: 0.60431   3rd Qu.: 0.7874  
+ Max.   : 2.17984   Max.   : 3.43113   Max.   : 2.9812  
+       Y           
+ Min.   :-2.45112  
+ 1st Qu.:-0.61660  
+ Median :-0.04010  
+ Mean   :-0.04869  
+ 3rd Qu.: 0.60444  
+ Max.   : 2.45654  
 ```
 
-
 ### Multivariate assessment of outliers
+
+Mahalanobis distance with robust estimate for the covariance matrix
 
 
 ```r
@@ -78,11 +83,10 @@ summary(sqrt(mahaSq))
 
 ```
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  0.618   1.350   1.750   1.840   2.250   3.930 
+ 0.6179  1.3450  1.7460  1.8440  2.2510  3.9330 
 ```
 
-
-### Multivariate outlier
+Nonparametric multivariate outlier detection with package `mvoutlier`
 
 
 ```r
@@ -92,10 +96,13 @@ aqRes <- aq.plot(xyMat)
 
 ```
 Projection to the first and second robust principal components.
-Proportion of total variation (explained variance): 0.6334
+Proportion of total variation (explained variance): 0.63336
 ```
 
-![plot of chunk rerRegressionDiag01](../content/assets/figure/rerRegressionDiag01.png) 
+![plot of chunk rerRegressionDiag01](../content/assets/figure/rerRegressionDiag01-1.png) 
+
+Where any outliers found?
+
 
 ```r
 which(aqRes$outliers)
@@ -104,7 +111,6 @@ which(aqRes$outliers)
 ```
 integer(0)
 ```
-
 
 Leverage and influence
 -------------------------
@@ -118,9 +124,8 @@ summary(h)
 
 ```
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.0108  0.0219  0.0347  0.0400  0.0517  0.1520 
+0.01080 0.02190 0.03474 0.04000 0.05172 0.15250 
 ```
-
 
 
 ```r
@@ -129,10 +134,9 @@ summary(cooksDst)
 ```
 
 ```
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-0.00000 0.00086 0.00365 0.01030 0.01360 0.06500 
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+8.300e-07 8.613e-04 3.650e-03 1.029e-02 1.362e-02 6.498e-02 
 ```
-
 
 
 ```r
@@ -156,14 +160,12 @@ Potentially influential observations of
 ```
 
 
-
 ```r
 library(car)
 influenceIndexPlot(fit)
 ```
 
-![plot of chunk rerRegressionDiag02](../content/assets/figure/rerRegressionDiag02.png) 
-
+![plot of chunk rerRegressionDiag02](../content/assets/figure/rerRegressionDiag02-1.png) 
 
 Checking model assumptions using residuals
 -------------------------
@@ -174,7 +176,6 @@ Estnd <- rstandard(fit)
 Estud <- rstudent(fit)
 ```
 
-
 ### Normality assumption
 
 
@@ -184,8 +185,7 @@ hist(Estud, main="Histogram studentized residals", breaks="FD", freq=FALSE)
 curve(dnorm(x, mean=0, sd=1), col="red", lwd=2, add=TRUE)
 ```
 
-![plot of chunk rerRegressionDiag03](../content/assets/figure/rerRegressionDiag03.png) 
-
+![plot of chunk rerRegressionDiag03](../content/assets/figure/rerRegressionDiag03-1.png) 
 
 
 ```r
@@ -193,8 +193,7 @@ qqPlot(Estud, distribution="norm", pch=20, main="QQ-Plot studentized residuals")
 qqline(Estud, col="red", lwd=2)
 ```
 
-![plot of chunk rerRegressionDiag04](../content/assets/figure/rerRegressionDiag04.png) 
-
+![plot of chunk rerRegressionDiag04](../content/assets/figure/rerRegressionDiag04-1.png) 
 
 
 ```r
@@ -205,10 +204,9 @@ shapiro.test(Estud)
 
 	Shapiro-Wilk normality test
 
-data:  Estud 
+data:  Estud
 W = 0.9943, p-value = 0.9535
 ```
-
 
 ### Independence and homoscedasticity assumption
 
@@ -216,30 +214,30 @@ W = 0.9943, p-value = 0.9535
 
 
 ```r
+library(car)
 spreadLevelPlot(fit, pch=20)
 ```
 
-![plot of chunk rerRegressionDiag05](../content/assets/figure/rerRegressionDiag05.png) 
+![plot of chunk rerRegressionDiag05](../content/assets/figure/rerRegressionDiag05-1.png) 
 
 ```
 
-Suggested power transformation:  4.324 
+Suggested power transformation:  4.32355 
 ```
-
 
 #### Durbin-Watson-test for autocorrelation
 
 
 ```r
+library(car)
 durbinWatsonTest(fit)
 ```
 
 ```
  lag Autocorrelation D-W Statistic p-value
-   1        -0.08825         2.173   0.348
+   1     -0.08825048      2.172797   0.348
  Alternative hypothesis: rho != 0
 ```
-
 
 #### Statistical tests for heterocedasticity
 
@@ -255,22 +253,23 @@ bptest(fit)
 
 	studentized Breusch-Pagan test
 
-data:  fit 
-BP = 1.921, df = 3, p-value = 0.5889
+data:  fit
+BP = 1.9213, df = 3, p-value = 0.5889
 ```
-
 
 Score-test for non-constant error variance
 
 
 ```r
+library(car)
 ncvTest(fit)
 ```
 
 ```
-Error: Objekt 'dfRegr' nicht gefunden
+Non-constant Variance Score Test 
+Variance formula: ~ fitted.values 
+Chisquare = 0.548752    Df = 1     p = 0.4588281 
 ```
-
 
 ### Linearity assumption
 
@@ -286,10 +285,9 @@ white.test(dfRegr$X1, dfRegr$Y)
 
 	White Neural Network Test
 
-data:  dfRegr$X1 and dfRegr$Y 
-X-squared = 1.818, df = 2, p-value = 0.4029
+data:  dfRegr$X1 and dfRegr$Y
+X-squared = 1.8182, df = 2, p-value = 0.4029
 ```
-
 
 
 ```r
@@ -297,7 +295,6 @@ white.test(dfRegr$X2, dfRegr$Y)
 white.test(dfRegr$X3, dfRegr$Y)
 # not run
 ```
-
 
 ### Response transformations
 
@@ -308,14 +305,14 @@ lamObj  <- powerTransform(fit, family="bcPower")
 ```
 
 ```
-   Y1 
-1.281 
+      Y1 
+1.280836 
 ```
 
 ```r
+library(car)
 yTrans <- bcPower(dfRegr$Y, lambda)
 ```
-
 
 Multicollinearity
 -------------------------
@@ -329,25 +326,24 @@ X   <- data.matrix(subset(dfRegr, select=c("X1", "X2", "X3")))
 ```
 
 ```
-         X1       X2      X3
-X1  1.00000 -0.04953  0.2700
-X2 -0.04953  1.00000 -0.2929
-X3  0.27004 -0.29290  1.0000
+            X1          X2         X3
+X1  1.00000000 -0.04953215  0.2700393
+X2 -0.04953215  1.00000000 -0.2929049
+X3  0.27003928 -0.29290486  1.0000000
 ```
-
 
 ### Variance inflation factor
 
 
 ```r
+library(car)
 vif(fit)
 ```
 
 ```
-   X1    X2    X3 
-1.080 1.095 1.178 
+      X1       X2       X3 
+1.079770 1.094974 1.178203 
 ```
-
 
 ### Condition indexes
 
@@ -360,9 +356,8 @@ kappa(fitScl, exact=TRUE)
 ```
 
 ```
-[1] 1.509
+[1] 1.508749
 ```
-
 
 
 ```r
@@ -380,33 +375,27 @@ Index	Variance Decomposition Proportions
 4  78.331 0.953     0.959 0.008 0.006
 ```
 
-
 ### Using package `perturb`
 
 
 ```r
-attach(dfRegr)
-pRes <- perturb(fit, pvars=c("X1", "X2", "X3"), prange=c(1, 1, 1))
-```
-
-```
-Error: Objekt 'dfRegr' nicht gefunden
-```
-
-```r
+pRes <- with(dfRegr, perturb(fit, pvars=c("X1", "X2", "X3"), prange=c(1, 1, 1)))
 summary(pRes)
 ```
 
 ```
-Error: Fehler bei der Auswertung des Argumentes 'object' bei der
-Methodenauswahl für Funktion 'summary': Fehler: Objekt 'pRes' nicht
-gefunden
-```
+Perturb variables:
+X1 		 normal(0,1) 
+X2 		 normal(0,1) 
+X3 		 normal(0,1) 
 
-```r
-detach(dfRegr)
+Impact of perturbations on coefficients:
+              mean  s.d.    min    max
+(Intercept) 17.865 3.149  8.811 24.220
+X1           0.458 0.019  0.420  0.514
+X2          -0.273 0.015 -0.323 -0.245
+X3          -0.431 0.029 -0.530 -0.369
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -418,22 +407,10 @@ try(detach(package:lmtest))
 try(detach(package:zoo))
 try(detach(package:perturb))
 try(detach(package:mvoutlier))
-try(detach(package:robCompositions))
-try(detach(package:compositions))
-try(detach(package:rgl))
-try(detach(package:tensorA))
-try(detach(package:energy))
-try(detach(package:boot))
-try(detach(package:rrcov))
-try(detach(package:pcaPP))
 try(detach(package:robustbase))
-try(detach(package:mvtnorm))
 try(detach(package:sgeostat))
 try(detach(package:car))
-try(detach(package:nnet))
-try(detach(package:MASS))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

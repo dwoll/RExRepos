@@ -13,10 +13,10 @@ Nonparametric location tests for more than two samples
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin)
+[`coin`](http://cran.r-project.org/package=coin), [`DescTools`](http://cran.r-project.org/package=DescTools)
 
 ```{r}
-wants <- c("coin")
+wants <- c("coin", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -64,7 +64,7 @@ oneway_test(DV ~ IV, distribution=approximate(B=9999), data=KWdf)
 Independent samples - ordered groups
 ------------------------------------
 
-### Linear by linear association test
+### Jonckheere Terpstra trend test
 
 ```{r}
 set.seed(123)
@@ -74,6 +74,16 @@ muJ  <- rep(c(-1, 0, 1, 2), Nj)
 JTdf <- data.frame(IV=ordered(rep(LETTERS[1:P], Nj)),
                    DV=rnorm(sum(Nj), muJ, 7))
 ```
+
+Using `JonckheereTerpstraTest()` from package `DescTools`.
+
+```{r}
+library(DescTools)
+JonckheereTerpstraTest(DV ~ IV, data=JTdf)
+```
+
+### Linear by linear association test
+
 
 ```{r}
 library(coin)
@@ -130,7 +140,17 @@ Pdf <- data.frame(id=factor(rep(1:N, times=P)),
                   IV=ordered(rep(LETTERS[1:P], each=N)))
 ```
 
+Using `PageTest()` from package `DescTools`.
+
 ```{r}
+library(DescTools)
+PageTest(DV ~ IV | id, data=Pdf)
+```
+
+Using `friedman_test()` from package `coin`.
+
+```{r}
+library(coin)
 friedman_test(DV ~ IV | id, distribution=approximate(B=9999), data=Pdf)
 ```
 
@@ -138,10 +158,8 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
+try(detach(package:DescTools))
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
 ```

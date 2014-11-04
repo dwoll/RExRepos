@@ -27,7 +27,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Identify coordinates in scatterplots
 -------------------------
 
@@ -39,7 +38,6 @@ vec <- rnorm(10)
 plot(vec, pch=16)
 (xy <- locator(n=3))
 ```
-
 
 ```
 $x
@@ -69,7 +67,7 @@ $x
 [1] -1.304
 
 $y
-[1] -2.028
+[1] -2.027974
 ```
 
 ```r
@@ -85,7 +83,7 @@ $x
 [1] -0.6236 11.6236
 
 $y
-[1]  2.253 -1.803
+[1]  2.252680 -1.802676
 ```
 
 ```r
@@ -96,8 +94,7 @@ text(pt2$usr$x[1] + 0.5, pt2$usr$y[1], adj=c(0, 0),
      labels="arrow across total device-region", cex=1.5)
 ```
 
-![plot of chunk rerDiagAddElements01](../content/assets/figure/rerDiagAddElements01.png) 
-
+![plot of chunk rerDiagAddElements01](../content/assets/figure/rerDiagAddElements01-1.png) 
 
 Points and lines
 -------------------------
@@ -118,8 +115,7 @@ yB <- sin(pi * xA) / (pi * xA)    ## normalized sinc function
 lines(xA, yB, col="blue", type="l", lwd=2)
 ```
 
-![plot of chunk rerDiagAddElements02](../content/assets/figure/rerDiagAddElements02.png) 
-
+![plot of chunk rerDiagAddElements02](../content/assets/figure/rerDiagAddElements02-1.png) 
 
 ### Gridlines, line segments, and arrows
 
@@ -147,8 +143,7 @@ arrows(x0=X[4]+0.1*(X[7]-X[4]),
 points(Y ~ X, pch=16, cex=1.5, col="blue")
 ```
 
-![plot of chunk rerDiagAddElements03](../content/assets/figure/rerDiagAddElements03.png) 
-
+![plot of chunk rerDiagAddElements03](../content/assets/figure/rerDiagAddElements03-1.png) 
 
 Rectangles, polygons, and text
 -------------------------
@@ -176,8 +171,7 @@ yText <- yBot[idx]  + (yTop[idx]  - yBot[idx])/2
 text(xText, yText, labels=cols[idx])
 ```
 
-![plot of chunk rerDiagAddElements04](../content/assets/figure/rerDiagAddElements04.png) 
-
+![plot of chunk rerDiagAddElements04](../content/assets/figure/rerDiagAddElements04-1.png) 
 
 ### Polygons, mathematical symbols, and custom axes
 
@@ -230,8 +224,7 @@ text(mu+sigma/2, 0,    expression(sigma), col="darkgreen", cex=1.2)
 text(mu+0.5,     0.02, expression(mu),    col="red",       cex=1.2)
 ```
 
-![plot of chunk rerDiagAddElements05](../content/assets/figure/rerDiagAddElements05.png) 
-
+![plot of chunk rerDiagAddElements05](../content/assets/figure/rerDiagAddElements05-1.png) 
 
 #### Polygon with shading lines
 
@@ -243,7 +236,6 @@ muH1   <- 1.6
 alpha  <- 0.05
 sigma  <- 2
 ```
-
 
 
 ```r
@@ -259,7 +251,7 @@ sigma  <- 2
 ```
 
 ```
-[1] 2.53
+[1] 2.529822
 ```
 
 ```r
@@ -267,7 +259,7 @@ sigma  <- 2
 ```
 
 ```
-[1] 1.833
+[1] 1.833113
 ```
 
 ```r
@@ -275,13 +267,12 @@ sigma  <- 2
 ```
 
 ```
-[1] 0.7544
+[1] 0.7544248
 ```
 
 ```r
 xLims <- c(-5, 10)
 ```
-
 
 
 ```r
@@ -291,7 +282,6 @@ yH0r   <- dt(tRight, N-1, 0)
 yH1l   <- dt(tLeft,  N-1, delta)
 yH1r   <- dt(tRight, N-1, delta)
 ```
-
 
 
 ```r
@@ -314,8 +304,7 @@ text(tCrit-0.7, 0.05,  expression(beta))
 text(tCrit+0.5, 0.015, expression(alpha))
 ```
 
-![plot of chunk rerDiagAddElements06](../content/assets/figure/rerDiagAddElements06.png) 
-
+![plot of chunk rerDiagAddElements06](../content/assets/figure/rerDiagAddElements06-1.png) 
 
 As opposed to `polygon()`, function `polypath()` can draw polygons with holes.
 
@@ -337,8 +326,7 @@ mtext(text="Probability density", side=3)
 text(-4, 0.3, expression(frac(1, sigma*sqrt(2*pi))~exp*bgroup("(", -frac(1, 2)~bgroup("(", frac(x-mu, sigma), ")")^2, ")")))
 ```
 
-![plot of chunk rerDiagAddElements07](../content/assets/figure/rerDiagAddElements07.png) 
-
+![plot of chunk rerDiagAddElements07](../content/assets/figure/rerDiagAddElements07-1.png) 
 
 See `?plotmath` and `demo(plotmath)` for explanations and further demos for mathematical expressions.
 
@@ -366,8 +354,7 @@ legend(x="bottomleft", legend=c("sin(x)", "cos(x)", "tan(x)"), cex=1.3,
        lty=c(1, 1, NA), pch=c(NA, NA, 16), col=c(12, 14, 17), bg="white")
 ```
 
-![plot of chunk rerDiagAddElements08](../content/assets/figure/rerDiagAddElements08.png) 
-
+![plot of chunk rerDiagAddElements08](../content/assets/figure/rerDiagAddElements08-1.png) 
 
 Error bars
 -------------------------
@@ -385,7 +372,6 @@ Sj <- tapply(DV, IV, FUN=sd)
 ciWidths <- qt(0.975, df=Nj-1) * Sj / sqrt(Nj)
 ```
 
-
 ### Using `plotCI()` from package `plotrix`
 
 
@@ -399,8 +385,7 @@ plotCI(x=Mj, uiw=ciWidths, sfrac=0, col="blue",
 axis(side=1, at=1:P, labels=LETTERS[1:P])
 ```
 
-![plot of chunk rerDiagAddElements09](../content/assets/figure/rerDiagAddElements09.png) 
-
+![plot of chunk rerDiagAddElements09](../content/assets/figure/rerDiagAddElements09-1.png) 
 
 ### Means and error bars in a two-way design
 
@@ -414,7 +399,6 @@ Q   <- length(Mj1)
 ```
 
 
-
 ```r
 xOff <- 0.1
 plotCI(y=c(Mj1, Mj2), x=c((1:Q)-xOff, (1:Q)+xOff), uiw=c(Sj1, Sj2),
@@ -425,8 +409,7 @@ legend(x="topleft", legend=c("B-1", "B-2"), pch=c(19, 19),
        col=c("blue", "red"))
 ```
 
-![plot of chunk rerDiagAddElements11](../content/assets/figure/rerDiagAddElements11.png) 
-
+![plot of chunk rerDiagAddElements11](../content/assets/figure/rerDiagAddElements11-1.png) 
 
 ### Using `arrows()`
 
@@ -441,8 +424,7 @@ arrows(x0=barsX, y0=limLo, x1=barsX, y1=limHi, code=3, angle=90,
        length=0.1, col="blue", lwd=2)
 ```
 
-![plot of chunk rerDiagAddElements12](../content/assets/figure/rerDiagAddElements12.png) 
-
+![plot of chunk rerDiagAddElements12](../content/assets/figure/rerDiagAddElements12-1.png) 
 
 Raster images
 -------------------------
@@ -461,7 +443,6 @@ arrSq <- array(c(colsR, colsG, colsB), c(pxSq, pxSq, 3))
 sqIm  <- as.raster(arrSq)
 ```
 
-
 Gabor patch: oriented 2-D cosine with contrast following a 2-D normal distribution
 
 
@@ -478,7 +459,6 @@ cosMat <- 0.5*cos(freq*phi) + 0.5
 ```
 
 
-
 ```r
 library(mvtnorm)
 mu       <- c(0, 0)
@@ -489,15 +469,13 @@ gabIm    <- as.raster(cosMat*gaussMat)
 ```
 
 
-
 ```r
 plot(c(0, 1), c(0, 1), type="n", main="Bitmaps", xlab="", ylab="", asp=1)
 rasterImage(sqIm,  0,   0,   0.4, 0.4, angle=0,  interpolate=FALSE)
 rasterImage(gabIm, 0.5, 0.3, 1.1, 0.9, angle=10, interpolate=TRUE)
 ```
 
-![plot of chunk rerDiagAddElements13](../content/assets/figure/rerDiagAddElements13.png) 
-
+![plot of chunk rerDiagAddElements13](../content/assets/figure/rerDiagAddElements13-1.png) 
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -510,7 +488,6 @@ try(detach(package:splines))
 try(detach(package:mvtnorm))
 try(detach(package:plotrix))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

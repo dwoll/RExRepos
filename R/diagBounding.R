@@ -1,17 +1,17 @@
 
-## @knitr 
+## ------------------------------------------------------------------------
 set.seed(123)
 xy      <- matrix(rnorm(24, 100, 15), ncol=2)
 hullIdx <- chull(xy)
 
 
-## @knitr rerDiagBounding01
+## ----rerDiagBounding01---------------------------------------------------
 plot(xy, xlab="x", ylab="y", asp=1, type="n")
 polygon(xy[hullIdx, ], border="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 getBoundingBox <- function(xy) {
     stopifnot(is.matrix(xy), is.numeric(xy), ncol(xy) == 2)
     x   <- range(xy[ , 1])
@@ -21,18 +21,18 @@ getBoundingBox <- function(xy) {
 }
 
 
-## @knitr rerDiagBounding02
+## ----rerDiagBounding02---------------------------------------------------
 bb <- getBoundingBox(xy)
 plot(xy, xlab="x", ylab="y", asp=1, type="n")
 rect(bb$pts[1], bb$pts[2], bb$pts[3], bb$pts[4], border="blue", lwd="2")
 points(xy, pch=16, cex=1.5)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 bb$width * bb$height
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 getMinBBox <- function(xy) {
     stopifnot(is.matrix(xy), is.numeric(xy), nrow(xy) >= 2, ncol(xy) == 2)
 
@@ -97,7 +97,7 @@ getMinBBox <- function(xy) {
 }
 
 
-## @knitr rerDiagBounding03
+## ----rerDiagBounding03---------------------------------------------------
 mbb <- getMinBBox(xy)       ## minimum bounding box
 H   <- chull(xy)            ## convex hull
 
@@ -110,12 +110,12 @@ polygon(mbb$pts, border="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 mbb$width * mbb$height      ## box area
 mbb$angle                   ## box orientation
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 getCircleFrom3 <- function(xy) {
     stopifnot(is.matrix(xy), is.numeric(xy), nrow(xy) == 3, ncol(xy) == 2)
 
@@ -153,7 +153,7 @@ getCircleFrom3 <- function(xy) {
 }
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 getMaxRad <- function(xy, S) {
     stopifnot(is.matrix(xy), is.numeric(xy), nrow(xy) >= 2, ncol(xy) == 2)
     stopifnot(is.numeric(S), length(S) >= 2, length(S) <= nrow(xy))
@@ -173,7 +173,7 @@ getMaxRad <- function(xy, S) {
 }
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 isBiggerThan90 <- function(xy) {
     stopifnot(is.matrix(xy), is.numeric(xy), nrow(xy) == 3, ncol(xy) == 2)
     d   <- dist(xy)
@@ -184,7 +184,7 @@ isBiggerThan90 <- function(xy) {
 }
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 getMinCircle <- function(xy) {
     stopifnot(is.matrix(xy), is.numeric(xy), nrow(xy) >= 2, ncol(xy) == 2)
 
@@ -215,7 +215,7 @@ getMinCircle <- function(xy) {
 }
 
 
-## @knitr rerDiagBounding04
+## ----rerDiagBounding04---------------------------------------------------
 mc     <- getMinCircle(xy)
 angles <- seq(0, 2*pi, length.out=200)
 circ   <- cbind(mc$ctr[1] + mc$rad*cos(angles),
@@ -227,5 +227,4 @@ yLims <- mc$ctr[2] + c(-mc$rad, mc$rad)
 plot(xy, xlab="x", ylab="y", xlim=xLims, ylim=yLims, asp=1, type="n")
 lines(circ, col="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
-
 

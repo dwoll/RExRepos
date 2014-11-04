@@ -21,7 +21,7 @@ Sys.Date()
 ```
 
 ```
-[1] "2013-02-11"
+[1] "2014-11-04"
 ```
 
 ```r
@@ -39,7 +39,6 @@ format(myDate, format="%d.%m.%Y")
 ```
 [1] "01.11.1974"
 ```
-
 
 ### Internal representation
 
@@ -60,7 +59,6 @@ as.numeric(negDate)
 [1] -21940
 ```
 
-
 Time values
 -------------------------
 
@@ -72,7 +70,7 @@ Sys.time()
 ```
 
 ```
-[1] "2013-02-11 11:57:12 CET"
+[1] "2014-11-04 19:37:38 CET"
 ```
 
 ```r
@@ -80,9 +78,8 @@ date()
 ```
 
 ```
-[1] "Mon Feb 11 11:57:12 2013"
+[1] "Tue Nov  4 19:37:38 2014"
 ```
-
 
 
 ```r
@@ -102,7 +99,6 @@ ISOdate(2010, 6, 30, 17, 32, 10, tz="CET")
 ```
 
 
-
 ```r
 format(myTime, "%H:%M:%S")
 ```
@@ -119,7 +115,6 @@ format(myTime, "%d.%m.%Y")
 [1] "07.02.2009"
 ```
 
-
 ### Class `POSIXlt`
 
 
@@ -129,9 +124,8 @@ charDates <- c("05.08.1972, 03:37", "02.04.1981, 12:44")
 ```
 
 ```
-[1] "1972-08-05 03:37:00" "1981-04-02 12:44:00"
+[1] "1972-08-05 03:37:00 CET"  "1981-04-02 12:44:00 CEST"
 ```
-
 
 
 ```r
@@ -151,7 +145,6 @@ lDates$hour
 ```
 
 
-
 ```r
 weekdays(lDates)
 ```
@@ -167,7 +160,6 @@ months(lDates)
 ```
 [1] "August" "April" 
 ```
-
 
 Time and date arithmetic
 -------------------------
@@ -190,7 +182,6 @@ myDate + 365
 ```
 [1] "1975-11-01"
 ```
-
 
 
 ```r
@@ -218,7 +209,6 @@ myDate + diffDate
 ```
 
 
-
 ```r
 lDates + c(60, 120)
 ```
@@ -232,7 +222,7 @@ lDates + c(60, 120)
 ```
 
 ```
-Time difference of 3162 days
+Time difference of 3162.338 days
 ```
 
 ```r
@@ -242,7 +232,6 @@ lDates[1] + diff21
 ```
 [1] "1981-04-02 12:44:00 CEST"
 ```
-
 
 ### Systematically and randomly generate time-date values
 
@@ -266,7 +255,6 @@ seq(ISOdate(1997, 10, 22), by="2 weeks", length.out=4)
 ```
 
 
-
 ```r
 secsPerDay <- 60 * 60 * 24
 randDates  <- ISOdate(1995, 6, 13) + sample(0:(28*secsPerDay), 100, replace=TRUE)
@@ -276,9 +264,8 @@ summary(randWeeks)
 
 ```
 1995-06-12 1995-06-19 1995-06-26 1995-07-03 1995-07-10 
-        24         24         22         25          5 
+        28         19         19         25          9 
 ```
-
 
 Useful packages
 -------------------------

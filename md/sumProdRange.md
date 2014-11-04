@@ -33,7 +33,6 @@ cumsum(age)
 [1]  17  47  77 102 125 146
 ```
 
-
 ### Successive differences
 
 
@@ -52,7 +51,6 @@ diff(age, lag=2)
 ```
 [1] 13 -5 -7 -4
 ```
-
 
 ### Product and cumulative product
 
@@ -80,7 +78,6 @@ factorial(5)
 ```
 [1] 120
 ```
-
 
 Minimum, maximum and range
 -------------------------
@@ -120,7 +117,6 @@ diff(range(c(17, 30, 30, 25, 23, 21)))
 [1] 13
 ```
 
-
 ### Identify the minimum and maximum elements
 
 
@@ -131,7 +127,6 @@ which.max(age)
 ```
 [1] 2
 ```
-
 
 Identify element closest to a value
 
@@ -145,7 +140,6 @@ which.min(abs(vec-val))
 ```
 [1] 3
 ```
-
 
 ### Pairwise minimum and maximum
 
@@ -167,7 +161,6 @@ pmin(vec1, vec2)
 ```
 [1] 3 2 0 2
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

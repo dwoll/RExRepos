@@ -22,7 +22,6 @@ has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
 
-
 Bowker test
 -------------------------
 
@@ -46,7 +45,6 @@ drug   lo med  hi Sum
   Sum  20  40  40 100
 ```
 
-
 `mcnemar.test()` automatically runs the Bowker test for tables with more than 2 rows/columns
 
 
@@ -58,10 +56,9 @@ mcnemar.test(cTab)
 
 	McNemar's Chi-squared test
 
-data:  cTab 
-McNemar's chi-squared = 12.27, df = 3, p-value = 0.006508
+data:  cTab
+McNemar's chi-squared = 12.2718, df = 3, p-value = 0.006508
 ```
-
 
 ### Using `symmetry_test()` from package `coin`
 
@@ -77,10 +74,9 @@ symmetry_test(cTab, teststat="quad", distribution=approximate(B=9999))
 
 data:  response by
 	 groups (drug, plac) 
-	 stratified by block 
-chi-squared = 12.14, p-value = 0.0014
+	 stratified by block
+chi-squared = 12.1387, p-value = 0.002
 ```
-
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -88,13 +84,9 @@ Detach (automatically) loaded packages (if possible)
 
 ```r
 try(detach(package:coin))
-try(detach(package:modeltools))
 try(detach(package:survival))
-try(detach(package:mvtnorm))
 try(detach(package:splines))
-try(detach(package:stats4))
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

@@ -1,5 +1,5 @@
 
-## @knitr 
+## ------------------------------------------------------------------------
 set.seed(123)
 N      <- 12
 sex    <- sample(c("f", "m"), N, replace=TRUE)
@@ -10,13 +10,13 @@ rating <- round(runif(N, min=0, max=6))
 (myDf  <- data.frame(id=1:N, sex, group, age, IQ, rating))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 (lDf <- split(myDf, myDf$group))
 split(myDf, list(myDf$group, myDf$sex))
 unsplit(lDf, myDf$group)
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 (dfNew <- data.frame(id=13:15,
                      group=c("CG", "WL", "T"),
                      sex=c("f", "f", "m"),
@@ -27,7 +27,18 @@ dfComb <- rbind(myDf, dfNew)
 dfComb[11:15, ]
 
 
-## @knitr 
+## ------------------------------------------------------------------------
+(IDDV <- data.frame(ID=factor(rep(1:3, each=2)),
+                    DV=round(rnorm(6, 100, 15))))
+
+(IV <- data.frame(ID=factor(1:3),
+                  IV=factor(c("A", "B", "A")),
+                  sex=factor(c("f", "f", "m"))))
+
+merge(IDDV, IV)
+
+
+## ------------------------------------------------------------------------
 (dfA <- data.frame(id=1:4,
                    initials=c("AB", "CD", "EF", "GH"),
                    IV1=c("-", "-", "+", "+"),
@@ -38,20 +49,20 @@ dfComb[11:15, ]
                    DV2=c(91, 89, 92, 79)))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 merge(dfA, dfB)
 merge(dfA, dfB, by.x=c(TRUE, FALSE, FALSE, FALSE),
                 by.y=c(TRUE, FALSE, FALSE, FALSE))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 (dfC <- data.frame(id=3:6,
                    initials=c("EF", "GH", "IJ", "KL"),
                    IV2=c("A", "B", "A", "B"),
                    DV2=c(92, 79, 101, 81)))
 
 
-## @knitr 
+## ------------------------------------------------------------------------
 merge(dfA, dfC)
 merge(dfA, dfC, all.y=TRUE)
 merge(dfA, dfC, all.x=TRUE, all.y=TRUE)

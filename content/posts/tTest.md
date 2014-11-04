@@ -33,16 +33,15 @@ t.test(DV, alternative="two.sided", mu=muH0)
 
 	One Sample t-test
 
-data:  DV 
-t = 3.729, df = 99, p-value = 0.0003203
-alternative hypothesis: true mean is not equal to 0 
+data:  DV
+t = 3.7292, df = 99, p-value = 0.0003203
+alternative hypothesis: true mean is not equal to 0
 95 percent confidence interval:
-  3.186 10.431 
+  3.185669 10.430568
 sample estimates:
 mean of x 
-    6.808 
+ 6.808118 
 ```
-
 
 ### Effect size estimate (Cohen's $d$)
 
@@ -52,9 +51,8 @@ mean of x
 ```
 
 ```
-[1] 0.3729
+[1] 0.3729185
 ```
-
 
 Two-sample $t$-test for independent samples
 -------------------------
@@ -71,11 +69,9 @@ tIndDf <- data.frame(DV=c(DVm, DVf),
 ```
 
 
-
 ```r
 t.test(DVf, DVm, alternative="less", var.equal=TRUE)
 ```
-
 
 
 ```r
@@ -86,16 +82,15 @@ t.test(DV ~ IV, alternative="greater", var.equal=TRUE, data=tIndDf)
 
 	Two Sample t-test
 
-data:  DV by IV 
-t = 1.114, df = 37, p-value = 0.1363
-alternative hypothesis: true difference in means is greater than 0 
+data:  DV by IV
+t = 1.1137, df = 37, p-value = 0.1363
+alternative hypothesis: true difference in means is greater than 0
 95 percent confidence interval:
- -1.23   Inf 
+ -1.230298       Inf
 sample estimates:
 mean in group f mean in group m 
-          177.0           174.7 
+       177.0479        174.6580 
 ```
-
 
 ### Welch $t$-Test
 
@@ -108,16 +103,15 @@ t.test(DV ~ IV, alternative="greater", var.equal=FALSE, data=tIndDf)
 
 	Welch Two Sample t-test
 
-data:  DV by IV 
-t = 1.103, df = 34.36, p-value = 0.1388
-alternative hypothesis: true difference in means is greater than 0 
+data:  DV by IV
+t = 1.1032, df = 34.359, p-value = 0.1388
+alternative hypothesis: true difference in means is greater than 0
 95 percent confidence interval:
- -1.272    Inf 
+ -1.27206      Inf
 sample estimates:
 mean in group f mean in group m 
-          177.0           174.7 
+       177.0479        174.6580 
 ```
-
 
 ### Effect size estimate (Cohen's $d$)
 
@@ -130,9 +124,8 @@ sdPool <- sqrt(((n1-1)*var(DVm) + (n2-1)*var(DVf)) / (n1+n2-2))
 ```
 
 ```
-[1] 0.3577
+[1] 0.3577436
 ```
-
 
 Two-sample $t$-test for dependent samples
 -------------------------
@@ -149,7 +142,6 @@ tDepDf <- data.frame(DV=c(DVpre, DVpost),
 ```
 
 
-
 ```r
 t.test(DV ~ IV, alternative="less", paired=TRUE, data=tDepDf)
 ```
@@ -158,23 +150,21 @@ t.test(DV ~ IV, alternative="less", paired=TRUE, data=tDepDf)
 
 	Paired t-test
 
-data:  DV by IV 
-t = -2.992, df = 19, p-value = 0.003748
-alternative hypothesis: true difference in means is less than 0 
+data:  DV by IV
+t = -2.9918, df = 19, p-value = 0.003748
+alternative hypothesis: true difference in means is less than 0
 95 percent confidence interval:
-   -Inf -6.739 
+      -Inf -6.739295
 sample estimates:
 mean of the differences 
-                 -15.97 
+              -15.96821 
 ```
-
 
 
 ```r
 DVdiff <- DVpre - DVpost
 t.test(DVdiff, alternative="less")
 ```
-
 
 ### Effect size estimate (Cohen's $d$)
 
@@ -184,9 +174,8 @@ t.test(DVdiff, alternative="less")
 ```
 
 ```
-[1] -0.669
+[1] -0.6689888
 ```
-
 
 Get the article source from GitHub
 ----------------------------------------------

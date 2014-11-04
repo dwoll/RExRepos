@@ -103,7 +103,11 @@ library(boot)
 nR       <- 999
 (bsAnova <- boot(dfCRp, statistic=getAnova, R=nR))
 Fstar    <- bsAnova$t
-(pValBS  <- (sum(Fstar >= Fbase) + 1) / (length(Fstar) + 1))
+
+# don't use >= because of floating point arithmetic problems
+tol     <- .Machine$double.eps^0.5
+FsIsGEQ <- (Fstar > Fbase) | (abs(Fstar-Fbase) < tol)
+(pValBS <- (sum(FsIsGEQ) + 1) / (length(Fstar) + 1))
 ```
 
 ```{r rerResamplingBootALM01}
@@ -140,7 +144,11 @@ library(boot)
 nR       <- 999
 bsAnovaW <- boot(dfCRp, statistic=getAnovaWild, R=nR)
 FstarW   <- bsAnovaW$t
-(pValBSw <- (sum(FstarW >= Fbase) + 1) / (length(FstarW) + 1))
+
+# don't use >= because of floating point arithmetic problems
+tol      <- .Machine$double.eps^0.5
+FsIsGEQ  <- (FstarW > Fbase) | (abs(FstarW-Fbase) < tol)
+(pValBSw <- (sum(FsIsGEQ) + 1) / (length(FstarW) + 1))
 ```
 
 Detach (automatically) loaded packages (if possible)
