@@ -225,6 +225,11 @@ agree12  <- sum(diag(table(DV1, DV2)))
 [1] 0.6428571
 ```
 
+Useful packages
+-------------------------
+
+Packages [`resample`](http://cran.r-project.org/package=resample) and [`vegan`](http://cran.r-project.org/package=vegan) provide more ways to implement flexible permutation strategies for various designs.
+
 Detach (automatically) loaded packages (if possible)
 -------------------------
 

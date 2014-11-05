@@ -33,7 +33,7 @@ Log-linear model
     
 ### Data
 
-`UCBAdmissions` is a built in \((2 \times 2 \times 6)\) contingency table.
+`UCBAdmissions` is a built-in \((2 \times 2 \times 6)\) contingency table.
 
 ```{r}
 library(MASS)
@@ -59,13 +59,15 @@ Specific model of conditional independence.
 loglm(~ Admit + Dept + Gender + Admit:Dept + Dept:Gender, data=UCBAdmissions)
 ```
 
-Mosaic-plot of category frequencies.
+### Mosaic-plot of category frequencies
 
 ```{r rerLogLinear01}
 mosaicplot(~ Admit + Dept + Gender, shade=TRUE, data=UCBAdmissions)
 ```
 
-Coefficient estimates - automatically uses effect coding.
+### Coefficient estimates
+
+`coef(loglm(...))` automatically uses effect coding.
 
 ```{r}
 (llCoef <- coef(llFit))

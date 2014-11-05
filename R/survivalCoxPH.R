@@ -35,9 +35,11 @@ dfSurvCP <- survSplit(dfSurv, cut=seq(30, 90, by=30), end="obsT",
 library(survival)
 (fitCPH <- coxph(Surv(obsT, status) ~ X + IV, data=dfSurv))
 
-# use counting process data
+
+## ----results='hide'------------------------------------------------------
 coxph(Surv(start, obsT, status) ~ X + IV, data=dfSurvCP)
 summary(fitCPH)
+# not shown
 
 
 ## ------------------------------------------------------------------------

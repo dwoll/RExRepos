@@ -29,7 +29,7 @@ Log-linear model
     
 ### Data
 
-`UCBAdmissions` is a built in $(2 \times 2 \times 6)$ contingency table.
+`UCBAdmissions` is a built-in $(2 \times 2 \times 6)$ contingency table.
 
 
 ```r
@@ -98,7 +98,7 @@ Likelihood Ratio 21.73551  6 0.001351993
 Pearson          19.93841  6 0.002840164
 ```
 
-Mosaic-plot of category frequencies.
+### Mosaic-plot of category frequencies
 
 
 ```r
@@ -107,7 +107,9 @@ mosaicplot(~ Admit + Dept + Gender, shade=TRUE, data=UCBAdmissions)
 
 ![plot of chunk rerLogLinear01](../content/assets/figure/rerLogLinear01-1.png) 
 
-Coefficient estimates - automatically uses effect coding.
+### Coefficient estimates
+
+`coef(loglm(...))` automatically uses effect coding.
 
 
 ```r

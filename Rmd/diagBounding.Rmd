@@ -9,7 +9,7 @@ tags: [Diagrams]
 
 Convex hull, (minimum) bounding box, and minimum enclosing circle
 =========================
-    
+ 
 Convex hull
 -------------------------
 
@@ -61,14 +61,14 @@ getMinBBox <- function(xy) {
     stopifnot(is.matrix(xy), is.numeric(xy), nrow(xy) >= 2, ncol(xy) == 2)
 
     ## rotating calipers algorithm using the convex hull
-    H    <- chull(xy)      ## hull indices, vertices ordered clockwise
-    n    <- length(H)      ## number of hull vertices
-    hull <- xy[H, ]        ## hull vertices
+    H    <- chull(xy)                    # hull indices, vertices ordered clockwise
+    n    <- length(H)                    # number of hull vertices
+    hull <- xy[H, ]                      # hull vertices
 
     ## unit basis vectors for all subspaces spanned by the hull edges
-    hDir  <- diff(rbind(hull, hull[1, ])) ## hull vertices are circular
-    hLens <- sqrt(rowSums(hDir^2))        ## length of basis vectors
-    huDir <- diag(1/hLens) %*% hDir       ## scaled to unit length
+    hDir  <- diff(rbind(hull, hull[1,])) # account for circular hull vertices
+    hLens <- sqrt(rowSums(hDir^2))       # length of basis vectors
+    huDir <- diag(1/hLens) %*% hDir      # scaled to unit length
 
     ## unit basis vectors for the orthogonal subspaces
     ## rotation by 90 deg -> y' = x, x' = -y
@@ -79,23 +79,19 @@ getMinBBox <- function(xy) {
     projMat <- rbind(huDir, ouDir) %*% t(hull)
 
     ## range of projections and corresponding width/height of bounding rectangle
-    rangeH  <- matrix(numeric(n*2), ncol=2)  ## hull edge
-    rangeO  <- matrix(numeric(n*2), ncol=2)  ## orthogonal subspace
+    rangeH  <- matrix(numeric(n*2), ncol=2)   # hull edge
+    rangeO  <- matrix(numeric(n*2), ncol=2)   # orth subspace
     widths  <- numeric(n)
     heights <- numeric(n)
-
-    for(i in seq(along=numeric(n))) {
+    for(i in seq(along=H)) {
         rangeH[i, ] <- range(projMat[  i, ])
-
-        ## the orthogonal subspace is in the 2nd half of the matrix
-        rangeO[i, ] <- range(projMat[n+i, ])
+        rangeO[i, ] <- range(projMat[n+i, ])  # orth subspace is in 2nd half
         widths[i]   <- abs(diff(rangeH[i, ]))
         heights[i]  <- abs(diff(rangeO[i, ]))
     }
 
     ## extreme projections for min-area rect in subspace coordinates
-    ## hull edge leading to minimum-area
-    eMin  <- which.min(widths*heights)
+    eMin  <- which.min(widths*heights)   # hull edge leading to minimum-area
     hProj <- rbind(   rangeH[eMin, ], 0)
     oProj <- rbind(0, rangeO[eMin, ])
 
@@ -105,19 +101,22 @@ getMinBBox <- function(xy) {
 
     ## corners in standard coordinates, rows = x,y, columns = corners
     ## in combined (4x2)-matrix: reverse point order to be usable in polygon()
-    ## basis formed by hull edge and orthogonal subspace
-    basis <- cbind(huDir[eMin, ], ouDir[eMin, ])
+    basis <- cbind(huDir[eMin, ], ouDir[eMin, ])  # basis formed by hull edge and orth
     hCorn <- basis %*% hPts
     oCorn <- basis %*% oPts
     pts   <- t(cbind(hCorn, oCorn[ , c(2, 1)]))
 
     ## angle of longer edge pointing up
     dPts <- diff(pts)
-    e    <- dPts[which.max(rowSums(dPts^2)), ] ## one of the longer edges
-    eUp  <- e * sign(e[2])       ## rotate upwards 180 deg if necessary
-    deg  <- atan2(eUp[2], eUp[1])*180 / pi     ## angle in degrees
+    e    <- dPts[which.max(rowSums(dPts^2)), ]  # one of the longer edges
+    eUp  <- e * sign(e[2])                  # rotate upwards 180 deg if necessary
+    deg  <- atan2(eUp[2], eUp[1])*180 / pi  # angle in degrees
 
-    return(list(pts=pts, width=widths[eMin], height=heights[eMin], angle=deg))
+    ## box size
+    bbWidth  <- widths[eMin]
+    bbHeight <- heights[eMin]
+
+    return(list(pts=pts, width=bbWidth, height=bbHeight, angle=deg))
 }
 ```
 
@@ -167,8 +166,7 @@ getCircleFrom3 <- function(xy) {
     ## check if the points are collinear: qr(xy)$rank == 1, or:
     ## determinant of difference matrix = 0, no need to use det()
     dMat <- rbind(c(xDeltaA, yDeltaA), c(xDeltaB, yDeltaB))
-    determinant <- dMat[1, 1]*dMat[2, 2] - dMat[1,2]*dMat[2, 1]
-    if(isTRUE(all.equal(determinant, 0, check.attributes=FALSE))) {
+    if(isTRUE(all.equal(dMat[1,1]*dMat[2,2] - dMat[1,2]*dMat[2,1], 0, check.attributes=FALSE))) {
         ## define the circle as the one that's centered between the points
         rangeX <- range(c(aa[1], bb[1], cc[1]))
         rangeY <- range(c(aa[2], bb[2], cc[2]))
@@ -176,14 +174,15 @@ getCircleFrom3 <- function(xy) {
         rad    <- sqrt((0.5*diff(rangeX))^2 + (0.5*diff(rangeY))^2)
     } else {
         rad <- prod(dist(xy)) / (2 * abs(det(cbind(xy, 1))))  # circle radius
-        v1  <- rowSums(xy^2)                   ## first vector in the numerator
-        v2x <- c( xDeltaB, -xDeltaC,  xDeltaA) ## 2nd vector numerator for Mx
-        v2y <- c(-yDeltaB,  yDeltaC, -yDeltaA) ## 2nd vector numerator for My
-        ctr <- c(t(v1) %*% v2y, t(v1) %*% v2x) / (2 * (t(y) %*% v2x)) ## center
+        v1  <- rowSums(xy^2)                    # first vector in the numerator
+        v2x <- c( xDeltaB, -xDeltaC,  xDeltaA)  # 2nd vector numerator for Mx
+        v2y <- c(-yDeltaB,  yDeltaC, -yDeltaA)  # 2nd vector numerator for My
+        ctr <- c(t(v1) %*% v2y, t(v1) %*% v2x) / (2 * (t(y) %*% v2x))  # center
     }
 
     return(list(ctr=ctr, rad=rad))
 }
+
 ```
 
 ### Vertex that produces the circle with the maximum radius
@@ -195,15 +194,14 @@ getMaxRad <- function(xy, S) {
     stopifnot(is.matrix(xy), is.numeric(xy), nrow(xy) >= 2, ncol(xy) == 2)
     stopifnot(is.numeric(S), length(S) >= 2, length(S) <= nrow(xy))
 
-    n    <- length(S)                   ## number of points
-    Sidx <- seq(along=numeric(n))       ## index for points
-    rads <- numeric(n)                  ## radii for all circles
-    post <- (Sidx %% n) + 1             ## next point in S
-    prev <- Sidx[order(post)]           ## previous point in S
-
+    n    <- length(S)                    # number of points
+    Sidx <- seq(along=S)                 # index for points
+    rads <- numeric(n)                   # radii for all circles
+    post <- (Sidx %% n) + 1              # next point in S
+    prev <- Sidx[order(post)]            # previous point in S
     for(i in Sidx) {
         pts     <- rbind(xy[S[prev[i]], ], xy[S[i], ], xy[S[post[i]], ])
-        rads[i] <- getCircleFrom3(pts)$rad ## circle radius
+        rads[i] <- getCircleFrom3(pts)$rad  # circle radius
     }
 
     return(which.max(rads))
@@ -223,26 +221,64 @@ isBiggerThan90 <- function(xy) {
 }
 ```
 
+### Maximum pairwise distance between two 2D-points
+
+```{r}
+getMaxPairDist <- function(xy) {
+    stopifnot(is.matrix(xy), is.numeric(xy), ncol(xy) == 2, nrow(xy) >= 2)
+
+    # 2D -> only convex hull is relevant
+    H    <- chull(xy)      # convex hull indices (vertices ordered clockwise)
+    pts  <- xy[H, ]        # points that make up the convex hull
+    N    <- nrow(pts)                      # number of points on hull
+    dMat <- dist(pts, method="euclidean")  # distance matrix
+    idx  <- which.max(as.matrix(dMat))     # maximum distance
+    i    <- (idx-1) %/% N+1                # column -> point 1
+    j    <- (idx-1) %%  N+1                # row    -> point 2
+    mPts <- H[c(i, j)]                     # rows with max distance
+    dst  <- max(dMat)                      # max distance
+
+    return(list(d=dst, idx=mPts))
+}
+```
+
 ### Minimal enclosing circle
 
 ```{r}
 getMinCircle <- function(xy) {
     stopifnot(is.matrix(xy), is.numeric(xy), nrow(xy) >= 2, ncol(xy) == 2)
 
-    ## Skyum algorithm based on the convex hull
-    H <- chull(xy)            ## hull indices (vertices ordered clockwise)
-    S <- H                    ## copy that will be changed
+    H    <- chull(xy)      # convex hull indices (vertices ordered clockwise)
+    hPts <- xy[H, ]        # points that make up the convex hull
+
+    ## min circle may touch convex hull in only two points
+    ## if so, it is centered between the hull points with max distance
+    maxPD  <- getMaxPairDist(hPts)
+    idx    <- maxPD$idx    # index of points with max distance
+    rad    <- maxPD$d / 2  # half the distance -> radius
+    rangeX <- c(hPts[idx[1], 1], hPts[idx[2], 1])
+    rangeY <- c(hPts[idx[1], 2], hPts[idx[2], 2])
+    ctr    <- c(rangeX[1] + 0.5*diff(rangeX), rangeY[1] + 0.5*diff(rangeY))
+
+    ## check if circle centered between hPts[pt1Idx, ] and hPts[pt2Idx, ]
+    ## contains all points (all distances <= rad)
+    dst2ctr <- dist(rbind(ctr, hPts[-idx, ]))      # distances to center
+    if(all(as.matrix(dst2ctr)[-1, 1] <= rad)) {    # if all <= rad, we're done
+        tri <- rbind(hPts[idx, ], ctr)
+        return(getCircleFrom3(tri))
+    }
+
+    ## min circle touches hull in three points - Skyum algorithm
+    S <- H                               # copy of hull indices that will be changed
     while(length(S) >= 2) {
-        n    <- length(S)             ## number of remaining hull vertices
-        Sidx <- seq(along=numeric(n)) ## index for vertices
-        post <- (Sidx %% n) + 1       ## next vertex in S
-        prev <- Sidx[order(post)]     ## previous vertex in S
-        mIdx <- getMaxRad(xy, S)      ## idx for maximum radius
+        n    <- length(S)                # number of remaining hull vertices
+        Sidx <- seq(along=S)             # index for vertices
+        post <- (Sidx %% n) + 1          # next vertex in S
+        prev <- Sidx[order(post)]        # previous vertex in S
+        mIdx <- getMaxRad(xy, S)         # idx for maximum radius
 
         ## triangle where mIdx is vertex B in ABC
-        Smax <- rbind(xy[S[prev[mIdx]], ],
-                      xy[S[mIdx], ],
-                      xy[S[post[mIdx]], ])
+        Smax <- rbind(xy[S[prev[mIdx]], ], xy[S[mIdx], ], xy[S[post[mIdx]], ])
 
         ## if there's only two hull vertices, we're done
         if(n <= 2) { break }
@@ -271,3 +307,4 @@ plot(xy, xlab="x", ylab="y", xlim=xLims, ylim=yLims, asp=1, type="n")
 lines(circ, col="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
 ```
+

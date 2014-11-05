@@ -99,7 +99,7 @@ library(MASS)
 # not shown
 ```
 
-Profile likelihood based confidence intervals (need to use `MASS:::confint.polr()` insteand of `confint()` since other packages are loaded, and method is masked).
+Profile likelihood based confidence intervals (need to use `MASS:::confint.polr()` instead of `confint()` since other packages are loaded, and method is masked).
 
 ```{r}
 exp(MASS:::confint.polr(polrFit))

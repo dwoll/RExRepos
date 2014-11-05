@@ -161,7 +161,7 @@ library(boot)                          # for boot()
 nR    <- 999
 bsRes <- boot(dfAncova, statistic=getBSB, R=nR)
 
-(Btrain   <- brierB(glmLR$y, predict(glmLR, type="response")))
+(Btrain <- brierB(glmLR$y, predict(glmLR, type="response")))
 ```
 
 ```
@@ -186,6 +186,11 @@ Optimism-corrected bootstrap estimate of prediction error.
 ```
 [1] 0.1682787
 ```
+
+Useful packages
+-------------------------
+
+Packages [`caret`](http://cran.r-project.org/package=caret) and [`ipred`](http://cran.r-project.org/package=ipred) provide more crossvalidation and bootstrapping options like the +.632 bootstrap.
 
 Detach (automatically) loaded packages (if possible)
 -------------------------

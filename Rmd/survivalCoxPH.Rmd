@@ -13,7 +13,7 @@ Survival analysis: Cox proportional hazards model
 TODO
 -------------------------
 
- - link to survivalKM, survivalParametric, counting process notation for recurrent events and time dependent covariates 
+ - link to survivalKM, survivalParametric
 
 Install required packages
 -------------------------
@@ -80,10 +80,14 @@ $$
 ```{r}
 library(survival)
 (fitCPH <- coxph(Surv(obsT, status) ~ X + IV, data=dfSurv))
+```
 
-# use counting process data
+Use counting process data format.
+
+```{r results='hide'}
 coxph(Surv(start, obsT, status) ~ X + IV, data=dfSurvCP)
 summary(fitCPH)
+# not shown
 ```
 
 Assess model fit

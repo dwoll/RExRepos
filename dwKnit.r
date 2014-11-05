@@ -1,4 +1,4 @@
-## knit input Rmd file to output md file
+## knit one input Rmd file to one output md file
 dwKnit <- function(fIn, fOut,
                    markdEngine=c("kramdown", "redcarpet", "pandoc"),
                    siteGen=c("jekyll", "nanoc", "none")) {

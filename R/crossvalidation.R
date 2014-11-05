@@ -92,7 +92,7 @@ library(boot)                          # for boot()
 nR    <- 999
 bsRes <- boot(dfAncova, statistic=getBSB, R=nR)
 
-(Btrain   <- brierB(glmLR$y, predict(glmLR, type="response")))
+(Btrain <- brierB(glmLR$y, predict(glmLR, type="response")))
 (optimism <- mean(bsRes$t, na.rm=TRUE))
 
 

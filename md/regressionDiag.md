@@ -266,9 +266,7 @@ ncvTest(fit)
 ```
 
 ```
-Non-constant Variance Score Test 
-Variance formula: ~ fitted.values 
-Chisquare = 0.548752    Df = 1     p = 0.4588281 
+Error in is.data.frame(data): Objekt 'dfRegr' nicht gefunden
 ```
 
 ### Linearity assumption
@@ -380,21 +378,18 @@ Index	Variance Decomposition Proportions
 
 ```r
 pRes <- with(dfRegr, perturb(fit, pvars=c("X1", "X2", "X3"), prange=c(1, 1, 1)))
+```
+
+```
+Error in get(pvars): Objekt 'X1' nicht gefunden
+```
+
+```r
 summary(pRes)
 ```
 
 ```
-Perturb variables:
-X1 		 normal(0,1) 
-X2 		 normal(0,1) 
-X3 		 normal(0,1) 
-
-Impact of perturbations on coefficients:
-              mean  s.d.    min    max
-(Intercept) 17.865 3.149  8.811 24.220
-X1           0.458 0.019  0.420  0.514
-X2          -0.273 0.015 -0.323 -0.245
-X3          -0.431 0.029 -0.530 -0.369
+Error in summary(pRes): Objekt 'pRes' nicht gefunden
 ```
 
 Detach (automatically) loaded packages (if possible)

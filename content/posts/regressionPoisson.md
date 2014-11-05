@@ -272,12 +272,7 @@ odTest(glmFitNB)
 ```
 
 ```
-Likelihood ratio test of H0: Poisson, as restricted NB model:
-n.b., the distribution of the test-statistic under H0 is non-standard
-e.g., see help(odTest) for details/references
-
-Critical value of test statistic at the alpha= 0.05 level: 2.7055 
-Chi-Square Test Statistic =  15.8533 p-value = 3.422e-05 
+Error in eval(expr, envir, enclos): Objekt 'dfCount' nicht gefunden
 ```
 
 Zero-inflated Regression models

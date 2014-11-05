@@ -47,5 +47,19 @@ legend(x="topleft", lty=c(NA, 1), pch=c(1, NA), lwd=c(2, 2),
 
 
 ## ------------------------------------------------------------------------
+bootIdx <- boot.array(bsRes, indices=TRUE)
+
+# replications 1-3: first 10 selected indices in each replication
+bootIdx[1:3, 1:10]
+
+# selected indices in the first replication
+repl1Idx <- bootIdx[1, ]
+
+# selected values in the first replication
+repl1DV <- DV[repl1Idx]
+head(repl1DV, n=5) 
+
+
+## ------------------------------------------------------------------------
 try(detach(package:boot))
 

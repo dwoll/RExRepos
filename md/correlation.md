@@ -280,7 +280,7 @@ DV3  0.05487907  0.1158558 1.00000000  0.8963581
 DV4 -0.18787879 -0.1636364 0.89635813  1.0000000
 ```
 
-### Kendall's $\tau$
+### Kendall's $\tau$-b
 
 
 ```r
@@ -412,7 +412,7 @@ DV4 0.60 0.65   0   0
  To see confidence intervals of the correlations, print with the short=FALSE option
 ```
 
-### Kendall's $\tau$
+### Kendall's $\tau$-b
 
 
 ```r

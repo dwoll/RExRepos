@@ -143,7 +143,7 @@ library(MASS)
 # not shown
 ```
 
-Profile likelihood based confidence intervals (need to use `MASS:::confint.polr()` insteand of `confint()` since other packages are loaded, and method is masked).
+Profile likelihood based confidence intervals (need to use `MASS:::confint.polr()` instead of `confint()` since other packages are loaded, and method is masked).
 
 
 ```r
@@ -151,9 +151,7 @@ exp(MASS:::confint.polr(polrFit))
 ```
 
 ```
-       2.5 %    97.5 %
-X1 1.0530865 1.1919021
-X2 0.8602671 0.9574481
+Error in eval(expr, envir, enclos): Objekt 'dfOrd' nicht gefunden
 ```
 
 ### Using `clm()` from package `ordinal`
@@ -407,6 +405,13 @@ p-values for two-sided paramter tests based on assumption that z-values are asym
 
 ```r
 summary(polrFit)
+```
+
+```
+Error in eval(expr, envir, enclos): Objekt 'dfOrd' nicht gefunden
+```
+
+```r
 summary(clmFit)
 # not shown
 ```

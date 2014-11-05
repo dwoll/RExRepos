@@ -19,7 +19,7 @@ getwd()
 ```
 
 ```
-[1] "/home/dw/RExRepos/tmp"
+[1] "/home/dw/rexrepos/tmp"
 ```
 
 

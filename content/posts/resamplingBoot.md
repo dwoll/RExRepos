@@ -120,6 +120,38 @@ legend(x="topleft", lty=c(NA, 1), pch=c(1, NA), lwd=c(2, 2),
 
 ![plot of chunk rerResamplingBoot01](../content/assets/figure/rerResamplingBoot01-1.png) 
 
+### Detailed information about bootstrap samples
+
+`boot.array(boot(...), indices=TRUE)` gives detailed information about the selected indices for each bootstrap replication. If the sample has $n$ observations, and there are $R$ replications, the result is an $(R \times n)$-matrix with one row for each replication and one column for each observation.
+
+
+```r
+bootIdx <- boot.array(bsRes, indices=TRUE)
+
+# replications 1-3: first 10 selected indices in each replication
+bootIdx[1:3, 1:10]
+```
+
+```
+     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+[1,]  198   48  130  122  114   89  100  178  103   144
+[2,]   28   47  181  101  164   69   20  111   35    46
+[3,]  182   47  147  101  152  104   58  118   52    33
+```
+
+```r
+# selected indices in the first replication
+repl1Idx <- bootIdx[1, ]
+
+# selected values in the first replication
+repl1DV <- DV[repl1Idx]
+head(repl1DV, n=5) 
+```
+
+```
+[1] 49.94915 81.33379 97.14768 62.10102 97.77752
+```
+
 Detach (automatically) loaded packages (if possible)
 -------------------------
 

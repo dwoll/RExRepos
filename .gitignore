@@ -3,6 +3,7 @@ Rmd/cache
 Rmd/figure
 Rmd/*.html
 Rmd/*.md
+Rmd/knitExtra.R
 copyFromRexrepos.sh
 makeLog.txt
 

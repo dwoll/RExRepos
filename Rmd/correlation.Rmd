@@ -147,7 +147,7 @@ cor(DV1, DV2, method="spearman")
 cor(DVmat, method="spearman")
 ```
 
-### Kendall's \(\tau\)
+### Kendall's \(\tau\)-b
 
 ```{r}
 cor(DV1, DV2, method="kendall")
@@ -181,7 +181,7 @@ library(psych)
 corr.test(DVmat, method="spearman", adjust="bonferroni")
 ```
 
-### Kendall's \(\tau\)
+### Kendall's \(\tau\)-b
 
 ```{r}
 cor.test(DV1, DV2, method="kendall")

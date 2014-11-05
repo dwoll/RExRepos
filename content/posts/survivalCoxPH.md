@@ -13,7 +13,7 @@ tags: [Survival, CoxProportionalHazards]
 TODO
 -------------------------
 
- - link to survivalKM, survivalParametric, counting process notation for recurrent events and time dependent covariates 
+ - link to survivalKM, survivalParametric
 
 Install required packages
 -------------------------
@@ -98,50 +98,13 @@ IVC  0.377     1.457   0.1934  1.95 5.1e-02
 Likelihood ratio test=51.6  on 3 df, p=3.62e-11  n= 180, number of events= 157 
 ```
 
+Use counting process data format.
+
+
 ```r
-# use counting process data
 coxph(Surv(start, obsT, status) ~ X + IV, data=dfSurvCP)
-```
-
-```
-Call:
-coxph(formula = Surv(start, obsT, status) ~ X + IV, data = dfSurvCP)
-
-      coef exp(coef) se(coef)     z       p
-X    0.493     1.637   0.0937  5.26 1.4e-07
-IVB -0.822     0.439   0.2108 -3.90 9.6e-05
-IVC  0.377     1.457   0.1934  1.95 5.1e-02
-
-Likelihood ratio test=51.6  on 3 df, p=3.62e-11  n= 303, number of events= 157 
-```
-
-```r
 summary(fitCPH)
-```
-
-```
-Call:
-coxph(formula = Surv(obsT, status) ~ X + IV, data = dfSurv)
-
-  n= 180, number of events= 157 
-
-        coef exp(coef) se(coef)      z Pr(>|z|)    
-X    0.49304   1.63728  0.09374  5.260 1.44e-07 ***
-IVB -0.82245   0.43935  0.21081 -3.901 9.56e-05 ***
-IVC  0.37670   1.45746  0.19336  1.948   0.0514 .  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-    exp(coef) exp(-coef) lower .95 upper .95
-X      1.6373     0.6108    1.3625    1.9675
-IVB    0.4394     2.2761    0.2907    0.6641
-IVC    1.4575     0.6861    0.9977    2.1291
-
-Concordance= 0.68  (se = 0.027 )
-Rsquare= 0.249   (max possible= 1 )
-Likelihood ratio test= 51.62  on 3 df,   p=3.617e-11
-Wald test            = 50.99  on 3 df,   p=4.92e-11
-Score (logrank) test = 53.34  on 3 df,   p=1.548e-11
+# not shown
 ```
 
 Assess model fit
