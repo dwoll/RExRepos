@@ -19,11 +19,11 @@ TODO
 Install required packages
 -------------------------
 
-[`lme4`](http://cran.r-project.org/package=lme4), [`nlme`](http://cran.r-project.org/package=nlme)
+[`AICcmodavg`](http://cran.r-project.org/package=AICcmodavg), [`lme4`](http://cran.r-project.org/package=lme4), [`multcomp`](http://cran.r-project.org/package=multcomp), [`nlme`](http://cran.r-project.org/package=nlme), [`pbkrtest`](http://cran.r-project.org/package=pbkrtest)
 
 
 ```r
-wants <- c("lme4", "nlme")
+wants <- c("AICcmodavg", "lme4", "multcomp", "nlme", "pbkrtest")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -198,13 +198,61 @@ Xw1             2   158    3.3633  0.0371
 
 ```r
 library(lme4)
-anova(lmer(Y ~ Xw1 + (1|id), data=d1))
+fitF <- lmer(Y ~ Xw1 + (1|id), data=d1)
+anova(fitF)
 ```
 
 ```
 Analysis of Variance Table
     Df Sum Sq Mean Sq F value
 Xw1  2 5756.4  2878.2  3.3633
+```
+
+$F$-test with $p$-value with Kenward-Roger corrected degrees of freedom from package `pbkrtest`. Needs a full model and a restricted model with the effect of interest.
+
+
+```r
+# restricted model
+fitR <- lmer(Y ~ 1 + (1|id), data=d1)
+library(pbkrtest)
+KRmodcomp(fitF, fitR)
+```
+
+```
+F-test with Kenward-Roger approximation; computing time: 0.13 sec.
+large : Y ~ Xw1 + (1 | id)
+small : Y ~ 1 + (1 | id)
+          stat      ndf      ddf F.scaling p.value  
+Ftest   3.3633   2.0000 158.0000         1 0.03712 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+AIC comparison table using package `AICcmodavg`.
+
+
+```r
+library(AICcmodavg)
+AICc(fitF)
+```
+
+```
+[1] 2304.445
+```
+
+```r
+aictab(cand.set=list(fitR, fitF),
+       modnames=c("restricted", "full"),
+       sort=FALSE, second.ord=FALSE)
+```
+
+```
+
+Model selection based on AIC :
+
+           K     AIC Delta_AIC AICWt   Res.LL
+restricted 3 2316.36     12.17     0 -1155.18
+full       5 2304.19      0.00     1 -1147.09
 ```
 
 ### Multiple comparisons using `glht()` from package `multcomp`
@@ -228,7 +276,7 @@ Fit: lme.formula(fixed = Y ~ Xw1, data = d1, random = ~1 | id, correlation = cor
 
 Linear Hypotheses:
            Estimate Std. Error z value Pr(>|z|)  
-B - A == 0 10.36375    4.59638   2.255   0.0624 .
+B - A == 0 10.36375    4.59638   2.255   0.0625 .
 C - A == 0 10.41417    4.59638   2.266   0.0607 .
 C - B == 0  0.05042    4.59638   0.011   0.9999  
 ---
@@ -250,15 +298,15 @@ Multiple Comparisons of Means: Tukey Contrasts
 Fit: lme.formula(fixed = Y ~ Xw1, data = d1, random = ~1 | id, correlation = corCompSymm(form = ~1 | 
     id), method = "ML")
 
-Quantile = 2.3443
+Quantile = 2.3433
 95% family-wise confidence level
  
 
 Linear Hypotheses:
            Estimate  lwr       upr      
-B - A == 0  10.36375  -0.41149  21.13899
-C - A == 0  10.41417  -0.36107  21.18941
-C - B == 0   0.05042 -10.72482  10.82566
+B - A == 0  10.36375  -0.40673  21.13423
+C - A == 0  10.41417  -0.35632  21.18465
+C - B == 0   0.05042 -10.72007  10.82090
 ```
 
 Two-way repeated measures ANOVA (RBF-$pq$ design)
@@ -794,15 +842,28 @@ Xb2:Xw1:Xw2      4  24545  6136.2  2.5880
 Xb1:Xb2:Xw1:Xw2  4   7595  1898.7  0.8008
 ```
 
+Further resources
+-------------------------
+
+For an alternative approach using generalized estimating equations (GEE), see package [`geepack`](http://cran.r-project.org/package=geepack).
+
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 
 ```r
+try(detach(package:multcomp))
+try(detach(package:mvtnorm))
+try(detach(package:survival))
+try(detach(package:splines))
+try(detach(package:TH.data))
 try(detach(package:lme4))
 try(detach(package:nlme))
 try(detach(package:Matrix))
 try(detach(package:Rcpp))
+try(detach(package:AICcmodavg))
+try(detach(package:pbkrtest))
+try(detach(package:MASS))
 ```
 
 Get the article source from GitHub

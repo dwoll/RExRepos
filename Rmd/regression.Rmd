@@ -22,10 +22,10 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`leaps`](http://cran.r-project.org/package=leaps), [`lmtest`](http://cran.r-project.org/package=lmtest), [`robustbase`](http://cran.r-project.org/package=robustbase), [`sandwich`](http://cran.r-project.org/package=sandwich)
+[`car`](http://cran.r-project.org/package=car), [`leaps`](http://cran.r-project.org/package=leaps), [`lmtest`](http://cran.r-project.org/package=lmtest), [`sandwich`](http://cran.r-project.org/package=sandwich)
 
 ```{r}
-wants <- c("car", "leaps", "lmtest", "robustbase", "sandwich")
+wants <- c("car", "leaps", "lmtest", "sandwich")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -171,57 +171,6 @@ legend(x="bottomright", legend=c("Data", "prediction", "confidence region"),
        col=c("black", "blue", "gray"))
 ```
 
-Robust and penalized regression
--------------------------
-
-### Robust regression
-
-Heteroscedasticity-consistent standard errors (modified White estimator):
-`hccm()` from package `car` or `vcovHC()` from package `sandwich`.
-These standard errors can then be used in combination with function `coeftest()` from package `lmtest()`.
-
-```{r}
-library(car)
-library(lmtest)
-fitLL <- lm(GNP.deflator ~ ., data=longley)
-summary(fitLL)
-coeftest(fitLL, vcov=hccm)
-```
-
-```{r results='hide'}
-library(sandwich)
-coeftest(fitLL, vcov=vcovHC)
-```
-
- - \(M\)-estimators: `rlm()` from package `MASS`
- - resistant regression: `lqs()` from package `MASS`
-
-More information can be found in CRAN task view [Robust Statistical Methods](http://cran.r-project.org/web/views/Robust.html).
- 
-### Penalized regression
-
-#### Ridge regression
-
-```{r}
-library(car)
-vif(fitLL)
-```
-
-```{r}
-library(MASS)
-lambdas <- 10^(seq(-8, -1, length.out=200))
-lmrFit  <- lm.ridge(GNP.deflator ~ ., lambda=lambdas, data=longley)
-select(lmrFit)
-```
-
-```{r rerRegression05}
-lmrCoef <- coef(lmrFit)
-plot(lmrFit, xlab="lambda", ylab="coefficients")
-plot(lmrFit$lambda, lmrFit$GCV, type="l", xlab="lambda", ylab="GCV")
-```
-
-See packages [`lars`](http://cran.r-project.org/package=lars) and [`glmnet`](http://cran.r-project.org/package=glmnet) for the LASSO and elastic net methods which combine regularization and selection.
-
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
@@ -231,5 +180,4 @@ try(detach(package:lmtest))
 try(detach(package:sandwich))
 try(detach(package:zoo))
 try(detach(package:car))
-try(detach(package:MASS))
 ```

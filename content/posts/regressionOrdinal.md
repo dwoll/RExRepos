@@ -7,8 +7,8 @@ rerCat: Univariate
 tags: [Regression, GLM]
 ---
 
-Ordinal regression
-=========================
+
+
 
 
 

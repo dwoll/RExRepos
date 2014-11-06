@@ -17,7 +17,7 @@ Using static website generators (SSG) like [nanoc](http://nanoc.ws/) or [Jekyll]
 
  * The first step of the workflow requires [`knitr`](http://yihui.name/knitr/) to turn the R markdown documents into regular markdown. I use an [R script](https://github.com/dwoll/RExRepos/blob/master/dwKnit.r) that gets called from a [Makefile](https://github.com/dwoll/RExRepos/blob/master/Rmd/Makefile).
  * The plain markdown files are then processed into regular HTML by the SSG. This is done by a markdown engine - popular choices are [pandoc](http://johnmacfarlane.net/pandoc/), [kramdown](http://kramdown.rubyforge.org/), and [Redcarpet](https://github.com/vmg/redcarpet). Unfortunately, not all engines are supported out-of-the-box by nanoc and Jekyll. Also unfortunately, the engines have slightly different behavior and feature sets when it comes to markdown extensions.
- * SSGs require markdown files with [YAML front matter](https://jekyllrb.com/docs/frontmatter/) that describes the type of layout, post title, categories and tags. `knitr` ignores YAML front matter in R markdown files, so this is fine.
+ * SSGs require markdown files with [YAML front matter](http://jekyllrb.com/docs/frontmatter/) that describes the type of layout, post title, categories and tags. `knitr` ignores YAML front matter in R markdown files, so this is fine.
 
 Setup for nanoc
 -------------------------

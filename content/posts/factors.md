@@ -58,7 +58,7 @@ Levels: 1 2 3 4 5
 ```
 
 ```
- [1] 1 0 1 0 1 0 0 0 0 0
+ [1] 1 1 0 0 1 1 0 1 1 1
 ```
 
 ```r
@@ -66,7 +66,7 @@ factor(sexNum, labels=c("man", "woman"))
 ```
 
 ```
- [1] woman man   woman man   woman man   man   man   man   man  
+ [1] woman woman man   man   woman woman man   woman woman woman
 Levels: man woman
 ```
 
@@ -106,7 +106,7 @@ sample(fac2, length(fac2), replace=FALSE)
 ```
 
 ```
- [1] less less less more less more more less more more
+ [1] more more less less more more less more less less
 Levels: less < more
 ```
 
@@ -207,8 +207,8 @@ Joining factors
 ```
 
 ```
-[1] T C F N D
-Levels: C D F N T
+[1] O B F G I
+Levels: B F G I O
 ```
 
 ```r
@@ -216,8 +216,8 @@ Levels: C D F N T
 ```
 
 ```
-[1] t e n
-Levels: e n t
+[1] d c z
+Levels: c d z
 ```
 
 ```r
@@ -225,7 +225,7 @@ Levels: e n t
 ```
 
 ```
-[1] "T" "C" "F" "N" "D"
+[1] "O" "B" "F" "G" "I"
 ```
 
 ```r
@@ -233,7 +233,7 @@ Levels: e n t
 ```
 
 ```
-[1] "t" "e" "n"
+[1] "d" "c" "z"
 ```
 
 ```r
@@ -241,8 +241,8 @@ factor(c(charVec1, charVec2))
 ```
 
 ```
-[1] T C F N D t e n
-Levels: C D e F n N t T
+[1] O B F G I d c z
+Levels: B c d F G I O z
 ```
 
 ### Repeating factors
@@ -253,8 +253,8 @@ rep(fac1, times=2)
 ```
 
 ```
- [1] T C F N D T C F N D
-Levels: C D F N T
+ [1] O B F G I O B F G I
+Levels: B F G I O
 ```
 
 ### Crossing two factors
@@ -375,7 +375,7 @@ tapply(vec, fac1, FUN=mean)
 
 ```
         A         B         C 
-11.477761  4.991669 14.572210 
+ 9.551079  2.654107 13.818819 
 ```
 
 ```r
@@ -395,7 +395,7 @@ Levels: B A C
 ```
 
 ```
- [1] A B B A B A B B A B
+ [1] B A B B B B B A B B
 Levels: B A
 ```
 
@@ -404,7 +404,7 @@ sort(fac2)
 ```
 
 ```
- [1] B B B B B B A A A A
+ [1] B B B B B B B B A A
 Levels: B A
 ```
 
@@ -413,7 +413,7 @@ sort(as.character(fac2))
 ```
 
 ```
- [1] "A" "A" "A" "A" "B" "B" "B" "B" "B" "B"
+ [1] "A" "A" "B" "B" "B" "B" "B" "B" "B" "B"
 ```
 
 Detach (automatically) loaded packages (if possible)

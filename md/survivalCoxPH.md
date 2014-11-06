@@ -395,6 +395,11 @@ with(Shat2, head(data.frame(time, surv), n=4))
 4    4 0.7097748 0.8431836 0.5990511
 ```
 
+Further resources
+-------------------------
+
+For Cox PH models with Firth's penalized likelihood, see package [`coxphf`](http://cran.r-project.org/package=coxphf).
+
 Detach (automatically) loaded packages (if possible)
 -------------------------
 

@@ -138,7 +138,7 @@ Books
  * Dalgaard, P. (2008). Introductory Statistics with R (2nd ed.). London, UK: Springer. [URL](http://www.biostat.ku.dk/~pd/ISwR.html)
  * Maindonald, J. & Braun, W. J. (2010). Data Analysis and Graphics Using R: An Example-Based Approach (3rd ed.). Cambridge, UK: Cambridge University Press. [URL](http://maths.anu.edu.au/~johnm/r-book/daagur3.html)
  * Verzani. J. (2014). Using R for Introductory Statistics (2nd ed.). Boca Raton, FL: Chapman & Hall/CRC.
- * Wollschlaeger, D. (2012). Grundlagen der Datenanalyse mit R (2nd ed.). Heidelberg: Springer. [URL](http://www.uni-kiel.de/psychologie/dwoll/r/)
+ * Wollschlaeger, D. (2012). Grundlagen der Datenanalyse mit R (2nd ed.). Berlin: Springer. [URL](http://www.dwoll.de/r/gddmr.php)
  
 ### Specialized and advanced statistical topics
 

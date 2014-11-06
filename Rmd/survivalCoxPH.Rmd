@@ -274,6 +274,11 @@ Shat2 <- survexp(~ IV, ratetable=fitCPH, data=dfSurv)
 with(Shat2, head(data.frame(time, surv), n=4))
 ```
 
+Further resources
+-------------------------
+
+For Cox PH models with Firth's penalized likelihood, see package [`coxphf`](http://cran.r-project.org/package=coxphf).
+
 Detach (automatically) loaded packages (if possible)
 -------------------------
 

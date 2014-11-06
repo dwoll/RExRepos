@@ -25,7 +25,7 @@ if(any(!has)) install.packages(wants[!has])
 ```
 
 The downloaded source packages are in
-	'/tmp/RtmptHUu8y/downloaded_packages'
+	'/tmp/Rtmpv4LsW2/downloaded_packages'
 ```
 
 Use R for data entry

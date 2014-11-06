@@ -485,6 +485,11 @@ Model 2: postFac ~ DVpre
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
+Further resources
+-------------------------
+
+For penalized logistic regression, see packages [`logistf`](http://cran.r-project.org/package=logistf) (using Firth's penalized likelihood) and [`glmnet`](http://cran.r-project.org/package=glmnet). An example using `glmnet` for linear regression is in regressionRobPen.
+
 Detach (automatically) loaded packages (if possible)
 -------------------------
 

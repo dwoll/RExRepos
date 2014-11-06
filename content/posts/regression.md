@@ -20,11 +20,11 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`leaps`](http://cran.r-project.org/package=leaps), [`lmtest`](http://cran.r-project.org/package=lmtest), [`robustbase`](http://cran.r-project.org/package=robustbase), [`sandwich`](http://cran.r-project.org/package=sandwich)
+[`car`](http://cran.r-project.org/package=car), [`leaps`](http://cran.r-project.org/package=leaps), [`lmtest`](http://cran.r-project.org/package=lmtest), [`sandwich`](http://cran.r-project.org/package=sandwich)
 
 
 ```r
-wants <- c("car", "leaps", "lmtest", "robustbase", "sandwich")
+wants <- c("car", "leaps", "lmtest", "sandwich")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -457,127 +457,6 @@ legend(x="bottomright", legend=c("Data", "prediction", "confidence region"),
 
 ![plot of chunk rerRegression04](../content/assets/figure/rerRegression04-1.png) 
 
-Robust and penalized regression
--------------------------
-
-### Robust regression
-
-Heteroscedasticity-consistent standard errors (modified White estimator):
-`hccm()` from package `car` or `vcovHC()` from package `sandwich`.
-These standard errors can then be used in combination with function `coeftest()` from package `lmtest()`.
-
-
-```r
-library(car)
-library(lmtest)
-fitLL <- lm(GNP.deflator ~ ., data=longley)
-summary(fitLL)
-```
-
-```
-
-Call:
-lm(formula = GNP.deflator ~ ., data = longley)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--2.0086 -0.5147  0.1127  0.4227  1.5503 
-
-Coefficients:
-               Estimate Std. Error t value Pr(>|t|)  
-(Intercept)  2946.85636 5647.97658   0.522   0.6144  
-GNP             0.26353    0.10815   2.437   0.0376 *
-Unemployed      0.03648    0.03024   1.206   0.2585  
-Armed.Forces    0.01116    0.01545   0.722   0.4885  
-Population     -1.73703    0.67382  -2.578   0.0298 *
-Year           -1.41880    2.94460  -0.482   0.6414  
-Employed        0.23129    1.30394   0.177   0.8631  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 1.195 on 9 degrees of freedom
-Multiple R-squared:  0.9926,	Adjusted R-squared:  0.9877 
-F-statistic: 202.5 on 6 and 9 DF,  p-value: 4.426e-09
-```
-
-```r
-coeftest(fitLL, vcov=hccm)
-```
-
-```
-
-t test of coefficients:
-
-                Estimate  Std. Error t value Pr(>|t|)  
-(Intercept)  2946.856360 6750.298722  0.4366  0.67272  
-GNP             0.263527    0.120038  2.1954  0.05576 .
-Unemployed      0.036483    0.037456  0.9740  0.35550  
-Armed.Forces    0.011161    0.019536  0.5713  0.58178  
-Population     -1.737030    0.785911 -2.2102  0.05443 .
-Year           -1.418799    3.520588 -0.4030  0.69635  
-Employed        0.231288    1.591962  0.1453  0.88769  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
-
-
-```r
-library(sandwich)
-coeftest(fitLL, vcov=vcovHC)
-```
-
- - $M$-estimators: `rlm()` from package `MASS`
- - resistant regression: `lqs()` from package `MASS`
-
-More information can be found in CRAN task view [Robust Statistical Methods](http://cran.r-project.org/web/views/Robust.html).
- 
-### Penalized regression
-
-#### Ridge regression
-
-
-```r
-library(car)
-vif(fitLL)
-```
-
-```
-         GNP   Unemployed Armed.Forces   Population         Year 
-  1214.57215     83.95865     12.15639    230.91221   2065.73394 
-    Employed 
-   220.41968 
-```
-
-
-```r
-library(MASS)
-lambdas <- 10^(seq(-8, -1, length.out=200))
-lmrFit  <- lm.ridge(GNP.deflator ~ ., lambda=lambdas, data=longley)
-select(lmrFit)
-```
-
-```
-modified HKB estimator is 0.006836982 
-modified L-W estimator is 0.05267247 
-smallest value of GCV  at 0.005872787 
-```
-
-
-```r
-lmrCoef <- coef(lmrFit)
-plot(lmrFit, xlab="lambda", ylab="coefficients")
-```
-
-![plot of chunk rerRegression05](../content/assets/figure/rerRegression05-1.png) 
-
-```r
-plot(lmrFit$lambda, lmrFit$GCV, type="l", xlab="lambda", ylab="GCV")
-```
-
-![plot of chunk rerRegression05](../content/assets/figure/rerRegression05-2.png) 
-
-See packages [`lars`](http://cran.r-project.org/package=lars) and [`glmnet`](http://cran.r-project.org/package=glmnet) for the LASSO and elastic net methods which combine regularization and selection.
-
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
@@ -588,7 +467,6 @@ try(detach(package:lmtest))
 try(detach(package:sandwich))
 try(detach(package:zoo))
 try(detach(package:car))
-try(detach(package:MASS))
 ```
 
 Get the article source from GitHub

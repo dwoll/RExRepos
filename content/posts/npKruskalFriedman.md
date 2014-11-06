@@ -66,7 +66,7 @@ kruskal_test(DV ~ IV, distribution=approximate(B=9999), data=KWdf)
 	Approximative Kruskal-Wallis Test
 
 data:  DV by IV (I, II, III, IV)
-chi-squared = 6.0595, p-value = 0.1055
+chi-squared = 6.0595, p-value = 0.1065
 ```
 
 #### Pairwise group-comparisons using Wilcoxon's rank-sum test
@@ -102,7 +102,7 @@ oneway_test(DV ~ IV, distribution=approximate(B=9999), data=KWdf)
 	Approximative K-Sample Permutation Test
 
 data:  DV by IV (I, II, III, IV)
-maxT = 2.2056, p-value = 0.09241
+maxT = 2.2056, p-value = 0.09301
 ```
 
 Independent samples - ordered groups

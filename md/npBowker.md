@@ -75,7 +75,7 @@ symmetry_test(cTab, teststat="quad", distribution=approximate(B=9999))
 data:  response by
 	 groups (drug, plac) 
 	 stratified by block
-chi-squared = 12.1387, p-value = 0.0021
+chi-squared = 12.1387, p-value = 0.0018
 ```
 
 Detach (automatically) loaded packages (if possible)

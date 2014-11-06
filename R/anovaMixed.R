@@ -1,6 +1,6 @@
 
 ## ------------------------------------------------------------------------
-wants <- c("lme4", "nlme")
+wants <- c("AICcmodavg", "lme4", "multcomp", "nlme", "pbkrtest")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
@@ -103,7 +103,23 @@ anova(lme(Y ~ Xw1, random=list(id=pdCompSymm(~Xw1-1)), method="REML", data=d1))
 
 ## ------------------------------------------------------------------------
 library(lme4)
-anova(lmer(Y ~ Xw1 + (1|id), data=d1))
+fitF <- lmer(Y ~ Xw1 + (1|id), data=d1)
+anova(fitF)
+
+
+## ------------------------------------------------------------------------
+# restricted model
+fitR <- lmer(Y ~ 1 + (1|id), data=d1)
+library(pbkrtest)
+KRmodcomp(fitF, fitR)
+
+
+## ------------------------------------------------------------------------
+library(AICcmodavg)
+AICc(fitF)
+aictab(cand.set=list(fitR, fitF),
+       modnames=c("restricted", "full"),
+       sort=FALSE, second.ord=FALSE)
 
 
 ## ------------------------------------------------------------------------
@@ -217,8 +233,16 @@ anova(lmer(Y ~ Xb1*Xb2*Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
 
 
 ## ------------------------------------------------------------------------
+try(detach(package:multcomp))
+try(detach(package:mvtnorm))
+try(detach(package:survival))
+try(detach(package:splines))
+try(detach(package:TH.data))
 try(detach(package:lme4))
 try(detach(package:nlme))
 try(detach(package:Matrix))
 try(detach(package:Rcpp))
+try(detach(package:AICcmodavg))
+try(detach(package:pbkrtest))
+try(detach(package:MASS))
 

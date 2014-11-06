@@ -19,10 +19,10 @@ TODO
 Install required packages
 -------------------------
 
-[`lme4`](http://cran.r-project.org/package=lme4), [`nlme`](http://cran.r-project.org/package=nlme)
+[`AICcmodavg`](http://cran.r-project.org/package=AICcmodavg), [`lme4`](http://cran.r-project.org/package=lme4), [`multcomp`](http://cran.r-project.org/package=multcomp), [`nlme`](http://cran.r-project.org/package=nlme), [`pbkrtest`](http://cran.r-project.org/package=pbkrtest)
 
 ```{r}
-wants <- c("lme4", "nlme")
+wants <- c("AICcmodavg", "lme4", "multcomp", "nlme", "pbkrtest")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -155,7 +155,27 @@ anova(lme(Y ~ Xw1, random=list(id=pdCompSymm(~Xw1-1)), method="REML", data=d1))
 
 ```{r}
 library(lme4)
-anova(lmer(Y ~ Xw1 + (1|id), data=d1))
+fitF <- lmer(Y ~ Xw1 + (1|id), data=d1)
+anova(fitF)
+```
+
+\(F\)-test with \(p\)-value with Kenward-Roger corrected degrees of freedom from package `pbkrtest`. Needs a full model and a restricted model with the effect of interest.
+
+```{r}
+# restricted model
+fitR <- lmer(Y ~ 1 + (1|id), data=d1)
+library(pbkrtest)
+KRmodcomp(fitF, fitR)
+```
+
+AIC comparison table using package `AICcmodavg`.
+
+```{r}
+library(AICcmodavg)
+AICc(fitF)
+aictab(cand.set=list(fitR, fitF),
+       modnames=c("restricted", "full"),
+       sort=FALSE, second.ord=FALSE)
 ```
 
 ### Multiple comparisons using `glht()` from package `multcomp`
@@ -342,12 +362,25 @@ anova(lme(Y ~ Xb1*Xb2*Xw1*Xw2,
 anova(lmer(Y ~ Xb1*Xb2*Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
 ```
 
+Further resources
+-------------------------
+
+For an alternative approach using generalized estimating equations (GEE), see package [`geepack`](http://cran.r-project.org/package=geepack).
+
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
+try(detach(package:multcomp))
+try(detach(package:mvtnorm))
+try(detach(package:survival))
+try(detach(package:splines))
+try(detach(package:TH.data))
 try(detach(package:lme4))
 try(detach(package:nlme))
 try(detach(package:Matrix))
 try(detach(package:Rcpp))
+try(detach(package:AICcmodavg))
+try(detach(package:pbkrtest))
+try(detach(package:MASS))
 ```

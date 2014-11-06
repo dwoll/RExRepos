@@ -17,6 +17,7 @@ Further resources
 
  * [Cookbook for R: `ggplot2` diagrams](http://www.cookbook-r.com/Graphs/): Diagrams with the [`ggplot2`](http://ggplot2.org/) package
  * [Learning R blog: `ggplot2` tag](http://learnr.wordpress.com/tag/ggplot2/): Diagrams with the [`ggplot2`](http://ggplot2.org/) package
+ * [R graph catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/): A number of examples with code as a shiny app
 
 ### Books
 

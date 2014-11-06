@@ -4,7 +4,7 @@ knit_hooks$set(rgl=hook_rgl)
 
 
 ## ------------------------------------------------------------------------
-wants <- c("car", "leaps", "lmtest", "robustbase", "sandwich")
+wants <- c("car", "leaps", "lmtest", "sandwich")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
@@ -114,41 +114,9 @@ legend(x="bottomright", legend=c("Data", "prediction", "confidence region"),
 
 
 ## ------------------------------------------------------------------------
-library(car)
-library(lmtest)
-fitLL <- lm(GNP.deflator ~ ., data=longley)
-summary(fitLL)
-coeftest(fitLL, vcov=hccm)
-
-
-## ----results='hide'------------------------------------------------------
-library(sandwich)
-coeftest(fitLL, vcov=vcovHC)
-
-
-## ------------------------------------------------------------------------
-library(car)
-vif(fitLL)
-
-
-## ------------------------------------------------------------------------
-library(MASS)
-lambdas <- 10^(seq(-8, -1, length.out=200))
-lmrFit  <- lm.ridge(GNP.deflator ~ ., lambda=lambdas, data=longley)
-select(lmrFit)
-
-
-## ----rerRegression05-----------------------------------------------------
-lmrCoef <- coef(lmrFit)
-plot(lmrFit, xlab="lambda", ylab="coefficients")
-plot(lmrFit$lambda, lmrFit$GCV, type="l", xlab="lambda", ylab="GCV")
-
-
-## ------------------------------------------------------------------------
 try(detach(package:leaps))
 try(detach(package:lmtest))
 try(detach(package:sandwich))
 try(detach(package:zoo))
 try(detach(package:car))
-try(detach(package:MASS))
 

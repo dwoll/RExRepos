@@ -120,17 +120,7 @@ getMinBBox <- function(xy) {
     oCorn <- basis %*% oPts
     pts   <- t(cbind(hCorn, oCorn[ , c(2, 1)]))
 
-    ## angle of longer edge pointing up
-    dPts <- diff(pts)
-    e    <- dPts[which.max(rowSums(dPts^2)), ]  # one of the longer edges
-    eUp  <- e * sign(e[2])                  # rotate upwards 180 deg if necessary
-    deg  <- atan2(eUp[2], eUp[1])*180 / pi  # angle in degrees
-
-    ## box size
-    bbWidth  <- widths[eMin]
-    bbHeight <- heights[eMin]
-
-    return(list(pts=pts, width=bbWidth, height=bbHeight, angle=deg))
+    return(list(pts=pts, width=widths[eMin], height=heights[eMin]))
 }
 ```
 
@@ -159,14 +149,6 @@ mbb$width * mbb$height      ## box area
 
 ```
 [1] 2127.255
-```
-
-```r
-mbb$angle                   ## box orientation
-```
-
-```
-[1] 149.4153
 ```
 
 Minimum enclosing circle
