@@ -70,7 +70,71 @@ ps  <- plotSlopes(fitMod, plotx="X1c", modx="Mc", modxVals="std.dev")
 ```
 
 ```
-Error in eval(expr, envir, enclos): Objekt 'fitMod' nicht gefunden
+Values of Mc INSIDE this interval:
+        lo         hi 
+-62.927712   5.172316 
+cause the slope of (b1 + b2*Mc)X1c to be statistically significant
+```
+
+```
+$hypotests
+       "Mc"     slope Std. Error  t value    Pr(>|t|)
+(m-sd) -7.6 0.8959312   0.280258 3.196809 0.001881830
+(m)     0.0 0.6086687   0.190712 3.191560 0.001912979
+(m+sd)  7.6 0.3214062   0.237796 1.351605 0.179677937
+
+$jn
+$jn$a
+       X1c:Mc 
+-0.0006979488 
+
+$jn$b
+        X1c 
+-0.04031031 
+
+$jn$c
+      X1c 
+0.2271698 
+
+$jn$inroot
+        X1c 
+0.002259132 
+
+$jn$roots
+        lo         hi 
+-62.927712   5.172316 
+
+
+$pso
+$call
+plotSlopes.lm(model = fitMod, plotx = "X1c", modx = "Mc", modxVals = "std.dev")
+
+$newdata
+        X1c   Mc      fit
+1 -16.79702 -7.6 53.14232
+2 -16.79702  0.0 55.23789
+3 -16.79702  7.6 57.33346
+4  14.67849 -7.6 81.34222
+5  14.67849  0.0 74.39605
+6  14.67849  7.6 67.44989
+
+$modxVals
+(m-sd)    (m) (m+sd) 
+  -7.6    0.0    7.6 
+
+$col
+(m-sd)    (m) (m+sd) 
+     1      2      3 
+
+$lty
+(m-sd)    (m) (m+sd) 
+     1      2      3 
+
+attr(,"class")
+[1] "plotSlopes" "rockchalk" 
+
+attr(,"class")
+[1] "testSlopes"
 ```
 
 ```r

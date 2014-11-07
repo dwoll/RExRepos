@@ -151,7 +151,9 @@ exp(MASS:::confint.polr(polrFit))
 ```
 
 ```
-Error in eval(expr, envir, enclos): Objekt 'dfOrd' nicht gefunden
+       2.5 %    97.5 %
+X1 1.0530865 1.1919021
+X2 0.8602671 0.9574481
 ```
 
 ### Using `clm()` from package `ordinal`
@@ -395,13 +397,6 @@ Tests for other models.
 
 ```r
 summary(polrFit)
-```
-
-```
-Error in eval(expr, envir, enclos): Objekt 'dfOrd' nicht gefunden
-```
-
-```r
 summary(clmFit)
 # not shown
 ```
