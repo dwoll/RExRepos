@@ -7,8 +7,8 @@ rerCat: Univariate
 tags: [Regression, GLM]
 ---
 
-
-
+Ordinal regression
+=========================
 
 
 
@@ -356,7 +356,7 @@ Coefficient tests and overall model test
 
 ### Individual coefficient tests
 
-Estimated standard deviations and z-values for parameters
+Estimated standard deviations, z-values and p-values for parameters based on assumption that z-values are asymptotically $N(0, 1)$ distributed.
 
 
 ```r
@@ -365,12 +365,12 @@ sumOrd   <- summary(vglmFit)
 ```
 
 ```
-                  Estimate Std. Error   z value
-(Intercept):1 -15.61123204 5.41912617 -2.880766
-(Intercept):2 -17.00112492 5.45613579 -3.115964
-(Intercept):3 -18.28506734 5.49803759 -3.325744
-X1              0.11197395 0.03122493  3.586043
-X2             -0.09517965 0.02694012 -3.533007
+                  Estimate Std. Error   z value     Pr(>|z|)
+(Intercept):1 -15.61123204 5.41912617 -2.880766 0.0039671060
+(Intercept):2 -17.00112492 5.45613579 -3.115964 0.0018334440
+(Intercept):3 -18.28506734 5.49803759 -3.325744 0.0008818278
+X1              0.11197395 0.03122493  3.586043 0.0003357330
+X2             -0.09517965 0.02694012 -3.533007 0.0004108612
 ```
 
 Approximative Wald-based confidence intervals
@@ -390,17 +390,7 @@ X1             0.17317368   0.05077421
 X2            -0.04237798  -0.14798132
 ```
 
-p-values for two-sided paramter tests based on assumption that z-values are asymptotically $N(0, 1)$ distributed
-
-
-```r
-2*(1 - pnorm(abs(coefOrd[ , "z value"])))
-```
-
-```
-(Intercept):1 (Intercept):2 (Intercept):3            X1            X2 
- 0.0039671060  0.0018334440  0.0008818278  0.0003357330  0.0004108612 
-```
+Tests for other models.
 
 
 ```r

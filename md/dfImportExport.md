@@ -13,11 +13,11 @@ Data import and export
 Install required packages
 -------------------------
 
-[`foreign`](http://cran.r-project.org/package=foreign), [`RODBC`](http://cran.r-project.org/package=RODBC)
+[`foreign`](http://cran.r-project.org/package=foreign), [`RODBC`](http://cran.r-project.org/package=RODBC), [`RSQLite`](http://cran.r-project.org/package=RSQLite)
 
 
 ```r
-wants <- c("foreign", "RODBC")
+wants <- c("foreign", "RODBC", "RSQLite")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -25,7 +25,7 @@ if(any(!has)) install.packages(wants[!has])
 ```
 
 The downloaded source packages are in
-	'/tmp/Rtmpv4LsW2/downloaded_packages'
+	'/tmp/RtmpaFUXqM/downloaded_packages'
 ```
 
 Use R for data entry
@@ -223,8 +223,8 @@ xlsCon <- odbcConnectExcel2007("data.xls", readOnly=FALSE)
 odbcGetInfo(xlsCon)
 sqlTables(xlsCon)
 (myDfXls <- sqlFetch(xlsCon, "sheet1"))
-sqlQuery(xlsCon, "select IV, DV from [sheet1$] order by IV")
-sqlQuery(xlsCon, "select * from [sheet1$] where IV = 'A' AND DV < 10")
+sqlQuery(xlsCon, "SELECT IV, DV FROM [sheet1$] ORDER BY IV")
+sqlQuery(xlsCon, "SELECT * FROM [sheet1$] where (IV = 'A') AND (DV < 10)")
 myDfXls$newDV <- rnorm(nrow(myDfXls))
 sqlSave(xlsCon, myDfXls, tablename="newSheet")
 odbcClose(xlsCon)
@@ -237,36 +237,149 @@ Simulate data first.
 
 
 ```r
-IQ     <- rnorm(2*50, mean=100, sd=15)
+IQ     <- rnorm(2*10, mean=100, sd=15)
 rating <- sample(LETTERS[1:3], 2*50, replace=TRUE)
 sex    <- factor(rep(c("f", "m"), times=50))
 myDf   <- data.frame(sex, IQ, rating, stringsAsFactors=FALSE)
 ```
 
-Save data frame in SQLite database (= a file).
+Save data frame in SQLite database. This is usually a file. In this example, the file is created in memory only. Use `dbConnect(<driver object>, dbname="file_name.db")` to create a file on disk.
 
 
 ```r
 library("RSQLite")
 drv <- dbDriver("SQLite")
-con <- dbConnect(drv, "myDf.db")
+con <- dbConnect(drv, dbname=":memory:")
 dbWriteTable(con, name="MyDataFrame", value=myDf, row.names=FALSE)
+```
+
+```
+[1] TRUE
+```
+
+Find out which tables are present, and which fields are in a specific table.
+
+
+```r
 dbListTables(con)
+```
+
+```
+[1] "MyDataFrame"
+```
+
+```r
 dbListFields(con, "MyDataFrame")
+```
+
+```
+[1] "sex"    "IQ"     "rating"
+```
+
+Read complete table, then send SQL-query.
+
+
+```r
 out <- dbReadTable(con, "MyDataFrame")
 head(out, n=4)
-dbGetQuery(con, "SELECT sex, AVG(IQ) AS mIQ, SUM(IQ) as sIQ FROM MyDataFrame GROUP BY sex")
+```
+
+```
+  sex       IQ rating
+1   f 82.32344      B
+2   m 69.01104      A
+3   f 91.42753      B
+4   m 94.08307      A
+```
+
+```r
+dbGetQuery(con, "SELECT sex, AVG(IQ) AS mIQ, SUM(IQ) AS sIQ FROM MyDataFrame GROUP BY sex")
+```
+
+```
+  sex      mIQ      sIQ
+1   f 95.78950 4789.475
+2   m 91.62926 4581.463
+```
+
+Query database and read results in smaller partial chunks. Useful for large queries.
+
+
+```r
 res <- dbSendQuery(con, "SELECT IQ, rating FROM MyDataFrame WHERE rating = 'A'")
 
 while(!dbHasCompleted(res)) {
-  partial <- dbFetch(res, n=3)
+  partial <- dbFetch(res, n=4)
   print(partial)
 }
+```
 
+```
+         IQ rating
+1  69.01104      A
+2  94.08307      A
+3 102.89287      A
+4  98.16417      A
+         IQ rating
+1 100.09746      A
+2  91.42753      A
+3  95.68852      A
+4 102.89287      A
+         IQ rating
+1  89.51618      A
+2 100.09746      A
+3  69.01104      A
+4  94.08307      A
+         IQ rating
+1  95.68852      A
+2  88.20650      A
+3 101.80639      A
+4 102.89287      A
+         IQ rating
+1  89.51618      A
+2 100.09746      A
+3  85.04968      A
+4  82.32344      A
+         IQ rating
+1  88.20650      A
+2  99.53709      A
+3 125.46591      A
+4  97.98657      A
+         IQ rating
+1  94.13950      A
+2  82.32344      A
+3  64.81872      A
+4 102.89287      A
+         IQ rating
+1  90.81769      A
+2 100.09746      A
+```
+
+Clean query, remove the created table, and close the database connection.
+
+
+```r
 dbClearResult(res)
+```
+
+```
+[1] TRUE
+```
+
+```r
 dbRemoveTable(con, "MyDataFrame")
+```
+
+```
+[1] TRUE
+```
+
+```r
 dbDisconnect(con)
-# not shown
+```
+
+```
+[1] TRUE
 ```
 
 Useful documents

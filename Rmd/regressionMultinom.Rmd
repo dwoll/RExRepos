@@ -194,7 +194,7 @@ Coefficient tests and overall model test
 
 ### Individual coefficient tests
 
-Estimated standard deviations and z-values for parameters
+Estimated standard deviations, z-values, and p-values for parameters based on normality on assumption that z-values are asymptotically \(N(0, 1)\) distributed.
 
 ```{r}
 sumMN   <- VGAM::summary(vglmFitMN)
@@ -208,11 +208,7 @@ zCrit   <- qnorm(c(0.05/2, 1 - 0.05/2))
 (ciCoef <- t(apply(coefMN, 1, function(x) x["Estimate"] - zCrit*x["Std. Error"] )))
 ```
 
-p-values for two-sided paramter tests based on assumption that z-values are asymptotically \(N(0, 1)\) distributed
-
-```{r}
-2*(1 - pnorm(abs(coefMN[ , "z value"])))
-```
+Tests for other models.
 
 ```{r results='hide'}
 summary(mnFit)

@@ -11,7 +11,7 @@ The examples assume a reader who is already familiar with the statistical underp
 
 ### Reproducible documents
 
-The posts on this site were created automatically from [R markdown](http://rmarkdown.rstudio.com/) documents, using a workflow that makes use of [knitr](http://yihui.name/knitr/), the static site generator [nanoc](http://nanoc.ws/), and the [Bootstrap framework](http://getbootstrap.com/). For details, see this [page explaining the workflow](<%= @config[:base_url] %>/rerWorkflow.html). This website, including all examples (R markdown, markdown, and plain R code files), is [available on GitHub](https://github.com/dwoll/RExRepos). The repository also contains the Makefiles and an R-script necessary for automatically building the website.
+The posts on this site were created automatically from [R markdown](http://rmarkdown.rstudio.com/) documents, using a workflow that makes use of [knitr](http://yihui.name/knitr/), the static site generator [nanoc](http://nanoc.ws/), and the [Bootstrap framework](http://getbootstrap.com/). For details, see this [page explaining the workflow](<%= @config[:base_url] %>/posts/rerWorkflowJN.html). This website, including all examples (R markdown, markdown, and plain R code files), is [available on GitHub](https://github.com/dwoll/RExRepos). The repository also contains the Makefiles and an R-script necessary for automatically building the website.
 
 All content on this site is licensed under the [Creative Commons BY-SA](http://creativecommons.org/licenses/by-sa/4.0/) license.
 

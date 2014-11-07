@@ -22,7 +22,7 @@ Using static website generators (SSG) like [nanoc](http://nanoc.ws/) or [Jekyll]
 Setup for nanoc
 -------------------------
 
-This website is currently built with [nanoc](http://nanoc.ws/) (version 3.7.3), the design uses the [Bootstrap framework](http://getbootstrap.com/) (version 3.2). As a markdown engine, I use pandoc (version 1.12.2.1) because it provides
+This website is currently built with [nanoc](http://nanoc.ws/) (version 3.7.3), the design uses the [Bootstrap framework](http://getbootstrap.com/) (version 3.3.0). As a markdown engine, I use pandoc (version 1.12.2.1) because it provides
 
  * automatical creation of a table-of-contents
  * [MathJax](http://www.mathjax.org/) support for great math rendering based on \(\LaTeX\) syntax
@@ -46,4 +46,4 @@ A website like this could also be built with [Jekyll](http://jekyllrb.com). Howe
  * Jekyll can also use [Redcarpet](https://github.com/vmg/redcarpet) which supports fenced code blocks, inline math with single dollar signs and has an option to turn off inline emphasis. Redcarpet supports automatical creation of a table of contents, but Jekyll currently doesn't implement the [two necessary rendering passes](http://dev.af83.com/2012/02/27/howto-extend-the-redcarpet2-markdown-lib.html).
  * Posts cannot contain double braces as these are delimiters for Jekyll's template engine [liquid](http://wiki.shopify.com/UsingLiquid). Unfortunately, double braces are valid R output, e.g., from package `sets`. You have to replace them before running Jekyll.
  * The post filenames have to conform to Jekyll standards (start with the date), i.e., have the format "YYYY-MM-DD-title.md".
- * See [knitr-jekyll](https://github.com/yihui/knitr-jekyll) for an example setup.
+ * See [knitr-jekyll](https://github.com/yihui/knitr-jekyll) as well as the [Rcpp gallery](http://gallery.rcpp.org/) for example setups.

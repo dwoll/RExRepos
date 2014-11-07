@@ -22,13 +22,13 @@ head(myDf4)
 
 
 ## ------------------------------------------------------------------------
-dfTemp       <- myDf1
+dfTemp <- myDf1
 dfTemp$group <- NULL
 head(dfTemp)
 
 
 ## ------------------------------------------------------------------------
-delVars         <- c("sex", "IQ")
+delVars <- c("sex", "IQ")
 dfTemp[delVars] <- list(NULL)
 head(dfTemp)
 
@@ -64,7 +64,7 @@ myDf1[1:3, 2:4]
 
 
 ## ------------------------------------------------------------------------
-dfTemp         <- myDf1
+dfTemp <- myDf1
 (names(dfTemp) <- paste(rep(c("A", "B"), each=3), 100:102, sep=""))
 (colIdx <- grep("^B.*$", names(dfTemp)))
 dfTemp[1:3, colIdx]
@@ -76,6 +76,11 @@ subset(myDf1, sex == "f", select=-2)
 subset(myDf1, (sex == "m") & (rating > 2))
 subset(myDf1, (IQ < 90) | (IQ > 110))
 subset(myDf1, group %in% c("CG", "WL"))
+
+
+## ------------------------------------------------------------------------
+myDfNum <- Filter(is.numeric, myDf1)
+head(myDfNum)
 
 
 ## ------------------------------------------------------------------------

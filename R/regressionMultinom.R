@@ -124,10 +124,6 @@ zCrit   <- qnorm(c(0.05/2, 1 - 0.05/2))
 (ciCoef <- t(apply(coefMN, 1, function(x) x["Estimate"] - zCrit*x["Std. Error"] )))
 
 
-## ------------------------------------------------------------------------
-2*(1 - pnorm(abs(coefMN[ , "z value"])))
-
-
 ## ----results='hide'------------------------------------------------------
 summary(mnFit)
 summary(mlogitFit)

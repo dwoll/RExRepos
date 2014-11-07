@@ -43,14 +43,18 @@ head(myDf4)
 Remove variables from a data frame
 -------------------------
 
+Remove one variable.
+
 ```{r}
-dfTemp       <- myDf1
+dfTemp <- myDf1
 dfTemp$group <- NULL
 head(dfTemp)
 ```
 
+Remove multiple variables.
+
 ```{r}
-delVars         <- c("sex", "IQ")
+delVars <- c("sex", "IQ")
 dfTemp[delVars] <- list(NULL)
 head(dfTemp)
 ```
@@ -94,7 +98,7 @@ myDf1[1:3, 2:4]
 ```
 
 ```{r}
-dfTemp         <- myDf1
+dfTemp <- myDf1
 (names(dfTemp) <- paste(rep(c("A", "B"), each=3), 100:102, sep=""))
 (colIdx <- grep("^B.*$", names(dfTemp)))
 dfTemp[1:3, colIdx]
@@ -110,6 +114,15 @@ subset(myDf1, sex == "f", select=-2)
 subset(myDf1, (sex == "m") & (rating > 2))
 subset(myDf1, (IQ < 90) | (IQ > 110))
 subset(myDf1, group %in% c("CG", "WL"))
+```
+
+### Select variables based on conditions with `Filter()`
+
+Only numerical variables.
+
+```{r}
+myDfNum <- Filter(is.numeric, myDf1)
+head(myDfNum)
 ```
 
 Remove duplicated cases

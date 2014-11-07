@@ -286,7 +286,7 @@ Coefficient tests and overall model test
 
 ### Individual coefficient tests
 
-Estimated standard deviations and z-values for parameters
+Estimated standard deviations, z-values, and p-values for parameters based on normality on assumption that z-values are asymptotically $N(0, 1)$ distributed.
 
 
 ```r
@@ -295,16 +295,16 @@ sumMN   <- VGAM::summary(vglmFitMN)
 ```
 
 ```
-                 Estimate  Std. Error   z value
-(Intercept):1 -22.8571447 10.27166961 -2.225261
-(Intercept):2 -30.8175714 10.93523124 -2.818191
-(Intercept):3 -35.4397403 11.06665231 -3.202390
-X1:1            0.1526408  0.06112749  2.497090
-X1:2            0.2105521  0.06512916  3.232839
-X1:3            0.2319840  0.06565479  3.533391
-X2:1           -0.1156697  0.04695990 -2.463160
-X2:2           -0.1975995  0.05414592 -3.649389
-X2:3           -0.1669702  0.05258129 -3.175468
+                 Estimate  Std. Error   z value     Pr(>|z|)
+(Intercept):1 -22.8571447 10.27166961 -2.225261 0.0260637291
+(Intercept):2 -30.8175714 10.93523124 -2.818191 0.0048295056
+(Intercept):3 -35.4397403 11.06665231 -3.202390 0.0013629219
+X1:1            0.1526408  0.06112749  2.497090 0.0125217285
+X1:2            0.2105521  0.06512916  3.232839 0.0012256681
+X1:3            0.2319840  0.06565479  3.533391 0.0004102658
+X2:1           -0.1156697  0.04695990 -2.463160 0.0137718475
+X2:2           -0.1975995  0.05414592 -3.649389 0.0002628643
+X2:3           -0.1669702  0.05258129 -3.175468 0.0014959522
 ```
 
 Approximative Wald-based confidence intervals
@@ -328,19 +328,7 @@ X2:2           -0.09147549  -0.30372360
 X2:3           -0.06391275  -0.27002761
 ```
 
-p-values for two-sided paramter tests based on assumption that z-values are asymptotically $N(0, 1)$ distributed
-
-
-```r
-2*(1 - pnorm(abs(coefMN[ , "z value"])))
-```
-
-```
-(Intercept):1 (Intercept):2 (Intercept):3          X1:1          X1:2 
- 0.0260637291  0.0048295056  0.0013629219  0.0125217285  0.0012256681 
-         X1:3          X2:1          X2:2          X2:3 
- 0.0004102658  0.0137718475  0.0002628643  0.0014959522 
-```
+Tests for other models.
 
 
 ```r

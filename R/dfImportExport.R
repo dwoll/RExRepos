@@ -1,6 +1,6 @@
 
 ## ------------------------------------------------------------------------
-wants <- c("foreign", "RODBC")
+wants <- c("foreign", "RODBC", "RSQLite")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
@@ -91,8 +91,8 @@ xlsCon <- odbcConnectExcel2007("data.xls", readOnly=FALSE)
 odbcGetInfo(xlsCon)
 sqlTables(xlsCon)
 (myDfXls <- sqlFetch(xlsCon, "sheet1"))
-sqlQuery(xlsCon, "select IV, DV from [sheet1$] order by IV")
-sqlQuery(xlsCon, "select * from [sheet1$] where IV = 'A' AND DV < 10")
+sqlQuery(xlsCon, "SELECT IV, DV FROM [sheet1$] ORDER BY IV")
+sqlQuery(xlsCon, "SELECT * FROM [sheet1$] where (IV = 'A') AND (DV < 10)")
 myDfXls$newDV <- rnorm(nrow(myDfXls))
 sqlSave(xlsCon, myDfXls, tablename="newSheet")
 odbcClose(xlsCon)
@@ -100,33 +100,43 @@ odbcClose(xlsCon)
 
 
 ## ------------------------------------------------------------------------
-IQ     <- rnorm(2*50, mean=100, sd=15)
+IQ     <- rnorm(2*10, mean=100, sd=15)
 rating <- sample(LETTERS[1:3], 2*50, replace=TRUE)
 sex    <- factor(rep(c("f", "m"), times=50))
 myDf   <- data.frame(sex, IQ, rating, stringsAsFactors=FALSE)
 
 
-## ----eval=FALSE----------------------------------------------------------
+## ------------------------------------------------------------------------
 library("RSQLite")
 drv <- dbDriver("SQLite")
-con <- dbConnect(drv, "myDf.db")
+con <- dbConnect(drv, dbname=":memory:")
 dbWriteTable(con, name="MyDataFrame", value=myDf, row.names=FALSE)
+
+
+## ------------------------------------------------------------------------
 dbListTables(con)
 dbListFields(con, "MyDataFrame")
+
+
+## ------------------------------------------------------------------------
 out <- dbReadTable(con, "MyDataFrame")
 head(out, n=4)
-dbGetQuery(con, "SELECT sex, AVG(IQ) AS mIQ, SUM(IQ) as sIQ FROM MyDataFrame GROUP BY sex")
+dbGetQuery(con, "SELECT sex, AVG(IQ) AS mIQ, SUM(IQ) AS sIQ FROM MyDataFrame GROUP BY sex")
+
+
+## ------------------------------------------------------------------------
 res <- dbSendQuery(con, "SELECT IQ, rating FROM MyDataFrame WHERE rating = 'A'")
 
 while(!dbHasCompleted(res)) {
-  partial <- dbFetch(res, n=3)
+  partial <- dbFetch(res, n=4)
   print(partial)
 }
 
+
+## ------------------------------------------------------------------------
 dbClearResult(res)
 dbRemoveTable(con, "MyDataFrame")
 dbDisconnect(con)
-# not shown
 
 
 ## ----eval=FALSE----------------------------------------------------------

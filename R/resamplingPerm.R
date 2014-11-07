@@ -48,14 +48,14 @@ plot(supp, dens, xlab="Support", ylab=NA, pch=20, main="Density permutation dist
 
 ## ----rerResamplingPerm02-------------------------------------------------
 qEmp <- sapply(ppoints(supp), qperm, object=ot)
-qqnorm(qEmp, xlab="Quantile Normalverteilung", ylab="Permutation quantiles",
+qqnorm(qEmp, xlab="Normal quantiles", ylab="Permutation quantiles",
        pch=20, main="Permutation quantiles vs. normal quantiles")
 abline(a=0, b=1, lwd=2, col="blue")
 
 
 ## ----rerResamplingPerm03-------------------------------------------------
 plot(qEmp, ecdf(qEmp)(qEmp), col="gray60", pch=16,
-     xlab="Difference in means", ylab="cumulative relative frequency",
+     xlab="Difference in means", ylab="Cumulative relative frequency",
      main="Cumulative relative frequency and normal CDF")
 
 

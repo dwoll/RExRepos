@@ -32,7 +32,7 @@ if(any(!has)) install.packages(wants[!has])
 ```
 
 The downloaded source packages are in
-	'/tmp/RtmphwBryU/downloaded_packages'
+	'/tmp/RtmpK08rp1/downloaded_packages'
 ```
 
 Opening and closing a device

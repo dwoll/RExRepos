@@ -142,8 +142,8 @@ rer:
         regressionOrdinal: "Ordinal regression"
         regressionMultinom: "Multinomial regression"
         regressionPoisson: "Poisson regression"
-        regressionDiag: "Regression diagnostics"
         logLinear: "Log-linear models"
+        regressionDiag: "Regression diagnostics"
         crossvalidation: "Crossvalidation"
       Survival_analysis:
         survivalKM: "Kaplan-Meier-estimate"

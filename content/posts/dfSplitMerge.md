@@ -330,7 +330,7 @@ merge(dfA, dfC, all.x=TRUE, all.y=TRUE)
 Useful packages
 -------------------------
 
-Package [`plyr`](http://cran.r-project.org/package=plyr) provides very handy functions for the split-apply-combine approach to aggregating data frames.
+Package [`dplyr`](http://cran.r-project.org/package=dplyr) provides very handy functions for the split-apply-combine approach to aggregating data frames.
 
 Get the article source from GitHub
 ----------------------------------------------

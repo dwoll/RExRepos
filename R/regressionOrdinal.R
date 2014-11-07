@@ -147,10 +147,6 @@ zCrit   <- qnorm(c(0.05/2, 1 - 0.05/2))
 (ciCoef <- t(apply(coefOrd, 1, function(x) x["Estimate"] - zCrit*x["Std. Error"] )))
 
 
-## ------------------------------------------------------------------------
-2*(1 - pnorm(abs(coefOrd[ , "z value"])))
-
-
 ## ----results='hide'------------------------------------------------------
 summary(polrFit)
 summary(clmFit)

@@ -1,0 +1,199 @@
+---
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
+title: "Robust and penalized regression"
+categories: [Univariate, Regression]
+rerCat: Univariate
+tags: [Regression]
+---
+
+Robust and penalized regression
+=========================
+
+TODO
+-------------------------
+
+ - link to regression, resamplingBootALM
+
+Install required packages
+-------------------------
+
+[`glmnet`](http://cran.r-project.org/package=glmnet), [`lmtest`](http://cran.r-project.org/package=lmtest), [`MASS`](http://cran.r-project.org/package=MASS), [`robustbase`](http://cran.r-project.org/package=robustbase), [`sandwich`](http://cran.r-project.org/package=sandwich)
+
+```{r}
+wants <- c("glmnet", "lmtest", "MASS", "robustbase", "sandwich")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Robust regression
+-------------------------
+
+Simulate data.
+
+```{r}
+set.seed(123)
+N  <- 100
+X1 <- rnorm(N, 175, 7)
+X2 <- rnorm(N,  30, 8)
+X3 <- abs(rnorm(N, 60, 30))
+Y  <- 0.5*X1 - 0.3*X2 - 0.4*X3 + 10 + rnorm(N, 0, 7)
+dfRegr <- data.frame(X1, X2, X3, Y)
+```
+
+### Using `ltsReg()` from package `robustbase`
+
+Least trimmed squares regression.
+
+```{r}
+library(robustbase)
+ltsFit <- ltsReg(Y ~ X1 + X2 + X3, data=dfRegr)
+summary(ltsFit)
+```
+
+### Using `rlm()` from package `MASS`
+
+\(M\)-estimators.
+
+```{r}
+library(MASS)
+fitRLM <- rlm(Y ~ X1 + X2 + X3, data=dfRegr)
+summary(fitRLM)
+```
+
+For resistant regression, see `lqs()` from package `MASS`.
+
+### Heteroscedasticity-consistent standard errors
+
+Heteroscedasticity-consistent standard errors (modified White estimator):
+`hccm()` from package `car` as well as `vcovHC()` from package `sandwich`. Sandwich estimator from `sandwich()` from the eponymous package. These standard errors can then be used in combination with function `coeftest()` from package `lmtest()`.
+
+```{r}
+fit <- lm(Y ~ X1 + X2 + X3, data=dfRegr)
+library(sandwich)
+hcSE <- vcovHC(fit, type="HC3")
+library(lmtest)
+coeftest(fit, vcov=hcSE)
+```
+ 
+Penalized regression
+-------------------------
+
+Fit penalized models on standardized data.
+
+### Ridge regression
+
+#### Using `lm.ridge()` from package `MASS`.
+
+Calculate estimated prediction error from generalized crossvalidation (GCV) for a range of values for regularization parameter \(\lambda\).
+
+```{r}
+library(MASS)
+lambdas  <- 10^(seq(-2, 4, length=100))
+ridgeGCV <- lm.ridge(scale(Y) ~ scale(X1) + scale(X2) + scale(X3),
+                     data=dfRegr, lambda=lambdas)
+```
+
+Show value for \(\lambda\) with minimal GCV error and get parameter estimates for this choice.
+
+```{r}
+select(ridgeGCV)
+ridgeSel <- lm.ridge(scale(Y) ~ scale(X1) + scale(X2) + scale(X3),
+                     lambda=1.50)
+coef(ridgeSel)
+```
+
+Show estimated prediction error from GCV depending on regularization parameter \(\lambda\).
+
+```{r regressionRobPen01}
+plot(x=log(ridgeGCV$lambda), y=ridgeGCV$GCV, main="Ridge",
+     xlab="log(lambda)", ylab="GCV")
+```
+
+#### Using `cv.glmnet()` from package `glmnet`
+
+`cv.glmnet()` has no formula interface, data has to be in matrix format. Set `alpha=0` for ridge regression. First calculate GCV prediction error for a range of values for \(\lambda\).
+
+```{r}
+library(glmnet)
+matScl  <- scale(cbind(Y, X1, X2, X3))
+ridgeCV <- cv.glmnet(x=matScl[ , c("X1", "X2", "X3")], y=matScl[ , "Y"],
+                     nfolds=10, alpha=0)
+```
+
+Fit model for value of \(\lambda\) with minimal GCV prediction error using `glmnet()`.
+
+```{r}
+ridge <- glmnet(x=matScl[ , c("X1", "X2", "X3")], y=matScl[ , "Y"],
+                lambda=ridgeCV$lambda.min, alpha=0)
+coef(ridge)
+```
+
+Show regularization path (here: coefficients against \(\ln \lambda\).
+
+```{r regressionRobPen02}
+plot(ridgeCV$glmnet.fit, xvar="lambda", label=TRUE, lwd=2)
+title("Ridge", line=3, col="blue")
+legend(x="bottomright", legend=c("X1", "X2", "X3"), lwd=2,
+       col=c("black", "red", "green"), bg="white")
+```
+
+### LASSO
+
+Set `alpha=1` for LASSO.
+
+```{r}
+lassoCV <- cv.glmnet(x=matScl[ , c("X1", "X2", "X3")], y=matScl[ , "Y"],
+                     nfolds=10, alpha=1)
+lasso <- glmnet(x=matScl[ , c("X1", "X2", "X3")], y=matScl[ , "Y"],
+                lambda=lassoCV$lambda.min, alpha=1)
+coef(lasso)
+```
+
+Show regularization path (here: coefficients against L1-norm).
+
+```{r regressionRobPen03}
+plot(lassoCV$glmnet.fit, xvar="norm", label=FALSE, lwd=2)
+title("LASSO", line=3, col="blue")
+legend(x="bottomleft", legend=c("X1", "X2", "X3"), lwd=2,
+       col=c("black", "red", "green"), bg="white")
+```
+
+### Elastic net
+
+Set `alpha=0.5` for elastic net.
+
+```{r}
+elNetCV <- cv.glmnet(x=matScl[ , c("X1", "X2", "X3")], y=matScl[ , "Y"],
+                     nfolds=10, alpha=0.5)
+elNet <- glmnet(x=matScl[ , c("X1", "X2", "X3")], y=matScl[ , "Y"],
+                lambda=lassoCV$lambda.min, alpha=0.5)
+coef(elNet)
+```
+
+Show regularization path (here: coefficients against deviance explained).
+
+```{r regressionRobPen04}
+plot(elNetCV$glmnet.fit, xvar="dev", label=FALSE, lwd=2)
+title("Elastic Net", line=3, col="blue")
+legend(x="bottomleft", legend=c("X1", "X2", "X3"), lwd=2,
+       col=c("black", "red", "green"), bg="white")
+```
+
+Further resources
+-------------------------
+
+More information can be found in CRAN task view [Robust Statistical Methods](http://cran.r-project.org/web/views/Robust.html).
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:lmtest))
+try(detach(package:sandwich))
+try(detach(package:zoo))
+try(detach(package:glmnet))
+try(detach(package:Matrix))
+try(detach(package:robustbase))
+try(detach(package:MASS))
+```

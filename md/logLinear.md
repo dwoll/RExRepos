@@ -1,7 +1,7 @@
 ---
 license: Creative Commons BY-SA
 author: Daniel Wollschlaeger
-title: "Loglinear models"
+title: "Log-linear models"
 categories: [Univariate, Regression]
 rerCat: Univariate
 tags: [Regression, GLM]
