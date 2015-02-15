@@ -180,8 +180,7 @@ EtaSq(aovCRp, type=1)
 ```
 
 ```
-       eta.sq eta.sq.part
-IV 0.03713889  0.03713889
+Error in EtaSq.lm(aovCRp, type = 1): konnte Funktion "is" nicht finden
 ```
 
 $\hat{\omega^{2}}$, $\hat{f^{2}}$
@@ -273,8 +272,6 @@ ScheffeTest(aovCRp, which="IV", contrasts=t(cntrMat))
 
   Posthoc multiple comparisons of means : Scheffe Test 
     95% family-wise confidence level
-
-Fit: aov(formula = DV ~ IV, data = dfCRp)
 
 $IV
               diff    lwr.ci    upr.ci   pval    

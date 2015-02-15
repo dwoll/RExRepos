@@ -1,9 +1,7 @@
-
 ## ------------------------------------------------------------------------
 wants <- c("GPArotation", "mvtnorm", "polycor", "psych")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
-
 
 ## ------------------------------------------------------------------------
 set.seed(123)
@@ -15,7 +13,6 @@ Q <- 2                         # number of factors
 Lambda <- matrix(c(0.7,-0.4, 0.8,0, -0.2,0.9, -0.3,0.4, 0.3,0.7, -0.8,0.1),
                  nrow=P, ncol=Q, byrow=TRUE)
 
-
 ## ------------------------------------------------------------------------
 # factor scores (uncorrelated factors)
 library(mvtnorm)               # for rmvnorm()
@@ -26,7 +23,6 @@ E   <- rmvnorm(N, rep(0, P), diag(P))
 X   <- FF %*% t(Lambda) + E    # matrix with variable values
 dfX <- data.frame(X)           # data also as a data frame
 
-
 ## ------------------------------------------------------------------------
 # categorize variables into a list of ordered factors
 lOrd <- lapply(dfX, function(x) {
@@ -35,40 +31,32 @@ lOrd <- lapply(dfX, function(x) {
 dfOrd  <- data.frame(lOrd)     # combine list into a data frame
 ordNum <- data.matrix(dfOrd)   # categorized data as a numeric matrix
 
-
 ## ------------------------------------------------------------------------
 library(polycor)               # for hetcor()
 pc <- hetcor(dfOrd, ML=TRUE)   # polychoric corr matrix
-
 
 ## ------------------------------------------------------------------------
 library(psych)
 faPC <- fa(r=pc$correlations, nfactors=2, n.obs=N, rotate="varimax")
 faPC$loadings
 
-
 ## ----results='hide'------------------------------------------------------
 # polychoric FA
 faPCdirect <- fa.poly(ordNum, nfactors=2, rotate="varimax")
 
-
 ## ------------------------------------------------------------------------
 faPCdirect$fa$loadings         # loadings are the same as above ...
-
 
 ## ----rerMultFApoly01-----------------------------------------------------
 factor.plot(faPCdirect$fa, cut=0.5)
 fa.diagram(faPCdirect)
 
-
 ## ----rerMultFApoly02, results='hide'-------------------------------------
 fap <- fa.parallel.poly(ordNum)   # parallel analysis for dichotomous data
-
 
 ## ----rerMultFApoly03-----------------------------------------------------
 fap
 vss(pc$correlations, n.obs=N, rotate="varimax")  # very simple structure
-
 
 ## ------------------------------------------------------------------------
 try(detach(package:GPArotation))
@@ -76,5 +64,4 @@ try(detach(package:psych))
 try(detach(package:polycor))
 try(detach(package:sfsmisc))
 try(detach(package:mvtnorm))
-
 

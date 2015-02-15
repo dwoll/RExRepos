@@ -233,10 +233,10 @@ cor(mat, vec)
 ```
 
 ```
-             [,1]
-age    -0.2023892
-weight -0.8061148
-height -0.8889682
+              [,1]
+age    -0.59081413
+weight -0.47847499
+height -0.02467429
 ```
 
 ```r
@@ -244,8 +244,8 @@ cor(vec, mat)
 ```
 
 ```
-            age     weight     height
-[1,] -0.2023892 -0.8061148 -0.8889682
+            age    weight      height
+[1,] -0.5908141 -0.478475 -0.02467429
 ```
 
 Get the article source from GitHub

@@ -235,7 +235,7 @@ durbinWatsonTest(fit)
 
 ```
  lag Autocorrelation D-W Statistic p-value
-   1     -0.08825048      2.172797   0.348
+   1     -0.08825048      2.172797    0.36
  Alternative hypothesis: rho != 0
 ```
 
@@ -286,7 +286,7 @@ white.test(dfRegr$X1, dfRegr$Y)
 	White Neural Network Test
 
 data:  dfRegr$X1 and dfRegr$Y
-X-squared = 1.8182, df = 2, p-value = 0.4029
+X-squared = 1.9818, df = 2, p-value = 0.3712
 ```
 
 
@@ -380,21 +380,18 @@ Index	Variance Decomposition Proportions
 
 ```r
 pRes <- with(dfRegr, perturb(fit, pvars=c("X1", "X2", "X3"), prange=c(1, 1, 1)))
+```
+
+```
+Error in get(pvars): Objekt 'X1' nicht gefunden
+```
+
+```r
 summary(pRes)
 ```
 
 ```
-Perturb variables:
-X1 		 normal(0,1) 
-X2 		 normal(0,1) 
-X3 		 normal(0,1) 
-
-Impact of perturbations on coefficients:
-              mean  s.d.    min    max
-(Intercept) 17.865 3.149  8.811 24.220
-X1           0.458 0.019  0.420  0.514
-X2          -0.273 0.015 -0.323 -0.245
-X3          -0.431 0.029 -0.530 -0.369
+Error in summary(pRes): Objekt 'pRes' nicht gefunden
 ```
 
 Detach (automatically) loaded packages (if possible)

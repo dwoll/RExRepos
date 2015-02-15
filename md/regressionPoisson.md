@@ -272,12 +272,7 @@ odTest(glmFitNB)
 ```
 
 ```
-Likelihood ratio test of H0: Poisson, as restricted NB model:
-n.b., the distribution of the test-statistic under H0 is non-standard
-e.g., see help(odTest) for details/references
-
-Critical value of test statistic at the alpha= 0.05 level: 2.7055 
-Chi-Square Test Statistic =  15.8533 p-value = 3.422e-05 
+Error in eval(expr, envir, enclos): Objekt 'dfCount' nicht gefunden
 ```
 
 Zero-inflated Regression models
@@ -335,11 +330,19 @@ vuong(ziFitP, glmFitP)
 ```
 
 ```
-Vuong Non-Nested Hypothesis Test-Statistic: -0.6038871 
+[1] 2.649159
+          Raw AIC-corrected BIC-corrected 
+     2.045272      2.044531      1.653019 
+[1] 0.4775593
+[1] 13.81317 13.80817 11.16401
+Vuong Non-Nested Hypothesis Test-Statistic: 
 (test-statistic is asymptotically distributed N(0,1) under the
  null that the models are indistinguishible)
-in this case:
-model2 > model1, with p-value 0.27296 
+-------------------------------------------------------------
+              Vuong z-statistic             H_A  p-value
+Raw                    2.045272 model1 > model2 0.020414
+AIC-corrected          2.044531 model1 > model2 0.020451
+BIC-corrected          1.653019 model1 > model2 0.049163
 ```
 
 ### Zero-inflated negative binomial regression
@@ -395,11 +398,19 @@ vuong(ziFitNB, glmFitNB)
 ```
 
 ```
-Vuong Non-Nested Hypothesis Test-Statistic: -1.037018 
+[1] 2.649159
+          Raw AIC-corrected BIC-corrected 
+    1.6121411     1.6108359     0.9206495 
+[1] 0.2708982
+[1] 6.176240 6.171240 3.527081
+Vuong Non-Nested Hypothesis Test-Statistic: 
 (test-statistic is asymptotically distributed N(0,1) under the
  null that the models are indistinguishible)
-in this case:
-model2 > model1, with p-value 0.14986 
+-------------------------------------------------------------
+              Vuong z-statistic             H_A  p-value
+Raw                   1.6121411 model1 > model2 0.053466
+AIC-corrected         1.6108359 model1 > model2 0.053608
+BIC-corrected         0.9206495 model1 > model2 0.178617
 ```
 
 Detach (automatically) loaded packages (if possible)

@@ -120,13 +120,13 @@ Loadings:
    MR2    MR1   
 X1  0.546 -0.196
 X2  0.605       
-X3 -0.173  0.841
-X4 -0.198  0.312
+X3 -0.174  0.841
+X4 -0.198  0.311
 X5  0.336  0.538
 X6 -0.621       
 
                  MR2   MR1
-SS loadings    1.231 1.132
+SS loadings    1.231 1.133
 Proportion Var 0.205 0.189
 Cumulative Var 0.205 0.394
 ```
@@ -173,12 +173,15 @@ fap
 
 ```
 Call: fa.parallel.poly(x = ordNum)
-Parallel analysis suggests that the number of factors =  2  and the number of components =  2 
+Parallel analysis suggests that the number of factors =  1  and the number of components =  1 
 
  Eigen Values of 
-  Original factors Simulated data Original components simulated data
-1             1.23           0.79                1.92           1.27
-2             0.62           0.16                1.53           1.14
+  Original factors Simulated data Original components simulated data   NA
+1             1.23              1                  10           0.79 0.28
+    NA   NA   NA   NA   NA   NA    NA   NA   NA   NA NA NA   NA   NA   NA
+1 0.94 0.81 0.15 0.38 1.05 0.67 -0.37 -1.9 0.09 1.92  1 10 1.27 0.08 1.25
+    NA   NA   NA   NA   NA   NA    NA   NA
+1 1.26 0.08 1.18 1.39 0.21 0.38 -1.66 0.03
 ```
 
 ```r

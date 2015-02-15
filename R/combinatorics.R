@@ -1,9 +1,7 @@
-
 ## ------------------------------------------------------------------------
 wants <- c("e1071", "permute")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
-
 
 ## ------------------------------------------------------------------------
 myN <- 5
@@ -11,31 +9,25 @@ myK <- 4
 choose(myN, myK)
 factorial(myN) / (factorial(myK)*factorial(myN-myK))
 
-
 ## ------------------------------------------------------------------------
 combn(c("a", "b", "c", "d", "e"), myK)
 combn(c(1, 2, 3, 4), 3)
-
 
 ## ------------------------------------------------------------------------
 combn(c(1, 2, 3, 4), 3, sum)
 combn(c(1, 2, 3, 4), 3, weighted.mean, w=c(0.5, 0.2, 0.3))
 
-
 ## ------------------------------------------------------------------------
 factorial(7)
-
 
 ## ------------------------------------------------------------------------
 set.seed(123)
 set <- LETTERS[1:10]
 sample(set, length(set), replace=FALSE)
 
-
 ## ------------------------------------------------------------------------
 library(permute)
 shuffle(length(set))
-
 
 ## ------------------------------------------------------------------------
 set <- LETTERS[1:3]
@@ -43,7 +35,6 @@ len <- length(set)
 library(e1071)
 (mat <- permutations(len))
 apply(mat, 1, function(x) set[x])
-
 
 ## ------------------------------------------------------------------------
 (grp <- rep(letters[1:3], each=3))
@@ -55,7 +46,6 @@ for(i in 1:5) {
     perm <- permute(i, n=N, control=pCtrl)
     print(grp[perm])
 }
-
 
 ## ------------------------------------------------------------------------
 Njk    <- 4              ## cell size
@@ -77,14 +67,12 @@ pCtrlA <- how(plots=Plots(strata=IV2), complete=FALSE, nperm=nPerms)
 ## only permute across B (within A)
 pCtrlB <- how(plots=Plots(strata=IV1), complete=FALSE, nperm=nPerms)
 
-
 ## ----results='hide'------------------------------------------------------
 for(i in 1:3) {
     perm <- permute(i, n=N, control=pCtrlA)
     print(myDf[perm, ])
 # not shown
 }
-
 
 ## ----results='hide'------------------------------------------------------
 for(i in 1:3) {
@@ -93,17 +81,14 @@ for(i in 1:3) {
 # not shown
 }
 
-
 ## ------------------------------------------------------------------------
 IV1 <- c("control", "treatment")
 IV2 <- c("f", "m")
 IV3 <- c(1, 2)
 expand.grid(IV1, IV2, IV3)
 
-
 ## ------------------------------------------------------------------------
 outer(1:5, 1:5, FUN="*")
-
 
 ## ------------------------------------------------------------------------
 try(detach(package:e1071))

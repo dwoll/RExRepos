@@ -1,9 +1,7 @@
-
 ## ------------------------------------------------------------------------
 wants <- c("survival")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
-
 
 ## ------------------------------------------------------------------------
 set.seed(123)
@@ -26,27 +24,22 @@ obsT   <- pmin(eventT, censT)  # observed censored event times
 status <- eventT <= censT      # has event occured?
 dfSurv <- data.frame(obsT, status, sex, X, IV)          # data frame
 
-
 ## ------------------------------------------------------------------------
 library(survival)                     # for survreg()
 fitWeib <- survreg(Surv(obsT, status) ~ X + IV, dist="weibull", data=dfSurv)
 summary(fitWeib)
 
-
 ## ------------------------------------------------------------------------
 (betaHat <- -coef(fitWeib) / fitWeib$scale)
-
 
 ## ------------------------------------------------------------------------
 fitExp <- survreg(Surv(obsT, status) ~ X + IV, dist="exponential", data=dfSurv)
 anova(fitExp, fitWeib)               # model comparison
 
-
 ## ------------------------------------------------------------------------
 # restricted model without IV
 fitR <- survreg(Surv(obsT, status) ~ X, dist="weibull", data=dfSurv)
 anova(fitR, fitWeib)                 # model comparison
-
 
 ## ------------------------------------------------------------------------
 dfNew <- data.frame(sex=factor(c("m", "m"), levels=levels(dfSurv$sex)),
@@ -54,7 +47,6 @@ dfNew <- data.frame(sex=factor(c("m", "m"), levels=levels(dfSurv$sex)),
                      IV=factor(c("A", "C"), levels=levels(dfSurv$IV)))
 percs <- (1:99)/100
 FWeib <- predict(fitWeib, newdata=dfNew, type="quantile", p=percs, se=TRUE)
-
 
 ## ----rerSurvivalParametric01---------------------------------------------
 matplot(cbind(FWeib$fit[1, ],
@@ -67,7 +59,6 @@ matlines(cbind(FWeib$fit[2, ],
                FWeib$fit[2, ] + 2*FWeib$se.fit[2, ]), 1-percs, col="red", lwd=2)
 legend(x="topright", lwd=2, lty=c(1, 2, 1, 2), col=c("blue", "blue", "red", "red"),
        legend=c("sex=m, X=0, IV=A", "+- 2*SE", "sex=m, X=0, IV=C", "+- 2*SE"))
-
 
 ## ------------------------------------------------------------------------
 try(detach(package:survival))

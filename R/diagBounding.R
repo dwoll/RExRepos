@@ -1,15 +1,12 @@
-
 ## ------------------------------------------------------------------------
 set.seed(123)
 xy      <- matrix(rnorm(24, 100, 15), ncol=2)
 hullIdx <- chull(xy)
 
-
 ## ----rerDiagBounding01---------------------------------------------------
 plot(xy, xlab="x", ylab="y", asp=1, type="n")
 polygon(xy[hullIdx, ], border="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
-
 
 ## ------------------------------------------------------------------------
 getBoundingBox <- function(xy) {
@@ -20,17 +17,14 @@ getBoundingBox <- function(xy) {
     return(list(pts=pts, width=abs(diff(x)), height=abs(diff(y))))
 }
 
-
 ## ----rerDiagBounding02---------------------------------------------------
 bb <- getBoundingBox(xy)
 plot(xy, xlab="x", ylab="y", asp=1, type="n")
 rect(bb$pts[1], bb$pts[2], bb$pts[3], bb$pts[4], border="blue", lwd="2")
 points(xy, pch=16, cex=1.5)
 
-
 ## ------------------------------------------------------------------------
 bb$width * bb$height
-
 
 ## ------------------------------------------------------------------------
 getMinBBox <- function(xy) {
@@ -85,7 +79,6 @@ getMinBBox <- function(xy) {
     return(list(pts=pts, width=widths[eMin], height=heights[eMin]))
 }
 
-
 ## ----rerDiagBounding03---------------------------------------------------
 mbb <- getMinBBox(xy)       ## minimum bounding box
 H   <- chull(xy)            ## convex hull
@@ -98,10 +91,8 @@ polygon(xy[H, ], col=NA)    ## show convex hull
 polygon(mbb$pts, border="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
 
-
 ## ------------------------------------------------------------------------
 mbb$width * mbb$height      ## box area
-
 
 ## ------------------------------------------------------------------------
 getCircleFrom3 <- function(xy) {
@@ -140,7 +131,6 @@ getCircleFrom3 <- function(xy) {
 }
 
 
-
 ## ------------------------------------------------------------------------
 getMaxRad <- function(xy, S) {
     stopifnot(is.matrix(xy), is.numeric(xy), nrow(xy) >= 2, ncol(xy) == 2)
@@ -159,7 +149,6 @@ getMaxRad <- function(xy, S) {
     return(which.max(rads))
 }
 
-
 ## ------------------------------------------------------------------------
 isBiggerThan90 <- function(xy) {
     stopifnot(is.matrix(xy), is.numeric(xy), nrow(xy) == 3, ncol(xy) == 2)
@@ -169,7 +158,6 @@ isBiggerThan90 <- function(xy) {
     dBC <- d[3]
     return((dAB^2 + dBC^2 - dAC^2) < 0)
 }
-
 
 ## ------------------------------------------------------------------------
 getMaxPairDist <- function(xy) {
@@ -188,7 +176,6 @@ getMaxPairDist <- function(xy) {
 
     return(list(d=dst, idx=mPts))
 }
-
 
 ## ------------------------------------------------------------------------
 getMinCircle <- function(xy) {
@@ -237,7 +224,6 @@ getMinCircle <- function(xy) {
     return(getCircleFrom3(Smax))
 }
 
-
 ## ----rerDiagBounding04---------------------------------------------------
 mc     <- getMinCircle(xy)
 angles <- seq(0, 2*pi, length.out=200)
@@ -250,5 +236,4 @@ yLims <- mc$ctr[2] + c(-mc$rad, mc$rad)
 plot(xy, xlab="x", ylab="y", xlim=xLims, ylim=yLims, asp=1, type="n")
 lines(circ, col="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
-
 

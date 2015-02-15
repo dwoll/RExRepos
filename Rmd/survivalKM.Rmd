@@ -100,26 +100,44 @@ Arbitrary quantiles for estimated survival function.
 quantile(KM0, probs=c(0.25, 0.5, 0.75), conf.int=FALSE)
 ```
 
-All estimated values for survival function including point-wise confidence interval.
+50-day and 100-day survival including point-wise confidence interval.
 
 ```{r}
+summary(KM0, times=c(50, 100))
+```
+
+All estimated values for survival function including point-wise confidence interval.
+
+```{r eval=FALSE}
 summary(KM0)
+# not shown
 ```
 
 ### Plot estimated survival function
 
 Global estimate including pointwise confidence intervals.
 
-```{r rerSurvivalKM02}
+```{r rerSurvivalKM02a}
 plot(KM0, main=expression(paste("Kaplan-Meier-estimate ", hat(S)(t), " with CI")),
      xlab="t", ylab="Survival", lwd=2)
 ```
 
 Separate estimates for levels of factor `IV`
 
-```{r rerSurvivalKM03}
+```{r rerSurvivalKM03a}
 plot(KM, main=expression(paste("Kaplan-Meier-estimate ", hat(S)[g](t), " for groups g")),
      xlab="t", ylab="Survival", lwd=2, col=1:3)
+legend(x="bottomright", col=1:3, lwd=2, legend=LETTERS[1:3])
+```
+
+### Plot cumulative incidence function
+
+Separate estimates for levels of factor `IV`
+
+```{r rerSurvivalKM03b}
+plot(KM, main=expression(paste("KM cumulative incidence 1-", hat(S)[g](t), " for groups g")),
+     fun=function(x) { 1- x },
+     xlab="t", ylab="Cumulative incidence", lwd=2, col=1:3)
 legend(x="topright", col=1:3, lwd=2, legend=LETTERS[1:3])
 ```
 

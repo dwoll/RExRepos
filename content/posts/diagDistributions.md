@@ -289,14 +289,14 @@ summary(res)
 
 ```
 'hexbin' object from call: hexbin(x = xx, y = yy, xbins = 20) 
-n = 5000  points in	nc = 233  hexagon cells in grid dimensions  26 by 21 
+n = 5000  points in	nc = 214  hexagon cells in grid dimensions  26 by 21 
       cell           count             xcm              ycm        
- Min.   :  5.0   Min.   :  1.00   Min.   : 49.73   Min.   :-10.59  
- 1st Qu.:191.0   1st Qu.:  2.00   1st Qu.: 78.49   1st Qu.: 24.40  
- Median :277.0   Median :  8.00   Median : 99.53   Median : 42.01  
- Mean   :270.8   Mean   : 21.46   Mean   : 99.22   Mean   : 40.08  
- 3rd Qu.:351.0   3rd Qu.: 30.00   3rd Qu.:118.31   3rd Qu.: 54.68  
- Max.   :501.0   Max.   :119.00   Max.   :155.74   Max.   : 83.74  
+ Min.   :  9.0   Min.   :  1.00   Min.   : 44.83   Min.   :-5.868  
+ 1st Qu.:156.2   1st Qu.:  2.00   1st Qu.: 81.19   1st Qu.:23.484  
+ Median :240.5   Median :  8.00   Median :101.46   Median :40.020  
+ Mean   :241.7   Mean   : 23.36   Mean   :101.18   Mean   :40.089  
+ 3rd Qu.:324.8   3rd Qu.: 31.00   3rd Qu.:120.83   3rd Qu.:56.395  
+ Max.   :499.0   Max.   :133.00   Max.   :157.78   Max.   :90.498  
 ```
 
 Detach (automatically) loaded packages (if possible)

@@ -1,9 +1,7 @@
-
 ## ------------------------------------------------------------------------
 wants <- c("boot")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
-
 
 ## ------------------------------------------------------------------------
 set.seed(123)
@@ -14,12 +12,10 @@ X3 <- abs(rnorm(N, 60, 30))
 Y  <- 0.5*X1 - 0.3*X2 - 0.4*X3 + 10 + rnorm(N, 0, 3)
 dfRegr <- data.frame(X1, X2, X3, Y)
 
-
 ## ------------------------------------------------------------------------
 (fit <- lm(Y ~ X1 + X2 + X3, data=dfRegr))
 sqrt(diag(vcov(fit)))
 confint(fit)
-
 
 ## ------------------------------------------------------------------------
 getRegr <- function(dat, idx) {
@@ -27,19 +23,16 @@ getRegr <- function(dat, idx) {
     coef(bsFit)
 }
 
-
 ## ------------------------------------------------------------------------
 library(boot)
 nR <- 999
 (bsRegr <- boot(dfRegr, statistic=getRegr, R=nR))
-
 
 ## ------------------------------------------------------------------------
 boot.ci(bsRegr, conf=0.95, type="bca", index=1)$bca
 boot.ci(bsRegr, conf=0.95, type="bca", index=2)$bca
 boot.ci(bsRegr, conf=0.95, type="bca", index=3)$bca
 boot.ci(bsRegr, conf=0.95, type="bca", index=4)$bca
-
 
 ## ------------------------------------------------------------------------
 P     <- 4
@@ -48,12 +41,10 @@ muJ   <- rep(c(-1, 0, 1, 2), Nj)
 dfCRp <- data.frame(IV=factor(rep(LETTERS[1:P], Nj)),
                     DV=rnorm(sum(Nj), muJ, 6))
 
-
 ## ------------------------------------------------------------------------
 anBase <- anova(lm(DV ~ IV, data=dfCRp))
 Fbase  <- anBase["IV", "F value"]
 (pBase <- anBase["IV", "Pr(>F)"])
-
 
 ## ------------------------------------------------------------------------
 fit0 <- lm(DV ~ 1, data=dfCRp)        ## fit 0-model
@@ -77,14 +68,12 @@ tol     <- .Machine$double.eps^0.5
 FsIsGEQ <- (Fstar > Fbase) | (abs(Fstar-Fbase) < tol)
 (pValBS <- (sum(FsIsGEQ) + 1) / (length(Fstar) + 1))
 
-
 ## ----rerResamplingBootALM01----------------------------------------------
 plot(Fstar, ecdf(Fstar)(Fstar), col="gray60", pch=1, xlab="f* bzw. f",
      ylab="P(F <= f)", main="F*: cumulative rel. freqs and F CDF")
 curve(pf(x, P-1, sum(Nj) - P), lwd=2, add=TRUE)
 legend(x="topleft", lty=c(NA, 1), pch=c(1, NA), lwd=c(2, 2),
        col=c("gray60", "black"), legend=c("F*", "F"))
-
 
 ## ------------------------------------------------------------------------
 getAnovaWild <- function(dat, idx) {
@@ -102,7 +91,6 @@ getAnovaWild <- function(dat, idx) {
     anBS["IV", "F value"]
 }
 
-
 ## ------------------------------------------------------------------------
 library(boot)
 nR       <- 999
@@ -113,7 +101,6 @@ FstarW   <- bsAnovaW$t
 tol      <- .Machine$double.eps^0.5
 FsIsGEQ  <- (FstarW > Fbase) | (abs(FstarW-Fbase) < tol)
 (pValBSw <- (sum(FsIsGEQ) + 1) / (length(FstarW) + 1))
-
 
 ## ------------------------------------------------------------------------
 try(detach(package:boot))

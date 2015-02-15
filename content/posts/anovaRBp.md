@@ -74,8 +74,7 @@ EtaSq(aovRBp, type=1)
 ```
 
 ```
-      eta.sq eta.sq.part eta.sq.gen
-IV 0.2454376   0.2996396  0.2454376
+Error in EtaSq.aovlist(aovRBp, type = 1): konnte Funktion "is" nicht finden
 ```
 
 ### Using `Anova()` from package `car` with data in wide format

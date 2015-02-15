@@ -25,7 +25,7 @@ if(any(!has)) install.packages(wants[!has])
 ```
 
 The downloaded source packages are in
-	'/tmp/RtmpaFUXqM/downloaded_packages'
+	'/tmp/RtmpNLA8Wb/downloaded_packages'
 ```
 
 Use R for data entry
@@ -285,11 +285,11 @@ head(out, n=4)
 ```
 
 ```
-  sex       IQ rating
-1   f 82.32344      B
-2   m 69.01104      A
-3   f 91.42753      B
-4   m 94.08307      A
+  sex        IQ rating
+1   f 118.44900      A
+2   m  84.39989      A
+3   f 116.40531      A
+4   m 119.94145      B
 ```
 
 ```r
@@ -298,8 +298,8 @@ dbGetQuery(con, "SELECT sex, AVG(IQ) AS mIQ, SUM(IQ) AS sIQ FROM MyDataFrame GRO
 
 ```
   sex      mIQ      sIQ
-1   f 95.78950 4789.475
-2   m 91.62926 4581.463
+1   f 98.49065 4924.532
+2   m 99.20998 4960.499
 ```
 
 Query database and read results in smaller partial chunks. Useful for large queries.
@@ -316,43 +316,44 @@ while(!dbHasCompleted(res)) {
 
 ```
          IQ rating
-1  69.01104      A
-2  94.08307      A
-3 102.89287      A
-4  98.16417      A
+1 118.44900      A
+2  84.39989      A
+3 116.40531      A
+4  78.45338      A
+        IQ rating
+1 99.16116      A
+2 90.33680      A
+3 84.55555      A
+4 98.49379      A
          IQ rating
-1 100.09746      A
-2  91.42753      A
-3  95.68852      A
-4 102.89287      A
+1  85.98571      A
+2  84.39989      A
+3 119.94145      A
+4  99.16116      A
          IQ rating
-1  89.51618      A
-2 100.09746      A
-3  69.01104      A
-4  94.08307      A
+1  98.56461      A
+2  85.98571      A
+3 118.44900      A
+4 116.40531      A
+        IQ rating
+1 105.2867      A
+2 134.9761      A
+3 121.1204      A
+4 106.3329      A
+        IQ rating
+1 78.45338      A
+2 90.33680      A
+3 98.56461      A
+4 84.39989      A
          IQ rating
-1  95.68852      A
-2  88.20650      A
-3 101.80639      A
-4 102.89287      A
+1 116.40531      A
+2 119.94145      A
+3  86.59827      A
+4  73.50803      A
          IQ rating
-1  89.51618      A
-2 100.09746      A
-3  85.04968      A
-4  82.32344      A
-         IQ rating
-1  88.20650      A
-2  99.53709      A
-3 125.46591      A
-4  97.98657      A
-         IQ rating
-1  94.13950      A
-2  82.32344      A
-3  64.81872      A
-4 102.89287      A
-         IQ rating
-1  90.81769      A
-2 100.09746      A
+1 106.33290      A
+2  78.45338      A
+3  98.49379      A
 ```
 
 Clean query, remove the created table, and close the database connection.

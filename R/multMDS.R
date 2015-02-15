@@ -1,9 +1,7 @@
-
 ## ------------------------------------------------------------------------
 wants <- c("vegan")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
-
 
 ## ------------------------------------------------------------------------
 cities <- c("Augsburg", "Berlin", "Dresden", "Hamburg", "Hannover",
@@ -26,10 +24,8 @@ dstMat <- t(dstMat[ , N:1])[ , N:1]
 dstMat[lower.tri(dstMat)] <- t(dstMat)[lower.tri(dstMat)]
 dimnames(dstMat) <- list(city=cities, city=cities)
 
-
 ## ------------------------------------------------------------------------
 (mds <- cmdscale(dstMat, k=2))
-
 
 ## ----results='hide'------------------------------------------------------
 set.seed(123)
@@ -39,19 +35,16 @@ dst <- dist(obj, diag=TRUE, upper=TRUE)
 cmdscale(dst, k=2)
 # not shown
 
-
 ## ----rerMultMDS01--------------------------------------------------------
 xLims <- range(mds[ , 1]) + c(0, 250)
 plot(mds, xlim=xLims, xlab="North-South", ylab="East-West", pch=16,
      main="City locations according to MDS")
 text(mds[ , 1]+50, mds[ , 2], adj=0, labels=cities)
 
-
 ## ------------------------------------------------------------------------
 library(vegan)
 (nmMDS <- monoMDS(dstMat, k=2))
 scores(nmMDS)
-
 
 ## ------------------------------------------------------------------------
 try(detach(package:vegan))

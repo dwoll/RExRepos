@@ -1,9 +1,7 @@
-
 ## ------------------------------------------------------------------------
 wants <- c("AICcmodavg", "lme4", "multcomp", "nlme", "pbkrtest")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
-
 
 ## ------------------------------------------------------------------------
 set.seed(123)
@@ -19,7 +17,6 @@ Xb1   <- gl(P,   Njklm*Q*R*S, N, labels=c("CG", "T"))
 Xb2   <- gl(Q,   Njklm  *R*S, N, labels=c("f", "m"))
 Xw1   <- gl(R,             S, N, labels=c("A", "B", "C"))
 Xw2   <- gl(S,   1,           N, labels=c("-", "o", "+"))
-
 
 ## ------------------------------------------------------------------------
 mu      <- 100
@@ -39,7 +36,6 @@ eB1W1W2 <- c(-5, 5, 2, -2, 3, -3, 3, -3, -5, 5, 2, -2, 2, -2, 3, -3, -5, 5)
 eB2W1W2 <- c(-5, 5, 2, -2, 3, -3, 3, -3, -5, 5, 2, -2, 2, -2, 3, -3, -5, 5)
 # no 3rd-order interaction B1xB2xW1xW2
 
-
 ## ------------------------------------------------------------------------
 names(eB1)     <- levels(Xb1)
 names(eB2)     <- levels(Xb2)
@@ -55,7 +51,6 @@ names(eB1B2W1) <- levels(interaction(Xb1, Xb2, Xw1))
 names(eB1B2W2) <- levels(interaction(Xb1, Xb2, Xw2))
 names(eB1W1W2) <- levels(interaction(Xb1, Xw1, Xw2))
 names(eB2W1W2) <- levels(interaction(Xb2, Xw1, Xw2))
-
 
 ## ------------------------------------------------------------------------
 muJKLM <- mu +
@@ -77,42 +72,34 @@ sigma <- 50
 Y  <- round(rnorm(N, mus, sigma), 1)
 d2 <- data.frame(id, Xb1, Xb2, Xw1, Xw2, Y)
 
-
 ## ------------------------------------------------------------------------
 d1 <- aggregate(Y ~ id + Xw1 + Xb1 + Xb2, data=d2, FUN=mean)
-
 
 ## ------------------------------------------------------------------------
 summary(aov(Y ~ Xw1 + Error(id/Xw1), data=d1))
 
-
 ## ------------------------------------------------------------------------
 library(nlme)
 anova(lme(Y ~ Xw1, random=~1 | id, method="ML", data=d1))
-
 
 ## ------------------------------------------------------------------------
 lmeFit <- lme(Y ~ Xw1, random=~1 | id, correlation=corCompSymm(form=~1|id),
               method="ML", data=d1)
 anova(lmeFit)
 
-
 ## ------------------------------------------------------------------------
 anova(lme(Y ~ Xw1, random=list(id=pdCompSymm(~Xw1-1)), method="REML", data=d1))
-
 
 ## ------------------------------------------------------------------------
 library(lme4)
 fitF <- lmer(Y ~ Xw1 + (1|id), data=d1)
 anova(fitF)
 
-
 ## ------------------------------------------------------------------------
 # restricted model
 fitR <- lmer(Y ~ 1 + (1|id), data=d1)
 library(pbkrtest)
 KRmodcomp(fitF, fitR)
-
 
 ## ------------------------------------------------------------------------
 library(AICcmodavg)
@@ -121,116 +108,92 @@ aictab(cand.set=list(fitR, fitF),
        modnames=c("restricted", "full"),
        sort=FALSE, second.ord=FALSE)
 
-
 ## ------------------------------------------------------------------------
 library(multcomp)
 contr <- glht(lmeFit, linfct=mcp(Xw1="Tukey"))
 summary(contr)
 confint(contr)
 
-
 ## ------------------------------------------------------------------------
 summary(aov(Y ~ Xw1*Xw2 + Error(id/(Xw1*Xw2)), data=d2))
-
 
 ## ------------------------------------------------------------------------
 anova(lme(Y ~ Xw1*Xw2, random=list(id=pdBlocked(list(~1, pdIdent(~Xw1-1), pdIdent(~Xw2-1)))),
           method="ML", data=d2))
-
 
 ## ------------------------------------------------------------------------
 anova(lme(Y ~ Xw1*Xw2,
           random=list(id=pdBlocked(list(~1, pdCompSymm(~Xw1-1), pdCompSymm(~Xw2-1)))),
           method="ML", data=d2))
 
-
 ## ------------------------------------------------------------------------
 anova(lmer(Y ~ Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
-
 
 ## ------------------------------------------------------------------------
 summary(aov(Y ~ Xb1*Xw1 + Error(id/Xw1), data=d1))
 
-
 ## ------------------------------------------------------------------------
 anova(lme(Y ~ Xb1*Xw1, random=~1 | id, method="ML", data=d1))
-
 
 ## ------------------------------------------------------------------------
 anova(lme(Y ~ Xb1*Xw1, random=~1 | id, correlation=corCompSymm(form=~1|id),
           method="ML", data=d1))
 
-
 ## ------------------------------------------------------------------------
 anova(lme(Y ~ Xb1*Xw1, random=list(id=pdCompSymm(~Xw1-1)), method="REML", data=d1))
-
 
 ## ------------------------------------------------------------------------
 anova(lmer(Y ~ Xb1*Xw1 + (1|id), data=d1))
 
-
 ## ------------------------------------------------------------------------
 summary(aov(Y ~ Xb1*Xb2*Xw1 + Error(id/Xw1), data=d1))
-
 
 ## ------------------------------------------------------------------------
 anova(lme(Y ~ Xb1*Xb2*Xw1, random=~1 | id, method="ML", data=d1))
 
-
 ## ------------------------------------------------------------------------
 anova(lme(Y ~ Xb1*Xb2*Xw1, random=~1 | id,
           correlation=corCompSymm(form=~1 | id), method="ML", data=d1))
-
 
 ## ------------------------------------------------------------------------
 anova(lme(Y ~ Xb1*Xb2*Xw1,
           random=list(id=pdBlocked(list(~1, pdCompSymm(~Xw1-1)))),
           method="ML", data=d1))
 
-
 ## ------------------------------------------------------------------------
 anova(lmer(Y ~ Xb1*Xb2*Xw1 + (1|id), data=d1))
-
 
 ## ------------------------------------------------------------------------
 summary(aov(Y ~ Xb1*Xw1*Xw2 + Error(id/(Xw1*Xw2)), data=d2))
 
-
 ## ------------------------------------------------------------------------
 anova(lme(Y ~ Xb1*Xw1*Xw2,
           random=list(id=pdBlocked(list(~1, pdIdent(~Xw1-1), pdIdent(~Xw2-1)))),
           method="ML", data=d2))
 
-
 ## ------------------------------------------------------------------------
 anova(lme(Y ~ Xb1*Xw1*Xw2,
           random=list(id=pdBlocked(list(~1, pdCompSymm(~Xw1-1), pdCompSymm(~Xw2-1)))),
           method="ML", data=d2))
-
 
 ## ------------------------------------------------------------------------
 anova(lmer(Y ~ Xb1*Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
 
-
 ## ------------------------------------------------------------------------
 summary(aov(Y ~ Xb1*Xb2*Xw1*Xw2 + Error(id/(Xw1*Xw2)), data=d2))
-
 
 ## ------------------------------------------------------------------------
 anova(lme(Y ~ Xb1*Xb2*Xw1*Xw2,
           random=list(id=pdBlocked(list(~1, pdIdent(~Xw1-1), pdIdent(~Xw2-1)))),
           method="ML", data=d2))
 
-
 ## ------------------------------------------------------------------------
 anova(lme(Y ~ Xb1*Xb2*Xw1*Xw2,
           random=list(id=pdBlocked(list(~1, pdCompSymm(~Xw1-1), pdCompSymm(~Xw2-1)))),
           method="ML", data=d2))
 
-
 ## ------------------------------------------------------------------------
 anova(lmer(Y ~ Xb1*Xb2*Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
-
 
 ## ------------------------------------------------------------------------
 try(detach(package:multcomp))

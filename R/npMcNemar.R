@@ -1,9 +1,7 @@
-
 ## ------------------------------------------------------------------------
 wants <- c("coin")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
-
 
 ## ------------------------------------------------------------------------
 set.seed(123)
@@ -15,15 +13,12 @@ postFac <- factor(post, labels=c("no", "yes"))
 cTab    <- table(preFac, postFac)
 addmargins(cTab)
 
-
 ## ------------------------------------------------------------------------
 mcnemar.test(cTab, correct=FALSE)
-
 
 ## ------------------------------------------------------------------------
 library(coin)
 symmetry_test(cTab, teststat="quad", distribution=approximate(B=9999))
-
 
 ## ------------------------------------------------------------------------
 try(detach(package:coin))

@@ -1,11 +1,9 @@
-
 ## ------------------------------------------------------------------------
 set.seed(123)
 xOne     <- 1:9
 yOne     <- rnorm(9)
 ptsLin   <- approx(xOne, yOne, method="linear",   n=30)
 ptsConst <- approx(xOne, yOne, method="constant", n=30)
-
 
 ## ----rerDiagSplines01----------------------------------------------------
 plot(xOne, yOne, xlab=NA, ylab=NA, pch=19, main="Linear interpolation", cex=1.5)
@@ -14,13 +12,11 @@ points(ptsConst, pch=22, col="blue", lwd=1.5)
 legend(x="bottomleft", c("Data", "linear", "constant"), pch=c(19, 16, 22),
        col=c("black", "red", "blue"), bg="white")
 
-
 ## ------------------------------------------------------------------------
 xTwo  <- rnorm(100)
 yTwo  <- 0.4 * xTwo + rnorm(100, 0, 1)
 ptsL1 <- loess.smooth(xTwo, yTwo, span=1/3)
 ptsL2 <- loess.smooth(xTwo, yTwo, span=2/3)
-
 
 ## ----rerDiagSplines02----------------------------------------------------
 plot(xTwo, yTwo, xlab=NA, ylab=NA, pch=16, main="Smoothed scatter plot")
@@ -29,7 +25,6 @@ lines(ptsL2, lwd=2, col="blue")
 legend(x="topleft", c("Data", "LOESS span 1/3", "LOESS span 2/3"),
        pch=c(19, NA, NA), lty=c(NA, 1, 1),
        col=c("black", "red", "blue"))
-
 
 ## ----rerDiagSplines03----------------------------------------------------
 ord   <- order(xTwo)
@@ -43,7 +38,6 @@ points(cPtsX, cPtsY, pch=16, cex=1.5)
 legend(x="topleft", c("Control points", "X-spline"), pch=c(19, NA),
        lty=c(NA, 1), col=c("black", "blue"))
 
-
 ## ------------------------------------------------------------------------
 ptsSpline <- spline(xOne, yOne, n=201)
 smSpline1 <- smooth.spline(xOne, yOne, spar=0.25)
@@ -53,7 +47,6 @@ ptsX      <- seq(1, 9, length.out=201)
 ptsSmSpl1 <- predict(smSpline1, ptsX)
 ptsSmSpl2 <- predict(smSpline2, ptsX)
 ptsSmSpl3 <- predict(smSpline3, ptsX)
-
 
 ## ----rerDiagSplines04----------------------------------------------------
 plot(xOne, yOne, xlab=NA, ylab=NA, main="Splines", type="n")

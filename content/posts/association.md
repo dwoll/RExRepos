@@ -262,24 +262,24 @@ Assocs(cTab)
 ```
 
 ```
-                       estimate  lwr.ci  upr.ci
-Phi Coeff.               1.0328       -       -
-Contingency Coeff.       0.7184       -       -
-Cramer V                 0.7303  0.0000  1.0000
-Goodman Kruskal Gamma    0.8333  0.4513  1.0000
-Kendall Tau-b            0.6350  0.1884  1.0000
-Stuart Tau-c             0.6000  0.1151  1.0000
-Somers D C|R             0.6452  0.2040  1.0000
-Somers D R|C             0.6250  0.1897  1.0000
-Pearson Correlation      0.7254  0.1763  0.9302
-Spearman Correlation     0.6761  0.0810  0.9159
-Lambda C|R               0.5000  0.0000  1.0000
-Lambda R|C               0.4000  0.0000  0.8294
-Lambda sym               0.4545  0.0591  0.8500
-Uncertainty Coeff. C|R   0.4774  0.1492  0.8055
-Uncertainty Coeff. R|C   0.4890  0.1519  0.8260
-Uncertainty Coeff. sym   0.4831  0.1522  0.8140
-Mutual Information       0.7610       -       -
+                         estimate     lwr.ci     upr.ci
+Phi Coeff.             1.0328e+00          -          -
+Contingency Coeff.     7.1840e-01          -          -
+Cramer V               7.3030e-01     0.0000 1.0000e+00
+Goodman Kruskal Gamma  8.3330e-01 4.5130e-01 1.0000e+00
+Kendall Tau-b          6.3500e-01 1.8840e-01 1.0000e+00
+Stuart Tau-c           6.0000e-01 1.1510e-01 1.0000e+00
+Somers D C|R           6.4520e-01 2.0400e-01 1.0000e+00
+Somers D R|C           6.2500e-01 1.8970e-01 1.0000e+00
+Pearson Correlation    7.2540e-01 1.7630e-01 9.3020e-01
+Spearman Correlation   6.7610e-01 8.1000e-02 9.1590e-01
+Lambda C|R             5.0000e-01     0.0000 1.0000e+00
+Lambda R|C             4.0000e-01     0.0000 8.2940e-01
+Lambda sym             4.5450e-01 5.9100e-02 8.5000e-01
+Uncertainty Coeff. C|R 4.7740e-01 1.4920e-01 8.0550e-01
+Uncertainty Coeff. R|C 4.8900e-01 1.5190e-01 8.2600e-01
+Uncertainty Coeff. sym 4.8310e-01 1.5220e-01 8.1400e-01
+Mutual Information     7.6100e-01          -          -
 ```
 
 Cochran-Mantel-Haenszel test for three-way tables

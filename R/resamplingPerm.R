@@ -1,9 +1,7 @@
-
 ## ------------------------------------------------------------------------
 wants <- c("coin", "e1071")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
-
 
 ## ------------------------------------------------------------------------
 set.seed(123)
@@ -14,16 +12,13 @@ DVb    <- round(rnorm(Nj[2], 110, sigma))
 tIndDf <- data.frame(DV=c(DVa, DVb),
                      IV=factor(rep(c("A", "B"), Nj)))
 
-
 ## ------------------------------------------------------------------------
 library(coin)
 (ot <- oneway_test(DV ~ IV, alternative="less", data=tIndDf, distribution="exact"))
 
-
 ## ------------------------------------------------------------------------
 tRes <- t.test(DV ~ IV, alternative="less", var.equal=TRUE, data=tIndDf)
 tRes$p.value
-
 
 ## ------------------------------------------------------------------------
 idx   <- seq(along=tIndDf$DV)
@@ -39,12 +34,10 @@ tol      <- .Machine$double.eps^0.5
 DMsIsLEQ <- (DMstar < DMbase) | (abs(DMstar-DMbase) < tol)
 (pVal    <- sum(DMsIsLEQ) / length(DMstar))
 
-
 ## ----rerResamplingPerm01-------------------------------------------------
 supp <- support(ot)
 dens <- sapply(supp, dperm, object=ot)
 plot(supp, dens, xlab="Support", ylab=NA, pch=20, main="Density permutation distribution")
-
 
 ## ----rerResamplingPerm02-------------------------------------------------
 qEmp <- sapply(ppoints(supp), qperm, object=ot)
@@ -52,12 +45,10 @@ qqnorm(qEmp, xlab="Normal quantiles", ylab="Permutation quantiles",
        pch=20, main="Permutation quantiles vs. normal quantiles")
 abline(a=0, b=1, lwd=2, col="blue")
 
-
 ## ----rerResamplingPerm03-------------------------------------------------
 plot(qEmp, ecdf(qEmp)(qEmp), col="gray60", pch=16,
      xlab="Difference in means", ylab="Cumulative relative frequency",
      main="Cumulative relative frequency and normal CDF")
-
 
 ## ------------------------------------------------------------------------
 N      <- 12
@@ -67,15 +58,12 @@ DVpost <- rnorm(N, 110, 20)
 tDepDf <- data.frame(DV=c(DVpre, DVpost),
                      IV=factor(rep(0:1, each=N), labels=c("pre", "post")))
 
-
 ## ------------------------------------------------------------------------
 library(coin)
 oneway_test(DV ~ IV | id, alternative="less", distribution=approximate(B=9999), data=tDepDf)
 
-
 ## ------------------------------------------------------------------------
 t.test(DV ~ IV, alternative="less", paired=TRUE, data=tDepDf)$p.value
-
 
 ## ------------------------------------------------------------------------
 DVd    <- DVpre - DVpost
@@ -90,13 +78,11 @@ tol      <- .Machine$double.eps^0.5
 MDsIsLEQ <- (MDstar < MDbase) | (abs(MDstar-MDbase) < tol)
 (pVal    <- sum(MDsIsLEQ) / length(MDstar))
 
-
 ## ------------------------------------------------------------------------
 Nf  <- 8
 DV1 <- rbinom(Nf, size=1, prob=0.5)
 DV2 <- rbinom(Nf, size=1, prob=0.5)
 fisher.test(DV1, DV2, alternative="greater")$p.value
-
 
 ## ------------------------------------------------------------------------
 library(e1071)
@@ -105,7 +91,6 @@ getAgree <- function(idx) { sum(diag(table(DV1, DV2[idx]))) }
 resAgree <- apply(permIdx, 1, getAgree)
 agree12  <- sum(diag(table(DV1, DV2)))
 (pVal    <- sum(resAgree >= agree12) / length(resAgree))
-
 
 ## ------------------------------------------------------------------------
 try(detach(package:e1071))

@@ -32,7 +32,7 @@ if(any(!has)) install.packages(wants[!has])
 ```
 
 The downloaded source packages are in
-	'/tmp/RtmpK08rp1/downloaded_packages'
+	'/tmp/RtmpUpcoMQ/downloaded_packages'
 ```
 
 Opening and closing a device
@@ -45,7 +45,7 @@ dev.list()
 ```
 
 ```
-pdf pdf pdf pdf 
+png pdf pdf pdf 
   2   3   4   5 
 ```
 

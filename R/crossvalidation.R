@@ -1,9 +1,7 @@
-
 ## ------------------------------------------------------------------------
 wants <- c("boot")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
-
 
 ## ------------------------------------------------------------------------
 set.seed(123)
@@ -14,11 +12,9 @@ X3 <- abs(rnorm(N, 60, 30))
 Y  <- 0.5*X1 - 0.3*X2 - 0.4*X3 + 10 + rnorm(N, 0, 3)
 dfRegr <- data.frame(X1, X2, X3, Y)
 
-
 ## ------------------------------------------------------------------------
 glmFit <- glm(Y ~ X1 + X2 + X3, data=dfRegr,
               family=gaussian(link="identity"))
-
 
 ## ------------------------------------------------------------------------
 library(boot)                          # for cv.glm()
@@ -26,14 +22,11 @@ k    <- 3
 kfCV <- cv.glm(data=dfRegr, glmfit=glmFit, K=k)
 kfCV$delta
 
-
 ## ------------------------------------------------------------------------
 LOOCV <- cv.glm(data=dfRegr, glmfit=glmFit, K=N)
 
-
 ## ------------------------------------------------------------------------
 LOOCV$delta
-
 
 ## ------------------------------------------------------------------------
 SSRIpre  <- c(18, 16, 16, 15, 14, 20, 14, 21, 25, 11)
@@ -49,7 +42,6 @@ postFac  <- cut(DVpost, breaks=c(-Inf, median(DVpost), Inf),
 dfAncova <- data.frame(DVpre, DVpost, postFac)
 
 glmLR <- glm(postFac ~ DVpre, family=binomial(link="logit"), data=dfAncova)
-
 
 ## ------------------------------------------------------------------------
 # Brier score loss function - general version for several GLMs
@@ -69,7 +61,6 @@ brierB <- function(y, pHat) {
 B2 <- cv.glm(data=dfAncova, glmfit=glmLR, cost=brierB, K=10)
 B2$delta
 
-
 ## ------------------------------------------------------------------------
 getBSB <- function(dat, idx) {
     op <- options(warn=2)
@@ -86,7 +77,6 @@ getBSB <- function(dat, idx) {
     }
 }
 
-
 ## ------------------------------------------------------------------------
 library(boot)                          # for boot()
 nR    <- 999
@@ -95,10 +85,8 @@ bsRes <- boot(dfAncova, statistic=getBSB, R=nR)
 (Btrain <- brierB(glmLR$y, predict(glmLR, type="response")))
 (optimism <- mean(bsRes$t, na.rm=TRUE))
 
-
 ## ------------------------------------------------------------------------
 (predErr <- Btrain - optimism)
-
 
 ## ------------------------------------------------------------------------
 try(detach(package:boot))

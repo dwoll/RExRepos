@@ -1,9 +1,7 @@
-
 ## ------------------------------------------------------------------------
 wants <- c("survival")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
-
 
 ## ------------------------------------------------------------------------
 set.seed(123)
@@ -24,58 +22,47 @@ obsT   <- pmin(eventT, censT)
 status <- eventT <= censT
 dfSurv <- data.frame(obsT, status, sex, X, IV)
 
-
 ## ------------------------------------------------------------------------
 library(survival)
 dfSurvCP <- survSplit(dfSurv, cut=seq(30, 90, by=30), end="obsT",
                       event="status", start="start", id="ID", zero=0)
 
-
 ## ------------------------------------------------------------------------
 library(survival)
 (fitCPH <- coxph(Surv(obsT, status) ~ X + IV, data=dfSurv))
-
 
 ## ----results='hide'------------------------------------------------------
 coxph(Surv(start, obsT, status) ~ X + IV, data=dfSurvCP)
 summary(fitCPH)
 # not shown
 
-
 ## ------------------------------------------------------------------------
 library(survival)
 extractAIC(fitCPH)
-
 
 ## ------------------------------------------------------------------------
 LLf <- fitCPH$loglik[2]
 LL0 <- fitCPH$loglik[1]
 
-
 ## ------------------------------------------------------------------------
 as.vector(1 - (LLf / LL0))
-
 
 ## ------------------------------------------------------------------------
 as.vector(1 - exp((2/N) * (LL0 - LLf)))
 
-
 ## ------------------------------------------------------------------------
 as.vector((1 - exp((2/N) * (LL0 - LLf))) / (1 - exp(LL0)^(2/N)))
-
 
 ## ------------------------------------------------------------------------
 library(survival)
 fitCPH1 <- coxph(Surv(obsT, status) ~ X, data=dfSurv)
 anova(fitCPH1, fitCPH)          # model comparison
 
-
 ## ------------------------------------------------------------------------
 library(survival)                # for survfit()
 (CPH <- survfit(fitCPH))
 
 quantile(CPH, probs=c(0.25, 0.5, 0.75), conf.int=FALSE)
-
 
 ## ----rerSurvivalCoxPH01--------------------------------------------------
 dfNew  <- data.frame(sex=factor(c("f", "f"), levels=levels(dfSurv$sex)),
@@ -93,7 +80,6 @@ lines(CPHnew$time, CPHnew$surv[ , 2], lwd=2, col="red")
 legend(x="topright", lwd=2, col=c("black", "blue", "red"),
        legend=c("pseudo-observation", "sex=f, X=-2, IV=A", "sex=f, X=-2, IV=C"))
 
-
 ## ----rerSurvivalCoxPH02--------------------------------------------------
 library(survival)                # for basehaz()
 expCoef  <- exp(coef(fitCPH))
@@ -105,7 +91,6 @@ plot(hazard ~ time, main=expression(paste("Cox PH-estimate ", hat(Lambda)[g](t),
 lines(Lambda0A$time, Lambda0B, lwd=2, col="red")
 lines(Lambda0A$time, Lambda0C, lwd=2, col="green")
 legend(x="bottomright", lwd=2, col=1:3, legend=LETTERS[1:3])
-
 
 ## ----rerSurvivalCoxPH03--------------------------------------------------
 library(survival)                # for survfit()
@@ -124,16 +109,13 @@ plot(KMxcut, fun="cloglog", main="cloglog-Plot for Xcut", xlab="ln t",
 
 legend(x="topleft", col=c("black", "blue"), lwd=2, lty=1:2, legend=c("lo", "hi"))
 
-
 ## ------------------------------------------------------------------------
 library(survival)                      # for cox.zph()
 (czph <- cox.zph(fitCPH))
 
-
 ## ----rerSurvivalCoxPH04--------------------------------------------------
 par(mfrow=c(2, 2), cex.main=1.4, cex.lab=1.4)
 plot(czph)
-
 
 ## ----rerSurvivalCoxPH05--------------------------------------------------
 dfbetas <- residuals(fitCPH, type="dfbetas")
@@ -143,7 +125,6 @@ plot(dfbetas[ , 1], type="h", main="DfBETAS for X",    ylab="DfBETAS", lwd=2)
 plot(dfbetas[ , 2], type="h", main="DfBETAS for IV-B", ylab="DfBETAS", lwd=2)
 plot(dfbetas[ , 3], type="h", main="DfBETAS for IV-C", ylab="DfBETAS", lwd=2)
 
-
 ## ----rerSurvivalCoxPH06--------------------------------------------------
 resMart <- residuals(fitCPH, type="martingale")
 plot(dfSurv$X, resMart, main="Martingale-residuals for X",
@@ -151,24 +132,20 @@ plot(dfSurv$X, resMart, main="Martingale-residuals for X",
 lines(loess.smooth(dfSurv$X, resMart), lwd=2, col="blue")
 legend(x="bottomleft", col="blue", lwd=2, legend="LOESS fit", cex=1.4)
 
-
 ## ------------------------------------------------------------------------
 library(survival)
 predRes <- predict(fitCPH, type="risk")
 head(predRes, n=10)
-
 
 ## ------------------------------------------------------------------------
 library(survival)
 Shat1 <- survexp(~ 1, ratetable=fitCPH, data=dfSurv)
 with(Shat1, head(data.frame(time, surv), n=4))
 
-
 ## ------------------------------------------------------------------------
 library(survival)
 Shat2 <- survexp(~ IV, ratetable=fitCPH, data=dfSurv)
 with(Shat2, head(data.frame(time, surv), n=4))
-
 
 ## ------------------------------------------------------------------------
 try(detach(package:survival))

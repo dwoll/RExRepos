@@ -212,7 +212,7 @@ some(vec, n=5)
 ```
 
 ```
-[1] "red"   "red"   "green" "blue"  "blue" 
+[1] "red"   "blue"  "green" "blue"  "blue" 
 ```
 
 ### Select every 10th element

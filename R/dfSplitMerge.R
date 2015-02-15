@@ -1,4 +1,3 @@
-
 ## ------------------------------------------------------------------------
 set.seed(123)
 N      <- 12
@@ -9,12 +8,10 @@ IQ     <- round(rnorm(N, mean=100, sd=15))
 rating <- round(runif(N, min=0, max=6))
 (myDf  <- data.frame(id=1:N, sex, group, age, IQ, rating))
 
-
 ## ------------------------------------------------------------------------
 (lDf <- split(myDf, myDf$group))
 split(myDf, list(myDf$group, myDf$sex))
 unsplit(lDf, myDf$group)
-
 
 ## ------------------------------------------------------------------------
 (dfNew <- data.frame(id=13:15,
@@ -26,7 +23,6 @@ unsplit(lDf, myDf$group)
 dfComb <- rbind(myDf, dfNew)
 dfComb[11:15, ]
 
-
 ## ------------------------------------------------------------------------
 (IDDV <- data.frame(ID=factor(rep(1:3, each=2)),
                     DV=round(rnorm(6, 100, 15))))
@@ -36,7 +32,6 @@ dfComb[11:15, ]
                   sex=factor(c("f", "f", "m"))))
 
 merge(IDDV, IV)
-
 
 ## ------------------------------------------------------------------------
 (dfA <- data.frame(id=1:4,
@@ -48,12 +43,10 @@ merge(IDDV, IV)
                    IV2=c("A", "B", "A", "B"),
                    DV2=c(91, 89, 92, 79)))
 
-
 ## ------------------------------------------------------------------------
 merge(dfA, dfB)
 merge(dfA, dfB, by.x=c(TRUE, FALSE, FALSE, FALSE),
                 by.y=c(TRUE, FALSE, FALSE, FALSE))
-
 
 ## ------------------------------------------------------------------------
 (dfC <- data.frame(id=3:6,
@@ -61,10 +54,8 @@ merge(dfA, dfB, by.x=c(TRUE, FALSE, FALSE, FALSE),
                    IV2=c("A", "B", "A", "B"),
                    DV2=c(92, 79, 101, 81)))
 
-
 ## ------------------------------------------------------------------------
 merge(dfA, dfC)
 merge(dfA, dfC, all.y=TRUE)
 merge(dfA, dfC, all.x=TRUE, all.y=TRUE)
-
 

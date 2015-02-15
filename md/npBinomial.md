@@ -100,8 +100,8 @@ BinomCI(tab[1], sum(tab), method="wilson")
 ```
 
 ```
-        est    lwr.ci    upr.ci
-+ 0.7142857 0.3589345 0.9177811
+           est    lwr.ci    upr.ci
+[1,] 0.7142857 0.3589345 0.9177811
 ```
 
 $\chi^{2}$-test for proportions

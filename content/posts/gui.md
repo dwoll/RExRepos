@@ -84,7 +84,7 @@ Compared to the standard user interface that is already included with R, there a
 
 ### For working with R commands
 
- - [RStudio](http://www.rstudio.org/) integrated development environment: Cross platform (Windows, MacOS, Linux), great support for the [workflow for these posts](<%= @config[:rer][:baseurl] %>/rerWorkflow.html), my preferred choice
+ - [RStudio](http://www.rstudio.org/) integrated development environment: Cross platform (Windows, MacOS, Linux), great support for the [workflow for these posts](<%= @config[:base_url] %>/posts/rerWorkflowJN.html), my preferred choice
  - [Eclipse](http://www.eclipse.org/eclipse) integrated development environment with [StatET](http://www.walware.de/goto/statet) plugin: Cross platform (Windows, MacOS, Linux), powerful, visual debugging support, somewhat complicated to set up ([installation instructions](http://www.catherinedalzell.ca/wp-content/uploads/2012/09/Installing-R-Sweave-and-Eclipse-on-Windows.pdf)), somewhat sluggish on older computers
  - [Architect](http://www.openanalytics.eu/architect) by OpenAnalytics: Combines Eclipse and StatET into a pre-configured bundle that removes the complicated Eclipse configuration
  - [TinnR](http://sourceforge.net/projects/tinn-r) text editor with good support for communicating with R: Windows only

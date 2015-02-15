@@ -271,10 +271,7 @@ EtaSq(aovRBFpq, type=1)
 ```
 
 ```
-            eta.sq eta.sq.part eta.sq.gen
-IV1     0.02049708  0.22202789 0.02995754
-IV2     0.30498426  0.46884422 0.31484141
-IV1:IV2 0.01081122  0.09040527 0.01602805
+Error in EtaSq.aovlist(aovRBFpq, type = 1): konnte Funktion "is" nicht finden
 ```
 
 Simple effects

@@ -397,6 +397,13 @@ Tests for other models.
 
 ```r
 summary(polrFit)
+```
+
+```
+Error in eval(expr, envir, enclos): Objekt 'dfOrd' nicht gefunden
+```
+
+```r
 summary(clmFit)
 # not shown
 ```
@@ -445,15 +452,41 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 Test assumption of proportional odds (=parallel logits)
+-------------------------
+
+### Using `vglm()` from package `VGAM`
 
 
 ```r
-vglmP <- vglm(Yord ~ X1 + X2, family=cumulative(parallel=TRUE,  reverse=TRUE),
+vglmP  <- vglm(Yord ~ X1 + X2, family=cumulative(parallel=TRUE,  reverse=TRUE),
               data=dfOrd)
 
 # vglmNP <- vglm(Yord ~ X1 + X2, family=cumulative(parallel=FALSE, reverse=TRUE),
-#                 data=dfOrd)
+#                data=dfOrd)
 # VGAM::lrtest(vglmP, vglmNP)
+```
+
+### Using `clm()` from package `ordinal`
+
+
+```r
+clmP  <- clm(Yord ~ X1 + X2, link="logit", data=dfOrd)
+
+## model with non-proportional odds for X2:
+clmNP <- clm(Yord ~ X1, nominal=~X2, data=dfOrd)
+anova(clmP, clmNP)
+```
+
+```
+Likelihood ratio tests of cumulative link models:
+ 
+      formula:       nominal: link: threshold:
+clmP  Yord ~ X1 + X2 ~1       logit flexible  
+clmNP Yord ~ X1      ~X2      logit flexible  
+
+      no.par    AIC  logLik LR.stat df Pr(>Chisq)
+clmP       5 259.36 -124.68                      
+clmNP      7 259.96 -122.98   3.398  2     0.1829
 ```
 
 Detach (automatically) loaded packages (if possible)

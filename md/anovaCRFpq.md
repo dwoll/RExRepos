@@ -119,10 +119,7 @@ EtaSq(aovCRFpq, type=1)
 ```
 
 ```
-            eta.sq eta.sq.part
-IV1     0.06259059  0.09426292
-IV2     0.29379401  0.32818684
-IV1:IV2 0.04220593  0.06557632
+Error in EtaSq.lm(aovCRFpq, type = 1): konnte Funktion "is" nicht finden
 ```
 
 Simple effects
@@ -237,9 +234,9 @@ Fit: aov(formula = DV ~ IV1 + IV2, data = dfCRFpq)
 
 Linear Hypotheses:
            Estimate Std. Error t value Pr(>|t|)    
-2 - 1 == 0   0.3216     0.6784   0.474 0.883825    
-3 - 1 == 0   2.7791     0.6784   4.096 0.000508 ***
-3 - 2 == 0   2.4575     0.6784   3.622 0.002141 ** 
+2 - 1 == 0   0.3216     0.6784   0.474 0.883804    
+3 - 1 == 0   2.7791     0.6784   4.096 0.000521 ***
+3 - 2 == 0   2.4575     0.6784   3.622 0.002147 ** 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 (Adjusted p values reported -- single-step method)
@@ -258,15 +255,15 @@ Multiple Comparisons of Means: Tukey Contrasts
 
 Fit: aov(formula = DV ~ IV1 + IV2, data = dfCRFpq)
 
-Quantile = 2.4258
+Quantile = 2.4264
 95% family-wise confidence level
  
 
 Linear Hypotheses:
            Estimate lwr     upr    
-2 - 1 == 0  0.3216  -1.3240  1.9673
-3 - 1 == 0  2.7791   1.1334  4.4247
-3 - 2 == 0  2.4575   0.8118  4.1031
+2 - 1 == 0  0.3216  -1.3245  1.9677
+3 - 1 == 0  2.7791   1.1330  4.4252
+3 - 2 == 0  2.4575   0.8114  4.1035
 ```
 
 ### Cell comparisons using the associated one-way ANOVA
@@ -334,8 +331,6 @@ ScheffeTest(aovCRFpqA, which="IVcomb", contrasts=t(cntrMat))
   Posthoc multiple comparisons of means : Scheffe Test 
     95% family-wise confidence level
 
-Fit: aov(formula = DV ~ IVcomb, data = dfCRFpq)
-
 $IVcomb
                                diff     lwr.ci   upr.ci   pval    
 2.1,2.2,1.3,2.3-1.1,1.2 -0.04422288 -2.0736407 1.985195 1.0000    
@@ -358,8 +353,6 @@ ScheffeTest(aovCRFpq, which="IV2", contrasts=c(-1, 1/2, 1/2))
 
   Posthoc multiple comparisons of means : Scheffe Test 
     95% family-wise confidence level
-
-Fit: aov(formula = DV ~ IV1 * IV2, data = dfCRFpq)
 
 $IV2
           diff     lwr.ci   upr.ci   pval    

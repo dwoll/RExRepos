@@ -1,15 +1,12 @@
-
 ## ------------------------------------------------------------------------
 wants <- c("Hmisc", "mvtnorm", "plotrix")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 
-
 ## ----eval=FALSE----------------------------------------------------------
 vec <- rnorm(10)
 plot(vec, pch=16)
 (xy <- locator(n=3))
-
 
 ## ----rerDiagAddElements01------------------------------------------------
 library(Hmisc)
@@ -29,7 +26,6 @@ arrows(x0=pt2$usr$x[1], y0=pt2$usr$y[1],
 text(pt2$usr$x[1] + 0.5, pt2$usr$y[1], adj=c(0, 0),
      labels="arrow across total device-region", cex=1.5)
 
-
 ## ----rerDiagAddElements02------------------------------------------------
 xA <- seq(-15, 15, length.out=200)
 yA <- sin(xA) / xA                ## sinc function
@@ -41,7 +37,6 @@ idx <- round(seq(1, length(xA), length.out=30))
 points(xA[idx], yA[idx], col="red", pch=16, cex=1.5)
 yB <- sin(pi * xA) / (pi * xA)    ## normalized sinc function
 lines(xA, yB, col="blue", type="l", lwd=2)
-
 
 ## ----rerDiagAddElements03------------------------------------------------
 X    <- rnorm(20, 175, 7)
@@ -65,7 +60,6 @@ arrows(x0=X[4]+0.1*(X[7]-X[4]),
        y1=Y[4]+0.9*(Y[7]-Y[4]), code=3, col="red", lwd=2)
 points(Y ~ X, pch=16, cex=1.5, col="blue")
 
-
 ## ----rerDiagAddElements04------------------------------------------------
 n      <- 7
 len    <- 1/n
@@ -84,7 +78,6 @@ idx   <- c(10, 27)
 xText <- xLeft[idx] + (xRight[idx]-xLeft[idx])/2
 yText <- yBot[idx]  + (yTop[idx]  - yBot[idx])/2
 text(xText, yText, labels=cols[idx])
-
 
 ## ----rerDiagAddElements05------------------------------------------------
 mu    <- 0
@@ -131,14 +124,12 @@ text(mu-sigma/2, 0,    expression(sigma), col="darkgreen", cex=1.2)
 text(mu+sigma/2, 0,    expression(sigma), col="darkgreen", cex=1.2)
 text(mu+0.5,     0.02, expression(mu),    col="red",       cex=1.2)
 
-
 ## ------------------------------------------------------------------------
 N      <- 10
 muH0   <- 0
 muH1   <- 1.6
 alpha  <- 0.05
 sigma  <- 2
-
 
 ## ------------------------------------------------------------------------
 (d <- (muH1-muH0) / sigma)
@@ -147,14 +138,12 @@ sigma  <- 2
 (powT <- 1-pt(tCrit, N-1, delta))
 xLims <- c(-5, 10)
 
-
 ## ------------------------------------------------------------------------
 tLeft  <- seq(xLims[1], tCrit, length.out=100)
 tRight <- seq(tCrit, xLims[2], length.out=100)
 yH0r   <- dt(tRight, N-1, 0)
 yH1l   <- dt(tLeft,  N-1, delta)
 yH1r   <- dt(tRight, N-1, delta)
-
 
 ## ----rerDiagAddElements06------------------------------------------------
 curve(dt(x, N-1, 0), xlim=xLims, ylim=c(0, 0.4), lwd=2, col="red",
@@ -175,7 +164,6 @@ text(tCrit+1.0, 0.08, adj=0, labels="power")
 text(tCrit-0.7, 0.05,  expression(beta))
 text(tCrit+0.5, 0.015, expression(alpha))
 
-
 ## ----rerDiagAddElements07------------------------------------------------
 mu    <- 0
 sigma <- 2
@@ -188,7 +176,6 @@ text(x=3.6,  y=0.35, labels="normal distribution\nN(1, 1)")
 text(x=-3.5, y=0.1 , labels="N(0, 2)")
 mtext(text="Probability density", side=3)
 text(-4, 0.3, expression(frac(1, sigma*sqrt(2*pi))~exp*bgroup("(", -frac(1, 2)~bgroup("(", frac(x-mu, sigma), ")")^2, ")")))
-
 
 ## ----rerDiagAddElements08------------------------------------------------
 vec <- seq(from=-2*pi, to=2*pi, length.out=200)
@@ -209,7 +196,6 @@ abline(h=0, v=0, lwd=2)
 legend(x="bottomleft", legend=c("sin(x)", "cos(x)", "tan(x)"), cex=1.3,
        lty=c(1, 1, NA), pch=c(NA, NA, 16), col=c(12, 14, 17), bg="white")
 
-
 ## ------------------------------------------------------------------------
 Nj <- c(15, 20, 18, 22)
 P  <- length(Nj)
@@ -218,7 +204,6 @@ IV <- factor(rep(1:P, Nj))
 Mj <- tapply(DV, IV, FUN=mean)
 Sj <- tapply(DV, IV, FUN=sd)
 ciWidths <- qt(0.975, df=Nj-1) * Sj / sqrt(Nj)
-
 
 ## ----rerDiagAddElements09------------------------------------------------
 library(plotrix)
@@ -229,14 +214,12 @@ plotCI(x=Mj, uiw=ciWidths, sfrac=0, col="blue",
        cex=2, lwd=3, pch=16, add=TRUE)
 axis(side=1, at=1:P, labels=LETTERS[1:P])
 
-
 ## ----rerDiagAddElements10------------------------------------------------
 Mj1 <- c(2, 3, 6, 3, 5)
 Sj1 <- c(1.7, 1.8, 1.7, 1.9, 1.8)
 Mj2 <- c(4, 3, 2, 1, 3)
 Sj2 <- c(1.4, 1.7, 1.7, 1.3, 1.5)
 Q   <- length(Mj1)
-
 
 ## ----rerDiagAddElements11------------------------------------------------
 xOff <- 0.1
@@ -247,7 +230,6 @@ plotCI(y=c(Mj1, Mj2), x=c((1:Q)-xOff, (1:Q)+xOff), uiw=c(Sj1, Sj2),
 legend(x="topleft", legend=c("B-1", "B-2"), pch=c(19, 19),
        col=c("blue", "red"))
 
-
 ## ----rerDiagAddElements12------------------------------------------------
 barsX <- barplot(height=Mj, ylim=c(0, 40), xaxt="n", xlab="Group",
                  ylab="Means", main="Means and confidence intervals")
@@ -257,7 +239,6 @@ limLo <- Mj - ciWidths
 arrows(x0=barsX, y0=limLo, x1=barsX, y1=limHi, code=3, angle=90,
        length=0.1, col="blue", lwd=2)
 
-
 ## ------------------------------------------------------------------------
 pxSq  <- 6
 colsR <- rep(0.4, pxSq^2)
@@ -265,7 +246,6 @@ colsG <- rep(seq(0, 1, length.out=pxSq), times=pxSq)
 colsB <- rep(seq(0, 1, length.out=pxSq), each=pxSq)
 arrSq <- array(c(colsR, colsG, colsB), c(pxSq, pxSq, 3))
 sqIm  <- as.raster(arrSq)
-
 
 ## ------------------------------------------------------------------------
 pxG    <- 500
@@ -278,7 +258,6 @@ y      <- matrix(vals, nrow=pxG, byrow=FALSE)
 phi    <- alpha*x + beta*y
 cosMat <- 0.5*cos(freq*phi) + 0.5
 
-
 ## ------------------------------------------------------------------------
 library(mvtnorm)
 mu       <- c(0, 0)
@@ -287,12 +266,10 @@ gaussVal <- dmvnorm(cbind(c(x), c(y)), mu, sigma)
 gaussMat <- matrix(gaussVal, nrow=pxG) / max(gaussVal)
 gabIm    <- as.raster(cosMat*gaussMat)
 
-
 ## ----rerDiagAddElements13------------------------------------------------
 plot(c(0, 1), c(0, 1), type="n", main="Bitmaps", xlab="", ylab="", asp=1)
 rasterImage(sqIm,  0,   0,   0.4, 0.4, angle=0,  interpolate=FALSE)
 rasterImage(gabIm, 0.5, 0.3, 1.1, 0.9, angle=10, interpolate=TRUE)
-
 
 ## ------------------------------------------------------------------------
 try(detach(package:Hmisc))

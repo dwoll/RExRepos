@@ -162,10 +162,10 @@ some(myDf1, n=5)
 ```
   id sex group age  IQ rating
 1  1   f     T  29 111      4
-2  2   m    CG  30  93      1
+3  3   f    WL  27  84      2
 4  4   m     T  28  97      2
 5  5   m    CG  23  85      5
-9  9   m    CG  30 113      5
+6  6   f    CG  20  89      3
 ```
 
 

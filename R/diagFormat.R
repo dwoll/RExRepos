@@ -1,9 +1,7 @@
-
 ## ------------------------------------------------------------------------
 wants <- c("RColorBrewer")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
-
 
 ## ----rerDiagFormat01-----------------------------------------------------
 X <- row(matrix(numeric(6*5), nrow=6, ncol=5))
@@ -15,7 +13,6 @@ plot(0:5, seq(1, 5, length.out=6), type="n", xlab=NA, ylab=NA,
 points(X[1:26], Y[1:26], pch=0:25, bg="gray", cex=3)
 text(X[1:26]-0.3, Y[1:26], labels=0:25)
 text(0.2, 3, labels="symbols for pch", srt=90, cex=1.2)
-
 
 ## ----rerDiagFormat02-----------------------------------------------------
 X <- row(matrix(numeric(6*12), nrow=6, ncol=12))
@@ -32,7 +29,6 @@ text(0, 7, labels="line types: lty, line widths: lwd", srt=90, cex=1.2)
 text(0.32, 9, labels="line ending: lend=1", srt=90, cex=1.2)
 text(0.32, 3, labels="line ending: lend=0", srt=90, cex=1.2)
 
-
 ## ----rerDiagFormat03-----------------------------------------------------
 set.seed(123)
 N <- 100
@@ -42,7 +38,6 @@ plot(x, y, main="Scatter plot", sub="aspect ratio = 1",
      xlab="x axis", ylab="y axis",
      xlim=c(60, 140), asp=1, pch=16, col="blue")
 
-
 ## ----rerDiagFormat04-----------------------------------------------------
 par(mfrow=c(1, 2))
 op <- par(col="gray60", family="serif", bty="n", mar=c(7, 5, 7, 1), pch=16)
@@ -50,19 +45,16 @@ plot(rnorm(10), main="Changed formatting")
 par(op)
 plot(rnorm(10), main="Standard format")
 
-
 ## ------------------------------------------------------------------------
 N <- 6
 (colDef <- palette()[1:N])
 (colAll <- sample(colors(), N, replace=FALSE))
-
 
 ## ------------------------------------------------------------------------
 colRain <- rainbow(N)
 colTopo <- topo.colors(N)
 colCm   <- cm.colors(N)
 colHeat <- heat.colors(N)
-
 
 ## ----rerDiagFormat05-----------------------------------------------------
 len    <- 1/N
@@ -80,15 +72,12 @@ par(xpd=NA)
 text(-0.05, seq(0, 1-len, length.out=N) + len/2, adj=1,
      labels=c("default", "sample", "rainbow", "topo", "cm", "heat"))
 
-
 ## ------------------------------------------------------------------------
 rgb(0, 1, 1)
 rgb(t(col2rgb("red")/255))
 
-
 ## ------------------------------------------------------------------------
 rgb(1, 0, 0, 0.5)
-
 
 ## ----rerDiagFormat06-----------------------------------------------------
 N  <- 150
@@ -98,20 +87,17 @@ plot(xx, yy, pch=16, cex=3.5, col=rgb(0, 0, 1, 0.3))
 points(xx-20, yy-20, pch=16, cex=3.5, col=rgb(1, 0, 0, 0.3))
 points(xx+20, yy-20, pch=16, cex=3.5, col=rgb(0, 1, 0, 0.3))
 
-
 ## ------------------------------------------------------------------------
 hsv(0.1666, 1, 1)
 rgb2hsv(matrix(c(0, 1, 1), nrow=3))
 hcl(h=120, c=35, l=85)
 gray(0.5)
 
-
 ## ------------------------------------------------------------------------
 N <- 6
 library(RColorBrewer)
 (bPal <- brewer.pal(N, "Blues"))
 colorRampPalette(bPal)(15)
-
 
 ## ----rerDiagFormat07-----------------------------------------------------
 b1 <- colorRampPalette(brewer.pal(N, "Reds"))(N)
@@ -132,7 +118,6 @@ plot(c(0, 1), c(0, 1), axes=FALSE, xlab=NA, ylab=NA, type="n",
      asp=1, main="Colors")
 rect(xLeft, yBot, xRight, yTop, border=NA,
      col=c(b1, b2, b3, b4, b5, b6))
-
 
 ## ------------------------------------------------------------------------
 try(detach(package:RColorBrewer))

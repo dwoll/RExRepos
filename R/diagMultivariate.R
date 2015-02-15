@@ -1,13 +1,10 @@
-
 ## ----echo=FALSE----------------------------------------------------------
 knit_hooks$set(rgl=hook_rgl)
-
 
 ## ------------------------------------------------------------------------
 wants <- c("car", "ellipse", "lattice", "mvtnorm", "rgl")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
-
 
 ## ------------------------------------------------------------------------
 mu    <- c(1, 3)
@@ -17,18 +14,15 @@ N     <- 50
 X     <- seq(mu[1]-rng*sigma[1, 1], mu[1]+rng*sigma[1, 1], length.out=N)
 Y     <- seq(mu[2]-rng*sigma[2, 2], mu[2]+rng*sigma[2, 2], length.out=N)
 
-
 ## ------------------------------------------------------------------------
 set.seed(123)
 library(mvtnorm)
 genZ <- function(x, y) { dmvnorm(cbind(x, y), mu, sigma) }
 matZ <- outer(X, Y, FUN="genZ")
 
-
 ## ----rerDiagMultivariate01-----------------------------------------------
 contour(X, Y, matZ, main="Contours for 2D-normal density")
 filled.contour(X, Y, matZ, main="Colored contours for 2D-normal density")
-
 
 ## ----rerDiagMultivariate02-----------------------------------------------
 N      <- 10
@@ -39,12 +33,10 @@ wScale <- (weight-min(weight)) * (0.8 / abs(diff(range(weight)))) + 0.2
 symbols(age, sport, circles=wScale, inch=0.6, fg=NULL, bg=rainbow(N),
         main="Weight against age and sport")
 
-
 ## ----rerDiagMultivariate03-----------------------------------------------
 par(cex.main=1.4, mar=c(2, 2, 4, 2) + 0.1)
 persp(X, Y, matZ, xlab="x", ylab="y", zlab="Density", theta=5, phi=35,
       main="2D-normal probability density")
-
 
 ## ----rerDiagMultivariate04, rgl=TRUE-------------------------------------
 library(rgl)
@@ -56,12 +48,10 @@ plot3d(vecX, vecY, vecZ, main="3D Scatterplot",
 spheres3d(vecX, vecY, vecZ, col="red", radius=2)
 grid3d(c("x", "y+", "z"))
 
-
 ## ----rerDiagMultivariate05, eval=FALSE-----------------------------------
 demo(rgl)
 example(persp3d)
 # not shown
-
 
 ## ----rerDiagMultivariate06-----------------------------------------------
 Njk    <- 25
@@ -74,13 +64,11 @@ IV2    <- factor(rep(c("f", "m"), times=P*Njk))
 myDf   <- data.frame(IV1, IV2, IQ, height)
 coplot(IQ ~ height | IV1*IV2, pch=16, data=myDf)
 
-
 ## ----rerDiagMultivariate07-----------------------------------------------
 library(lattice)
 res <- histogram(IQ ~ height | IV1*IV2, data=myDf,
                  main="Histograms per group")
 print(res)
-
 
 ## ------------------------------------------------------------------------
 N      <- 20
@@ -92,11 +80,9 @@ rating <- round(0.4*IQ - 30 + rnorm(N, 0, 10), 1)
 score  <- round(-0.3*IQ + 0.7*age + rnorm(N, 0, 8), 1)
 mvDf   <- data.frame(IV, age, IQ, rating, score)
 
-
 ## ----rerDiagMultivariate08-----------------------------------------------
 pairs(mvDf[c("age", "IQ", "rating", "score")], main="Scatter plot matrix",
       pch=16, col=c("red", "blue")[unclass(mvDf$IV)])
-
 
 ## ------------------------------------------------------------------------
 myHist <- function(x, ...) { par(new=TRUE); hist(x, ..., main="") }
@@ -112,12 +98,10 @@ myEll  <- function(x, y, nSegments=100, rad=1, ...) {
                 plot.points=FALSE, add=TRUE)
 }
 
-
 ## ----rerDiagMultivariate09-----------------------------------------------
 pairs(mvDf[c("age", "IQ", "rating", "score")], diag.panel=myHist,
       upper.panel=myEll, main="Scatter plot matrix", pch=16,
       col=c("red", "blue")[unclass(mvDf$IV)])
-
 
 ## ------------------------------------------------------------------------
 library(mvtnorm)
@@ -129,24 +113,20 @@ FF <- rmvnorm(N, mean=c(0, 0),   sigma=diag(Q))
 E  <- rmvnorm(N, mean=rep(0, P), sigma=diag(P)*0.3)
 X  <- FF %*% t(Lambda) + E
 
-
 ## ------------------------------------------------------------------------
 corMat <- cor(X)
 rownames(corMat) <- paste("X", 1:P, sep="")
 colnames(corMat) <- paste("X", 1:P, sep="")
 round(corMat, 2)
 
-
 ## ----rerDiagMultivariate10-----------------------------------------------
 image(corMat, axes=FALSE, main=paste("Correlation matrix of", P, "variables"))
 axis(side=1, at=seq(0, 1, length.out=P), labels=rownames(corMat))
 axis(side=2, at=seq(0, 1, length.out=P), labels=colnames(corMat))
 
-
 ## ----rerDiagMultivariate11-----------------------------------------------
 library(ellipse)
 plotcorr(corMat, type="lower", diag=FALSE, main="Bivariate correlations")
-
 
 ## ------------------------------------------------------------------------
 try(detach(package:car))

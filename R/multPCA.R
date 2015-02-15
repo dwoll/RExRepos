@@ -1,9 +1,7 @@
-
 ## ------------------------------------------------------------------------
 wants <- c("mvtnorm", "robustbase", "pcaPP")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
-
 
 ## ------------------------------------------------------------------------
 set.seed(123)
@@ -13,34 +11,27 @@ mu    <- c(1, 2)
 N     <- 50
 X     <- rmvnorm(N, mean=mu, sigma=Sigma)
 
-
 ## ------------------------------------------------------------------------
 (pca <- prcomp(X))
-
 
 ## ------------------------------------------------------------------------
 summary(pca)
 pca$sdev^2 / sum(diag(cov(X)))
 
-
 ## ----rerMultPCA01--------------------------------------------------------
 plot(pca)
-
 
 ## ------------------------------------------------------------------------
 (pcaPrin <- princomp(X))
 (G <- pcaPrin$loadings)
 
-
 ## ------------------------------------------------------------------------
 pcVal <- predict(pca)
 head(pcVal, n=5)
 
-
 ## ------------------------------------------------------------------------
 Xnew <- matrix(1:4, ncol=2)
 predict(pca, newdata=Xnew)
-
 
 ## ------------------------------------------------------------------------
 B    <- G %*% diag(pca$sdev)
@@ -49,7 +40,6 @@ xMat <- rbind(ctr[1] - B[1, ], ctr[1])
 yMat <- rbind(ctr[2] - B[2, ], ctr[2])
 ab1  <- solve(cbind(1, xMat[ , 1]), yMat[ , 1])
 ab2  <- solve(cbind(1, xMat[ , 2]), yMat[ , 2])
-
 
 ## ----rerMultPCA02--------------------------------------------------------
 plot(X, xlab="x", ylab="y", pch=20, asp=1,
@@ -62,7 +52,6 @@ legend(x="topleft", legend=c("data", "PC axes", "SDs of PC", "centroid"),
        pch=c(20, NA, NA, 16), lty=c(NA, 1, 1, NA), lwd=c(NA, 2, 2, NA),
        col=c("black", "gray", "blue", "red"), bg="white")
 
-
 ## ------------------------------------------------------------------------
 Xdot <- scale(X, center=TRUE, scale=FALSE)
 Y    <- Xdot %*% G
@@ -74,13 +63,11 @@ repr <- sweep(HB, 2, ctr, "+")
 all.equal(X, repr)
 sum((X-repr)^2)
 
-
 ## ------------------------------------------------------------------------
 HB1   <- H[ , 1] %*% t(B[ , 1])
 repr1 <- sweep(HB1, 2, ctr, "+")
 sum((X-repr1)^2)
 qr(scale(repr1, center=TRUE, scale=FALSE))$rank
-
 
 ## ----rerMultPCA03--------------------------------------------------------
 plot(X, xlab="x", ylab="y", pch=20, asp=1, main="Data und approximation")
@@ -93,22 +80,18 @@ legend(x="topleft", legend=c("data", "PC axes", "centroid", "approximation"),
        pch=c(20, NA, 16, 1), lty=c(NA, 1, NA, NA), lwd=c(NA, 2, NA, 2),
        col=c("black", "gray", "red", "blue"), bg="white")
 
-
 ## ------------------------------------------------------------------------
 B %*% t(B)
 cov(X)
 B[ , 1] %*% t(B[ , 1])
 
-
 ## ------------------------------------------------------------------------
 library(robustbase)
 princomp(X, cov=covMcd(X))
 
-
 ## ------------------------------------------------------------------------
 library(pcaPP)
 PCAproj(X, k=ncol(X), method="qn")
-
 
 ## ------------------------------------------------------------------------
 try(detach(package:pcaPP))

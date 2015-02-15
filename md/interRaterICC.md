@@ -233,25 +233,17 @@ ICC(ratings)
 ```
 
 ```
-Call: ICC(x = ratings)
 
 Intraclass correlation coefficients 
-                         type  ICC    F df1 df2       p lower bound
-Single_raters_absolute   ICC1 0.17  1.8   5  18 0.16477      -0.133
-Single_random_raters     ICC2 0.29 11.0   5  15 0.00013       0.019
-Single_fixed_raters      ICC3 0.71 11.0   5  15 0.00013       0.342
-Average_raters_absolute ICC1k 0.44  1.8   5  18 0.16477      -0.884
-Average_random_raters   ICC2k 0.62 11.0   5  15 0.00013       0.071
-Average_fixed_raters    ICC3k 0.91 11.0   5  15 0.00013       0.676
-                        upper bound
-Single_raters_absolute         0.72
-Single_random_raters           0.76
-Single_fixed_raters            0.95
-Average_raters_absolute        0.91
-Average_random_raters          0.93
-Average_fixed_raters           0.99
+                         type   est F-val df1 df2    p-val lwr.ci upr.ci
+Single_raters_absolute   ICC1 0.166  1.79   5  18 0.164769     NA     NA
+Single_random_raters     ICC2 0.290 11.03   5  15 0.000135     NA     NA
+Single_fixed_raters      ICC3 0.715 11.03   5  15 0.000135     NA     NA
+Average_raters_absolute ICC1k 0.443  1.79   5  18 0.164769     NA     NA
+Average_random_raters   ICC2k 0.620 11.03   5  15 0.000135     NA     NA
+Average_fixed_raters    ICC3k 0.909 11.03   5  15 0.000135     NA     NA
 
- Number of subjects = 6     Number of Judges =  4
+ Number of subjects = 6     Number of raters = 4 
 ```
 
 Detach (automatically) loaded packages (if possible)

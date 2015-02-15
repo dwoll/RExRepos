@@ -88,14 +88,7 @@ EtaSq(aovSPFpq.r, type=1)
 ```
 
 ```
-                          eta.sq  eta.sq.part   eta.sq.gen
-IVbtw1              1.155981e-04 0.0010524579 0.0003115892
-IVbtw2              1.928058e-02 0.1494602872 0.0494170687
-IVbtw1:IVbtw2       5.186892e-05 0.0004725123 0.0001398342
-IVwth               5.865837e-01 0.6919360568 0.6126434678
-IVbtw1:IVwth        2.547111e-03 0.0096589020 0.0068209106
-IVbtw2:IVwth        8.003689e-03 0.0297355126 0.0211244117
-IVbtw1:IVbtw2:IVwth 1.253778e-02 0.0458090312 0.0327000780
+Error in EtaSq.aovlist(aovSPFpq.r, type = 1): konnte Funktion "is" nicht finden
 ```
 
 ### Using `Anova()` from package `car` with data in wide format
@@ -268,30 +261,30 @@ summary(aovSPFp.qr)
 
 Error: id
           Df Sum Sq Mean Sq F value Pr(>F)
-IVbtw      1   3.71   3.706   0.679  0.421
-Residuals 18  98.31   5.461               
+IVbtw      1   2.32   2.323   0.407  0.531
+Residuals 18 102.64   5.702               
 
 Error: id:IVwth1
              Df Sum Sq Mean Sq F value   Pr(>F)    
-IVwth1        2  716.5   358.3  80.042 5.62e-14 ***
-IVbtw:IVwth1  2    0.9     0.5   0.101    0.904    
-Residuals    36  161.1     4.5                     
+IVwth1        2  534.5  267.25  62.647 1.89e-12 ***
+IVbtw:IVwth1  2    5.1    2.53   0.593    0.558    
+Residuals    36  153.6    4.27                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Error: id:IVwth2
-             Df Sum Sq Mean Sq F value Pr(>F)    
-IVwth2        1 114.65  114.65  30.564  3e-05 ***
-IVbtw:IVwth2  1   0.38    0.38   0.101  0.754    
-Residuals    18  67.52    3.75                   
+             Df Sum Sq Mean Sq F value   Pr(>F)    
+IVwth2        1 109.87  109.87  17.043 0.000631 ***
+IVbtw:IVwth2  1  10.23   10.23   1.587 0.223859    
+Residuals    18 116.03    6.45                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Error: id:IVwth1:IVwth2
                     Df Sum Sq Mean Sq F value Pr(>F)
-IVwth1:IVwth2        2   4.15   2.077   0.655  0.526
-IVbtw:IVwth1:IVwth2  2   8.08   4.042   1.274  0.292
-Residuals           36 114.18   3.172               
+IVwth1:IVwth2        2   6.93   3.466   0.846  0.437
+IVbtw:IVwth1:IVwth2  2   7.80   3.899   0.952  0.396
+Residuals           36 147.50   4.097               
 ```
 
 ### Effect size estimates: generalized $\hat{\eta}_{g}^{2}$
@@ -303,14 +296,7 @@ EtaSq(aovSPFp.qr, type=1)
 ```
 
 ```
-                          eta.sq eta.sq.part   eta.sq.gen
-IVbtw               0.0028740065  0.03632976 0.0083311795
-IVwth1              0.5556355565  0.81640536 0.6189329024
-IVbtw:IVwth1        0.0006997461  0.00556892 0.0020412921
-IVwth2              0.0889105137  0.62935256 0.2062858093
-IVbtw:IVwth2        0.0002939672  0.00558274 0.0008585744
-IVwth1:IVwth2       0.0032218292  0.03510836 0.0093300420
-IVbtw:IVwth1:IVwth2 0.0062684477  0.06611257 0.0179939398
+Error in EtaSq.aovlist(aovSPFp.qr, type = 1): konnte Funktion "is" nicht finden
 ```
 
 ### Using `Anova()` from package `car` with data in wide format
@@ -338,14 +324,14 @@ summary(AnovaSPFp.qr, multivariate=FALSE, univariate=TRUE)
 Univariate Type II Repeated-Measures ANOVA Assuming Sphericity
 
                          SS num Df Error SS den Df         F    Pr(>F)    
-(Intercept)         18098.5      1   98.306     18 3313.8768 < 2.2e-16 ***
-IVbtw                   3.7      1   98.306     18    0.6786    0.4209    
-IVwth1                716.5      2  161.128     36   80.0421 5.617e-14 ***
-IVbtw:IVwth1            0.9      2  161.128     36    0.1008    0.9044    
-IVwth2                114.7      1   67.522     18   30.5637 3.002e-05 ***
-IVbtw:IVwth2            0.4      1   67.522     18    0.1011    0.7542    
-IVwth1:IVwth2           4.2      2  114.182     36    0.6549    0.5255    
-IVbtw:IVwth1:IVwth2     8.1      2  114.182     36    1.2743    0.2919    
+(Intercept)         18082.5      1   102.64     18 3170.9826 < 2.2e-16 ***
+IVbtw                   2.3      1   102.64     18    0.4075 0.5313035    
+IVwth1                534.5      2   153.58     36   62.6468 1.889e-12 ***
+IVbtw:IVwth1            5.1      2   153.58     36    0.5930 0.5579974    
+IVwth2                109.9      1   116.03     18   17.0433 0.0006311 ***
+IVbtw:IVwth2           10.2      1   116.03     18    1.5869 0.2238586    
+IVwth1:IVwth2           6.9      2   147.50     36    0.8460 0.4374751    
+IVbtw:IVwth1:IVwth2     7.8      2   147.50     36    0.9516 0.3956300    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -353,28 +339,28 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Mauchly Tests for Sphericity
 
                     Test statistic p-value
-IVwth1                     0.99188 0.93305
-IVbtw:IVwth1               0.99188 0.93305
-IVwth1:IVwth2              0.97532 0.80865
-IVbtw:IVwth1:IVwth2        0.97532 0.80865
+IVwth1                     0.80930 0.16556
+IVbtw:IVwth1               0.80930 0.16556
+IVwth1:IVwth2              0.94011 0.59160
+IVbtw:IVwth1:IVwth2        0.94011 0.59160
 
 
 Greenhouse-Geisser and Huynh-Feldt Corrections
  for Departure from Sphericity
 
                      GG eps Pr(>F[GG])    
-IVwth1              0.99195  6.993e-14 ***
-IVbtw:IVwth1        0.99195     0.9030    
-IVwth1:IVwth2       0.97592     0.5221    
-IVbtw:IVwth1:IVwth2 0.97592     0.2917    
+IVwth1              0.83985  8.499e-11 ***
+IVbtw:IVwth1        0.83985     0.5308    
+IVwth1:IVwth2       0.94350     0.4320    
+IVbtw:IVwth1:IVwth2 0.94350     0.3915    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-                      HF eps   Pr(>F[HF])
-IVwth1              1.114314 5.616681e-14
-IVbtw:IVwth1        1.114314 9.043664e-01
-IVwth1:IVwth2       1.093110 5.255497e-01
-IVbtw:IVwth1:IVwth2 1.093110 2.919453e-01
+                       HF eps   Pr(>F[HF])
+IVwth1              0.9164691 1.373942e-11
+IVbtw:IVwth1        0.9164691 5.443499e-01
+IVwth1:IVwth2       1.0504830 4.374751e-01
+IVbtw:IVwth1:IVwth2 1.0504830 3.956300e-01
 ```
 
 ### Using `anova.mlm()` and `mauchly.test()` with data in wide format
@@ -399,10 +385,10 @@ Contrasts spanned by
 Greenhouse-Geisser epsilon: 1
 Huynh-Feldt epsilon:        1
 
-            Df         F num Df den Df  Pr(>F)  G-G Pr  H-F Pr
-(Intercept)  1 3313.8768      1     18 0.00000 0.00000 0.00000
-IVbtw        1    0.6786      1     18 0.42085 0.42085 0.42085
-Residuals   18                                                
+            Df         F num Df den Df Pr(>F) G-G Pr H-F Pr
+(Intercept)  1 3170.9826      1     18 0.0000 0.0000 0.0000
+IVbtw        1    0.4075      1     18 0.5313 0.5313 0.5313
+Residuals   18                                             
 ```
 
 ```r
@@ -421,13 +407,13 @@ Contrasts orthogonal to
 Contrasts spanned by
 ~IVwth1
 
-Greenhouse-Geisser epsilon: 0.9919
-Huynh-Feldt epsilon:        1.1143
+Greenhouse-Geisser epsilon: 0.8398
+Huynh-Feldt epsilon:        0.9165
 
-            Df       F num Df den Df  Pr(>F)  G-G Pr  H-F Pr
-(Intercept)  1 80.0421      2     36 0.00000 0.00000 0.00000
-IVbtw        1  0.1008      2     36 0.90437 0.90299 0.90437
-Residuals   18                                              
+            Df      F num Df den Df Pr(>F)  G-G Pr  H-F Pr
+(Intercept)  1 62.647      2     36  0.000 0.00000 0.00000
+IVbtw        1  0.593      2     36  0.558 0.53075 0.54435
+Residuals   18                                            
 ```
 
 ```r
@@ -449,10 +435,10 @@ Contrasts spanned by
 Greenhouse-Geisser epsilon: 1
 Huynh-Feldt epsilon:        1
 
-            Df       F num Df den Df  Pr(>F)  G-G Pr  H-F Pr
-(Intercept)  1 30.5637      1     18 0.00003 0.00003 0.00003
-IVbtw        1  0.1011      1     18 0.75423 0.75423 0.75423
-Residuals   18                                              
+            Df       F num Df den Df   Pr(>F)   G-G Pr   H-F Pr
+(Intercept)  1 17.0433      1     18 0.000631 0.000631 0.000631
+IVbtw        1  1.5869      1     18 0.223859 0.223859 0.223859
+Residuals   18                                                 
 ```
 
 ```r
@@ -471,12 +457,12 @@ Contrasts orthogonal to
 Contrasts spanned by
 ~IVwth1 + IVwth2 + IVwth1:IVwth2
 
-Greenhouse-Geisser epsilon: 0.9759
-Huynh-Feldt epsilon:        1.0931
+Greenhouse-Geisser epsilon: 0.9435
+Huynh-Feldt epsilon:        1.0505
 
             Df      F num Df den Df  Pr(>F)  G-G Pr  H-F Pr
-(Intercept)  1 0.6549      2     36 0.52555 0.52211 0.52555
-IVbtw        1 1.2743      2     36 0.29195 0.29167 0.29195
+(Intercept)  1 0.8460      2     36 0.43748 0.43201 0.43748
+IVbtw        1 0.9516      2     36 0.39563 0.39154 0.39563
 Residuals   18                                             
 ```
 
@@ -497,7 +483,7 @@ mauchly.test(fitSPFp.qr, M=~IVwth1, X=~1,
 
 
 data:  SSD matrix from lm(formula = cbind(DV.1.1, DV.2.1, DV.3.1, DV.1.2, DV.2.2, DV.3.2) ~  SSD matrix from     IVbtw, data = dfSPFp.qrW)
-W = 0.9919, p-value = 0.933
+W = 0.8093, p-value = 0.1656
 ```
 Mauchly-Test for IVwth2 is unnecessary here since R=2 -> sphericity holds automatically
 
@@ -537,7 +523,7 @@ mauchly.test(fitSPFp.qr, M=~IVwth1 + IVwth2 + IVwth1:IVwth2, X=~IVwth1 + IVwth2,
 
 
 data:  SSD matrix from lm(formula = cbind(DV.1.1, DV.2.1, DV.3.1, DV.1.2, DV.2.2, DV.3.2) ~  SSD matrix from     IVbtw, data = dfSPFp.qrW)
-W = 0.9753, p-value = 0.8086
+W = 0.9401, p-value = 0.5916
 ```
 
 Detach (automatically) loaded packages (if possible)

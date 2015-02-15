@@ -184,7 +184,7 @@ wilcox.test(X, Y, conf.int=TRUE)$estimate
 
 ```
 difference in location 
-             -10.82384 
+             -13.78561 
 ```
 
 Detach (automatically) loaded packages (if possible)

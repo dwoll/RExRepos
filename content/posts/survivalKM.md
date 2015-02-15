@@ -123,11 +123,11 @@ quantile(KM0, probs=c(0.25, 0.5, 0.75), conf.int=FALSE)
  4.0 14.0 46.5 
 ```
 
-All estimated values for survival function including point-wise confidence interval.
+50-day and 100-day survival including point-wise confidence interval.
 
 
 ```r
-summary(KM0)
+summary(KM0, times=c(50, 100))
 ```
 
 ```
@@ -135,58 +135,16 @@ Call: survfit(formula = Surv(obsT, status) ~ 1, data = dfSurv, type = "kaplan-me
     conf.type = "log")
 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
-    1    180      13    0.928  0.0193       0.8907        0.966
-    2    167      11    0.867  0.0253       0.8184        0.918
-    3    156      17    0.772  0.0313       0.7133        0.836
-    4    139       9    0.722  0.0334       0.6597        0.791
-    5    130       4    0.700  0.0342       0.6362        0.770
-    6    126       5    0.672  0.0350       0.6070        0.744
-    7    121       3    0.656  0.0354       0.5897        0.729
-    8    118       4    0.633  0.0359       0.5667        0.708
-    9    114       5    0.606  0.0364       0.5382        0.681
-   10    109       8    0.561  0.0370       0.4931        0.638
-   11    101       4    0.539  0.0372       0.4708        0.617
-   12     97       1    0.533  0.0372       0.4652        0.611
-   13     96       5    0.506  0.0373       0.4375        0.584
-   14     91       3    0.489  0.0373       0.4211        0.568
-   15     88       6    0.456  0.0371       0.3883        0.534
-   16     82       3    0.439  0.0370       0.3721        0.518
-   17     79       2    0.428  0.0369       0.3613        0.507
-   19     77       3    0.411  0.0367       0.3452        0.490
-   20     74       2    0.400  0.0365       0.3345        0.478
-   21     72       3    0.383  0.0362       0.3185        0.461
-   23     69       2    0.372  0.0360       0.3079        0.450
-   24     67       1    0.367  0.0359       0.3026        0.444
-   25     66       1    0.361  0.0358       0.2973        0.439
-   27     65       2    0.350  0.0356       0.2868        0.427
-   29     63       3    0.333  0.0351       0.2711        0.410
-   30     60       2    0.322  0.0348       0.2607        0.398
-   32     58       2    0.311  0.0345       0.2503        0.387
-   34     56       2    0.300  0.0342       0.2400        0.375
-   36     54       1    0.294  0.0340       0.2349        0.369
-   38     53       1    0.289  0.0338       0.2297        0.363
-   39     52       2    0.278  0.0334       0.2195        0.352
-   40     50       1    0.272  0.0332       0.2144        0.346
-   41     49       2    0.261  0.0327       0.2042        0.334
-   43     47       1    0.256  0.0325       0.1992        0.328
-   46     46       1    0.250  0.0323       0.1941        0.322
-   47     45       1    0.244  0.0320       0.1891        0.316
-   48     44       1    0.239  0.0318       0.1841        0.310
-   49     43       1    0.233  0.0315       0.1790        0.304
-   50     42       2    0.222  0.0310       0.1691        0.292
-   54     40       2    0.211  0.0304       0.1592        0.280
-   58     38       2    0.200  0.0298       0.1493        0.268
-   64     36       2    0.189  0.0292       0.1396        0.256
-   65     34       1    0.183  0.0288       0.1347        0.250
-   68     33       1    0.178  0.0285       0.1298        0.243
-   69     32       1    0.172  0.0281       0.1250        0.237
-   71     31       1    0.167  0.0278       0.1202        0.231
-   86     30       1    0.161  0.0274       0.1154        0.225
-   91     29       2    0.150  0.0266       0.1059        0.212
-  103     27       1    0.144  0.0262       0.1012        0.206
-  109     26       1    0.139  0.0258       0.0965        0.200
-  111     25       1    0.133  0.0253       0.0919        0.194
-  112     24       1    0.128  0.0249       0.0872        0.187
+   50     42     140    0.222  0.0310        0.169        0.292
+  100     27      13    0.150  0.0266        0.106        0.212
+```
+
+All estimated values for survival function including point-wise confidence interval.
+
+
+```r
+summary(KM0)
+# not shown
 ```
 
 ### Plot estimated survival function
@@ -199,7 +157,7 @@ plot(KM0, main=expression(paste("Kaplan-Meier-estimate ", hat(S)(t), " with CI")
      xlab="t", ylab="Survival", lwd=2)
 ```
 
-![plot of chunk rerSurvivalKM02](../content/assets/figure/rerSurvivalKM02-1.png) 
+![plot of chunk rerSurvivalKM02a](../content/assets/figure/rerSurvivalKM02a-1.png) 
 
 Separate estimates for levels of factor `IV`
 
@@ -207,10 +165,24 @@ Separate estimates for levels of factor `IV`
 ```r
 plot(KM, main=expression(paste("Kaplan-Meier-estimate ", hat(S)[g](t), " for groups g")),
      xlab="t", ylab="Survival", lwd=2, col=1:3)
+legend(x="bottomright", col=1:3, lwd=2, legend=LETTERS[1:3])
+```
+
+![plot of chunk rerSurvivalKM03a](../content/assets/figure/rerSurvivalKM03a-1.png) 
+
+### Plot cumulative incidence function
+
+Separate estimates for levels of factor `IV`
+
+
+```r
+plot(KM, main=expression(paste("KM cumulative incidence 1-", hat(S)[g](t), " for groups g")),
+     fun=function(x) { 1- x },
+     xlab="t", ylab="Cumulative incidence", lwd=2, col=1:3)
 legend(x="topright", col=1:3, lwd=2, legend=LETTERS[1:3])
 ```
 
-![plot of chunk rerSurvivalKM03](../content/assets/figure/rerSurvivalKM03-1.png) 
+![plot of chunk rerSurvivalKM03b](../content/assets/figure/rerSurvivalKM03b-1.png) 
 
 ### Plot cumulative hazard
 

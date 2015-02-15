@@ -112,10 +112,10 @@ Non-metric Multidimensional Scaling
 10 points, dissimilarity 'unknown'
 
 Dimensions: 2 
-Stress:     0.008443353 
+Stress:     0.008443837 
 Stress type 1, weak ties
 Scores scaled to unit root mean square, rotated to principal components
-Stopped after 130 iterations: Stress nearly unchanged (ratio > sratmax)
+Stopped after 154 iterations: Stress nearly unchanged (ratio > sratmax)
 ```
 
 ```r
@@ -124,16 +124,16 @@ scores(nmMDS)
 
 ```
                  MDS1        MDS2
-Augsburg  -1.11072167 -0.08994458
-Berlin     0.58049815 -0.50361604
-Dresden    0.02006455 -0.74668119
-Hamburg    0.85768160  0.32980499
-Hannover   0.51135761  0.38091075
-Karlsruhe -0.94605107  0.52543389
-Kiel       1.09813021  0.38114071
-Muenchen  -1.12608597 -0.32982549
-Rostock    1.13297156 -0.23682661
-Stuttgart -1.01784499  0.28960357
+Augsburg  -1.10998600 -0.09049974
+Berlin     0.57881602 -0.50241699
+Dresden    0.02146422 -0.75630582
+Hamburg    0.85581290  0.33083725
+Hannover   0.50946761  0.37938418
+Karlsruhe -0.94491067  0.52609012
+Kiel       1.09747017  0.38425643
+Muenchen  -1.12541018 -0.32818431
+Rostock    1.13354038 -0.23537584
+Stuttgart -1.01626445  0.29221471
 attr(,"pc")
 [1] TRUE
 ```

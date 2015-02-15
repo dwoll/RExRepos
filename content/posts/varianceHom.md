@@ -198,7 +198,7 @@ fligner_test(DV ~ IV, distribution=approximate(B=9999), data=levDf)
 	Approximative Fligner-Killeen Test
 
 data:  DV by IV (1, 2, 3)
-chi-squared = 0.0936, p-value = 0.9546
+chi-squared = 0.0936, p-value = 0.9586
 ```
 
 Detach (automatically) loaded packages (if possible)

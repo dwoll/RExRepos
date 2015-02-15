@@ -219,7 +219,7 @@ KRmodcomp(fitF, fitR)
 ```
 
 ```
-F-test with Kenward-Roger approximation; computing time: 0.13 sec.
+F-test with Kenward-Roger approximation; computing time: 0.15 sec.
 large : Y ~ Xw1 + (1 | id)
 small : Y ~ 1 + (1 | id)
           stat      ndf      ddf F.scaling p.value  
