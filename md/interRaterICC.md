@@ -176,15 +176,15 @@ kappam.fleiss(ratings)
 
 ```r
 library(irr)
-kripp.alpha(ratings, method="ordinal")
+kripp.alpha(t(ratings), method="ordinal")
 ```
 
 ```
- Krippendorff's alpha
+Krippendorff's alpha
 
- Subjects = 6 
-   Raters = 30 
-    alpha = 0.255 
+Subjects = 30 
+  Raters = 6 
+   alpha = 0.333 
 ```
 
 ### Kendall's $W$ for continuous ordinal ratings and two or more raters

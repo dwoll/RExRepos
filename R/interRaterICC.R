@@ -51,7 +51,7 @@ kappam.fleiss(ratings)
 
 ## ------------------------------------------------------------------------
 library(irr)
-kripp.alpha(ratings, method="ordinal")
+kripp.alpha(t(ratings), method="ordinal")
 
 ## ------------------------------------------------------------------------
 rtr1 <- c(1, 6, 3, 2, 5, 4)

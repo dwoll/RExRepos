@@ -96,7 +96,7 @@ kappam.fleiss(ratings)
 
 ```{r}
 library(irr)
-kripp.alpha(ratings, method="ordinal")
+kripp.alpha(t(ratings), method="ordinal")
 ```
 
 ### Kendall's \(W\) for continuous ordinal ratings and two or more raters
