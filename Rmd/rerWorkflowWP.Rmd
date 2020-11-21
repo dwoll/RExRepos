@@ -107,4 +107,4 @@ For me, all this works fine, but I need to make sure the draft is opened first w
 
 ### Use knitr's `knit2wp()` function
 
-knitr now provides it's own `knit2wp()` function that is similar to the one defined above. In addition, it also wraps the call to `newPost()`: see the [knitr to WP example](http://yihui.name/knitr/demo/wordpress/).
+knitr now provides it's own `knit2wp()` function that is similar to the one defined above. In addition, it also wraps the call to `newPost()`: see the [knitr to WP example](https://yihui.name/knitr/demo/wordpress/).

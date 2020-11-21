@@ -187,4 +187,5 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:car))
+try(detach(package:carData))
 ```

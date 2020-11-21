@@ -110,7 +110,7 @@ xtabs(counts ~ sex + work, data=persons)
 ### Marginal sums and means
 
 ```{r}
-apply(cTab, MARGIN=1, FUN=sum)
+rowSums(cTab)
 colMeans(cTab)
 addmargins(cTab, c(1, 2), FUN=mean)
 ```
@@ -159,6 +159,13 @@ Percentile rank
 
 ```{r}
 (vec <- round(rnorm(10), 2))
+library(DescTools)
+PercentRank(vec)
+```
+
+Using base R
+
+```{r}
 Fn <- ecdf(vec)
 Fn(vec)
 100 * Fn(0.1)

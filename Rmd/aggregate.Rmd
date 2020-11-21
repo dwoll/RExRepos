@@ -106,4 +106,4 @@ by(numDf, list(myDf1$sex, myDf1$group), FUN=function(x) sapply(x, mean))
 Useful packages
 -------------------------
 
-Package [`dplyr`](http://cran.r-project.org/package=dplyr) provides more functions for efficiently as well as consistently transforming and aggregating data.
+Package [`dplyr`](https://dplyr.tidyverse.org/) provides more functions for efficiently as well as consistently transforming and aggregating data.

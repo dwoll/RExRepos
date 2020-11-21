@@ -160,4 +160,4 @@ cov(matNA, use="pairwise.complete.obs")
 Useful packages
 -------------------------
 
-Multiple imputation is supported by functions in packages [`Hmisc`](http://cran.r-project.org/package=Hmisc), [`Amelia II`](http://cran.r-project.org/package=Amelia), and [`mice`](http://cran.r-project.org/package=mice).
+Multiple imputation is supported by functions in packages [`mice`](https://cran.r-project.org/package=mice) and [`Amelia`](https://cran.r-project.org/package=Amelia).

@@ -16,7 +16,7 @@ Install required packages
 [`DescTools`](http://cran.r-project.org/package=psych), [`irr`](http://cran.r-project.org/package=irr)
 
 ```{r}
-wants <- c("DescTools", "irr")
+wants <- c("DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -38,22 +38,22 @@ addmargins(cTab)
 ```
 
 ```{r}
-library(irr)
-agree(cbind(rtr1, rtr2))
+library(DescTools)
+Agree(cbind(rtr1, rtr2))
 ```
 
 #### Three raters
 
 ```{r}
 rtr3 <- rep(rep(lvls, nlevels(lvls)), c(48,8,3, 15,10,7, 3,4,2))
-agree(cbind(rtr1, rtr2, rtr3))
+Agree(cbind(rtr1, rtr2, rtr3))
 ```
 
 ### Cohen's unweighted \(\kappa\) for two raters
 
 ```{r}
-library(irr)
-kappa2(cbind(rtr1, rtr2))
+library(DescTools)
+CohenKappa(cbind(rtr1, rtr2), conf.conf.level=0.95)
 ```
 
 ### Cohen's weighted \(\kappa\) for two raters
@@ -71,8 +71,8 @@ addmargins(cTab)
 ```
 
 ```{r}
-library(irr)
-kappa2(cbind(tv1, tv2), weight="equal")
+library(DescTools)
+CohenKappa(cbind(tv1, tv2), weights="Equal-Spacing", conf.level=0.95)
 ```
 
 ### Fleiss' \(\kappa\) for two or more raters
@@ -88,15 +88,15 @@ ratings <- cbind(rtr1, rtr2, rtr3, rtr4, rtr5, rtr6)
 ```
 
 ```{r}
-library(irr)
-kappam.fleiss(ratings)
+library(DescTools)
+KappaM(ratings, conf.level=0.95)
 ```
 
 ### Krippendorff's \(\alpha\) for ordinal ratings and two or more raters
 
 ```{r}
-library(irr)
-kripp.alpha(t(ratings), method="ordinal")
+library(DescTools)
+KrippAlpha(t(ratings), method="ordinal")
 ```
 
 ### Kendall's \(W\) for continuous ordinal ratings and two or more raters
@@ -109,8 +109,8 @@ ratings <- cbind(rtr1, rtr2, rtr3)
 ```
 
 ```{r}
-library(irr)
-kendall(ratings)
+library(DescTools)
+KendallW(ratings, test=TRUE)
 ```
 
 Intra-class-correlation for interval-scale ratings and two or more raters
@@ -134,6 +134,4 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:DescTools))
-try(detach(package:irr))
-try(detach(package:lpSolve))
 ```

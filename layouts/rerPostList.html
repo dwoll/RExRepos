@@ -6,7 +6,7 @@
 	 ## then title is a hash with fileName : title entries %>
   <% @config[:rer][:rerCategs][rerCat.to_sym].each do |posting, title|
     unless title.class.name == "String" %>
-  <li class="dropdown-header"><%= posting.to_s.gsub("_", " ") %></li>
+  <li class="nav-header"><%= posting.to_s.gsub("_", " ") %></li>
   <% title.each do |thePosting, theTitle| %>
   <li<% if File.basename(@item.identifier) == thePosting.to_s %> class="active"><%= theTitle %></li>
   <% else %>><a href="<%= @config[:base_url] + "/posts/" + thePosting.to_s %>.html"><%= theTitle %></a></li>

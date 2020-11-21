@@ -2,7 +2,7 @@
   <li><a href="<%= @config[:base_url] %>/index.html">Home</a></li>
   <% unless @item[:categories].nil?
      for @categ in @item[:categories] %>
-  <li><a href="<%= @config[:base_url] + @config[:rer][:categoriesPath] %>#<%= @categ %>-ref"><%= @categ %></a></li>
+  <li><a href="<%= @config[:base_url] + @config[:rer][:categoriesPath] %>#<%= @categ %>-ref"><%= @categ %></a><span class="divider">&raquo;</span></li>
   <% end
      end %>
   <li class="active"><%= File.basename(@item.identifier) %></li>

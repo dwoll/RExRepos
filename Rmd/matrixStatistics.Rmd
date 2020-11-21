@@ -19,9 +19,9 @@ Sums and means
 -------------------------
 
 ```{r}
-age    <- c(19, 19, 31, 19, 24)
-weight <- c(95, 76, 94, 76, 76)
-height <- c(197, 178, 189, 184, 173)
+age    <- c(19, 19, 31, 19, 24, 17, 43, 28)
+weight <- c(95, 76, 94, 76, 76, 68, 81, 65)
+height <- c(197, 178, 189, 184, 173, 165, 181, 192)
 (mat   <- cbind(age, weight, height))
 ```
 
@@ -89,10 +89,33 @@ Uncorrected
 res$cov
 ```
 
+### Robust covariance estimator
+
+```{r}
+library(robustbase)
+covMcd(mat)
+```
+
 ### Correlation matrix
 
 ```{r}
 vec <- rnorm(nrow(mat))
 cor(mat, vec)
 cor(vec, mat)
+```
+
+### Robust correlation matrix
+
+```{r}
+library(robustbase)
+cov_rob <- covMcd(mat, cor=TRUE)
+cov_rob$cor
+cov_rob$center
+```
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+    
+```{r}
+try(detach(package:robustbase))
 ```

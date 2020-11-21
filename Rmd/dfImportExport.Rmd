@@ -13,10 +13,10 @@ Data import and export
 Install required packages
 -------------------------
 
-[`foreign`](http://cran.r-project.org/package=foreign), [`RODBC`](http://cran.r-project.org/package=RODBC), [`RSQLite`](http://cran.r-project.org/package=RSQLite)
+[`foreign`](https://cran.r-project.org/package=foreign), [`RSQLite`](http://cran.r-project.org/package=RSQLite)
 
 ```{r}
-wants <- c("foreign", "RODBC", "RSQLite")
+wants <- c("foreign", "RSQLite")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -274,14 +274,20 @@ Useful documents
 Useful packages
 -------------------------
 
-The [CRAN Web Technologies Task View](http://CRAN.R-project.org/view=WebTechnologies) presents packages to directly scrape data from online sources. [`data.table`](http://cran.r-project.org/package=data.table) provides function `fread()` for high performance reading of large plain text data files.
+The [CRAN Web Technologies Task View](https://CRAN.R-project.org/view=WebTechnologies) presents packages to directly scrape data from online sources. [`data.table`](https://cran.r-project.org/package=data.table) provides function `fread()` for high performance reading of large plain text data files.
+
+[`haven`](https://cran.r-project.org/package=haven)
+[`readxl`](https://cran.r-project.org/package=readxl)
+
+https://db.rstudio.com/
+https://www.1keydata.com/sql/
+https://sqlzoo.net/
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r eval=FALSE}
 try(detach(package:foreign))
-try(detach(package:RODBC))
 try(detach(package:RSQLite))
 try(detach(package:DBI))
 ```

@@ -75,6 +75,21 @@ Robust location measures
 median(age)
 ```
 
+### Quantiles
+
+Default: Quartiles
+
+```{r}
+(quant <- quantile(age))
+quant[c("25%", "50%")]
+```
+
+Set probabilities with option `probs`
+
+```{r}
+quantile(age, probs=c(1/3, 2/3))
+```
+
 ### Trimmed mean
 
 ```{r}

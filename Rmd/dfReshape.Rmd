@@ -137,4 +137,4 @@ all.equal(dfW, dfW2, check.attributes=FALSE)
 Useful packages
 -------------------------
 
-Package [`reshape2`](http://cran.r-project.org/package=reshape2) provides functions `melt()` and `cast()` for an integrated approach to reshaping data frames.
+Package [`tidyr`](http://cran.r-project.org/package=tidyr) provides functions `pivot_longer()` and `pivot_wider()` for an alternative approach to reshaping data frames that can be integrated into a [`dplyr`](https://dplyr.tidyverse.org/) based workflow.

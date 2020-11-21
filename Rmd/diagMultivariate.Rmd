@@ -17,12 +17,12 @@ knit_hooks$set(rgl=hook_rgl)
 TODO
 -------------------------
 
- - [`psych`](http://cran.r-project.org/package=psych) `cor.plot()`
+ - [`psych`](https://cran.r-project.org/package=psych) `cor.plot()`
 
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`ellipse`](http://cran.r-project.org/package=ellipse), [`lattice`](http://cran.r-project.org/package=lattice), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm), [`rgl`](http://cran.r-project.org/package=rgl)
+[`car`](https://cran.r-project.org/package=car), [`ellipse`](https://cran.r-project.org/package=ellipse), [`lattice`](https://cran.r-project.org/package=lattice), [`mvtnorm`](https://cran.r-project.org/package=mvtnorm), [`rgl`](https://cran.r-project.org/package=rgl)
 
 ```{r}
 wants <- c("car", "ellipse", "lattice", "mvtnorm", "rgl")
@@ -202,10 +202,11 @@ plotcorr(corMat, type="lower", diag=FALSE, main="Bivariate correlations")
 Useful packages
 -------------------------
 
- - See package [`tourr`](http://cran.r-project.org/package=tourr) for an alternative to visualizing high-dimensional data.
- - Packages [`ggplot2`](http://cran.r-project.org/package=ggplot2) and [`lattice`](http://cran.r-project.org/package=lattice) provide their own graphics system and many functions for multi-panel plots.
- - Packages [`rggobi`](http://cran.r-project.org/package=rggobi), and [`playwith`](http://cran.r-project.org/package=playwith) also create interactive diagrams.
- - Packages [`googleVis`](http://cran.r-project.org/package=googleVis), [`ggvis`](http://cran.r-project.org/package=ggvis), and [`rCharts`](http://rcharts.io/) create online interactive diagrams based on JavaScript libraries.
+ - Package [`ggplot2`](https://cran.r-project.org/package=ggplot2) provides its own graphics system and many functions for multi-panel plots.
+ - Packages [`googleVis`](https://cran.r-project.org/package=googleVis) and [`plotly`](https://CRAN.R-project.org/package=plotly) create online interactive diagrams based on JavaScript libraries.
+ - Package [`rayshader`](https://github.com/tylermorganwall/rayshader/) shows how to render advanced 3D scenes
+ - Package [`colorspace](http://colorspace.r-forge.r-project.org/) contains many useful functions to select and manipulate colors / color palettes
+ - Package [`imager`](https://CRAN.R-project.org/package=imager) can read bitmap images and has many functions for image analysis / manipulation
 
 Detach (automatically) loaded packages (if possible)
 -------------------------

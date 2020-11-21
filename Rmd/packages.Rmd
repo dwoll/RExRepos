@@ -18,7 +18,7 @@ TODO
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin)
+[`coin`](https://cran.r-project.org/package=coin)
 
 ```{r}
 wants <- c("coin")
@@ -29,8 +29,8 @@ if(any(!has)) install.packages(wants[!has])
 Useful online resources
 -------------------------
 
- * [Comprehensive R Archive Network (CRAN)](http://cran.r-project.org/web/packages/): These mirror servers are the primary hosts for contributed R add-on packages
- * [CRAN Task Views](http://cran.r-project.org/web/views/): An organized and maintained list of packages useful for a specific data analysis task (e.g., multivariate statistics or psychometric models)
+ * [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/web/packages/): These mirror servers are the primary hosts for contributed R add-on packages
+ * [CRAN Task Views](https://cran.r-project.org/web/views/): An organized and maintained list of packages useful for a specific data analysis task (e.g., multivariate statistics or psychometric models)
  * [BioConductor](http://www.bioconductor.org/): A host for add-on packages especially useful for genomic data analysis
  * [r4stats package overview](http://r4stats.com/articles/add-ons/): A list of popular R packages and how their functionality compares to SPSS/SAS
 
@@ -41,6 +41,7 @@ Install and update add-on packages
 
 ```{r}
 .libPaths()
+find.package("coin")
 ```
 
 ```{r eval=FALSE}
@@ -60,21 +61,22 @@ library()
 ### Install and remove add-on packages
 
 ```{r eval=FALSE}
-setRepositories("http://cran.ma.imperial.ac.uk/")
+setRepositories("https://cran.ma.imperial.ac.uk/")
 install.packages(c("coin", "car"))
-install.packages("coin", repos="http://cran.at.r-project.org/")
+install.packages("coin", repos="https://cran.at.r-project.org/")
 update.packages()
 # remove.packages("coin")
 # not shown
 ```
 
-See `install_github()` from package [`devtools`](http://cran.r-project.org/package=devtools) for installing from [GitHub](http://github.com/) repositories.
+See `install_github()` from package [`remotes`](https://cran.r-project.org/package=remotes) for installing from [GitHub](https://github.com/) repositories.
 
 ### Information provided by add-on packages
 
 ```{r eval=FALSE}
-help(package=coin)
+help(package="coin")
 vignette()
+vignette(package="coin")
 vignette("coin_implementation")
 # not shown (opens separate window)
 ```
@@ -93,13 +95,7 @@ library(coin)
 Get a return value `TRUE` or `FALSE` that indicates whether package could be loaded
 
 ```{r}
-library(coin, logical.return=TRUE)
-```
-
-`require()` gives a warning if the package cannot be found
-
-```{r warning=TRUE}
-require(doesNotExist)
+library(doesNotExist, logical.return=TRUE)
 ```
 
 Explicitly state which package a function is from - if multiple packages export a function with the same name.
@@ -118,7 +114,7 @@ search()
 ### Un-load a package
 
 ```{r eval=FALSE}
-detach(package:coin)
+detach(package:coin, unload=TRUE)
 ```
 
 Data sets from add-on packages
@@ -136,5 +132,4 @@ Detach (automatically) loaded packages (if possible)
 ```{r}
 try(detach(package:coin))
 try(detach(package:survival))
-try(detach(package:splines))
 ```

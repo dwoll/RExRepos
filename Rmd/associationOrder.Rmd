@@ -50,7 +50,7 @@ matOrd <- data.matrix(dfOrd)
 cTab <- xtabs(~ X1 + X3, data=dfOrd)
 addmargins(cTab)
 library(coin)
-lbl_test(cTab, distribution=approximate(B=9999))
+lbl_test(cTab, distribution=approximate(nresample=9999))
 ```
 
 Polychoric and polyserial correlation
@@ -118,17 +118,14 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
+try(detach(package:coin))
 try(detach(package:rms))
 try(detach(package:Hmisc))
-try(detach(package:grid))
 try(detach(package:lattice))
 try(detach(package:Formula))
-try(detach(package:SparseM))
+try(detach(package:survival))
+try(detach(package:ggplot2))
 try(detach(package:pROC))
 try(detach(package:polycor))
-try(detach(package:sfsmisc))
-try(detach(package:coin))
-try(detach(package:survival))
 try(detach(package:mvtnorm))
-try(detach(package:splines))
 ```

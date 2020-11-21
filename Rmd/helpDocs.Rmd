@@ -10,17 +10,6 @@ tags: [Help, Documentation]
 Getting help and documentation
 =========================
 
-Install required packages
--------------------------
-
-[`sos`](http://cran.r-project.org/package=sos)
-
-```{r}
-wants <- c("sos")
-has   <- wants %in% rownames(installed.packages())
-if(any(!has)) install.packages(wants[!has])
-```
-
 R's own help system
 -------------------------
 
@@ -50,35 +39,27 @@ help.search("mean")
 apropos("mean")
 ```
 
-```{r eval=FALSE}
-library(sos)                  # for findFn()
-findFn("Petal.Length")
-# not shown (opens browser window)
-```
-
 Online documentation
 -------------------------
 
 ### Search, mailing lists and Q&A sites
 
- * [R mailing lists](http://www.r-project.org/mail.html): Especially R-help, also see the [posting guide](http://www.r-project.org/posting-guide.html)
- * [R mailing list search and help pages](http://www.rdocumentation.org/)
- * [Stack Overflow: R](http://stackoverflow.com/tags/R) Q&A site - the technical side of using R
- * [CrossValidated: R](http://stats.stackexchange.com/tags/R) Q&A site - the statistical side of using R
+ * [R mailing lists](https://www.r-project.org/mail.html): Especially R-help, also see the [posting guide](https://www.r-project.org/posting-guide.html)
+ * [Stack Overflow: R](https://stackoverflow.com/tags/R) Q&A site - the technical side of using R
+ * [CrossValidated: R](https://stats.stackexchange.com/tags/R) Q&A site - the statistical side of using R
 
 ### Introductory websites and texts
 
- * [Quick-R](http://www.statmethods.net/)
+ * [Quick-R](https://www.statmethods.net/)
  * [Cookbook for R](http://www.cookbook-r.com/)
- * [Longhow Lam: Intro to R](http://www.splusbook.com/RIntro/RCourse.pdf) (pdf)
- * [UCLA data analysis examples](http://www.ats.ucla.edu/stat/dae/)
+ * [UCLA data analysis examples](https://stats.idre.ucla.edu/other/dae/)
 
 ### Official documentation
 
- * [R FAQ](http://cran.at.r-project.org/doc/FAQ/R-FAQ.html) (frequently asked questions)
- * [R for Windows FAQ](http://cran.at.r-project.org/bin/windows/base/rw-FAQ.html)
- * [R Installation and Administration](http://cran.at.r-project.org/doc/manuals/R-admin.html)
- * [R Data Import/Export](http://cran.at.r-project.org/doc/manuals/R-data.html)
+ * [R FAQ](https://cran.at.r-project.org/doc/FAQ/R-FAQ.html) (frequently asked questions)
+ * [R for Windows FAQ](https://cran.at.r-project.org/bin/windows/base/rw-FAQ.html)
+ * [R Installation and Administration](https://cran.at.r-project.org/doc/manuals/R-admin.html)
+ * [R Data Import/Export](https://cran.at.r-project.org/doc/manuals/R-data.html)
 
 Books
 -------------------------
@@ -88,23 +69,35 @@ Books
  * Dalgaard, P. (2008). Introductory Statistics with R (2nd ed.). London, UK: Springer. [URL](http://www.biostat.ku.dk/~pd/ISwR.html)
  * Maindonald, J. & Braun, W. J. (2010). Data Analysis and Graphics Using R: An Example-Based Approach (3rd ed.). Cambridge, UK: Cambridge University Press. [URL](http://maths.anu.edu.au/~johnm/r-book/daagur3.html)
  * Verzani. J. (2014). Using R for Introductory Statistics (2nd ed.). Boca Raton, FL: Chapman & Hall/CRC.
- * Wollschlaeger, D. (2012). Grundlagen der Datenanalyse mit R (2nd ed.). Berlin: Springer. [URL](http://www.dwoll.de/r/gddmr.php)
+ * Wollschlaeger, D. (2020). Grundlagen der Datenanalyse mit R (5th ed.). Berlin: Springer. [URL](http://www.dwoll.de/r/gddmr.php)
  
 ### Specialized and advanced statistical topics
 
- * Chihara, L. & Hesterberg, T. (2011). Mathematical Statistics with Resampling and R. Hoboken, NJ: Wiley. [URL](https://sites.google.com/site/chiharahesterberg/)
- * Galecki, A. T. & Burzykowski, T. (2013). Linear Mixed-Effects Models: A Step-by-Step
-Approach. New York, NY: Springer.
- * Everitt, B. S. & Hothorn, T. (2010). A Handbook of Statistical Analysis Using R (2nd ed.). Boca Raton, FL: Chapman & Hall/CRC.
- * Everitt, B. S. & Hothorn, T. (2011). An Introduction to Applied Multivariate Analysis with R. New York, NY: Springer.
- * Fox, J. & Weisberg, S. (2011). An R Companion to Applied Regression (2nd ed.). Thousand Oaks, CA: Sage. [URL](http://socserv.socsci.mcmaster.ca/jfox/Books/Companion/)
- * Harrell, F. (2015). Regression Modeling Strategies (2nd ed.). New York, NY: Springer. [URL](http://biostat.mc.vanderbilt.edu/wiki/Main/RmS)
- * Long, J. D. (2012). Longitudinal Data Analysis for the Behavioral Sciences Using R. Thousand
-Oaks, CA: Sage. URL [URL](http://www.sagepub.com/long/)
-* Pinheiro, J. C. & Bates, D. M. (2000). Mixed-Effects Models in S and S-PLUS. New York, NY: Springer.
- * Shumway, R. H. & Stoffer, D. S. (2011). Time Series Analysis and Its Applications (3rd ed.). New York, NY: Springer. [URL](http://www.stat.pitt.edu/stoffer/tsa3/)
- * Spector, P. (2008). Data Manipulation with R. New York, NY: Springer.
- * Venables, W. N. & Ripley, B. D. (2002). Modern Applied Statistics with S (4th ed.). New York, NY: Springer. [URL](http://www.stats.ox.ac.uk/pub/MASS4/)
+  * Regressions models
+      * Fox J, Weisberg S. 2019. An R Companion to Applied Regression (3rd ed). Thousand Oaks, CA: Sage. [URL](https://socialsciences.mcmaster.ca/jfox/Books/Companion/)
+      * Fox J. 2020. Regression diagnostics (2nd ed). [URL](https://socialsciences.mcmaster.ca/jfox/Books/RegressionDiagnostics/)
+	  * Harrell Jr FE. 2015. Regression Modeling Strategies (2nd ed). New York: Springer. [URL](http://biostat.mc.vanderbilt.edu/wiki/Main/RmS)
+  * Multivariate analysis
+      * Zelterman D. 2015. Applied multivariate statistics with R. New York, NY: Springer.
+  * Linear mixed models
+      * Galecki AT, Burzykowski T. 2013. Linear Mixed-Effects Models Using R: A Step-by-Step Approach. New York, NY: Springer.
+      * Pinheiro JC, Bates, DM. 2000. Mixed-Effects Models in S and S-PLUS. New York, NY: Springer.
+      * West BT, Welch, KB, Galecki AT. 2014. Linear mixed models: A practical guide using statistical software (2n ed). Boca Raton, FL: Chapman & Hall/CRC. [URL](http://www-personal.umich.edu/~bwest/almmussp.html)
+  * Resampling methods
+      * Chihara L, Hesterberg T. 2018. Mathematical Statistics with Resampling and R (2nd ed). Hoboken, NJ: Wiley. [URL](https://sites.google.com/site/chiharahesterberg/)
+  * Time series
+      * Shumway RH, Stoffer DS. 2016. Time series analysis and its applications (4th ed). New York, NY: Springer. [URL](https://www.stat.pitt.edu/stoffer/tsa4/)
+      * Shumway RH, Stoffer DS. 2019. Time Series: A Data Analysis Approach Using R. Boca Raton, FL: Chapman & Hall/CRC. [URL](https://www.stat.pitt.edu/stoffer/tsda/)
+      * Hyndman RJ, Athanasopoulos G. 2019. Forecasting: Principles and practice (2nd ed). Melbourne, Australia: OTexts. [URL](https://otexts.com/fpp2/)
+  * Bayes methods
+      * Kruschke JK. 2015. Doing Bayesian data analysis: A tutorial with R, JAGS, and Stan (2nd ed). Amsterdam: Academic Press. [URL](http://doingbayesiandataanalysis.blogspot.com/)
+      * McElreath R. 2020. Statistical rethinking: A Bayesian course with examples in R and Stan (2nd ed). Boca Raton, FL: Chapman & Hall/CRC. [URL](https://xcelab.net/rm/statistical-rethinking/)
+  * Spatial statistics
+      * Bivand RS, Pebesma E, Gómez-Rubio V. 2013. Applied spatial data analysis with R (2nd ed). New York, NY: Springer. [URL](https://asdar-book.org/)
+  * R for data science and machine learning:
+      * James G, Witten D, Hastie T, Tibshirani R. 2013. An introduction to statistical learning with applications in R. New York, NY: Springer. [URL](http://faculty.marshall.usc.edu/gareth-james/ISL/)
+	  * Kuhn M, Johnson K. 2013. Applied predictive modeling. New York, NY: Springer. [URL](http://appliedpredictivemodeling.com/)
+      * Wickham H, Grolemund G. 2017. R for data science. Sebastopol, CA: O’Reilly. [URL](https://r4ds.had.co.nz/)
 
 ### Diagrams
 
@@ -114,9 +107,10 @@ Oaks, CA: Sage. URL [URL](http://www.sagepub.com/long/)
 
 ### Programming with R
 
- * Chambers, J. M. (2008). Software for Data Analysis: Programming with R. New York, NY: Springer. [URL](http://stat.stanford.edu/~jmc4/Rbook/)
- * Ligges, U. (2014). Programmieren mit R (4. Aufl.). Berlin: Springer Spektrum. [URL](http://www.statistik.tu-dortmund.de/~ligges/PmitR/)
-* Wickham, H. (2014). Advanced R programming. Boca Raton, FL: Chapman & Hall/CRC. [URL](http://adv-r.had.co.nz/)
+  * Chambers JM. 2016. Extending R. Boca Raton, FL: Chapman & Hall/CRC.
+  * Gillespie C, Lovelace R. 2017. Efficient R programming. Sebastopol, CA: O’Reilly. [URL](https://csgillespie.github.io/efficientR/)
+  * Wickham H. 2019. Advanced R (2nd ed). Boca Raton, FL: Chapman & Hall/CRC. [URL](https://adv-r.hadley.nz/)
+  * Wickham H. 2015. R packages. Sebastopol, CA: O’Reilly. [URL](https://r-pkgs.org/)
  
 ### Transition from other statistical software packages
 
@@ -126,14 +120,12 @@ Oaks, CA: Sage. URL [URL](http://www.sagepub.com/long/)
 
 ### Dynamic documents and reproducible research
 
- * Gandrud, C. (2014). Reproducible research with R & RStudio. Boca Raton, FL: Chapman & Hall/CRC. [URL](http://christophergandrud.github.io/RepResR-RStudio/)
+  * Xie Y. 2015. Dynamic documents with R and knitr (2nd ed). Boca Raton, FL: Chapman & Hall/CRC.
+  * Xie Y, Dervieux C, Riederer E. 2020. R Markdown Cookbook. Boca Raton, FL: Chapman & Hall  CRC. [URL](https://bookdown.org/yihui/rmarkdown-cookbook/)
+  * Xie Y, Allaire JJ, Grolemund G. 2018. R markdown: The definitive guide. Boca Raton, FL: Chapman &  Hall/CRC. [URL](https://bookdown.org/yihui/rmarkdown/)
+ * Gandrud, C. (2020). Reproducible research with R & RStudio (3rd ed). Boca Raton, FL: Chapman & Hall/CRC. [URL](http://christophergandrud.github.io/RepResR-RStudio/)
  * Stodden, V., Leisch, F. & Peng, R. D. (2014). Implementing Reproducible Research. Boca Raton, FL: Chapman & Hall/CRC.
- * Xie, Y. (2013). Dynamic Documents with R and knitr. Boca Raton, FL: Chapman & Hall/CRC.
 
-Detach (automatically) loaded packages (if possible)
--------------------------
-
-```{r}
-try(detach(package:sos))
-try(detach(package:brew))
-```
+### Shiny for interactive Web-Apps:
+  * Sievert C. 2020. Interactive web-based data visualization with R, plotly, and shiny. Boca Raton, FL: Chapman & Hall/CRC. [URL](https://plotly-r.com/)
+  * Wickham H. 2020. Mastering shiny. Sebastopol, CA: O’Reilly. [URL](https://mastering-shiny.org/)

@@ -154,4 +154,4 @@ head(na.omit(myDfNA))
 Useful packages
 -------------------------
 
-Package [`dplyr`](http://cran.r-project.org/package=dplyr) provides very handy functions for the split-apply-combine approach to aggregating data frames. In order to work with data frames like with a database, use [`sqldf`](http://cran.r-project.org/package=sqldf). You can then use standard SQL commands to select data. [`data.table`](http://cran.r-project.org/package=data.table) provides an alternative (compatible) class of data frames with better performance for large amounts of data.
+Package [`dplyr`](https://dplyr.tidyverse.org/) provides very handy functions for the split-apply-combine approach to aggregating data frames. In order to work with data frames like with a database, use [`sqldf`](https://cran.r-project.org/package=sqldf). You can then use standard SQL commands to select data. [`data.table`](https://cran.r-project.org/package=data.table) provides an alternative (compatible) class of data frames with better performance for large amounts of data.

@@ -1,6 +1,6 @@
 ## currently configured for Windows 7
 ## make for Windows <http://gnuwin32.sourceforge.net/packages/make.htm>
-KNIT = Rscript ../dwKnit.r
+KNIT = Rscript ../dwKnit.R
 RMD_DIR = .
 
 POSTS_DIR = ../content/posts

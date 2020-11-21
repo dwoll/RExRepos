@@ -98,7 +98,7 @@ vss(X, n.obs=N, rotate="varimax")  # very simple structure
 Useful packages
 -------------------------
 
-For confirmatory factor analysis (CFA), see packages [`sem`](http://cran.r-project.org/package=sem), [`OpenMx`](http://openmx.psyc.virginia.edu/), and [`lavaan`](http://cran.r-project.org/package=lavaan) which implement structural equation models. More packages can be found in CRAN task view [Psychometric Models](http://cran.r-project.org/web/views/Psychometrics.html).
+For confirmatory factor analysis (CFA), see packages [`sem`](http://cran.r-project.org/package=sem), [`OpenMx`](https://openmx.ssri.psu.edu/), and [`lavaan`](http://cran.r-project.org/package=lavaan) which implement structural equation models. More packages can be found in CRAN task view [Psychometric Models](http://cran.r-project.org/web/views/Psychometrics.html).
 
 Detach (automatically) loaded packages (if possible)
 -------------------------

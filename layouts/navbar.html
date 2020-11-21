@@ -1,4 +1,4 @@
-<ul class="nav navbar-nav">
+<ul class="nav">
   <% @config[:rer][:rerCategs].each_with_index do |(categ, posts), index|
      unless index == @config[:rer][:rerCategs].size - 1 %>
   <li class="dropdown <% if @item[:rerCat] == categ.to_s %>active<% end %> ">

@@ -51,10 +51,11 @@ diff(range(c(17, 30, 30, 25, 23, 21)))
 ### Identify the minimum and maximum elements
 
 ```{r}
+which.min(age)
 which.max(age)
 ```
 
-Identify element closest to a value
+Identify element closest to a value (here: 0)
 
 ```{r}
 vec <- c(-5, -8, -2, 10, 9)
