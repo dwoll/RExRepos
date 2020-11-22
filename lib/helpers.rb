@@ -19,8 +19,8 @@ class DwPandoc < Nanoc::Filter
 
   def run(content, params={})
     templateFile = Dir.getwd + '/layouts/pandocTemplate.html'
-    PandocRuby.convert(content, {:from => :markdown, :to => :html},
-                       :no_wrap, :table_of_contents, :mathjax, :standalone,
+    PandocRuby.convert(content, {:from => :markdown, :to => :html, :wrap => :none},
+                       :table_of_contents, :mathjax, :standalone,
                        { "template" => templateFile })
   end
 end

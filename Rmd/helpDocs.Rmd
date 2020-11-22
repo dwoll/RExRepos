@@ -47,6 +47,7 @@ Online documentation
  * [R mailing lists](https://www.r-project.org/mail.html): Especially R-help, also see the [posting guide](https://www.r-project.org/posting-guide.html)
  * [Stack Overflow: R](https://stackoverflow.com/tags/R) Q&A site - the technical side of using R
  * [CrossValidated: R](https://stats.stackexchange.com/tags/R) Q&A site - the statistical side of using R
+ * [rdrr.io](https://rdrr.io/): Search R related content - packages / help files
 
 ### Introductory websites and texts
 
@@ -101,9 +102,11 @@ Books
 
 ### Diagrams
 
- * Murrell, P. (2011). R Graphics (2nd ed.). Boca Raton, FL: Chapman & Hall/CRC. [URL](http://www.stat.auckland.ac.nz/~paul/RG2e/)
- * Sarkar, D. (2008). Lattice: Multivariate Data Visualization with R. New York, NY: Springer. [URL](http://lmdvr.r-forge.r-project.org/)
- * Wickham, H. (2009). ggplot2: Elegant Graphics for Data Analysis. New York, NY: Springer. [URL](http://ggplot2.org/book/)
+ * Murrell, P. (2018). R Graphics (3rd ed.). Boca Raton, FL: Chapman & Hall/CRC. [URL](http://www.stat.auckland.ac.nz/~paul/RG3e/)
+ * Unwin, A. (2015). Graphical data analysis with R. Boca Raton, FL: Chapman & Hall/CRC. [URL](http://www.gradaanwr.net/)
+ * Wickham, H; Sievert C. (2016). ggplot2: Elegant Graphics for Data Analysis. New York, NY: Springer. [URL](https://ggplot2-book.org/)
+ * Chang, W. (2018).R Graphics Cookbook (2nd ed). Sebastopol, CA: O'Reilly. [URL](https://r-graphics.org/)
+ * Wilke, C. O. (2019). Fundamentals of data visualization. Sebastopol, CA: O’Reilly. [URL](https://serialmentor.com/dataviz/)
 
 ### Programming with R
 
@@ -116,7 +119,6 @@ Books
 
  * Muenchen, R. A. (2011). R for SAS and SPSS Users (2nd ed.). New York, NY: Springer. [URL](http://r4stats.com/)
  * Muenchen, R. A. & Hilbe, J. M. (2010). R for Stata Users. New York, NY: Springer. [URL](http://r4stats.com/)
- * [David Hiebeler: Matlab vs. R Reference](http://www.math.umaine.edu/~hiebeler/comp/matlabR.html)
 
 ### Dynamic documents and reproducible research
 

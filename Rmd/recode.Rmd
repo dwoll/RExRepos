@@ -1,7 +1,7 @@
 ---
-license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
 title: "Recode variables"
+author: "Daniel Wollschlaeger"
+license: Creative Commons BY-SA
 categories: [RBasics]
 rerCat: R_Basics
 tags: [RBasics]
@@ -21,7 +21,7 @@ Install required packages
 [`car`](http://cran.r-project.org/package=car), [`DescTools`](http://cran.r-project.org/package=DescTools)
 
 ```{r}
-wants <- c("car", "DescTools")
+wants <- c("dplyr", "forcats")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -45,15 +45,15 @@ farben
 replace(c(1, 2, 3, 4, 5), list=c(2, 4), values=c(200, 400))
 ```
 
-### Using `recode()` from package `car`
+### Using `recode()` from package `dplyr`
 
 ```{r}
-library(car)
-recode(myColors, "'red'='rot'; 'blue'='blau'; 'purple'='violett'")
+library(dplyr)
+recode(myColors, red="rot", blue="blau", purple="violett")
 ```
 
 ```{r}
-recode(myColors, "c('red', 'blue')='basic'; else='complex'")
+recode(myColors, red="basic", blue="basic", .default="complex")
 ```
 
 ### Using `ifelse()`
@@ -75,15 +75,21 @@ Cut continuous variables into categorical variables
 
 ### Free recoding of value ranges into categories
 
+Two intervals
+
 ```{r}
 set.seed(123)
 IQ <- rnorm(20, mean=100, sd=15)
 ifelse(IQ >= 100, "hi", "lo")
 ```
 
+Multiple intervals
+
 ```{r}
-library(car)
-recode(IQ, "0:100=1; 101:115=2; else=3")
+library(dplyr)
+case_when((IQ <= 100)              ~ 1,
+          (IQ > 100) & (IQ <= 115) ~ 2,
+          (IQ > 115)               ~ 3)
 ```
 
 ### Turn ordered value ranges into factor levels using `cut()`
@@ -106,6 +112,22 @@ summary(IQdiscr)
 Recode factors
 -------------------------
 
+### Change names of factor levels
+
+```{r}
+sex <- c(1, 0, 0, 1, 1, 1, 0, 0)
+(sexFac <- factor(sex, levels=0:1, labels=c("f", "m")))
+levels(sexFac) <- c("female", "male")
+sexFac
+```
+
+Using package `forcats`
+
+```{r}
+library(forcats)
+fct_recode(sexFac, "F"="female", "M"="male")
+```
+
 ### Add, combine and remove factor levels
 
 #### Add factor levels
@@ -119,6 +141,12 @@ status[4] <- "mid"
 status
 ```
 
+Using package `forcats`
+
+```{r}
+fct_expand(status, "new_level")
+```
+
 #### Combine factor levels
 
 ```{r}
@@ -127,9 +155,10 @@ levels(hiNotHi) <- list(hi="hi", notHi=c("mid", "lo"))
 hiNotHi
 ```
 
+Using package `forcats`
+
 ```{r}
-library(car)
-(statNew <- recode(status, "'hi'='high'; c('mid', 'lo')='notHigh'"))
+fct_collapse(status, notHi=c("mid", "lo"))
 ```
 
 #### Remove factor levels
@@ -139,14 +168,21 @@ status[1:2]
 (newStatus <- droplevels(status[1:2]))
 ```
 
+Using package `forcats`
+
+```{r}
+fct_drop(status[1:2], "mid")
+```
+
 ### Reorder factor levels
 
-#### Using `reorder.factor()` from package `DescTools`
+#### Using `fct_relevel()` from package `forcats`
 
 ```{r}
 (facGrp <- factor(rep(LETTERS[1:3], each=5)))
-library(DescTools)
-(facRe <- reorder.factor(facGrp, new.order=c("C", "B", "A")))
+library(forcats)
+fct_relevel(facGrp, "A", after=1)
+fct_relevel(fac1, "A", after=Inf)
 ```
 
 #### Reorder group levels according to group statistics
@@ -161,6 +197,6 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:car))
-try(detach(package:DescTools))
+try(detach(package:dplyr))
+try(detach(package:forcats))
 ```

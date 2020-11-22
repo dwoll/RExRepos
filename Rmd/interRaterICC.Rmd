@@ -13,7 +13,7 @@ Inter-rater-reliability and Intra-class-correlation
 Install required packages
 -------------------------
 
-[`DescTools`](http://cran.r-project.org/package=psych), [`irr`](http://cran.r-project.org/package=irr)
+[`DescTools`](http://cran.r-project.org/package=DescTools)
 
 ```{r}
 wants <- c("DescTools")
@@ -52,8 +52,9 @@ Agree(cbind(rtr1, rtr2, rtr3))
 ### Cohen's unweighted \(\kappa\) for two raters
 
 ```{r}
+cTab <- xtabs(~ rtr1 + rtr2)
 library(DescTools)
-CohenKappa(cbind(rtr1, rtr2), conf.conf.level=0.95)
+CohenKappa(cTab, conf.conf.level=0.95)
 ```
 
 ### Cohen's weighted \(\kappa\) for two raters
@@ -71,8 +72,9 @@ addmargins(cTab)
 ```
 
 ```{r}
+cTab <- xtabs(~ tv1 + tv2)
 library(DescTools)
-CohenKappa(cbind(tv1, tv2), weights="Equal-Spacing", conf.level=0.95)
+CohenKappa(cTab, weights="Equal-Spacing", conf.level=0.95)
 ```
 
 ### Fleiss' \(\kappa\) for two or more raters
@@ -90,13 +92,6 @@ ratings <- cbind(rtr1, rtr2, rtr3, rtr4, rtr5, rtr6)
 ```{r}
 library(DescTools)
 KappaM(ratings, conf.level=0.95)
-```
-
-### Krippendorff's \(\alpha\) for ordinal ratings and two or more raters
-
-```{r}
-library(DescTools)
-KrippAlpha(t(ratings), method="ordinal")
 ```
 
 ### Kendall's \(W\) for continuous ordinal ratings and two or more raters

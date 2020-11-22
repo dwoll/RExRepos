@@ -87,6 +87,12 @@ lDates + c(60, 120)
 lDates[1] + diff21
 ```
 
+```{r}
+round(lDates, units="days")
+trunc(lDates, units="years")
+```
+
+
 ### Systematically and randomly generate time-date values
 
 ```{r}
@@ -104,4 +110,4 @@ summary(randWeeks)
 Useful packages
 -------------------------
 
-Packages [`timeDate`](http://cran.r-project.org/package=timeDate) and [`lubridate`](http://cran.r-project.org/package=lubridate) provide more functions for efficiently and consistently handling times and dates. More packages can be found in CRAN task view [Time Series](http://cran.r-project.org/web/views/TimeSeries.html).
+Package [`lubridate`](http://cran.r-project.org/package=lubridate) provides many functions for efficiently and consistently handling times and dates. More packages can be found in CRAN task view [Time Series](http://cran.r-project.org/web/views/TimeSeries.html).

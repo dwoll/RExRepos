@@ -10,7 +10,7 @@ tags: [knitr, WordPress]
 Build websites with R and WordPress
 =========================
 
-**Note: The described setup was last tested on 02/2013 and may require changes to work with current versions of WordPress**
+**Note: The described setup was last tested in 2013 and probably requires changes to work with current versions of WordPress**
 
 Setup for WordPress
 -------------------------

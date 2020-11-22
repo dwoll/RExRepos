@@ -125,10 +125,10 @@ txt    <- c("abcDEFG", "ABCdefg", "abcdefg")
 ```
 
 ```{r}
-len <- attr(start, "match.length")
-end <- start + len - 1
-substring(txt, start, end)
+regmatches(txt, start)
 ```
+
+Create regular expression from wildcards (globbing)
 
 ```{r}
 glob2rx("asdf*.txt")
@@ -139,7 +139,8 @@ Replace substrings
 
 ```{r}
 charVec <- c("ABCDEF", "GHIJK", "LMNO", "PQR")
-substring(charVec, 4, 5) <- c("..", "xx", "++", "**"); charVec
+substring(charVec, 4, 5) <- c("..", "xx", "++", "**")
+charVec
 ```
 
 ```{r}

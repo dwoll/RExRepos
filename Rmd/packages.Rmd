@@ -32,6 +32,7 @@ Useful online resources
  * [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/web/packages/): These mirror servers are the primary hosts for contributed R add-on packages
  * [CRAN Task Views](https://cran.r-project.org/web/views/): An organized and maintained list of packages useful for a specific data analysis task (e.g., multivariate statistics or psychometric models)
  * [BioConductor](http://www.bioconductor.org/): A host for add-on packages especially useful for genomic data analysis
+ * [rdrr.io](https://rdrr.io/): Search R related content - packages / help files
  * [r4stats package overview](http://r4stats.com/articles/add-ons/): A list of popular R packages and how their functionality compares to SPSS/SAS
 
 Install and update add-on packages
@@ -49,8 +50,11 @@ installed.packages()
 # not shown (very long output)
 ```
 
+Show first 10 of all installed packages
+
 ```{r}
-rownames(installed.packages())
+all_pkgs <- rownames(installed.packages())
+head(all_pkgs, n=10)
 ```
 
 ```{r eval=FALSE}
@@ -86,7 +90,7 @@ Use add-on packages
 
 ### Load add-on package
 
-`library()` throws an error if the package cannot be found
+`library()` throws an error if the package cannot be found, unless option `logical.return=TRUE` is set.
 
 ```{r}
 library(coin)

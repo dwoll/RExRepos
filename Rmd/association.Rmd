@@ -161,6 +161,11 @@ library(coin)
 cmh_test(tab3, distribution=approximate(B=9999))
 ```
 
+Useful packages
+-------------------------
+
+Package [`riskyr`](https://CRAN.R-project.org/package=riskyr) provides many analysis methods for confusion tables, including sensitivity, specificity, relative risk, etc.
+
 Detach (automatically) loaded packages (if possible)
 -------------------------
 

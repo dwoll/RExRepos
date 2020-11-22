@@ -126,7 +126,7 @@ rer:
       association: "Association measures for unordered categorical variables"
       associationOrder: "Association measures for ordered categorical variables"
       interRaterICC: "Inter-rater-reliability and intra-class-correlation"
-      aggregate: "Aggregate data"
+      aggregate: "Aggregate vectors"
       missingData: "Deal with missing data"
     Data_Frames:
       dataFrames: "Create and analyze data frames"

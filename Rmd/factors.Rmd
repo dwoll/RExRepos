@@ -13,15 +13,15 @@ Factors: Representing categorical data
 TODO
 -------------------------
 
- - link to recode for changing factor levels and for transforming continuous variables into factors
+ - link to recode for transforming continuous variables into factors
 
 Install required packages
 -------------------------
 
-[`DescTools`](http://cran.r-project.org/package=DescTools)
+[`forcats`](http://cran.r-project.org/package=forcats)
 
 ```{r}
-wants <- c("DescTools")
+wants <- c("forcats")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -77,11 +77,9 @@ Joining factors
 ### Concatenating factors
 
 ```{r}
-(fac1 <- factor(sample(LETTERS, 5)))
-(fac2 <- factor(sample(letters, 3)))
-(charVec1 <- levels(fac1)[fac1])
-(charVec2 <- levels(fac2)[fac2])
-factor(c(charVec1, charVec2))
+(fac1 <- factor(sample(LETTERS[1:5], 4), levels=LETTERS[1:5]))
+(fac2 <- factor(sample(letters[1:5], 3), levels=letters[1:5]))
+fct_c(fac1, fac2)
 ```
 
 ### Repeating factors
@@ -121,11 +119,13 @@ Control the order of factor levels
 factor(chars, levels=c("C", "A", "B"))
 ```
 
-### Using `reorder.factor()` from package `DescTools`
+#### Using `fct_relevel()` from package `forcats`
 
 ```{r}
-library(DescTools)
-(facRe <- reorder.factor(fac1, new.order=c("C", "B", "A")))
+(facGrp <- factor(rep(LETTERS[1:3], each=5)))
+library(forcats)
+fct_relevel(facGrp, "A", after=1)
+fct_relevel(fac1, "A", after=Inf)
 ```
 
 ### Reorder group levels according to group statistics
@@ -144,9 +144,58 @@ sort(fac2)
 sort(as.character(fac2))
 ```
 
+Add, combine and remove factor levels
+-------------------------
+
+### Add factor levels
+
+```{r}
+(status <- factor(c("hi", "lo", "hi")))
+status[4] <- "mid"
+status
+levels(status) <- c(levels(status), "mid")
+status[4] <- "mid"
+status
+```
+
+Using package `forcats`
+
+```{r}
+library(forcats)
+fct_expand(status, "new_level")
+```
+
+### Combine factor levels
+
+```{r}
+hiNotHi <- status
+levels(hiNotHi) <- list(hi="hi", notHi=c("mid", "lo"))
+hiNotHi
+```
+
+Using package `forcats`
+
+```{r}
+fct_collapse(status, notHi=c("mid", "lo"))
+```
+
+### Remove factor levels
+
+```{r}
+status[1:2]
+(newStatus <- droplevels(status[1:2]))
+```
+
+Using package `forcats`
+
+```{r}
+fct_drop(status[1:2], "mid")
+```
+
+
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:DescTools))
+try(detach(package:forcats))
 ```
