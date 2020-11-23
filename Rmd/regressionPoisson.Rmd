@@ -20,7 +20,7 @@ opts_chunk$set(tidy=FALSE, message=FALSE, warning=FALSE, comment=NA)
 Install required packages
 -------------------------
 
-[`lmtest`](http://cran.r-project.org/package=lmtest), [`MASS`](http://cran.r-project.org/package=MASS), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm), [`pscl`](http://cran.r-project.org/package=pscl), [`sandwich`](http://cran.r-project.org/package=sandwich), [`VGAM`](http://cran.r-project.org/package=VGAM)
+[`lmtest`](https://cran.r-project.org/package=lmtest), [`MASS`](https://cran.r-project.org/package=MASS), [`mvtnorm`](https://cran.r-project.org/package=mvtnorm), [`pscl`](https://cran.r-project.org/package=pscl), [`sandwich`](https://cran.r-project.org/package=sandwich), [`VGAM`](https://cran.r-project.org/package=VGAM)
 
 ```{r}
 wants <- c("lmtest", "MASS", "mvtnorm", "pscl", "sandwich", "VGAM")
@@ -94,14 +94,6 @@ Same parameter estimates as in Poisson model, but different standard errors, hen
 ```{r}
 glmFitQP <- glm(Y ~ X1 + X2, family=quasipoisson(link="log"), data=dfCount)
 summary(glmFitQP)
-```
-
-Using `vglm()` from package `VGAM`
-
-```{r results='hide'}
-library(VGAM)
-vglm(Y ~ X1 + X2, family=quasipoissonff, data=dfCount)
-# not shown
 ```
 
 ### Heteroscedasticity consistent standard errors
@@ -199,7 +191,6 @@ try(detach(package:lmtest))
 try(detach(package:zoo))
 try(detach(package:pscl))
 try(detach(package:mvtnorm))
-try(detach(package:lattice))
 try(detach(package:splines))
 try(detach(package:stats4))
 try(detach(package:MASS))

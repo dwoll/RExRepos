@@ -18,7 +18,7 @@ TODO
 Install required packages
 -------------------------
 
-[`glmnet`](http://cran.r-project.org/package=glmnet), [`lmtest`](http://cran.r-project.org/package=lmtest), [`MASS`](http://cran.r-project.org/package=MASS), [`robustbase`](http://cran.r-project.org/package=robustbase), [`sandwich`](http://cran.r-project.org/package=sandwich)
+[`glmnet`](https://cran.r-project.org/package=glmnet), [`lmtest`](https://cran.r-project.org/package=lmtest), [`MASS`](https://cran.r-project.org/package=MASS), [`robustbase`](https://cran.r-project.org/package=robustbase), [`sandwich`](https://cran.r-project.org/package=sandwich)
 
 ```{r}
 wants <- c("glmnet", "lmtest", "MASS", "robustbase", "sandwich")
@@ -183,7 +183,7 @@ legend(x="bottomleft", legend=c("X1", "X2", "X3"), lwd=2,
 Further resources
 -------------------------
 
-More information can be found in CRAN task view [Robust Statistical Methods](http://cran.r-project.org/web/views/Robust.html).
+More information can be found in CRAN task view [Robust Statistical Methods](https://cran.r-project.org/web/views/Robust.html).
 
 Detach (automatically) loaded packages (if possible)
 -------------------------

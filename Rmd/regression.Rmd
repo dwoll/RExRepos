@@ -22,10 +22,10 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`leaps`](http://cran.r-project.org/package=leaps), [`lmtest`](http://cran.r-project.org/package=lmtest), [`sandwich`](http://cran.r-project.org/package=sandwich)
+[`car`](https://cran.r-project.org/package=car), [`leaps`](https://cran.r-project.org/package=leaps)
 
 ```{r}
-wants <- c("car", "leaps", "lmtest", "sandwich")
+wants <- c("car", "leaps")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -141,7 +141,7 @@ Xmat <- data.matrix(subset(longley, select=c("GNP", "Unemployed", "Population", 
 
 ```{r rerRegression03}
 plot(leapFits$size, leapFits$Cp, xlab="model size", pch=20, col="blue",
-     ylab="Mallows' Cp", main="Mallows' Cp agains model size")
+     ylab="Mallows' Cp", main="Mallows' Cp against model size")
 abline(a=0, b=1)
 ```
 
@@ -176,8 +176,6 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:leaps))
-try(detach(package:lmtest))
-try(detach(package:sandwich))
-try(detach(package:zoo))
 try(detach(package:car))
+try(detach(package:carData))
 ```

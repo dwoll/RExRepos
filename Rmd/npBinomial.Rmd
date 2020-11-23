@@ -13,7 +13,7 @@ Binomial test and chi^2-test for proportions
 Install required packages
 -------------------------
 
-[`DescTools`](http://cran.r-project.org/package=DescTools)
+[`DescTools`](https://cran.r-project.org/package=DescTools)
 
 ```{r}
 wants <- c("DescTools")
@@ -50,7 +50,7 @@ sum(dbinom(hits:N, N, p=pH0)) + sum(dbinom(0, N, p=pH0))
 
 ```{r}
 library(DescTools)
-BinomCI(tab[1], sum(tab), method="wilson")
+BinomCI(tab[1], sum(tab), method=c("wilson", "jeffreys"))
 ```
 
 \(\chi^{2}\)-test for proportions

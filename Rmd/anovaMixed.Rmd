@@ -19,7 +19,7 @@ TODO
 Install required packages
 -------------------------
 
-[`AICcmodavg`](http://cran.r-project.org/package=AICcmodavg), [`lme4`](http://cran.r-project.org/package=lme4), [`multcomp`](http://cran.r-project.org/package=multcomp), [`nlme`](http://cran.r-project.org/package=nlme), [`pbkrtest`](http://cran.r-project.org/package=pbkrtest)
+[`AICcmodavg`](https://cran.r-project.org/package=AICcmodavg), [`lme4`](https://cran.r-project.org/package=lme4), [`multcomp`](https://cran.r-project.org/package=multcomp), [`nlme`](https://cran.r-project.org/package=nlme), [`pbkrtest`](https://cran.r-project.org/package=pbkrtest)
 
 ```{r}
 wants <- c("AICcmodavg", "lme4", "multcomp", "nlme", "pbkrtest")
@@ -365,7 +365,7 @@ anova(lmer(Y ~ Xb1*Xb2*Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
 Further resources
 -------------------------
 
-For an alternative approach using generalized estimating equations (GEE), see package [`geepack`](http://cran.r-project.org/package=geepack).
+For an alternative approach using generalized estimating equations (GEE), see package [`geepack`](https://cran.r-project.org/package=geepack).
 
 Detach (automatically) loaded packages (if possible)
 -------------------------

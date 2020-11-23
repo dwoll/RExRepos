@@ -18,7 +18,7 @@ TODO
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin), [`e1071`](http://cran.r-project.org/package=e1071)
+[`coin`](https://cran.r-project.org/package=coin), [`e1071`](https://cran.r-project.org/package=e1071)
 
 ```{r}
 wants <- c("coin", "e1071")
@@ -117,7 +117,8 @@ tDepDf <- data.frame(DV=c(DVpre, DVpost),
 
 ```{r}
 library(coin)
-oneway_test(DV ~ IV | id, alternative="less", distribution=approximate(B=9999), data=tDepDf)
+oneway_test(DV ~ IV | id, alternative="less", distribution=approximate(nresample=9999),
+            data=tDepDf)
 ```
 
 ```{r}
@@ -165,7 +166,7 @@ agree12  <- sum(diag(table(DV1, DV2)))
 Useful packages
 -------------------------
 
-Packages [`resample`](http://cran.r-project.org/package=resample) and [`vegan`](http://cran.r-project.org/package=vegan) provide more ways to implement flexible permutation strategies for various designs.
+Packages [`resample`](https://cran.r-project.org/package=resample) and [`vegan`](https://cran.r-project.org/package=vegan) provide more ways to implement flexible permutation strategies for various designs.
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -174,5 +175,4 @@ Detach (automatically) loaded packages (if possible)
 try(detach(package:e1071))
 try(detach(package:coin))
 try(detach(package:survival))
-try(detach(package:splines))
 ```

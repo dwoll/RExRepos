@@ -18,7 +18,7 @@ TODO
 Install required packages
 -------------------------
 
-[`DescTools`](http://cran.r-project.org/package=DescTools), [`sets`](http://cran.r-project.org/package=sets)
+[`DescTools`](https://cran.r-project.org/package=DescTools), [`sets`](https://cran.r-project.org/package=sets)
 
 ```{r}
 wants <- c("DescTools", "sets")

@@ -13,7 +13,7 @@ Diagrams for categorical data
 Install required packages
 -------------------------
 
-[`plotrix`](http://cran.r-project.org/package=plotrix)
+[`plotrix`](https://cran.r-project.org/package=plotrix)
 
 ```{r}
 wants <- c("plotrix")
@@ -92,10 +92,10 @@ cTab   <- table(ageCls, pref, group)
 mosaicplot(cTab, cex.axis=1)
 ```
 
-Pie-charts
+Pie-chart
 -------------------------
 
-### 2-D pie-chart
+Think hard about better alternatives, maybe a bar chart.
 
 ```{r rerDiagCategorical06}
 dice <- sample(1:6, 100, replace=TRUE)
@@ -111,13 +111,6 @@ csAngles <- csAngles - angles/2
 textX    <- textRad * cos(csAngles)
 textY    <- textRad * sin(csAngles)
 text(x=textX, y=textY, labels=dTabFreq)
-```
-
-### 3-D pie-chart
-
-```{r rerDiagCategorical07}
-library(plotrix)
-pie3D(dTab, theta=pi/4, explode=0.1, labels=names(dTab))
 ```
 
 Conditional density plot
@@ -138,7 +131,7 @@ cdplot(Yfac ~ X, data=myDf)
 Useful packages
 -------------------------
 
-More plot types for categorical data are available in packages [`vcd`](http://cran.r-project.org/package=vcd) and [`vcdExtra`](http://cran.r-project.org/package=vcdExtra).
+More plot types for categorical data are available in packages [`vcd`](https://cran.r-project.org/package=vcd) and [`vcdExtra`](https://cran.r-project.org/package=vcdExtra).
 
 Detach (automatically) loaded packages (if possible)
 -------------------------

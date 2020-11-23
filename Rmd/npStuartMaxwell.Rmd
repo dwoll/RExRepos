@@ -13,7 +13,7 @@ Stuart-Maxwell-test for marginal homogeneity
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin)
+[`coin`](https://cran.r-project.org/package=coin)
 
 ```{r}
 wants <- c("coin")
@@ -34,7 +34,7 @@ addmargins(cTab)
 
 ```{r}
 library(coin)
-mh_test(cTab, distribution=approximate(B=9999))
+mh_test(cTab, distribution=approximate(nresample=9999))
 ```
 
 Detach (automatically) loaded packages (if possible)
@@ -43,5 +43,4 @@ Detach (automatically) loaded packages (if possible)
 ```{r}
 try(detach(package:coin))
 try(detach(package:survival))
-try(detach(package:splines))
 ```

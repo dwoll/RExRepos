@@ -19,10 +19,10 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`hexbin`](http://cran.r-project.org/package=hexbin)
+[`car`](https://cran.r-project.org/package=car), [`hexbin`](https://cran.r-project.org/package=hexbin), [`beeswarm`](https://cran.r-project.org/package=beeswarm)
 
 ```{r}
-wants <- c("car", "hexbin")
+wants <- c("car", "hexbin", "beeswarm")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -56,7 +56,7 @@ lines(density(x), lwd=2, col="blue")
 rug(jitter(x))
 ```
 
-To compare the histograms from two groups, see `histbackback()` from package [`Hmisc`](http://cran.r-project.org/package=Hmisc).
+To compare the histograms from two groups, see `histbackback()` from package [`Hmisc`](https://cran.r-project.org/package=Hmisc).
 
 Stem and leaf plot
 -------------------------
@@ -79,13 +79,18 @@ IV <- gl(P, Nj, labels=c("Control", "Group A", "Group B"))
 ```{r rerDiagDistributions04}
 boxplot(DV ~ IV, ylab="Score", col=c("red", "blue", "green"),
         main="Boxplot of scores in 3 groups")
-stripchart(DV ~ IV, pch=16, col="darkgray", vert=TRUE, add=TRUE)
+points(1:P, Mj, pch=16, cex=2)
 ```
 
 ```{r rerDiagDistributions05}
-xC <- DV[IV == "Control"]
-xA <- DV[IV == "Group A"]
-boxplot(xC, xA)
+DVrange <- round(range(DV), digits=-1)
+library(beeswarm)
+boxplot(DV ~ IV,
+        ylab="Score", col=c("red", "blue", "green"),
+        main="Boxplots und Scores in 3 Gruppen",
+        outline=FALSE, ylim=DVrange)
+
+beeswarm(DV ~ IV, add=TRUE, pch=16, col="#00000077")
 ```
 
 Dotchart
@@ -219,5 +224,7 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:car))
+try(detach(package:carData))
 try(detach(package:hexbin))
+try(detach(package:beeswarm))
 ```

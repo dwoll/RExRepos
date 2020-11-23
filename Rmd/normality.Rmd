@@ -13,10 +13,10 @@ Assess univariate and multivariate normality
 Install required packages
 -------------------------
 
-[`energy`](http://cran.r-project.org/package=energy), [`ICS`](http://cran.r-project.org/package=ICS), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm)
+[`DescTools`](https://cran.r-project.org/package=DescTools), [`MVN`](https://cran.r-project.org/package=MVN), [`mvtnorm`](https://cran.r-project.org/package=mvtnorm)
 
 ```{r}
-wants <- c("energy", "ICS", "mvtnorm")
+wants <- c("DescTools", "MVN", "mvtnorm")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -98,7 +98,7 @@ LillieTest(DV)
 
 Tests weaker null hypothesis (any distribution with the same probabilities for the given class intervals).
 
-Wrong: `pearson.test()` does not use grouped ML-estimate or maximum \(\chi^{2}\)-estimate
+**Cave: Strictly speaking, result is incorrect: `PearsonTest()` does not use grouped ML-estimate or maximum \(\chi^{2}\)-estimate of the mean and standard deviation.**
 
 ```{r}
 library(DescTools)
@@ -118,24 +118,17 @@ X <- rmvnorm(100, mu, Sigma)
 ```
 
 ```{r}
-library(energy)                    # for mvnorm.etest()
-mvnorm.etest(X)
+library(MVN)
+result <- mvn(X, mvnTest="energy")
+result$multivariateNormality
 ```
 
-### Kurtosis- and skew-test
-
-#### Kurtosis-test
+### Mardia skewness and kurtosis test
 
 ```{r}
-library(ICS)
-mvnorm.kur.test(X)
-```
-
-#### Skew-test
-```{r}
-library(ICS)
-X <- rmvnorm(100, c(2, 4, 5))
-mvnorm.skew.test(X)
+library(MVN)
+result <- mvn(X, mvnTest="mardia")
+result$multivariateNormality
 ```
 
 Detach (automatically) loaded packages (if possible)
@@ -143,9 +136,6 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:DescTools))
-try(detach(package:energy))
-try(detach(package:ICS))
+try(detach(package:MVN))
 try(detach(package:mvtnorm))
-try(detach(package:survey))
-try(detach(package:CompQuadForm))
 ```

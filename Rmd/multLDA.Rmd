@@ -18,7 +18,7 @@ TODO
 Install required packages
 -------------------------
 
-[`mvtnorm`](http://cran.r-project.org/package=mvtnorm), [`MASS`](http://cran.r-project.org/package=MASS)
+[`mvtnorm`](https://cran.r-project.org/package=mvtnorm), [`MASS`](https://cran.r-project.org/package=MASS)
 
 ```{r}
 wants <- c("mvtnorm", "MASS")

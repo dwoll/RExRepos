@@ -13,7 +13,7 @@ Exploratory factor analysis for ordinal categorical data
 Install required packages
 -------------------------
 
-[`GPArotation`](http://cran.r-project.org/package=GPArotation), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm), [`polycor`](http://cran.r-project.org/package=polycor), [`psych`](http://cran.r-project.org/package=psych)
+[`GPArotation`](https://cran.r-project.org/package=GPArotation), [`mvtnorm`](https://cran.r-project.org/package=mvtnorm), [`polycor`](https://cran.r-project.org/package=polycor), [`psych`](https://cran.r-project.org/package=psych)
 
 ```{r}
 wants <- c("GPArotation", "mvtnorm", "polycor", "psych")
@@ -92,7 +92,7 @@ faPCdirect$fa$loadings         # loadings are the same as above ...
 Factor scores
 -------------------------
 
-For factor scores, look at package `ltm` which has a `factor.scores()` function specifically for polytomous outcome data. An example is provided on [this page](http://eur.academia.edu/DimitrisRizopoulos/Teaching) -> "Factor Scores - Ability Estimates".
+For factor scores, look at package `ltm` which has a `factor.scores()` function specifically for polytomous outcome data. An example is provided on [this page](https://github.com/drizopoulos/ltm/blob/master/Examples/Scoring.R).
 
 Visualize loadings
 -------------------------
@@ -122,10 +122,8 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:GPArotation))
 try(detach(package:psych))
 try(detach(package:polycor))
-try(detach(package:sfsmisc))
 try(detach(package:mvtnorm))
 ```
 

@@ -18,10 +18,10 @@ TODO
 Install required packages
 -------------------------
 
-[`mlogit`](http://cran.r-project.org/package=mlogit), [`nnet`](http://cran.r-project.org/package=nnet), [`VGAM`](http://cran.r-project.org/package=VGAM)
+[`mlogit`](https://cran.r-project.org/package=mlogit), [`nnet`](https://cran.r-project.org/package=nnet), [`VGAM`](https://cran.r-project.org/package=VGAM), [`DescTools`](https://cran.r-project.org/package=DescTools)
 
 ```{r}
-wants <- c("mlogit", "nnet", "VGAM")
+wants <- c("mlogit", "nnet", "VGAM", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -38,7 +38,7 @@ X1     <- rnorm(N, 175, 7)
 X2     <- rnorm(N,  30, 8)
 Ycont  <- 0.5*X1 - 0.3*X2 + 10 + rnorm(N, 0, 6)
 Ycateg <- cut(Ycont, breaks=quantile(Ycont), include.lowest=TRUE,
-              labels=c("--", "-", "+", "++"), ordered=FALSE)
+              labels=c("1", "2", "3", "4"), ordered=FALSE)
 dfMN   <- data.frame(X1, X2, Ycateg)
 ```
 
@@ -48,7 +48,8 @@ Estimator based on likelihood-inference
 
 ```{r}
 library(VGAM)
-vglmFitMN <- vglm(Ycateg ~ X1 + X2, family=multinomial(refLevel=1), data=dfMN)
+vglmFitMN <- vglm(Ycateg ~ X1 + X2, family=multinomial(refLevel=1),
+                  model=TRUE, data=dfMN)
 ```
 
 Odds ratios
@@ -74,7 +75,7 @@ Uses person-choice (long) format, so data frame has to be reshaped with `mlogit.
 ```{r results='hide'}
 library(mlogit)
 dfMNL <- mlogit.data(dfMN, choice="Ycateg", shape="wide", varying=NULL)
-(mlogitFit <- mlogit(Ycateg ~ 0 | X1 + X2, reflevel="--", data=dfMNL))
+(mlogitFit <- mlogit(Ycateg ~ 0 | X1 + X2, reflevel="1", data=dfMNL))
 # not shown
 ```
 
@@ -134,30 +135,9 @@ VGAM::AIC(vglmFitMN)
 
 ### McFadden, Cox & Snell and Nagelkerke pseudo \(R^{2}\)
 
-Log-likelihoods for full model and 0-model without predictors X1, X2
-
 ```{r}
-vglm0 <- vglm(Ycateg ~ 1, family=multinomial(refLevel=1), data=dfMN)
-LLf   <- VGAM::logLik(vglmFitMN)
-LL0   <- VGAM::logLik(vglm0)
-```
-
-McFadden pseudo-\(R^2\)
-
-```{r}
-as.vector(1 - (LLf / LL0))
-```
-
-Cox & Snell
-
-```{r}
-as.vector(1 - exp((2/N) * (LL0 - LLf)))
-```
-
-Nagelkerke
-
-```{r}
-as.vector((1 - exp((2/N) * (LL0 - LLf))) / (1 - exp(LL0)^(2/N)))
+library(DescTools)
+PseudoR2(vglmFitMN, which=c("McFadden", "CoxSnell", "Nagelkerke"))
 ```
 
 Apply regression model to new data
@@ -171,8 +151,8 @@ Apply regression model to new data
 Nnew  <- 3
 dfNew <- data.frame(X1=rnorm(Nnew, 175, 7),
                     X2=rnorm(Nnew,  30, 8),
-                    Ycateg=factor(sample(c("--", "-", "+", "++"), Nnew, TRUE),
-                                  levels=c("--", "-", "+", "++")))
+                    Ycateg=factor(sample(c("1", "2", "3", "4"), Nnew, TRUE),
+                                  levels=c("1", "2", "3", "4")))
 ```
 
 ### Predicted class probabilities
@@ -201,11 +181,10 @@ sumMN   <- VGAM::summary(vglmFitMN)
 (coefMN <- VGAM::coef(sumMN))
 ```
 
-Approximative Wald-based confidence intervals
+Profile likelihood based confidence intervals
 
 ```{r}
-zCrit   <- qnorm(c(0.05/2, 1 - 0.05/2))
-(ciCoef <- t(apply(coefMN, 1, function(x) x["Estimate"] - zCrit*x["Std. Error"] )))
+confint(vglmFitMN, method="profile")
 ```
 
 Tests for other models.
@@ -220,17 +199,15 @@ summary(mlogitFit)
 
 Likelihood-ratio-test for predictor `X2`
 
-We need to specify `VGAM::lrtest()` here because after attaching package `mlogit` above, there is another function present with the same name.
-
 ```{r}
 vglmFitR <- vglm(Ycateg ~ X1, family=multinomial(refLevel=1), data=dfMN)
-VGAM::lrtest(vglmFitMN, vglmFitR)
+anova(vglmFitMN, vglmFitR, type="I")
 ```
 
 Likelihood-ratio-test for the full model against the 0-model without predictors (just intercept)
 
 ```{r}
-VGAM::lrtest(vglmFitMN, vglm0)
+anova(vglmFitMN, vglm0, type="I")
 ```
 
 Detach (automatically) loaded packages (if possible)
@@ -238,11 +215,10 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:mlogit))
-try(detach(package:Formula))
-try(detach(package:maxLik))
-try(detach(package:miscTools))
 try(detach(package:nnet))
 try(detach(package:VGAM))
 try(detach(package:splines))
 try(detach(package:stats4))
+try(detach(package:dfidx))
+try(detach(package:DescTools))
 ```

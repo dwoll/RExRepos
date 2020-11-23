@@ -13,7 +13,7 @@ Data import and export
 Install required packages
 -------------------------
 
-[`foreign`](https://cran.r-project.org/package=foreign), [`RSQLite`](http://cran.r-project.org/package=RSQLite)
+[`foreign`](https://cran.r-project.org/package=foreign), [`RSQLite`](https://cran.r-project.org/package=RSQLite)
 
 ```{r}
 wants <- c("foreign", "RSQLite")
@@ -181,7 +181,7 @@ END PROGRAM.
 
 One option is to use text files (tab-separated or comma-separated) as described above to exchange data with spreadsheet applications.
 
-To read and write Excel files directly, use package [`XLConnect`](http://cran.r-project.org/package=XLConnect).
+To read and write Excel files directly, use package [`XLConnect`](https://cran.r-project.org/package=XLConnect).
 
 Read and write data from a database
 -------------------------
@@ -267,7 +267,7 @@ dbDisconnect(con)
 Useful documents
 -------------------------
 
- * [R Data Import/Export](http://cran.at.r-project.org/doc/manuals/R-data.html)
+ * [R Data Import/Export](https://cran.at.r-project.org/doc/manuals/R-data.html)
  * Muenchen, R. A. (2011). R for SAS and SPSS Users (2nd ed.). New York, NY: Springer. [URL](http://r4stats.com/)
  * Muenchen, R. A. & Hilbe, J. M. (2010). R for Stata Users. New York, NY: Springer. [URL](http://r4stats.com/)
 

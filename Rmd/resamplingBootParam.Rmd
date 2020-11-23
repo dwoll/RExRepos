@@ -1,0 +1,156 @@
+---
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
+title: "Parametric bootstrapping"
+categories: [Nonparametric, Resampling]
+rerCat: Nonparametric
+tags: [Bootstrapping]
+---
+
+Bootstrapping
+=========================
+
+TODO
+-------------------------
+
+ - link to resamplingBootALM
+
+Install required packages
+-------------------------
+
+[`boot`](https://cran.r-project.org/package=boot), [`mvtnorm`](https://cran.r-project.org/package=mvtnorm)
+
+```{r}
+wants <- c("boot", "mvtnorm")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Two-sample difference in means
+-------------------------
+
+```{r}
+n1  <- 18
+n2  <- 21
+DVm <- rnorm(n1, 180, 10)
+DVf <- rnorm(n2, 175, 6)
+tDf <- stack(list(m=DVm, f=DVf))
+```
+
+Function that simulates random outcome values according to parametric model based on original data set and maximum likelihood estimate of parameter values (mean, uncorrected standard deviation). Will be used as an argument to `boot()`.
+
+```{r}
+rGenMD <- function(dat, fm) {
+    out <- dat
+    out$values <- fm$M + rnorm(length(fm$M), mean=0, sd=fm$SD)
+    return(out)
+}
+```
+
+Function that returns uncorrected variance of a vector.
+
+```{r}
+getSDML <- function(x) {
+    c(sqrt(cov.wt(as.matrix(x), method="ML")$cov))
+}
+```
+
+Replace original data by group means and standard deviations as maximum likelihood parameter estimates. Will be used as an argument to `boot()`.
+
+```{r}
+MSD <- list( M=ave(tDf$values, tDf$ind, FUN=mean),
+            SD=ave(tDf$values, tDf$ind, FUN=getSDML))
+```
+
+Function that returns the difference in means (test statistic) for one bootstrap replication. Will be used as an argument to `boot()`.
+
+```{r}
+getMD <- function(dat) {
+    Mfm <- aggregate(values ~ ind, data=dat, FUN=mean)
+    -diff(Mfm$values)
+}
+```
+
+Run parametric bootstrapping.
+
+```{r}
+library(boot)
+nR   <- 999
+bsMD <- boot(tDf, statistic=getMD, R=nR,
+             sim="parametric", mle=MSD, ran.gen=rGenMD)
+
+boot.ci(bsMD, conf=0.95, type="basic")$basic
+```
+
+Compare to parametric confidence interval from t-test.
+
+```{r}
+tt <- t.test(values ~ ind, alt="two.sided", var.equal=FALSE, data=tDf)
+tt$conf.int
+```
+
+Poisson regression
+-------------------------
+
+```{r}
+library(mvtnorm)
+N     <- 200
+sigma <- matrix(c(4,2,-3, 2,16,-1, -3,-1,8), byrow=TRUE, ncol=3)
+mu    <- c(-3, 2, 4)
+XY    <- rmvnorm(N, mean=mu, sigma=sigma)
+Y     <- round(XY[ , 3] - 1.5)
+Y[Y < 0] <- 0
+dfCount <- data.frame(X1=XY[ , 1], X2=XY[ , 2], Y)
+```
+
+Fit Poisson regression model - will be used as maximum likelihood estimate in `boot()`.
+
+```{r}
+glmFitP <- glm(Y ~ X1 + X2, family=poisson(link="log"), data=dfCount)
+```
+
+Function that simulates random outcome values according to parametric model based on original data set and maximum likelihood estimate of parameter values. Will be used as an argument to `boot()`.
+
+```{r}
+rGenPois <- function(dat, mle) {
+    out   <- dat
+    out$Y <- simulate(mle)[[1]]
+    return(out)
+}
+```
+
+Function that returns maximum likelihood estimates of parameter values.
+
+```{r}
+getPois <- function(dat) {
+    glmFit <- glm(Y ~ X1 + X2, family=poisson(link="log"), data=dat)
+    coef(glmFit)
+}
+```
+
+Run parametric bootstrapping.
+
+```{r}
+library(boot)
+nR <- 999
+bsPois <- boot(dfCount, statistic=getPois, R=nR,
+               sim="parametric", mle=glmFitP, ran.gen=rGenPois)
+
+boot.ci(bsPois, conf=0.95, type="basic", index=1)$basic
+boot.ci(bsPois, conf=0.95, type="basic", index=2)$basic
+boot.ci(bsPois, conf=0.95, type="basic", index=3)$basic
+```
+
+Compare to parametric confidence intervals.
+
+```{r}
+confint(glmFitP)
+```
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:boot))
+try(detach(package:mvtnorm))
+```

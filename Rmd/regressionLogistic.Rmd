@@ -18,10 +18,10 @@ TODO
 Install required packages
 -------------------------
 
-[`rms`](http://cran.r-project.org/package=rms)
+[`rms`](https://cran.r-project.org/package=rms), [`DescTools`](https://cran.r-project.org/package=DescTools)
 
 ```{r}
-wants <- c("rms")
+wants <- c("rms", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -151,31 +151,9 @@ For plotting the ROC-curve, see `pROC` in associationOrder
 
 ### McFadden, Cox & Snell and Nagelkerke pseudo \(R^{2}\)
 
-Log-likelihoods for full model and 0-model without predictors X1, X2
-
 ```{r}
-N    <- nobs(glmFit)
-glm0 <- update(glmFit, . ~ 1)
-LLf  <- logLik(glmFit)
-LL0  <- logLik(glm0)
-```
-
-McFadden pseudo-\(R^2\)
-
-```{r}
-as.vector(1 - (LLf / LL0))
-```
-
-Cox & Snell
-
-```{r}
-as.vector(1 - exp((2/N) * (LL0 - LLf)))
-```
-
-Nagelkerke
-
-```{r}
-as.vector((1 - exp((2/N) * (LL0 - LLf))) / (1 - exp(LL0)^(2/N)))
+library(DescTools)
+PseudoR2(glmFit, which=c("McFadden", "Nagelkerke", "CoxSnell"))
 ```
 
 ### Crossvalidation
@@ -207,6 +185,7 @@ Or see `lrm()` above
 ### Model comparisons - likelihood-ratio tests
 
 ```{r}
+glm0 <- glm(postFac ~ 1, family=binomial(link="logit"), data=dfAncova)
 anova(glm0, glmFit, test="Chisq")
 ```
 
@@ -232,7 +211,7 @@ anova(glm0, glmPre, test="Chisq")
 Further resources
 -------------------------
 
-For penalized logistic regression, see packages [`logistf`](http://cran.r-project.org/package=logistf) (using Firth's penalized likelihood) and [`glmnet`](http://cran.r-project.org/package=glmnet). An example using `glmnet` for linear regression is in regressionRobPen.
+For penalized logistic regression, see packages [`logistf`](https://cran.r-project.org/package=logistf) (using Firth's penalized likelihood) and [`glmnet`](https://cran.r-project.org/package=glmnet). An example using `glmnet` for linear regression is in regressionRobPen.
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -240,9 +219,9 @@ Detach (automatically) loaded packages (if possible)
 ```{r}
 try(detach(package:rms))
 try(detach(package:Hmisc))
-try(detach(package:grid))
 try(detach(package:lattice))
 try(detach(package:survival))
-try(detach(package:splines))
 try(detach(package:Formula))
+try(detach(package:ggplot2))
+try(detach(package:DescTools))
 ```

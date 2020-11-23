@@ -13,10 +13,10 @@
 ##   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
 ##   because “*” matches zero or more characters.
 
-route '/assets/fonts/*/' do
-  # /fonts/foo-eot/ -> /fonts/foo.eot
-  '/content' + item.identifier.sub(/-[^-]*\/$/, '.') + item[:extension]
-end
+# route '/assets/fonts/*/' do
+#   # /fonts/foo-eot/ -> /fonts/foo.eot
+#   '/content' + item.identifier.sub(/-[^-]*\/$/, '.') + item[:extension]
+# end
 
 preprocess do
 #  ## helper: copy all static assets (css, images) to output directory

@@ -18,7 +18,7 @@ TODO
 Install required packages
 -------------------------
 
-[`e1071`](http://cran.r-project.org/package=e1071), [`permute`](http://cran.r-project.org/package=permute)
+[`e1071`](https://cran.r-project.org/package=e1071), [`permute`](https://cran.r-project.org/package=permute)
 
 ```{r}
 wants <- c("e1071", "permute")

@@ -19,7 +19,7 @@ TODO
 Install required packages
 -------------------------
 
-[`boot`](http://cran.r-project.org/package=boot)
+[`boot`](https://cran.r-project.org/package=boot)
 
 ```{r}
 wants <- c("boot")

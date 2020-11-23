@@ -18,7 +18,7 @@ TODO
 Install required packages
 -------------------------
 
-[`DescTools`](http://cran.r-project.org/package=DescTools), [`robustbase`](http://cran.r-project.org/package=robustbase)
+[`DescTools`](https://cran.r-project.org/package=DescTools), [`robustbase`](https://cran.r-project.org/package=robustbase)
 
 ```{r}
 wants <- c("DescTools", "robustbase")

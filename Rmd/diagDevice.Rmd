@@ -10,23 +10,24 @@ tags: [Diagrams]
 Graphics devices: Opening and saving diagrams
 =========================
 
-TODO
--------------------------
-
- - add regions and margins
- - more device types and options
- - pdf: multiple pages
-
 Install required packages
 -------------------------
 
-[`Cairo`](http://cran.r-project.org/package=Cairo)
+[`Cairo`](https://cran.r-project.org/package=Cairo)
 
 ```{r}
 wants <- c("Cairo")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
+
+Device margins
+-------------------------
+
+![Device margins](http://www.dwoll.de/rexrepos/content/assets/img/dev_margins.svg)
+
+See also the [RStudio cheat sheet: How big is your graph?](https://www.rstudio.com/resources/cheatsheets/)
+
 
 Opening and closing a device
 -------------------------

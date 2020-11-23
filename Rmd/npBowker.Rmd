@@ -13,7 +13,7 @@ Bowker-test
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin)
+[`coin`](https://cran.r-project.org/package=coin)
 
 ```{r}
 wants <- c("coin")
@@ -44,7 +44,7 @@ mcnemar.test(cTab)
 
 ```{r}
 library(coin)
-symmetry_test(cTab, teststat="quad", distribution=approximate(B=9999))
+symmetry_test(cTab, teststat="quad", distribution=approximate(nresample=9999))
 ```
 
 Detach (automatically) loaded packages (if possible)
@@ -53,5 +53,4 @@ Detach (automatically) loaded packages (if possible)
 ```{r}
 try(detach(package:coin))
 try(detach(package:survival))
-try(detach(package:splines))
 ```

@@ -13,7 +13,7 @@ Multidimensional scaling (MDS)
 Install required packages
 -------------------------
 
-[`vegan`](http://cran.r-project.org/package=vegan)
+[`vegan`](https://cran.r-project.org/package=vegan)
 
 ```{r}
 wants <- c("vegan")

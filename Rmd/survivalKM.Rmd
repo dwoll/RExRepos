@@ -18,7 +18,7 @@ TODO
 Install required packages
 -------------------------
 
-[`survival`](http://cran.r-project.org/package=survival)
+[`survival`](https://cran.r-project.org/package=survival)
 
 ```{r}
 wants <- c("survival")
@@ -88,16 +88,24 @@ $$
 ```{r}
 library(survival)                # for Surv(), survfit()
 ## global estimate
-KM0 <- survfit(Surv(obsT, status) ~ 1,  type="kaplan-meier", conf.type="log", data=dfSurv)
+KM0 <- survfit(Surv(obsT, status) ~ 1,  type="kaplan-meier",
+               conf.type="log", data=dfSurv)
 
 ## separate estimate for all strata
-(KM <- survfit(Surv(obsT, status) ~ IV, type="kaplan-meier", conf.type="log", data=dfSurv))
+(KM <- survfit(Surv(obsT, status) ~ IV, type="kaplan-meier",
+               conf.type="log", data=dfSurv))
 ```
 
 Arbitrary quantiles for estimated survival function.
 
 ```{r}
-quantile(KM0, probs=c(0.25, 0.5, 0.75), conf.int=FALSE)
+quantile(KM0, probs=c(0.25, 0.5, 0.75), conf.int=TRUE)
+```
+
+Estimated mean survival time
+
+```{r}
+print(KM0, print.rmean=TRUE)
 ```
 
 50-day and 100-day survival including point-wise confidence interval.
@@ -171,5 +179,4 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:survival))
-try(detach(package:splines))
 ```

@@ -23,7 +23,7 @@ For blogging from R to WP, I recommend:
  - [MathJax](http://wordpress.org/extend/plugins/mathjax-latex/) plugin for WordPress for nice math rendering using \(\LaTeX\) syntax
  - [`RWordPress`](http://www.omegahat.org/RWordPress/) R package for uploading posts from R to WP
 
-You will need to build `RWordPress` yourself, even on Windows. `RWordPress` depends on the packages `RCurl`, `XML`, and `XMLRPC`. Note that `XMLRPC` is available from the [BioConductor](http://bioconductor.org/packages/release/extra/html/XMLRPC.html) repository. On Linux, all build tools should already be installed, on Windows, download `Rtools<version>.exe` and follow the instructions from [Building R for Windows](http://cran.r-project.org/bin/windows/Rtools/). Then build and install `RWordPress`:
+You will need to build `RWordPress` yourself, even on Windows. `RWordPress` depends on the packages `RCurl`, `XML`, and `XMLRPC`. Note that `XMLRPC` is available from the [BioConductor](http://bioconductor.org/packages/release/extra/html/XMLRPC.html) repository. On Linux, all build tools should already be installed, on Windows, download `Rtools<version>.exe` and follow the instructions from [Building R for Windows](https://cran.r-project.org/bin/windows/Rtools/). Then build and install `RWordPress`:
 
 ```{r eval=FALSE}
 install.packages("RWordPress", repos="http://www.omegahat.org/R", build=TRUE)

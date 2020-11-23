@@ -18,7 +18,7 @@ TODO
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm), [`polycor`](http://cran.r-project.org/package=polycor), [`pROC`](http://cran.r-project.org/package=pROC), [`rms`](http://cran.r-project.org/package=rms)
+[`coin`](https://cran.r-project.org/package=coin), [`mvtnorm`](https://cran.r-project.org/package=mvtnorm), [`polycor`](https://cran.r-project.org/package=polycor), [`pROC`](https://cran.r-project.org/package=pROC), [`rms`](https://cran.r-project.org/package=rms)
 
 ```{r}
 wants <- c("coin", "mvtnorm", "polycor", "pROC", "rms")

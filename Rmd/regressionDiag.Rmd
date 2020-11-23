@@ -24,7 +24,7 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`lmtest`](http://cran.r-project.org/package=lmtest), [`mvoutlier`](http://cran.r-project.org/package=mvoutlier), [`perturb`](http://cran.r-project.org/package=perturb), [`robustbase`](http://cran.r-project.org/package=robustbase), [`tseries`](http://cran.r-project.org/package=tseries)
+[`car`](https://cran.r-project.org/package=car), [`lmtest`](https://cran.r-project.org/package=lmtest), [`mvoutlier`](https://cran.r-project.org/package=mvoutlier), [`perturb`](https://cran.r-project.org/package=perturb), [`robustbase`](https://cran.r-project.org/package=robustbase), [`tseries`](https://cran.r-project.org/package=tseries)
 
 ```{r}
 wants <- c("car", "lmtest", "mvoutlier", "perturb", "robustbase", "tseries")
@@ -211,13 +211,13 @@ kappa(fitScl, exact=TRUE)
 
 ```{r}
 library(perturb)
-colldiag(fit, scale=TRUE, center=FALSE)
+colldiag(fit, scale=TRUE, center=TRUE)
 ```
 
 ### Using package `perturb`
 
 ```{r}
-pRes <- with(dfRegr, perturb(fit, pvars=c("X1", "X2", "X3"), prange=c(1, 1, 1)))
+pRes <- perturb(fit, pvars=c("X1", "X2", "X3"), prange=c(1, 1, 1))
 summary(pRes)
 ```
 
@@ -233,4 +233,5 @@ try(detach(package:mvoutlier))
 try(detach(package:robustbase))
 try(detach(package:sgeostat))
 try(detach(package:car))
+try(detach(package:carData))
 ```

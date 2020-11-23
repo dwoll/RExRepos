@@ -13,7 +13,7 @@ Nonparametric location tests for one and two samples
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin), [`DescTools`](http://cran.r-project.org/package=DescTools)
+[`coin`](https://cran.r-project.org/package=coin), [`DescTools`](https://cran.r-project.org/package=DescTools)
 
 ```{r}
 wants <- c("coin", "DescTools")
@@ -80,6 +80,22 @@ wilcox_test(DV ~ IV, alternative="less", conf.int=TRUE,
             distribution="exact", data=wIndDf)
 ```
 
+### van der Waerden normal scores test
+
+```{r}
+library(coin)
+normal_test(DV ~ IV, distribution=approximate(nresample=9999),
+            data=wIndDf)
+```
+
+### Fisher-Pitman permutation test with untransformed response values
+
+```{r}
+library(coin)
+oneway_test(DV ~ IV, distribution=approximate(nresample=9999),
+            data=wIndDf)
+```
+
 Two dependent samples
 -------------------------
 
@@ -107,8 +123,25 @@ SignTest(DVdiff$DV, mu=medH0)
 ### Wilcoxon signed rank test
 
 ```{r}
-wilcoxsign_test(DV ~ IV | id, alternative="greater",
+library(coin)
+wilcoxsign_test(DV ~ IV | id, alternative="less",
                 distribution="exact", data=wDepDf)
+```
+
+### van der Waerden normal scores test
+
+```{r}
+library(coin)
+normal_test(DV ~ IV | id, alternative="less",
+            distribution=approximate(nresample=9999), data=wDepDf)
+```
+
+### Fisher-Pitman permutation test with untransformed response values
+
+```{r}
+library(coin)
+oneway_test(DV ~ IV | id, distribution=approximate(nresample=9999),
+            data=wDepDf)
 ```
 
 Detach (automatically) loaded packages (if possible)
@@ -118,5 +151,4 @@ Detach (automatically) loaded packages (if possible)
 try(detach(package:DescTools))
 try(detach(package:coin))
 try(detach(package:survival))
-try(detach(package:splines))
 ```

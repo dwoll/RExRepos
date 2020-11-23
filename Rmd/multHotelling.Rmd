@@ -13,7 +13,7 @@ Hotelling's T^2-test
 Install required packages
 -------------------------
 
-[`DescTools`](http://cran.r-project.org/package=DescTools), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm)
+[`DescTools`](https://cran.r-project.org/package=DescTools), [`mvtnorm`](https://cran.r-project.org/package=mvtnorm)
 
 ```{r}
 wants <- c("DescTools", "mvtnorm")

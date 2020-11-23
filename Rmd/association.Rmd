@@ -18,7 +18,7 @@ TODO
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin), [`DescTools`](http://cran.r-project.org/package=DescTools)
+[`coin`](https://cran.r-project.org/package=coin), [`DescTools`](https://cran.r-project.org/package=DescTools)
 
 ```{r}
 wants <- c("coin", "DescTools")
@@ -158,7 +158,7 @@ tab3 <- xtabs(~ work + sex + group, data=myDf)
 
 ```{r}
 library(coin)
-cmh_test(tab3, distribution=approximate(B=9999))
+cmh_test(tab3, distribution=approximate(nresample=9999))
 ```
 
 Useful packages

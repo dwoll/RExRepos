@@ -13,7 +13,7 @@ Linear algebra calculations
 Install required packages
 -------------------------
 
-[`expm`](http://cran.r-project.org/package=expm), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm), [`pracma`](http://cran.r-project.org/package=pracma)
+[`expm`](https://cran.r-project.org/package=expm), [`mvtnorm`](https://cran.r-project.org/package=mvtnorm), [`pracma`](https://cran.r-project.org/package=pracma)
 
 ```{r}
 wants <- c("expm", "mvtnorm", "pracma")

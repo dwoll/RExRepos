@@ -18,7 +18,7 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm)
+[`car`](https://cran.r-project.org/package=car), [`mvtnorm`](https://cran.r-project.org/package=mvtnorm)
 
 ```{r}
 wants <- c("car", "mvtnorm")
@@ -106,4 +106,5 @@ Detach (automatically) loaded packages (if possible)
 ```{r}
 try(detach(package:mvtnorm))
 try(detach(package:car))
+try(detach(package:carData))
 ```

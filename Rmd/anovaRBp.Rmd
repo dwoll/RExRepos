@@ -20,7 +20,7 @@ Traditional univariate analysis and multivariate approach.
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`DescTools`](http://cran.r-project.org/package=DescTools)
+[`car`](https://cran.r-project.org/package=car), [`DescTools`](https://cran.r-project.org/package=DescTools)
 
 ```{r}
 wants <- c("car", "DescTools")

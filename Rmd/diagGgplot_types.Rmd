@@ -1,0 +1,236 @@
+---
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
+title: "Diagram types with the ggplot2 package"
+categories: [Diagrams, BasicDiagrams]
+rerCat: Diagrams
+tags: [Diagrams, ggplot2]
+---
+
+Diagrams with the `ggplot2` package
+=========================
+
+Install required packages
+-------------------------
+
+[`ggplot2`](https://cran.r-project.org/package=ggplot2), [`ggbeeswarm`](https://cran.r-project.org/package=ggbeeswarm)
+
+```{r}
+wants <- c("ggplot2", "ggbeeswarm")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Simulate data
+-------------------------
+
+Data needs to be in long format.
+
+```{r}
+Njk    <- 50
+P      <- 3
+Q      <- 2
+IQ     <- rnorm(P*Q*Njk, mean=100, sd=15)
+height <- rnorm(P*Q*Njk, mean=175, sd=7)
+rating <- factor(sample(LETTERS[1:3], Njk*P*Q, replace=TRUE))
+sex    <- factor(rep(c("f", "m"), times=P*Njk))
+group  <- factor(rep(c("control", "placebo", "treatment"), each=Q*Njk))
+sgComb <- interaction(sex, group)
+mood   <- round(rnorm(P*Q*Njk, mean=c(85, 80, 110, 90, 130, 100)[sgComb], sd=25))
+myDf   <- data.frame(sex, group, sgComb, IQ, height, rating, mood)
+```
+
+Diagram types
+-------------------------
+
+### Scatterplot
+
+```{r diagGgplot01}
+library(ggplot2)
+ggplot(myDf, aes(x=height, y=IQ, colour=sex, shape=group)) +
+        geom_point(size=3)
+```
+
+### Line plot
+
+```{r}
+(groupM <- aggregate(mood ~ sex + group, data=myDf, FUN=mean))
+ggplot(groupM, aes(x=group, y=mood, color=sex, shape=sex, group=sex)) +
+    geom_point(size=3) +
+    geom_line()
+```
+
+### Barplot
+
+Stacked barplot - absolute frequencies
+
+```{r diagGgplot03}
+ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
+    geom_bar(stat="count", position=position_stack()) +
+        ggtitle("Rating frequencies by sex and group")
+```
+
+Stacked barplot - conditional relative frequencies
+
+```{r}
+ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
+    geom_bar(stat="count",
+             aes(y=(..count..) / sum(..count..)),
+             position=position_fill()) +
+        ggtitle("Rating frequencies by sex and group")
+```
+
+Grouped barplot - relative frequencies
+
+```{r}
+ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
+    geom_bar(stat="count",
+             aes(y=(..count..) / sum(..count..)),
+             position=position_dodge()) +
+    ggtitle("Rating frequencies by sex and group")
+```
+
+### Histogram
+
+Absolute frequencies
+
+```{r diagGgplot04}
+ggplot(myDf, aes(x=IQ)) +
+        geom_histogram(bins=20) +
+        ggtitle("Histogram IQ by group") +
+        theme(legend.position="none")
+```
+
+Density with nonparametric kernel density estimator
+
+```{r}
+ggplot(myDf, aes(x=mood)) +
+    geom_histogram(aes(y=..density..)) +
+    ggtitle("Histogram mood by group") +
+    geom_density(color="darkgrey", fill="grey", alpha=0.6)
+```
+
+### Boxplot
+
+Add a `geom_beeswarm()` layer to show raw data.
+
+```{r}
+library(ggbeeswarm)
+ggplot(myDf, aes(x=sex, y=height, fill=sex)) +
+    geom_boxplot(outlier.shape=NULL) +
+    geom_beeswarm(alpha=0.5) +
+    ggtitle("Height by sex") +
+    theme(legend.position="none")
+```
+
+### Q-Q plot
+
+Against normal distribution
+
+```{r}
+ggplot(myDf, aes(sample=height)) +
+    geom_qq() +
+    geom_qq_line(color="blue")
+```
+
+Against selected distribution (here: t)
+
+```{r}
+parL <- list(df=10, ncp=0)
+ggplot(myDf, aes(sample=height)) +
+    geom_qq(distribution=qt, dparams=parL) +
+    geom_qq_line(color="blue", distribution=qt, dparams=parL)
+```
+
+Compare quantiles of two variables
+
+```{r}
+probs <- ppoints(50)
+qDat  <- data.frame(qmood=quantile(myDf$mood, probs),
+                    qheight=quantile(myDf$height, probs))
+
+ggplot(qDat, aes(x=qmood, y=qheight)) +
+    geom_point() +
+    xlab("Quantiles mood") +
+    ylab("Quantiles height")
+```
+
+Multi-panel plots
+-------------------------
+
+Split the diagram into panels using `facet_grid()`.
+
+```{r diagGgplot02}
+ggplot(myDf, aes(x=rating, y=IQ, colour=sex, shape=group)) +
+        geom_point(size=3, position=position_dodge(width=0.3)) +
+        facet_grid(. ~ group) +
+        ggtitle("IQ ~ height split by sex and group") +
+        guides(shape=FALSE)
+```
+
+Additional diagram elements
+-------------------------
+
+Add error bars
+
+```{r}
+groupN     <- as.data.frame(xtabs(~ sex + group, data=myDf))
+groupSD    <- aggregate(mood ~ sex + group, data=myDf, FUN=sd)
+groupMSD   <- merge(groupM, groupSD, by=c("sex", "group"), suffixes=c(".M", ".SD"))
+groupMSDN  <- merge(groupMSD, groupN, by=c("sex", "group"))
+(groupMSDN <- transform(groupMSDN,
+                        SEMlo=mood.M - mood.SD/sqrt(Freq),
+                        SEMup=mood.M + mood.SD/sqrt(Freq)))
+
+ggplot(groupMSDN, aes(x=group, y=mood.M, ymin=SEMlo, ymax=SEMup,
+                              color=sex, shape=sex, group=sex)) +
+    geom_point() +
+    geom_line() +
+    geom_linerange()
+```
+
+ * `geom_hline()` for a horizontal line
+ * `geom_vline()` for a vertical line
+ * `geom_smooth()` for a regression line including SEs
+ * `geom_text()` for text from a variable
+ * `ggtitle()` for a diagram title
+ * `annotate()` for text given directly as an argument
+
+```{r diagGgplot06}
+ggplot(myDf, aes(x=height, y=IQ, colour=sex:group, shape=sex)) +
+        geom_hline(aes(yintercept=100), linetype=2) +
+        geom_vline(aes(xintercept=180), linetype=2) +
+        geom_point(size=3) +
+        geom_smooth(method=lm, se=TRUE, size=1.2, fullrange=TRUE) +
+        facet_grid(sex ~ group) +
+        ggtitle("IQ ~ height split by sex and group") +
+        theme(legend.position="none") +
+        geom_text(aes(x=190, y=70, label=sgComb)) +
+        annotate("text", x=165, y=130, label="annotation")
+```
+
+Save `ggplot2` diagrams to file
+-------------------------
+
+Graphics file format is determined from file ending.
+
+```{r eval=FALSE}
+p <- ggplot(myDf, aes(x=height, y=IQ, colour=sex, shape=group)) +
+        geom_point(size=3)
+
+ggsave(p, file="diag_ggplot.pdf", width=9, height=6, units="in")
+ggsave(p, file="diag_ggplot.png", width=200, height=150, units="mm", dpi=300)
+```
+
+Further online resources
+-------------------------
+
+See [Cookbook for R: `ggplot2` diagrams](https://r-graphics.org/) for many detailed examples of `ggplot2` diagrams.
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:ggbeeswarm))
+try(detach(package:ggplot2))
+```

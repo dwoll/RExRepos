@@ -13,7 +13,7 @@ Nonparametric location tests for more than two samples
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin), [`DescTools`](http://cran.r-project.org/package=DescTools)
+[`coin`](https://cran.r-project.org/package=coin), [`DescTools`](https://cran.r-project.org/package=DescTools)
 
 ```{r}
 wants <- c("coin", "DescTools")
@@ -46,19 +46,38 @@ kruskal.test(DV ~ IV, data=KWdf)
 
 ```{r}
 library(coin)
-kruskal_test(DV ~ IV, distribution=approximate(B=9999), data=KWdf)
+kruskal_test(DV ~ IV, distribution=approximate(nresample=9999),
+             data=KWdf)
 ```
 
-#### Pairwise group-comparisons using Wilcoxon's rank-sum test
+#### Pairwise group-comparisons
+
+Dunn's Test
 
 ```{r}
-pairwise.wilcox.test(KWdf$DV, KWdf$IV, p.adjust.method="holm")
+library(DescTools)
+DunnTest(KWdf$DV, KWdf$IV, p.adjust.method="holm")
 ```
 
-### Permutation test with untransformed response values
+Conover Test
 
 ```{r}
-oneway_test(DV ~ IV, distribution=approximate(B=9999), data=KWdf)
+library(DescTools)
+ConoverTest(KWdf$DV, KWdf$IV, p.adjust.method="holm")
+```
+
+### van der Waerden normal scores test
+
+```{r}
+normal_test(DV ~ IV, distribution=approximate(nresample=9999),
+            data=KWdf)
+```
+
+### Fisher-Pitman permutation test with untransformed response values
+
+```{r}
+oneway_test(DV ~ IV, distribution=approximate(nresample=9999),
+            data=KWdf)
 ```
 
 Independent samples - ordered groups
@@ -87,7 +106,7 @@ JonckheereTerpstraTest(DV ~ IV, data=JTdf)
 
 ```{r}
 library(coin)
-kruskal_test(DV ~ IV, distribution=approximate(B=9999), data=JTdf)
+kruskal_test(DV ~ IV, distribution=approximate(nresample=9999), data=JTdf)
 ```
 
 Dependent samples - unordered groups
@@ -117,13 +136,25 @@ friedman.test(DV ~ IV | id, data=Fdf)
 #### Using `friedman_test()` from package `coin`
 
 ```{r}
-friedman_test(DV ~ IV | id, distribution=approximate(B=9999), data=Fdf)
+library(coin)
+friedman_test(DV ~ IV | id, distribution=approximate(nresample=9999),
+              data=Fdf)
 ```
 
-### Permutation test with untransformed response values
+### van der Waerden normal scores test
 
 ```{r}
-oneway_test(DV ~ IV | id, distribution=approximate(B=9999), data=Fdf)
+library(coin)
+normal_test(DV ~ IV | id,
+            distribution=approximate(nresample=9999), data=Fdf)
+```
+
+### Fisher-Pitman permutation test with untransformed response values
+
+```{r}
+library(coin)
+oneway_test(DV ~ IV | id, distribution=approximate(nresample=9999),
+            data=Fdf)
 ```
 
 Dependent samples - ordered groups
@@ -151,7 +182,7 @@ Using `friedman_test()` from package `coin`.
 
 ```{r}
 library(coin)
-friedman_test(DV ~ IV | id, distribution=approximate(B=9999), data=Pdf)
+friedman_test(DV ~ IV | id, distribution=approximate(nresample=9999), data=Pdf)
 ```
 
 Detach (automatically) loaded packages (if possible)
@@ -161,5 +192,4 @@ Detach (automatically) loaded packages (if possible)
 try(detach(package:DescTools))
 try(detach(package:coin))
 try(detach(package:survival))
-try(detach(package:splines))
 ```

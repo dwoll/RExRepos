@@ -18,7 +18,7 @@ TODO
 Install required packages
 -------------------------
 
-[`RColorBrewer`](http://cran.r-project.org/package=RColorBrewer)
+[`RColorBrewer`](https://cran.r-project.org/package=RColorBrewer)
 
 ```{r}
 wants <- c("RColorBrewer")
@@ -197,7 +197,9 @@ rect(xLeft, yBot, xRight, yTop, border=NA,
 Useful packages
 -------------------------
 
-Package [`colorspace`](http://cran.r-project.org/package=colorspace) provides more functions for converting between different color spaces. The [R color chart](http://research.stowers-institute.org/efg/R/Color/Chart/) gives a very nice overview of colors available in R.
+ - Package [`colorspace`](https://cran.r-project.org/package=colorspace) provides more functions for converting between different color spaces. Its [documentation](http://colorspace.r-forge.r-project.org/) illustrates many color palettes for different use cases.
+ - The [R color chart](http://research.stowers-institute.org/efg/R/Color/Chart/) gives a very nice overview of colors available in R.
+ - Package [`imager`](https://CRAN.R-project.org/package=imager) can read bitmap images and has many functions for image analysis / manipulation
 
 Detach (automatically) loaded packages (if possible)
 -------------------------

@@ -24,10 +24,10 @@ TODO
 Install required packages
 -------------------------
 
-[`MASS`](http://cran.r-project.org/package=MASS), [`ordinal`](http://cran.r-project.org/package=ordinal), [`rms`](http://cran.r-project.org/package=rms), [`VGAM`](http://cran.r-project.org/package=VGAM)
+[`MASS`](https://cran.r-project.org/package=MASS), [`ordinal`](https://cran.r-project.org/package=ordinal), [`rms`](https://cran.r-project.org/package=rms), [`VGAM`](https://cran.r-project.org/package=VGAM), [`DescTools`](https://cran.r-project.org/package=DescTools)
 
 ```{r}
-wants <- c("MASS", "ordinal", "rms", "VGAM")
+wants <- c("MASS", "ordinal", "rms", "VGAM", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -56,7 +56,7 @@ Model using cumulative logits: \(\text{logit}(p(Y \geq g)) = \ln \frac{P(Y \geq 
 
 ```{r}
 library(VGAM)
-(vglmFit <- vglm(Yord ~ X1 + X2, family=propodds, data=dfOrd))
+(vglmFit <- vglm(Yord ~ X1 + X2, family=propodds, data=dfOrd, model=TRUE))
 ```
 
 Equivalent:
@@ -196,30 +196,9 @@ VGAM::AIC(vglmFit)
 
 ### McFadden, Cox & Snell and Nagelkerke pseudo \(R^{2}\)
 
-Log-likelihoods for full model and 0-model without predictors X1, X2
-
 ```{r}
-vglm0 <- vglm(Yord ~ 1, family=propodds, data=dfOrd)
-LLf   <- VGAM::logLik(vglmFit)
-LL0   <- VGAM::logLik(vglm0)
-```
-
-McFadden pseudo-\(R^2\)
-
-```{r}
-as.vector(1 - (LLf / LL0))
-```
-
-Cox & Snell
-
-```{r}
-as.vector(1 - exp((2/N) * (LL0 - LLf)))
-```
-
-Nagelkerke
-
-```{r}
-as.vector((1 - exp((2/N) * (LL0 - LLf))) / (1 - exp(LL0)^(2/N)))
+library(DescTools)
+PseudoR2(vglmFit, which=c("McFadden", "CoxSnell", "Nagelkerke"))
 ```
 
 Coefficient tests and overall model test
@@ -234,11 +213,10 @@ sumOrd   <- summary(vglmFit)
 (coefOrd <- coef(sumOrd))
 ```
 
-Approximative Wald-based confidence intervals
+Profile likelihood confidence intervals
 
 ```{r}
-zCrit   <- qnorm(c(0.05/2, 1 - 0.05/2))
-(ciCoef <- t(apply(coefOrd, 1, function(x) x["Estimate"] - zCrit*x["Std. Error"] )))
+VGAM::confint(vglmFit, method="profile")
 ```
 
 Tests for other models.
@@ -253,17 +231,15 @@ summary(clmFit)
 
 Likelihood-ratio-test for predictor `X2`
 
-We need to specify `VGAM::lrtest()` here because after attaching package `mlogit` above, there is another function present with the same name.
-
 ```{r}
 vglmR <- vglm(Yord ~ X1, family=propodds, data=dfOrd)
-VGAM::lrtest(vglmFit, vglmR)
+anova(vglmFit, vglmR, type="I")
 ```
 
 Likelihood-ratio-test for the full model against the 0-model without predictors (just intercept)
 
 ```{r}
-VGAM::lrtest(vglmFit, vglm0)
+anova(vglmFit, vglm0, type="I")
 ```
 
 Test assumption of proportional odds (=parallel logits)
@@ -294,16 +270,16 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:ordinal))
+try(detach(package:VGAM))
+try(detach(package:splines))
+try(detach(package:stats4))
 try(detach(package:rms))
 try(detach(package:Hmisc))
 try(detach(package:lattice))
 try(detach(package:survival))
-try(detach(package:VGAM))
-try(detach(package:splines))
-try(detach(package:stats4))
-try(detach(package:MASS))
 try(detach(package:Formula))
-try(detach(package:grid))
-try(detach(package:SparseM))
+try(detach(package:ggplot2))
+try(detach(package:MASS))
+try(detach(package:ordinal))
+try(detach(package:DescTools))
 ```

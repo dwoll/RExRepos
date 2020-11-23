@@ -18,7 +18,7 @@ TODO
 Install required packages
 -------------------------
 
-[`forcats`](http://cran.r-project.org/package=forcats)
+[`forcats`](https://cran.r-project.org/package=forcats)
 
 ```{r}
 wants <- c("forcats")

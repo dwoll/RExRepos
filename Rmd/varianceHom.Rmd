@@ -18,10 +18,10 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`coin`](http://cran.r-project.org/package=coin)
+[`car`](https://cran.r-project.org/package=car), [`coin`](https://cran.r-project.org/package=coin), [`beeswarm`](https://cran.r-project.org/package=beeswarm)
 
 ```{r}
-wants <- c("car", "coin")
+wants <- c("car", "coin", "beeswarm")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -29,7 +29,7 @@ if(any(!has)) install.packages(wants[!has])
 Compare two groups
 -------------------------
 
-### Boxplot with added stripchart
+### Boxplot with added beeswarm plot
 
 ```{r}
 set.seed(123)
@@ -42,8 +42,9 @@ varDf <- data.frame(DV=c(DV1, DV2),
 ```
 
 ```{r rerVarHom01}
+library(beeswarm)
 boxplot(DV ~ IV, data=varDf)
-stripchart(DV ~ IV, data=varDf, pch=16, vert=TRUE, add=TRUE)
+beeswarm(DV ~ IV, data=varDf, add=TRUE, pch=16, col="#00000077")
 ```
 
 ### \(F\)-test for variance ratio in two groups
@@ -76,7 +77,7 @@ ansari_test(DV ~ IV, alternative="greater", distribution="exact", data=varDf)
 Compare more than two groups
 -------------------------
 
-### Boxplot with added stripchart
+### Boxplot with added beeswarm plot
 
 ```{r}
 Nj    <- c(22, 18, 20)
@@ -87,8 +88,9 @@ levDf <- data.frame(DV=sample(0:100, N, replace=TRUE),
 ```
 
 ```{r rerVarHom02}
+library(beeswarm)
 boxplot(DV ~ IV, data=levDf)
-stripchart(DV ~ IV, data=levDf, pch=20, vert=TRUE, add=TRUE)
+beeswarm(DV ~ IV, data=levDf, add=TRUE, pch=16, col="#00000077")
 ```
 
 ### Levene-test
@@ -107,7 +109,7 @@ fligner.test(DV ~ IV, data=levDf)
 
 ```{r}
 library(coin)
-fligner_test(DV ~ IV, distribution=approximate(B=9999), data=levDf)
+fligner_test(DV ~ IV, distribution=approximate(nresample=9999), data=levDf)
 ```
 
 Detach (automatically) loaded packages (if possible)
@@ -115,7 +117,8 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:car))
+try(detach(package:carData))
 try(detach(package:coin))
 try(detach(package:survival))
-try(detach(package:splines))
+try(detach(package:beeswarm))
 ```

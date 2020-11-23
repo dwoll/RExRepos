@@ -13,7 +13,7 @@ Crossvalidation and bootstrap prediction error for linear and generalized linear
 Install required packages
 -------------------------
 
-[`boot`](http://cran.r-project.org/package=boot)
+[`boot`](https://cran.r-project.org/package=boot)
 
 ```{r}
 wants <- c("boot")
@@ -146,7 +146,7 @@ Optimism-corrected bootstrap estimate of prediction error.
 Useful packages
 -------------------------
 
-Packages [`caret`](http://cran.r-project.org/package=caret) and [`ipred`](http://cran.r-project.org/package=ipred) provide more crossvalidation and bootstrapping options like the +.632 bootstrap.
+Packages [`caret`](https://cran.r-project.org/package=caret) and [`ipred`](https://cran.r-project.org/package=ipred) provide more crossvalidation and bootstrapping options like the +.632 bootstrap.
 
 Detach (automatically) loaded packages (if possible)
 -------------------------

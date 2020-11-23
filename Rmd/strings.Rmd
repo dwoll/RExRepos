@@ -13,7 +13,7 @@ Character strings
 Install required packages
 -------------------------
 
-[`DescTools`](http://cran.r-project.org/package=DescTools)
+[`DescTools`](https://cran.r-project.org/package=DescTools)
 
 ```{r}
 wants <- c("DescTools")
@@ -162,7 +162,7 @@ eval(obj2)
 Useful packages
 -------------------------
 
-Package [`stringr`](http://cran.r-project.org/package=stringr) provides more functions for efficiently and consistently handling character strings.
+Package [`stringr`](https://cran.r-project.org/package=stringr) provides more functions for efficiently and consistently handling character strings.
 
 Detach (automatically) loaded packages (if possible)
 -------------------------

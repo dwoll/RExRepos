@@ -20,7 +20,7 @@ opts_chunk$set(tidy=FALSE, message=FALSE, warning=FALSE, comment=NA)
 Install required packages
 -------------------------
 
-[`MASS`](http://cran.r-project.org/package=MASS)
+[`MASS`](https://cran.r-project.org/package=MASS)
 
 ```{r}
 wants <- c("MASS")

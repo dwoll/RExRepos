@@ -13,13 +13,13 @@ Covariance, correlation, association measures for continuous variables
 TODO
 -------------------------
 
- - [`psych`](http://cran.r-project.org/package=psych) `cor.plot()`
+ - [`psych`](https://cran.r-project.org/package=psych) `cor.plot()`
  - link to diagScatter, diagMultivariate, association, associationOrder
 
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin), [`psych`](http://cran.r-project.org/package=psych)
+[`coin`](https://cran.r-project.org/package=coin), [`psych`](https://cran.r-project.org/package=psych)
 
 ```{r}
 wants <- c("coin", "psych")
@@ -173,7 +173,7 @@ corr.test(DVmat, adjust="bonferroni")
 ```{r}
 cor.test(DV1, DV2, method="spearman")
 library(coin)
-spearman_test(DV1 ~ DV2, distribution=approximate(B=9999))
+spearman_test(DV1 ~ DV2, distribution=approximate(nresample=9999))
 ```
 
 ```{r}

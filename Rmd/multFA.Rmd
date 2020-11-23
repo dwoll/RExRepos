@@ -13,7 +13,7 @@ Exploratory factor analysis
 Install required packages
 -------------------------
 
-[`GPArotation`](http://cran.r-project.org/package=GPArotation), [`mvtnorm`](http://cran.r-project.org/package=mvtnorm), [`psych`](http://cran.r-project.org/package=psych)
+[`GPArotation`](https://cran.r-project.org/package=GPArotation), [`mvtnorm`](https://cran.r-project.org/package=mvtnorm), [`psych`](https://cran.r-project.org/package=psych)
 
 ```{r}
 wants <- c("GPArotation", "mvtnorm", "psych")
@@ -98,13 +98,12 @@ vss(X, n.obs=N, rotate="varimax")  # very simple structure
 Useful packages
 -------------------------
 
-For confirmatory factor analysis (CFA), see packages [`sem`](http://cran.r-project.org/package=sem), [`OpenMx`](https://openmx.ssri.psu.edu/), and [`lavaan`](http://cran.r-project.org/package=lavaan) which implement structural equation models. More packages can be found in CRAN task view [Psychometric Models](http://cran.r-project.org/web/views/Psychometrics.html).
+For confirmatory factor analysis (CFA), see packages [`sem`](https://cran.r-project.org/package=sem), [`OpenMx`](https://openmx.ssri.psu.edu/), and [`lavaan`](https://cran.r-project.org/package=lavaan) which implement structural equation models. More packages can be found in CRAN task view [Psychometric Models](https://cran.r-project.org/web/views/Psychometrics.html).
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
 try(detach(package:psych))
-try(detach(package:GPArotation))
 try(detach(package:mvtnorm))
 ```

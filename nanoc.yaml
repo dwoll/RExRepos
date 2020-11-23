@@ -168,8 +168,8 @@ rer:
         varianceHom: "Assess variance homogeneity"
     Nonparametric:
       Classical_nonparametric_methods:
-        npWilcoxon: "Location tests for one and two samples (Sign, Wilcoxon signed-rank, Wilcoxon rank-sum / Mann-Whitney-U)"
-        npKruskalFriedman: "Location tests for more than two samples (Kruskal-Wallis, linear-by-linear, Friedman, Page)"
+        npWilcoxon: "Location tests for <=2 samples (Sign, Wilcoxon signed-rank, Wilcoxon-Mann-Whitney)"
+        npKruskalFriedman: "Location tests for >2 samples (Kruskal-Wallis, linear-by-linear, Friedman, Page)"
         npBinomial: "Binomial test and chi^2-test for proportions"
         npRuns: "Runs-test"
         association: "Association tests for unordered categorical variables"
@@ -182,6 +182,7 @@ rer:
         resamplingPerm: "Permutation tests"
         resamplingBoot: "Bootstrapping"
         resamplingBootStrat: "Stratified bootstrapping"
+        resamplingBootParam: "Parametric bootstrapping"
         resamplingBootALM: "Bootstrapping linear models"
     Multivariate:
       linearAlgebra: "Linear algebra calculations"
@@ -200,7 +201,6 @@ rer:
         diagScatter: "Scatter plots and line diagrams"
         diagFormat: "Customize diagrams: Formatting"
         diagAddElements: "Customize diagrams: Add elements"
-        diagGgplot: "Diagrams with the ggplot2 package"
       Specific_diagrams:
         diagCategorical: "Diagrams for categorical data"
         diagDistributions: "Visualize univariate and bivariate distributions"
@@ -208,6 +208,9 @@ rer:
         diagBounding: "Convex hull, (minimum) bounding box, and minimum enclosing circle"
         diagSplines: "Linear interpolation, polynomial smoothing, and splines"
         diagMultiple: "Multiple diagrams per graphics device"
+      Diagrams_ggplot2:
+        diagGgplot_types: "Diagram types with the ggplot2 package"
+        diagGgplot_format: "Format diagrams with the ggplot2 package"
     Workflow:
       rerWorkflowJN: "Build websites with R and nanoc or Jekyll"
       rerWorkflowWP: "Build websites with R and WordPress"

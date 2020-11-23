@@ -19,7 +19,7 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`DescTools`](http://cran.r-project.org/package=DescTools), [`multcomp`](http://cran.r-project.org/package=multcomp), [`phia`](http://cran.r-project.org/package=phia)
+[`car`](https://cran.r-project.org/package=car), [`DescTools`](https://cran.r-project.org/package=DescTools), [`multcomp`](https://cran.r-project.org/package=multcomp), [`phia`](https://cran.r-project.org/package=phia)
 
 ```{r}
 wants <- c("car", "DescTools", "multcomp", "phia")

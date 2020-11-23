@@ -13,7 +13,7 @@ Inter-rater-reliability and Intra-class-correlation
 Install required packages
 -------------------------
 
-[`DescTools`](http://cran.r-project.org/package=DescTools)
+[`DescTools`](https://cran.r-project.org/package=DescTools)
 
 ```{r}
 wants <- c("DescTools")

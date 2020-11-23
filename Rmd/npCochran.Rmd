@@ -13,7 +13,7 @@ Cochran-Q-test
 Install required packages
 -------------------------
 
-[`coin`](http://cran.r-project.org/package=coin)
+[`coin`](https://cran.r-project.org/package=coin)
 
 ```{r}
 wants <- c("coin")
@@ -44,5 +44,4 @@ Detach (automatically) loaded packages (if possible)
 ```{r}
 try(detach(package:coin))
 try(detach(package:survival))
-try(detach(package:splines))
 ```

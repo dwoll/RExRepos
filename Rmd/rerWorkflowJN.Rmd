@@ -31,7 +31,7 @@ This website is currently (2020) built with [nanoc](http://nanoc.ws/) (version 4
 
 The build-process is automatically managed with a [Makefile](https://github.com/dwoll/RExRepos/blob/master/Makefile) that calls an [R-script](https://github.com/dwoll/RExRepos/blob/master/dwKnit.R) for knitting R markdown files to plain markdown. To build this website yourself:
 
- * You need R with the `knitr` package. Set a permanent R option which CRAN mirror to use by creating a file `.Rprofile` in your home directory, containing the line `options(repos=structure(c(CRAN="http://cran.rstudio.com/")))`. Also install pandoc, Ruby, as well as the Ruby gems nanoc and pandoc-ruby.
+ * You need R with the `knitr` package. Set a permanent R option which CRAN mirror to use by creating a file `.Rprofile` in your home directory, containing the line `options(repos=structure(c(CRAN="https://cran.rstudio.com/")))`. Also install pandoc, Ruby, as well as the Ruby gems nanoc and pandoc-ruby.
  * Clone the RExRepos GitHub repository at `https://github.com/dwoll/RExRepos.git`.
  * In the RExRepos directory, just run `nanoc` to build the already present markdown files. To build from R markdown, run `make clean` and `make`. **Doing this under Windows has not been tested since 2013**. In theory, it requires editing the Makefiles first, commenting the Linux `rm` commands, und un-commenting the Windows `del` commands. On Windows, you need to have [make](http://gnuwin32.sourceforge.net/packages/make.htm) and [sed](http://gnuwin32.sourceforge.net/packages/sed.htm) installed, and in your path.
 

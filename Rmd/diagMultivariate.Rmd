@@ -184,12 +184,12 @@ round(corMat, 2)
 ```
 
 ```{r rerDiagMultivariate10}
-image(corMat, axes=FALSE, main=paste("Correlation matrix of", P, "variables"))
-axis(side=1, at=seq(0, 1, length.out=P), labels=rownames(corMat))
-axis(side=2, at=seq(0, 1, length.out=P), labels=colnames(corMat))
+cmCol  <- rev(heat.colors(nrow(corMat)))
+cmRamp <- colorRampPalette(cmCol)
+cols   <- cmRamp(length(corMat))
+heatmap(corMat, symm=TRUE, revC=TRUE, Rowv=NA, Colv=NA,
+        col=cols, RowSideColors=cmCol)
 ```
-
-See `heatmap()` for a heatmap including dendograms added to the plot sides and correlation for an alternative approach to visualize correlation matrices.
 
 Correlation matrix plot
 -------------------------
@@ -205,7 +205,6 @@ Useful packages
  - Package [`ggplot2`](https://cran.r-project.org/package=ggplot2) provides its own graphics system and many functions for multi-panel plots.
  - Packages [`googleVis`](https://cran.r-project.org/package=googleVis) and [`plotly`](https://CRAN.R-project.org/package=plotly) create online interactive diagrams based on JavaScript libraries.
  - Package [`rayshader`](https://github.com/tylermorganwall/rayshader/) shows how to render advanced 3D scenes
- - Package [`colorspace](http://colorspace.r-forge.r-project.org/) contains many useful functions to select and manipulate colors / color palettes
  - Package [`imager`](https://CRAN.R-project.org/package=imager) can read bitmap images and has many functions for image analysis / manipulation
 
 Detach (automatically) loaded packages (if possible)
@@ -213,6 +212,7 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:car))
+try(detach(package:carData))
 try(detach(package:ellipse))
 try(detach(package:mvtnorm))
 try(detach(package:rgl))

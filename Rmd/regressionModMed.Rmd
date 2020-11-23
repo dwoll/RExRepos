@@ -18,7 +18,7 @@ TODO
 Install required packages
 -------------------------
 
-[`mediation`](http://cran.r-project.org/package=mediation), [`multilevel`](http://cran.r-project.org/package=multilevel), [`rockchalk`](http://cran.r-project.org/package=rockchalk)
+[`mediation`](https://cran.r-project.org/package=mediation), [`multilevel`](https://cran.r-project.org/package=multilevel), [`rockchalk`](https://cran.r-project.org/package=rockchalk)
 
 ```{r}
 wants <- c("mediation", "multilevel", "rockchalk")
@@ -48,8 +48,8 @@ coef(summary(fitMod))
 
 ```{r moderation}
 library(rockchalk)
-ps  <- plotSlopes(fitMod, plotx="X1c", modx="Mc", modxVals="std.dev")
-(ts <- testSlopes(ps))
+ps <- plotSlopes(fitMod, plotx="X1c", modx="Mc", modxVals="std.dev")
+ts <- testSlopes(ps)
 plot(ts)
 ```
 
@@ -107,7 +107,7 @@ summary(fitMedBoot)
 Useful packages
 -------------------------
 
-More complex structural equation models are supported by packages [`sem`](http://cran.r-project.org/package=sem), [`OpenMx`](https://openmx.ssri.psu.edu/), and [`lavaan`](http://cran.r-project.org/package=lavaan). More packages can be found in CRAN task view [Psychometric Models](http://cran.r-project.org/web/views/Psychometrics.html).
+More complex structural equation models are supported by packages [`sem`](https://cran.r-project.org/package=sem), [`OpenMx`](https://openmx.ssri.psu.edu/), and [`lavaan`](https://cran.r-project.org/package=lavaan). More packages can be found in CRAN task view [Psychometric Models](https://cran.r-project.org/web/views/Psychometrics.html).
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -116,7 +116,6 @@ Detach (automatically) loaded packages (if possible)
 try(detach(package:rockchalk))
 try(detach(package:mediation))
 try(detach(package:Matrix))
-try(detach(package:lpSolve))
 try(detach(package:multilevel))
 try(detach(package:MASS))
 try(detach(package:nlme))

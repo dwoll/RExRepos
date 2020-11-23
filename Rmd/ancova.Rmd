@@ -18,7 +18,7 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](http://cran.r-project.org/package=car), [`effects`](http://cran.r-project.org/package=effects), [`multcomp`](http://cran.r-project.org/package=multcomp)
+[`car`](https://cran.r-project.org/package=car), [`effects`](https://cran.r-project.org/package=effects), [`multcomp`](https://cran.r-project.org/package=multcomp)
 
 ```{r}
 wants <- c("car", "effects", "multcomp")

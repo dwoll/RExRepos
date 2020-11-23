@@ -1,0 +1,155 @@
+---
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
+title: "Diagrams with the ggplot2 package"
+categories: [Diagrams]
+rerCat: Diagrams
+tags: [Diagrams, ggplot2]
+---
+
+Diagrams with the `ggplot2` package
+=========================
+
+Install required packages
+-------------------------
+
+[`ggplot2`](https://cran.r-project.org/package=ggplot2), [`colorspace`](https://cran.r-project.org/package=colorspace)
+
+```{r}
+wants <- c("ggplot2", "colorspace")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Simulate data
+-------------------------
+
+Data needs to be in long format.
+
+```{r}
+Njk    <- 50
+P      <- 3
+Q      <- 2
+IQ     <- rnorm(P*Q*Njk, mean=100, sd=15)
+height <- rnorm(P*Q*Njk, mean=175, sd=7)
+rating <- factor(sample(LETTERS[1:3], Njk*P*Q, replace=TRUE))
+sex    <- factor(rep(c("f", "m"), times=P*Njk))
+group  <- factor(rep(c("control", "placebo", "treatment"), each=Q*Njk))
+sgComb <- interaction(sex, group)
+mood   <- round(rnorm(P*Q*Njk, mean=c(85, 80, 110, 90, 130, 100)[sgComb], sd=25))
+myDf   <- data.frame(sex, group, sgComb, IQ, height, rating, mood)
+```
+
+Control element position
+-------------------------
+
+```{r}
+library(ggplot2)
+(pHa <- ggplot(myDf, aes(x=mood, fill=sex)) +
+    geom_histogram(aes(y=..density..), position=position_dodge()))
+
+(pHb <- ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
+    geom_bar(stat="count",
+             aes(y=(..count..) / sum(..count..)),
+             position=position_fill()))
+```
+
+Format axes
+-------------------------
+
+Change order of categories by changing order of factor levels.
+
+```{r}
+levels(myDf$rating)
+levels(myDf$rating) <- rev(levels(myDf$rating))
+ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
+    geom_bar(stat="count",
+             aes(y=(..count..) / sum(..count..)),
+             position=position_fill()) +
+    labs(x="Rating category", y="Cumulative relative frequency") +
+    guides(x=guide_axis(angle=90))
+```
+
+Rotate x-axis labels and fine tune x-axis limits / breaks.
+
+```{r}
+ggplot(myDf, aes(x=height, y=mood, colour=sex, shape=group)) +
+    geom_point(size=3) +
+    scale_x_continuous(limits=c(150, 200),
+                       expand=c(0, 0),
+                       breaks=seq(150, 200, by=5)) +
+    scale_y_continuous(n.breaks=8) +
+    guides(x=guide_axis(angle=90))
+```
+
+Flip x- and y-axis
+
+```{r}
+ggplot(myDf, aes(x=sex, y=height, fill=sex)) +
+    geom_boxplot() +
+    coord_flip(ylim=c(140, 200))
+```
+
+Format legend
+-------------------------
+
+```{r}
+ggplot(myDf, aes(x=height, y=mood, colour=sex:group, shape=sex)) +
+    geom_hline(aes(yintercept=100), linetype=2) +
+    geom_vline(aes(xintercept=180), linetype=2) +
+    geom_point(size=3) +
+    geom_smooth(method=lm, se=TRUE, size=1.2, fullrange=TRUE) +
+    facet_grid(sex ~ group) +
+    labs(title="mood ~ height getrennt nach Geschlecht + Gruppe") +
+    geom_text(aes(x=190, y=70, label=sgComb), size=7, hjust="right") +
+    annotate("text", x=165, y=35, size=7, label="Annotation") +
+    guides(shape=FALSE) +
+    theme(legend.position="bottom")
+```
+
+Format color, shape and line type
+-------------------------
+
+```{r}
+library(colorspace)
+
+ggplot(groupM, aes(x=group, y=mood, color=sex, shape=sex, group=sex)) +
+    geom_point(size=8, stroke=2) +
+    geom_line(size=2, linetype="dashed") +
+    scale_shape_discrete(solid=FALSE)
+
+ggplot(myDf, aes(x=mood, fill=group)) +
+    geom_histogram(aes(y=..density..), alpha=0.5) +
+    geom_density(alpha=0.7) +
+    scale_fill_discrete_qualitative()
+```
+
+Use themes for a collection of pre-set formatting choices.
+
+```{r}
+ggplot(myDf, aes(x=mood, fill=group)) +
+    geom_histogram(aes(y=..density..), alpha=0.5) +
+    geom_density(alpha=0.7) +
+    scale_fill_discrete_qualitative() +
+    theme_bw()
+```
+
+```{r}
+ggplot(myDf, aes(x=sex, y=height, fill=sex)) +
+    geom_boxplot() +
+    coord_flip(ylim=c(140, 200)) +
+    theme_minimal()
+```
+
+Further resources
+-------------------------
+
+See [Cookbook for R: `ggplot2` diagrams](https://r-graphics.org/) for many detailed examples of `ggplot2` diagrams.
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:ggplot2))
+try(detach(package:colorspace))
+```
