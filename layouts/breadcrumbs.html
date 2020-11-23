@@ -1,5 +1,5 @@
 <ul class="breadcrumb">
-  <li><a href="<%= @config[:base_url] %>/index.html">Home</a></li>
+  <li><a href="<%= @config[:base_url] %>/index.html">Home</a><span class="divider">&raquo;</span></li>
   <% unless @item[:categories].nil?
      for @categ in @item[:categories] %>
   <li><a href="<%= @config[:base_url] + @config[:rer][:categoriesPath] %>#<%= @categ %>-ref"><%= @categ %></a><span class="divider">&raquo;</span></li>
