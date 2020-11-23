@@ -18,10 +18,10 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](https://cran.r-project.org/package=car), [`DescTools`](https://cran.r-project.org/package=DescTools), [`multcomp`](https://cran.r-project.org/package=multcomp)
+[`car`](https://cran.r-project.org/package=car), [`effectsize`](https://cran.r-project.org/package=effectsize), [`DescTools`](https://cran.r-project.org/package=DescTools), [`multcomp`](https://cran.r-project.org/package=multcomp)
 
 ```{r}
-wants <- c("car", "DescTools", "multcomp")
+wants <- c("car", "effectsize", "multcomp", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -83,27 +83,13 @@ anovaCRp["Residuals", "Sum Sq"]
 Effect size estimates
 -------------------------
 
-```{r}
-dfSSb <- anovaCRp["IV",        "Df"]
-SSb   <- anovaCRp["IV",        "Sum Sq"]
-MSb   <- anovaCRp["IV",        "Mean Sq"]
-SSw   <- anovaCRp["Residuals", "Sum Sq"]
-MSw   <- anovaCRp["Residuals", "Mean Sq"]
-```
-
-\(\hat{\eta^{2}}\)
+\(\hat{\eta^{2}}\), \(\hat{\omega^{2}}\), \(\hat{f^{2}}\)
 
 ```{r}
-(etaSq <- SSb / (SSb + SSw))
-library(DescTools)                     # for EtaSq()
-EtaSq(aovCRp, type=1)
-```
-
-\(\hat{\omega^{2}}\), \(\hat{f^{2}}\)
-
-```{r}
-(omegaSq <- dfSSb * (MSb-MSw) / (SSb + SSw + MSw))
-(f <- sqrt(etaSq / (1-etaSq)))
+library(effectsize)
+eta_squared(anovaCRp)
+omega_squared(anovaCRp)
+cohens_f(anovaCRp)
 ```
 
 Planned comparisons - a-priori
@@ -155,41 +141,14 @@ summary(tukey)
 confint(tukey)
 ```
 
-Assess test assumptions
--------------------------
-
-### Normality
-
-```{r rerAnovaCRp03}
-Estud <- rstudent(aovCRp)
-qqnorm(Estud, pch=20, cex=2)
-qqline(Estud, col="gray60", lwd=2)
-```
-
-```{r}
-shapiro.test(Estud)
-```
-
-### Variance homogeneity
-
-```{r rerAnovaCRp04}
-plot(Estud ~ dfCRp$IV, main="Residuals per group")
-```
-
-```{r}
-library(car)
-leveneTest(aovCRp)
-```
-
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:car))
 try(detach(package:multcomp))
-try(detach(package:survival))
-try(detach(package:mvtnorm))
-try(detach(package:splines))
 try(detach(package:TH.data))
+try(detach(package:survival))
+try(detach(package:MASS))
+try(detach(package:effectsize))
 try(detach(package:DescTools))
 ```

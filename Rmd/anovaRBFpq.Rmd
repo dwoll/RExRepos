@@ -89,8 +89,10 @@ Effect size estimates: generalized \(\hat{\eta}_{g}^{2}\)
 -------------------------
 
 ```{r}
-library(DescTools)
-EtaSq(aovRBFpq, type=1)
+library(effectsize)
+eta_squared(aovRBFpq, partial=FALSE)
+eta_squared(aovRBFpq, partial=TRUE)
+eta_squared(aovRBFpq, generalized=TRUE)
 ```
 
 Simple effects
@@ -117,5 +119,6 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:car))
-try(detach(package:DescTools))
+try(detach(package:carData))
+try(detach(package:effectsize))
 ```

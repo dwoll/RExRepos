@@ -20,10 +20,10 @@ Traditional univariate analysis and multivariate approach.
 Install required packages
 -------------------------
 
-[`car`](https://cran.r-project.org/package=car), [`DescTools`](https://cran.r-project.org/package=DescTools)
+[`car`](https://cran.r-project.org/package=car), [`effectsize`](https://cran.r-project.org/package=effectsize)
 
 ```{r}
-wants <- c("car", "DescTools")
+wants <- c("car", "effectsize")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -119,8 +119,10 @@ summary(aovSPFp.qr)
 ### Effect size estimates: generalized \(\hat{\eta}_{g}^{2}\)
 
 ```{r}
-library(DescTools)
-EtaSq(aovSPFp.qr, type=1)
+library(effectsize)
+eta_squared(aovSPFp.qr, partial=FALSE)
+eta_squared(aovSPFp.qr, partial=TRUE)
+eta_squared(aovSPFp.qr, generalized=TRUE)
 ```
 
 ### Using `Anova()` from package `car` with data in wide format
@@ -172,5 +174,6 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:car))
-try(detach(package:DescTools))
+try(detach(package:carData))
+try(detach(package:effectsize))
 ```

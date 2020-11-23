@@ -20,10 +20,10 @@ Traditional univariate analysis and multivariate approach.
 Install required packages
 -------------------------
 
-[`car`](https://cran.r-project.org/package=car), [`DescTools`](https://cran.r-project.org/package=DescTools), [`multcomp`](https://cran.r-project.org/package=multcomp)
+[`car`](https://cran.r-project.org/package=car), [`effectsize`](https://cran.r-project.org/package=effectsize), [`multcomp`](https://cran.r-project.org/package=multcomp)
 
 ```{r}
-wants <- c("car", "DescTools", "multcomp")
+wants <- c("car", "effectsize", "multcomp")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -80,8 +80,10 @@ Effect size estimates: generalized \(\hat{\eta}_{g}^{2}\)
 -------------------------
 
 ```{r}
-library(DescTools)
-EtaSq(aovSPFpq, type=1)
+library(effectsize)
+eta_squared(aovSPFpq, partial=FALSE)
+eta_squared(aovSPFpq, partial=TRUE)
+eta_squared(aovSPFpq, generalized=TRUE)
 ```
 
 Simple effects
@@ -114,6 +116,7 @@ Planned comparisons for the between-subjects factor
 ```{r}
 mDf    <- aggregate(DV ~ id + IVbtw, data=dfSPFpqL, FUN=mean)
 aovRes <- aov(DV ~ IVbtw, data=mDf)
+```
 
 ```{r}
 cMat <- rbind("-0.5*(A+B)+C"=c(-1/2, -1/2, 1),
@@ -130,11 +133,12 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:DescTools))
+try(detach(package:effectsize))
 try(detach(package:multcomp))
 try(detach(package:mvtnorm))
 try(detach(package:car))
-try(detach(package:survival))
-try(detach(package:splines))
+try(detach(package:carData))
 try(detach(package:TH.data))
+try(detach(package:survival))
+try(detach(package:MASS))
 ```

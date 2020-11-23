@@ -20,10 +20,10 @@ Traditional univariate analysis and multivariate approach.
 Install required packages
 -------------------------
 
-[`car`](https://cran.r-project.org/package=car), [`DescTools`](https://cran.r-project.org/package=DescTools)
+[`car`](https://cran.r-project.org/package=car), [`effectsize`](https://cran.r-project.org/package=effectsize), [`DescTools`](https://cran.r-project.org/package=DescTools)
 
 ```{r}
-wants <- c("car", "DescTools")
+wants <- c("car", "effectsize", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -51,8 +51,10 @@ summary(aovRBp)
 ### Effect size estimate: generalized \(\hat{\eta}_{g}^{2}\)
 
 ```{r}
-library(DescTools)
-EtaSq(aovRBp, type=1)
+library(effectsize)
+eta_squared(aovRBp, partial=FALSE)
+eta_squared(aovRBp, partial=TRUE)
+eta_squared(aovRBp, generalized=TRUE)
 ```
 
 ### Using `Anova()` from package `car` with data in wide format
@@ -94,6 +96,7 @@ muH0    <- rep(0, ncol(DVdiff))
 ```
 
 ```{r}
+
 library(DescTools)
 HotellingsT2Test(DVdiff, mu=muH0)
 ```
@@ -110,5 +113,7 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:car))
+try(detach(package:carData))
 try(detach(package:DescTools))
+try(detach(package:effectsize))
 ```

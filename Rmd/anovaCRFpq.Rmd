@@ -19,10 +19,10 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](https://cran.r-project.org/package=car), [`DescTools`](https://cran.r-project.org/package=DescTools), [`multcomp`](https://cran.r-project.org/package=multcomp), [`phia`](https://cran.r-project.org/package=phia)
+[`car`](https://cran.r-project.org/package=car), [`effectsize`](https://cran.r-project.org/package=effectsize), [`DescTools`](https://cran.r-project.org/package=DescTools), [`multcomp`](https://cran.r-project.org/package=multcomp), [`phia`](https://cran.r-project.org/package=phia)
 
 ```{r}
-wants <- c("car", "DescTools", "multcomp", "phia")
+wants <- c("car", "effectsize", "multcomp", "phia", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -76,8 +76,9 @@ Effect size estimate: partial \(\hat{\eta}_{p}^{2}\)
 -------------------------
 
 ```{r}
-library(DescTools)
-EtaSq(aovCRFpq, type=1)
+library(effectsize)
+eta_squared(aovCRFpq, partial=FALSE)
+eta_squared(aovCRFpq, partial=TRUE)
 ```
 
 Simple effects
@@ -152,42 +153,17 @@ library(DescTools)
 ScheffeTest(aovCRFpq, which="IV2", contrasts=c(-1, 1/2, 1/2))
 ```
 
-Assess test assumptions
--------------------------
-
-### Normality
-
-```{r rerAnovaCRFpq02}
-Estud <- rstudent(aovCRFpq)
-qqnorm(Estud, pch=20, cex=2)
-qqline(Estud, col="gray60", lwd=2)
-```
-
-```{r}
-shapiro.test(Estud)
-```
-
-### Variance homogeneity
-
-```{r rerAnovaCRFpq03}
-plot(Estud ~ dfCRFpq$IVcomb, main="Residuals per group")
-```
-
-```{r}
-library(car)
-leveneTest(aovCRFpq)
-```
-
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
 try(detach(package:phia))
 try(detach(package:car))
+try(detach(package:carData))
 try(detach(package:multcomp))
-try(detach(package:survival))
-try(detach(package:mvtnorm))
-try(detach(package:splines))
 try(detach(package:TH.data))
+try(detach(package:survival))
+try(detach(package:MASS))
+try(detach(package:effectsize))
 try(detach(package:DescTools))
 ```

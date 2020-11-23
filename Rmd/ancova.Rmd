@@ -18,10 +18,10 @@ TODO
 Install required packages
 -------------------------
 
-[`car`](https://cran.r-project.org/package=car), [`effects`](https://cran.r-project.org/package=effects), [`multcomp`](https://cran.r-project.org/package=multcomp)
+[`car`](https://cran.r-project.org/package=car), [`phia`](https://cran.r-project.org/package=phia), [`multcomp`](https://cran.r-project.org/package=multcomp), [`effectsize`](https://cran.r-project.org/package=effectsize)
 
 ```{r}
-wants <- c("car", "effects", "multcomp")
+wants <- c("car", "phia", "multcomp", "effectsize")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -124,14 +124,9 @@ Effect size estimate
 Using SS type II
 
 ```{r}
-anRes <- anova(fitRegr, fitFull)
-dfGrp <- anRes[2, "Df"]
-dfE   <- anRes[2, "Res.Df"]
-MSgrp <- anRes[2, "Sum of Sq"] / dfGrp
-MSE   <- anRes[2, "RSS"] / dfE
-SST   <- sum(anova(fitFull)[ , "Sum Sq"])
-
-(omegaSqHat <- dfGrp*(MSgrp - MSE) / (SST + MSE))
+library(effectsize)
+omega_squared(fitFull, partial=FALSE)
+omega_squared(fitFull, partial=TRUE)
 ```
 
 Planned comparisons between groups
@@ -140,10 +135,8 @@ Planned comparisons between groups
 ### Adjusted group means
 
 ```{r}
-aovAncova <- aov(DVpost ~ IV + DVpre, data=dfAnc)
-library(effects)                    # for effect()
-YMjAdj <- effect("IV", aovAncova)
-summary(YMjAdj)
+library(phia)                    # for effect()
+interactionMeans(fitFull)
 ```
 
 ### Planned comparisons
@@ -165,14 +158,11 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
-try(detach(package:effects))
-try(detach(package:colorspace))
-try(detach(package:lattice))
-try(detach(package:grid))
+try(detach(package:phia))
 try(detach(package:car))
+try(detach(package:carData))
 try(detach(package:multcomp))
-try(detach(package:survival))
-try(detach(package:mvtnorm))
-try(detach(package:splines))
 try(detach(package:TH.data))
+try(detach(package:survival))
+try(detach(package:MASS))
 ```
