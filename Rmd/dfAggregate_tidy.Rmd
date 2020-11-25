@@ -1,0 +1,138 @@
+---
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
+title: "Aggregate data frames by group - dplyr"
+categories: [DataFrames]
+rerCat: Data_Frames
+tags: [Aggregate]
+---
+
+Aggregate data frames by group - package `dplyr`
+=========================
+
+Install required packages
+-------------------------
+
+[`dplyr`](https://cran.r-project.org/package=dplyr)
+
+```{r}
+wants <- c("dplyr")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Simulate data
+-------------------------
+
+```{r}
+set.seed(123)
+N      <- 12
+sex    <- factor(sample(c("f", "m"), N, replace=TRUE), levels=c("f", "m"))
+group  <- factor(sample(rep(c("CG", "WL", "T"), 4), N, replace=FALSE), levels=c("CG", "WL", "T"))
+age    <- sample(18:35, N, replace=TRUE)
+IQ     <- round(rnorm(N, mean=100, sd=15))
+rating <- round(runif(N, min=0, max=6))
+(myDf1 <- data.frame(id=1:N, sex, group, age, IQ, rating))
+```
+
+General group-wise operations
+-------------------------
+
+Group-wise rank added to original data.
+
+```{r}
+library(dplyr)
+
+myDf1_grp <- myDf1 %>%
+    group_by(sex) %>%
+    mutate(IQ_rank=rank(IQ)) %>%
+    arrange(sex, IQ)
+
+myDf1_grp
+```
+
+Grouped data frame retains grouping which is used automatically by other `dplyr` functions, but not by base R functions. Grouping is removed with `ungroup()`.
+
+```{r}
+myDf1_grp %>%
+    slice_head(n=2)
+
+myDf1_grp %>%
+    head(n=2)
+
+myDf1_grp %>%
+    ungroup()
+```
+
+Separate summary statistics for each group
+-------------------------
+
+```{r}
+myDf1 %>%
+    group_by(group) %>%
+    summarise(age_M=mean(age),
+              age_SD=sd(age),
+              IQ_M=mean(IQ),
+              IQ_SD=sd(IQ),
+              n=n())
+```
+
+If grouping is done by multiple factors, `summarise()` removes the last one from the active grouping variables.
+
+```{r}
+df_aggr <- myDf1 %>%
+    group_by(sex, group) %>%
+    summarise(rating_M=mean(rating))
+
+df_aggr
+
+## df_aggr is still grouped by sex
+df_aggr %>%
+    summarise(n=n())
+
+## as opposed to
+myDf1 %>%
+    group_by(sex) %>%
+    summarise(n=n())
+```
+
+Specify grouping factors programmatically using `across()`
+-------------------------
+
+```{r}
+myDf1 %>%
+    group_by(across(starts_with("s"))) %>%
+    summarise(M_IQ=mean(IQ))
+```
+
+```{r}
+myDf1 %>%
+    group_by(across(where(is.character))) %>%
+    summarise(M_IQ=mean(IQ))
+```
+
+```{r}
+myDf1 %>%
+    group_by(group) %>%
+    summarise(across(all_of(c("sex", "rating")), n_distinct))
+```
+
+```{r}
+myDf1 %>%
+    group_by(group) %>%
+    summarise(across(where(is.numeric), ~mean(., na.rm=TRUE)))
+```
+
+```{r}
+myDf1 %>%
+    group_by(sex) %>%
+    summarise(across(where(is.numeric),
+                     list(median=~median(., na.rm=TRUE))))
+```
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:dplyr))
+```

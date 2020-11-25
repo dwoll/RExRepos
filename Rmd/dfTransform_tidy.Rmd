@@ -1,0 +1,300 @@
+---
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
+title: "Choose names, variables, cases - dplyr"
+categories: [DataFrames]
+rerCat: Data_Frames
+tags: [DataFrames]
+---
+
+Choose names, variables, cases of data frames - package `dplyr`
+=========================
+
+Install required packages
+-------------------------
+
+[`dplyr`](https://cran.r-project.org/package=dplyr), [`forcats`](https://cran.r-project.org/package=forcats)
+
+```{r}
+wants <- c("dplyr", "forcats")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+TODO
+-------------------------
+
+ - link to strings for `grep()`, dfSplitMerge, dfReshape
+
+Simulate data
+-------------------------
+
+```{r}
+set.seed(123)
+N      <- 12
+sex    <- factor(sample(c("f", "m"), N, replace=TRUE), levels=c("f", "m"))
+group  <- factor(sample(rep(c("CG", "WL", "T"), 4), N, replace=FALSE), levels=c("CG", "WL", "T"))
+age    <- sample(18:35, N, replace=TRUE)
+IQ     <- round(rnorm(N, mean=100, sd=15))
+rating <- round(runif(N, min=0, max=6))
+(myDf1 <- data.frame(id=1:N, sex, group, age, IQ, rating))
+```
+
+Rename variables
+-------------------------
+
+### Specify new and old name explicitly
+
+```{r}
+library(dplyr)
+myDf1 %>%
+    rename(score=rating,
+           fac=group)
+```
+
+### Specify new and old name programmatically
+
+```{r}
+myDf1 %>%
+    rename_with(tolower, matches("^i.+"))
+
+myDf1 %>%
+    rename_with(~paste0("fac_", .), where(is.character))
+
+myDf1 %>%
+    rename_with(toupper)
+```
+
+Select variables
+-------------------------
+
+### Select by full name
+
+```{r}    
+library(dplyr)
+myDf1 %>%
+    select(group, IQ)
+```
+
+### Select by name pattern
+
+```{r}
+myDf1 %>%
+    select(matches("^i.+"))
+```
+
+### Select by data type
+
+```{r}
+myDf1 %>%
+    select(where(is.numeric))
+```
+
+### Select by logical combination of characteristics
+
+```{r}
+myDf1 %>%
+    select(!where(is.numeric) & starts_with("g"))
+```
+
+### De-select variables
+
+```{r}
+myDf1 %>%
+    select(-sex, -matches("a.+"))
+
+myDf1 %>%
+    select(-(group:IQ))
+```
+
+Select cases
+-------------------------
+
+### By explicitly stating matching criteria
+
+Matching all criteria simultaneously - logical AND
+
+```{r}    
+myDf1 %>%
+    filter(group %in% c("CG", "WL"),
+           id > rating,
+           IQ > 90)
+```
+
+Matching some criteria - logical OR
+
+```{r}
+myDf1 %>%
+    filter((IQ < 90) | (IQ > 110))
+```
+
+By row number
+
+```{r}
+myDf1 %>%
+    slice(5:7)
+```
+
+Drop duplicate rows
+
+```{r}
+myDf1 %>%
+    select(sex, group) %>%
+    distinct()
+```
+
+```{r}
+myDf1 %>%
+    distinct(sex, group)
+```
+
+Count distinct rows
+
+```{r}
+myDf1 %>%
+    n_distinct()
+```
+
+### Programmatically stating matching criteria
+
+Add some missing values to data frame first
+
+```{r}
+getNA <- function(x, prob=c(0.7, 0.3)) {
+    NAval <- x[length(x) + 1]
+    if_else(sample(c(TRUE, FALSE), length(x), replace=TRUE, prob=prob), x, NAval)
+}
+
+myDf1NA <- myDf1 %>%
+    mutate(group=getNA(group),
+           age=getNA(age),
+           IQ=getNA(IQ),
+           rating=getNA(rating))
+
+myDf1NA
+```
+
+Show missings in variables "from group to IQ"
+
+```{r}
+myDf1NA %>%
+    filter(across(group:IQ, is.na))
+```
+
+Show only cases with uneven values on numeric variables
+
+```{r}
+myDf1NA %>%
+    filter(across(where(is.numeric), ~ (. %% 2) == 1))
+```
+
+Change data frame variables
+-------------------------
+
+### Explicitly
+
+Add new variables or overwrite existing variables in `mutate()`
+
+```{r}
+library(dplyr)
+library(forcats)
+
+myDf1 %>%
+    mutate(married=sample(c(TRUE, FALSE), n(), replace=TRUE))
+
+myDf1 %>%
+    mutate(group=fct_collapse(group, CG_WL=c("CG", "WL")),
+           ratingSq=rating^2,
+           ratingSqZ=scale(ratingSq))
+```
+
+Conditional changes to variables
+
+```{r}
+myDf1 %>%
+    mutate(age_even=if_else((age %% 2) == 0, TRUE, FALSE),
+           sex_IQ=case_when(
+               ((sex == "f") & (IQ <  100)) ~ "female_lo",
+               ((sex == "f") & (IQ >= 100)) ~ "female_hi",
+               ((sex == "m") & (IQ <  100)) ~ "male_lo",
+               ((sex == "m") & (IQ >= 100)) ~ "male_hi",
+               TRUE                         ~ "other"))
+```
+
+Recode special values to missing (`NA`)
+
+```{r}
+myDf9999           <- myDf1
+myDf9999$IQ[2]     <- 9999
+myDf9999$rating[3] <- 9999
+
+(myDfNA <- myDf9999 %>%
+    mutate(IQ=na_if(IQ, 9999),
+           rating=na_if(rating, 9999)))
+```
+
+Drop missing values
+
+```{r}
+myDfNA %>%
+    na.omit()
+```
+
+### Programmatically
+
+```{r}
+myDf1 %>%
+    mutate(across(where(is.numeric),
+                  ~scale(., center=TRUE, scale=FALSE)))
+
+myDf1 %>%
+    mutate(across(age:IQ, list(ctr=~scale(., center=TRUE, scale=FALSE),
+                               scl=~scale(., center=FALSE, scale=TRUE))))
+
+myDf1 %>%
+    mutate(across(everything(), getNA))
+```
+
+
+Change order of rows
+-------------------------
+
+Ascending
+
+```{r}
+myDf1 %>%
+    arrange(rating)
+```
+
+Descending
+
+```{r}
+myDf1 %>%
+    arrange(group, desc(IQ))
+```
+
+Change order of variables
+-------------------------
+
+Move to front
+
+```{r}
+myDf1 %>%
+    select(group, age, everything())
+```
+
+Specify position directly
+
+```{r}
+myDf1 %>%
+    relocate(group, .after=rating)
+```
+
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:dplyr))
+try(detach(package:forcats))
+```

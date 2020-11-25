@@ -7,52 +7,25 @@ rerCat: Data_Frames
 tags: [Aggregate]
 ---
 
-Aggregate data
+Aggregate data frames - base R
 =========================
 
-Separate descriptive statistics for each group
+Simulate data
 -------------------------
-
-```{r}
-Njk   <- 2
-P     <- 2
-Q     <- 3
-IQ    <- round(rnorm(Njk*P*Q, mean=100, sd=15))
-sex   <- factor(rep(c("f", "m"),       times=Q*Njk))
-group <- factor(rep(c("T", "WL", "CG"), each=P*Njk))
-table(sex, group)
-```
-
-### `ave()`
-
-```{r}
-ave(IQ, sex, FUN=mean)
-```
-
-### `tapply()`
-
-```{r}
-tapply(IQ, group, FUN=mean)
-tapply(IQ, list(sex, group), FUN=mean)
-```
-
-Aggregate data frames
--------------------------
-
-### Simulate data
 
 ```{r}
 set.seed(123)
 N      <- 12
-sex    <- sample(c("f", "m"), N, replace=TRUE)
-group  <- sample(rep(c("CG", "WL", "T"), 4), N, replace=FALSE)
+sex    <- factor(sample(c("f", "m"), N, replace=TRUE), levels=c("f", "m"))
+group  <- factor(sample(rep(c("CG", "WL", "T"), 4), N, replace=FALSE), levels=c("CG", "WL", "T"))
 age    <- sample(18:35, N, replace=TRUE)
 IQ     <- round(rnorm(N, mean=100, sd=15))
 rating <- round(runif(N, min=0, max=6))
 (myDf1 <- data.frame(id=1:N, sex, group, age, IQ, rating))
 ```
 
-### Apply the same function to different variables in a data frame
+Apply the same function to different variables in a data frame
+-------------------------
 
 ```{r}
 lapply(myDf1[ , c("age", "IQ", "rating")], mean)
@@ -65,7 +38,8 @@ dataNum <- myDf1[ , numIdx]
 head(dataNum)
 ```
 
-### Apply the same function to pairs of variables from two data frames
+Apply the same function to pairs of variables from two data frames
+-------------------------
 
 ```{r}
 N    <- 100
@@ -81,7 +55,8 @@ tDf2 <- data.frame(x2, y2)
 mapply(t.test, tDf1, tDf2, MoreArgs=list(alternative="less", var.equal=TRUE))
 ```
 
-### Separate descriptive statistics for each group for many variables
+Separate descriptive statistics for each group for many variables
+-------------------------
 
 ```{r}
 (splitRes <- split(myDf1, myDf1$group))
@@ -102,8 +77,3 @@ aggregate(cbind(age, IQ, rating) ~ 1, FUN=mean, data=myDf1)
 ```{r}
 by(numDf, list(myDf1$sex, myDf1$group), FUN=function(x) sapply(x, mean))
 ```
-
-Useful packages
--------------------------
-
-Package [`dplyr`](https://dplyr.tidyverse.org/) provides more functions for efficiently as well as consistently transforming and aggregating data.

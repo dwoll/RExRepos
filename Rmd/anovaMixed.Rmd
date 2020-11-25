@@ -19,10 +19,11 @@ TODO
 Install required packages
 -------------------------
 
-[`AICcmodavg`](https://cran.r-project.org/package=AICcmodavg), [`lme4`](https://cran.r-project.org/package=lme4), [`multcomp`](https://cran.r-project.org/package=multcomp), [`nlme`](https://cran.r-project.org/package=nlme), [`pbkrtest`](https://cran.r-project.org/package=pbkrtest)
+[`AICcmodavg`](https://cran.r-project.org/package=AICcmodavg), [`lme4`](https://cran.r-project.org/package=lme4), [`multcomp`](https://cran.r-project.org/package=multcomp), [`nlme`](https://cran.r-project.org/package=nlme), [`pbkrtest`](https://cran.r-project.org/package=pbkrtest), [`lmerTest`](https://cran.r-project.org/package=lmerTest), [`performance`](https://cran.r-project.org/package=performance)
 
 ```{r}
-wants <- c("AICcmodavg", "lme4", "multcomp", "nlme", "pbkrtest")
+wants <- c("AICcmodavg", "lme4", "multcomp", "nlme", "pbkrtest",
+           "lmerTest", "performance")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -132,7 +133,7 @@ summary(aov(Y ~ Xw1 + Error(id/Xw1), data=d1))
 
 No explicit assumption of compound symmetry, but
 random intercept model equivalent to compound symmetry
-iff all var comps positive (id > id:Xw1 and IV > id:Xw1)
+iff all variance components are positive (id > id:Xw1 and IV > id:Xw1)
 
 ```{r}
 library(nlme)
@@ -153,13 +154,25 @@ anova(lme(Y ~ Xw1, random=list(id=pdCompSymm(~Xw1-1)), method="REML", data=d1))
 
 #### Using `lmer()` from package `lme4`
 
+By default, `lmer()` does not calculate p-values since the package authors [see no convincing justification for selecting a particular value for the denominator (error) degrees of freedom](https://stat.ethz.ch/pipermail/r-help/2006-May/094765.html).
+
 ```{r}
 library(lme4)
 fitF <- lmer(Y ~ Xw1 + (1|id), data=d1)
+summary(fitF)
 anova(fitF)
 ```
 
-\(F\)-test with \(p\)-value with Kenward-Roger corrected degrees of freedom from package `pbkrtest`. Needs a full model and a restricted model with the effect of interest.
+Package `lmerTest` enables Satterthwaite's apprixmation of degrees of freedom for the `summary()` method.
+
+```{r}
+library(lmerTest)
+## need to re-fit model after lmerTest is loaded
+fitF_p <- lmer(Y ~ Xw1 + (1|id), data=d1)
+summary(fitF_p)
+```
+
+Model comparison \(F\)-test with \(p\)-value with Kenward-Roger corrected degrees of freedom from package `pbkrtest`. Needs a full model and a restricted model with the effect of interest.
 
 ```{r}
 # restricted model
@@ -168,14 +181,27 @@ library(pbkrtest)
 KRmodcomp(fitF, fitR)
 ```
 
-AIC comparison table using package `AICcmodavg`.
+### AIC comparison table using package `AICcmodavg`
+
+Re-fit using ML instead of REML.
 
 ```{r}
+fitF_ML <- lme4::lmer(Y ~ Xw1 + (1|id), REML=FALSE, data=d1)
+fitR_ML <- lme4::lmer(Y ~ 1   + (1|id), REML=FALSE, data=d1)
+
 library(AICcmodavg)
 AICc(fitF)
-aictab(cand.set=list(fitR, fitF),
+aictab(cand.set=list(fitR_ML, fitF_ML),
        modnames=c("restricted", "full"),
        sort=FALSE, second.ord=FALSE)
+```
+
+### \(R^{2}\) (Nakagawa & Schielzeth) & ICC
+
+```{r}
+library(performance)
+r2_nakagawa(fitF)
+icc(fitF)
 ```
 
 ### Multiple comparisons using `glht()` from package `multcomp`
@@ -216,7 +242,17 @@ anova(lme(Y ~ Xw1*Xw2,
 #### Using `lmer()` from package `lme4`
 
 ```{r}
-anova(lmer(Y ~ Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
+fitF <- lme4::lmer(Y ~ Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2)
+anova(fitF)
+anova(lmerTest::lmer(Y ~ Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
+```
+
+### \(R^{2}\) (Nakagawa & Schielzeth) & ICC
+
+```{r}
+library(performance)
+r2_nakagawa(fitF)
+icc(fitF)
 ```
 
 Two-way split-plot-factorial ANOVA (SPF-\(p \cdot q\) design)
@@ -233,7 +269,7 @@ summary(aov(Y ~ Xb1*Xw1 + Error(id/Xw1), data=d1))
 #### Using `lme()` from package `nlme`
 
 Random intercept model equivalent to compound symmetry
-iff all var comps positive
+iff all variance components are positive
 
 No explicit assumption of compound symmetry
 
@@ -255,7 +291,17 @@ anova(lme(Y ~ Xb1*Xw1, random=list(id=pdCompSymm(~Xw1-1)), method="REML", data=d
 #### Using `lmer()` from package `lme4`
 
 ```{r}
-anova(lmer(Y ~ Xb1*Xw1 + (1|id), data=d1))
+fitF <- lme4::lmer(Y ~ Xb1*Xw1 + (1|id), data=d1)
+anova(fitF)
+anova(lmerTest::lmer(Y ~ Xb1*Xw1 + (1|id), data=d1))
+```
+
+### \(R^{2}\) (Nakagawa & Schielzeth) & ICC
+
+```{r}
+library(performance)
+r2_nakagawa(fitF)
+icc(fitF)
 ```
 
 Three-way split-plot-factorial ANOVA (SPF-\(pq \cdot r\) design)
@@ -291,7 +337,17 @@ anova(lme(Y ~ Xb1*Xb2*Xw1,
 #### Using `lmer()` from package `lme4`
 
 ```{r}
-anova(lmer(Y ~ Xb1*Xb2*Xw1 + (1|id), data=d1))
+fitF <- lme4::lmer(Y ~ Xb1*Xb2*Xw1 + (1|id), data=d1)
+anova(fitF)
+anova(lmerTest::lmer(Y ~ Xb1*Xb2*Xw1 + (1|id), data=d1))
+```
+
+### \(R^{2}\) (Nakagawa & Schielzeth) & ICC
+
+```{r}
+library(performance)
+r2_nakagawa(fitF)
+icc(fitF)
 ```
 
 Three-way split-plot-factorial ANOVA (SPF-\(p \cdot qr\) design)
@@ -324,7 +380,8 @@ anova(lme(Y ~ Xb1*Xw1*Xw2,
 #### Using `lmer()` from package `lme4`
 
 ```{r}
-anova(lmer(Y ~ Xb1*Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
+anova(lme4::lmer(Y ~ Xb1*Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
+anova(lmerTest::lmer(Y ~ Xb1*Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
 ```
 
 Four-way split-plot-factorial ANOVA (SPF-\(pq \cdot rs\) design)
@@ -359,7 +416,8 @@ anova(lme(Y ~ Xb1*Xb2*Xw1*Xw2,
 #### Using `lmer()` from package `lme4`
 
 ```{r}
-anova(lmer(Y ~ Xb1*Xb2*Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
+anova(lme4::lmer(Y ~ Xb1*Xb2*Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
+anova(lmerTest::lmer(Y ~ Xb1*Xb2*Xw1*Xw2 + (1|id) + (1|Xw1:id) + (1|Xw2:id), data=d2))
 ```
 
 Further resources
@@ -373,14 +431,14 @@ Detach (automatically) loaded packages (if possible)
 ```{r}
 try(detach(package:multcomp))
 try(detach(package:mvtnorm))
-try(detach(package:survival))
-try(detach(package:splines))
 try(detach(package:TH.data))
+try(detach(package:survival))
+try(detach(package:pbkrtest))
+try(detach(package:lmerTest))
 try(detach(package:lme4))
 try(detach(package:nlme))
 try(detach(package:Matrix))
-try(detach(package:Rcpp))
 try(detach(package:AICcmodavg))
-try(detach(package:pbkrtest))
 try(detach(package:MASS))
+try(detach(package:performance))
 ```

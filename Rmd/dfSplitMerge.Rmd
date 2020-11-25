@@ -10,35 +10,24 @@ tags: [DataFrames]
 Split and merge data frames
 =========================
 
-TODO
--------------------------
-
- - link to dfTransform
-
-Split a data frame according to group membership
+Simulate data
 -------------------------
 
 ```{r}
 set.seed(123)
 N      <- 12
-sex    <- sample(c("f", "m"), N, replace=TRUE)
-group  <- sample(rep(c("CG", "WL", "T"), 4), N, replace=FALSE)
+sex    <- factor(sample(c("f", "m"), N, replace=TRUE), levels=c("f", "m"))
+group  <- factor(sample(rep(c("CG", "WL", "T"), 4), N, replace=FALSE), levels=c("CG", "WL", "T"))
 age    <- sample(18:35, N, replace=TRUE)
 IQ     <- round(rnorm(N, mean=100, sd=15))
 rating <- round(runif(N, min=0, max=6))
-(myDf  <- data.frame(id=1:N, sex, group, age, IQ, rating))
+(myDf1 <- data.frame(id=1:N, sex, group, age, IQ, rating))
 ```
 
-```{r}
-(lDf <- split(myDf, myDf$group))
-split(myDf, list(myDf$group, myDf$sex))
-unsplit(lDf, myDf$group)
-```
-
-Merge data frames
+Combine data frames
 -------------------------
 
-### Different cases for the same variables
+Bind rows
 
 ```{r}
 (dfNew <- data.frame(id=13:15,
@@ -47,15 +36,25 @@ Merge data frames
                      age=c(18, 31, 21),
                      IQ=c(116, 101, 99),
                      rating=c(4, 4, 1)))
-dfComb <- rbind(myDf, dfNew)
-dfComb[11:15, ]
+dfComb <- rbind(myDf1, dfNew)
+dfComb
 ```
 
-Check with `duplicated()` and `unique()` for duplicate cases.
+Split a data frame according to group membership
+-------------------------
 
-### Different variables from the same cases
+```{r}
+(lDf <- split(myDf1, myDf1$group))
+split(myDf1, list(myDf1$group, myDf1$sex))
+unsplit(lDf, myDf1$group)
+```
 
-Data frames like from normalized data base.
+Merge data frames
+-------------------------
+
+[Very good illustration of different join types](https://r4ds.had.co.nz/relational-data.html)
+
+### Left outer join
 
 ```{r}
 (IDDV <- data.frame(ID=factor(rep(1:3, each=2)),
@@ -68,39 +67,48 @@ Data frames like from normalized data base.
 merge(IDDV, IV)
 ```
 
+Specify identical variables which have different names in the two data sets.
+
 ```{r}
-(dfA <- data.frame(id=1:4,
+(dfA <- data.frame(ID=1:4,
                    initials=c("AB", "CD", "EF", "GH"),
                    IV1=c("-", "-", "+", "+"),
-                   DV1=c(10, 10, 11, 14)))
-(dfB <- data.frame(id=1:4,
-                   initials=c("AB", "CD", "EF", "GH"),
-                   IV2=c("A", "B", "A", "B"),
-                   DV2=c(91, 89, 92, 79)))
-```
+                   DV1=c(10, 10, 11, 14),
+                   stringsAsFactors=FALSE))
 
-```{r}
-merge(dfA, dfB)
-merge(dfA, dfB, by.x=c(TRUE, FALSE, FALSE, FALSE),
-                by.y=c(TRUE, FALSE, FALSE, FALSE))
-```
-
-### Keep cases with partial data
-
-```{r}
-(dfC <- data.frame(id=3:6,
+(dfB <- data.frame(ID_mod=3:6,
                    initials=c("EF", "GH", "IJ", "KL"),
                    IV2=c("A", "B", "A", "B"),
-                   DV2=c(92, 79, 101, 81)))
+                   DV2=c(92, 79, 101, 81),
+                   stringsAsFactors=FALSE))
 ```
 
 ```{r}
-merge(dfA, dfC)
-merge(dfA, dfC, all.y=TRUE)
-merge(dfA, dfC, all.x=TRUE, all.y=TRUE)
+merge(dfA, dfB, all.x=TRUE,
+      by.x=c("ID", "initials"),
+      by.y=c("ID_mod", "initials"))
 ```
 
-Useful packages
--------------------------
+### Right outer join
 
-Package [`dplyr`](https://dplyr.tidyverse.org/) provides very handy functions for the split-apply-combine approach to aggregating data frames.
+```{r}
+merge(dfA, dfB, all.y=TRUE,
+      by.x=c("ID", "initials"),
+      by.y=c("ID_mod", "initials"))
+```
+
+### Full outer join
+
+```{r}
+merge(dfA, dfB, all.x=TRUE, all.y=TRUE,
+      by.x=c("ID", "initials"),
+      by.y=c("ID_mod", "initials"))
+```
+
+### Inner join
+
+```{r}
+merge(dfA, dfB,
+      by.x=c("ID", "initials"),
+      by.y=c("ID_mod", "initials"))
+```

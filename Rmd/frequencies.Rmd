@@ -13,10 +13,10 @@ Frequency tables
 Install required packages
 -------------------------
 
-[`DescTools`](https://cran.r-project.org/package=DescTools)
+[`DescTools`](https://cran.r-project.org/package=DescTools), [`dplyr`](https://cran.r-project.org/package=dplyr)
 
 ```{r}
-wants <- c("DescTools")
+wants <- c("DescTools", "dplyr")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -160,7 +160,7 @@ Percentile rank
 ```{r}
 (vec <- round(rnorm(10), 2))
 library(DescTools)
-PercentRank(vec)
+100*PercentRank(vec)
 ```
 
 Using base R
@@ -177,9 +177,87 @@ knots(Fn)
 plot(Fn, main="cumulative frequencies")
 ```
 
+Using package `dplyr`
+-------------------------
+
+Data set
+
+```{r}
+N      <- 12
+sex    <- factor(sample(c("f", "m"), N, replace=TRUE), levels=c("f", "m"))
+group  <- factor(sample(rep(c("CG", "WL", "T"), 4), N, replace=FALSE), levels=c("CG", "WL", "T"))
+age    <- sample(18:35, N, replace=TRUE)
+IQ     <- round(rnorm(N, mean=100, sd=15))
+rating <- round(runif(N, min=0, max=6))
+myDf1  <- data.frame(id=1:N, sex, group, age, IQ, rating)
+```
+
+### Absolute frequencies 
+
+`count()` gives frequencies using new variable `n` (by default).
+
+```{r}
+library(dplyr)
+myDf1 %>%
+    count(sex, group, name="n")
+```
+
+By default, `count()` drops groups / combinations of groups with no entries. Use option `.drop=FALSE` to include entries with frequency 0.
+
+```{r}
+myDf1 %>%
+    count(sex, group, .drop=FALSE)
+```
+
+Add corresponding count to existing data frame.
+
+```{r}
+myDf1 %>%
+    add_count(sex, group)
+```
+
+### Relative frequencies
+
+```{r}
+myDf1 %>%
+    count(sex, group) %>%
+    mutate(freq_rel=n / sum(n))
+
+myDf1 %>%
+    add_count(sex, group) %>%
+    mutate(freq_rel=n / n())
+```
+
+### Conditional relative frequencies
+
+```{r}
+myDf1 %>%
+    count(sex, group, name="n_sex_group") %>%
+    group_by(sex) %>%
+    mutate(n_sex=sum(n_sex_group),
+           freq_cond_rel=n_sex_group / n_sex) %>%
+    ungroup()
+```
+
+```{r}
+myDf1 %>%
+    add_count(sex, name="n_sex") %>%
+    add_count(sex, group, name="n_sex_group") %>%
+    mutate(freq_cond_rel=n_sex_group / n_sex) %>%
+    select(id, sex, group, n_sex, n_sex_group, freq_cond_rel)
+```
+
+### Percent rank
+
+```{r}
+myDf1 %>%
+    mutate(rating_pr=100*percent_rank(rating))
+```
+
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
 try(detach(package:DescTools))
+try(detach(package:dplyr))
 ```

@@ -79,7 +79,7 @@ watcher:
   notify_on_compilation_failure: true
 
  # The base URL for this site. This is required for XML sitemap generation. 
-base_url: "http://www.dwoll.de/rexrepos"
+base_url: "http://dwoll.de/rexrepos"
 #base_url: "http://localhost:3000"
 #base_url: "http://localhost/rexrepos"
 
@@ -120,21 +120,27 @@ rer:
       sumProdRange: "Sum, product, and range of data"
       mean: "The mean and other location measures"
       variance: "Variance, robust spread measures, skewness, and kurtosis"
-      correlation: "Covariance, correlation, association measures for continuous variables"
+      correlation: "Covariance, correlation, association for continuous variables"
       matrixStatistics: "Descriptive statistics for data in matrices"
       frequencies: "Frequency tables"
-      association: "Association measures for unordered categorical variables"
-      associationOrder: "Association measures for ordered categorical variables"
+      association: "Association for unordered categorical variables"
+      associationOrder: "Association for ordered categorical variables"
       interRaterICC: "Inter-rater-reliability and intra-class-correlation"
-      aggregate: "Aggregate vectors"
+      aggregate: "Aggregate data vectors by group"
       missingData: "Deal with missing data"
     Data_Frames:
       dataFrames: "Create and analyze data frames"
-      dfTransform: "Transform data frames"
-      aggregate: "Aggregate data"
-      dfSplitMerge: "Split and merge data frames"
-      dfReshape: "Reshape data frames"
       dfImportExport: "Data import and export"
+      Data_wrangling_base_R:
+        dfTransform: "Choose names, variables, cases"
+        dfSplitMerge: "Split and combine data frames"
+        dfReshape: "Reshape data frames"
+        dfAggregate: "Aggregate data frames"
+      Data_wrangling_dplyr_tidyr:
+        dfTransform_tidy: "Choose names, variables, cases"
+        dfSplitMerge_tidy: "Split and combine data frames"
+        dfReshape_tidy: "Reshape data frames"
+        dfAggregate_tidy: "Aggregate data frames"
     Univariate:
       Regression_Models:
         regression: "Multiple linear regression"
@@ -205,7 +211,7 @@ rer:
         diagCategorical: "Diagrams for categorical data"
         diagDistributions: "Visualize univariate and bivariate distributions"
         diagMultivariate: "Diagrams for multivariate data"
-        diagBounding: "Convex hull, (minimum) bounding box, and minimum enclosing circle"
+        diagBounding: "Convex hull, (minimum) bounding box, minimum enclosing circle"
         diagSplines: "Linear interpolation, polynomial smoothing, and splines"
         diagMultiple: "Multiple diagrams per graphics device"
       Diagrams_ggplot2:

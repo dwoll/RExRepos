@@ -1,19 +1,19 @@
 ---
 license: Creative Commons BY-SA
 author: Daniel Wollschlaeger
-title: "Aggregate vectors"
+title: "Aggregate data vectors by group"
 categories: [Descriptive]
 rerCat: Descriptive
 tags: [Aggregate]
 ---
 
-Aggregate vectors
+Aggregate data vectors by group
 =========================
 
 TODO
 -------------------------
 
- - link to dfAggregate_base, dfAggregate_tidy
+ - link to dfAggregate, dfAggregate_tidy
 
 Separate descriptive statistics for each group
 -------------------------
@@ -28,15 +28,15 @@ group <- factor(rep(c("T", "WL", "CG"), each=P*Njk))
 table(sex, group)
 ```
 
-### `ave()`
-
-```{r}
-ave(IQ, sex, FUN=mean)
-```
-
 ### `tapply()`
 
 ```{r}
 tapply(IQ, group, FUN=mean)
 tapply(IQ, list(sex, group), FUN=mean)
+```
+
+### `ave()`
+
+```{r}
+ave(IQ, sex, FUN=mean)
 ```

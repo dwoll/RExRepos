@@ -146,6 +146,7 @@ Detach (automatically) loaded packages (if possible)
 
 ```{r}
 try(detach(package:multcomp))
+try(detach(package:mvtnorm))
 try(detach(package:TH.data))
 try(detach(package:survival))
 try(detach(package:MASS))

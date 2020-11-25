@@ -1,0 +1,81 @@
+---
+license: Creative Commons BY-SA
+author: Daniel Wollschlaeger
+title: "Reshape data frames - tidyr"
+categories: [DataFrames]
+rerCat: Data_Frames
+tags: [DataFrames]
+---
+
+Reshape data frames - package `tidyr`
+=========================
+
+Install required packages
+-------------------------
+
+[`dplyr`](https://cran.r-project.org/package=dplyr), [`tidyr`](https://cran.r-project.org/package=tidyr)
+
+```{r}
+wants <- c("dplyr", "tidyr")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Simulate data
+-------------------------
+
+```{r}
+Nj    <- 2
+P     <- 2
+Q     <- 3
+id    <- 1:(P*Nj)
+DV_t1 <- round(rnorm(P*Nj, -1, 1), 2)
+DV_t2 <- round(rnorm(P*Nj,  0, 1), 2)
+DV_t3 <- round(rnorm(P*Nj,  1, 1), 2)
+IVbtw <- factor(rep(c("A", "B"), Nj))
+(datW <- data.frame(id, IVbtw, DV_t1, DV_t2, DV_t3))
+```
+
+Wide format -> long format
+-------------------------
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+datL <- datW %>%
+    pivot_longer(cols=starts_with("DV_"),
+                 names_to="time", values_to="DV",
+                 names_prefix="DV_")
+
+datL
+```
+
+Long format -> wide format
+-------------------------
+
+One variable
+
+```{r}
+datL %>%
+    pivot_wider(id_cols=c(id, IVbtw),
+                names_from=time, values_from=DV,
+                names_prefix="DV_")
+```
+
+Two variables
+
+```{r}
+datL %>%
+    mutate(DVsq=DV^2) %>%
+    pivot_wider(id_cols=c(id, IVbtw),
+                names_from=time, values_from=c(DV, DVsq))
+```
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:dplyr))
+try(detach(package:tidyr))
+```

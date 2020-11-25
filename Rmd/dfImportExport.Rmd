@@ -34,7 +34,7 @@ Read data from the console with `scan()`. Lines are terminated by hitting the `R
 
 ```{r eval=FALSE}
 vec     <- scan()
-charVec <- scan(what="character")
+charVec <- scan(what=character())
 # not shown
 ```
 
