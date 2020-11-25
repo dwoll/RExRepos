@@ -1,13 +1,13 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
-title: "Bootstrapping"
+author: "Daniel Wollschlaeger"
+title: "Nonparametric bootstrapping"
 categories: [Nonparametric, Resampling]
 rerCat: Nonparametric
 tags: [Bootstrapping]
 ---
 
-Bootstrapping
+Nonparametric bootstrapping
 =========================
 
 TODO

@@ -1,6 +1,6 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
+author: "Daniel Wollschlaeger"
 title: "Log-linear models"
 categories: [Univariate, Regression]
 rerCat: Univariate

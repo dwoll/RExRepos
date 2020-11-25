@@ -1,6 +1,6 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
+author: "Daniel Wollschlaeger"
 title: "Diagram types with the ggplot2 package"
 categories: [Diagrams, BasicDiagrams]
 rerCat: Diagrams
@@ -45,7 +45,7 @@ Diagram types
 
 ### Scatterplot
 
-```{r diagGgplot01}
+```{r  ggplot_types01}
 library(ggplot2)
 ggplot(myDf, aes(x=height, y=IQ, colour=sex, shape=group)) +
         geom_point(size=3)
@@ -53,7 +53,7 @@ ggplot(myDf, aes(x=height, y=IQ, colour=sex, shape=group)) +
 
 ### Line plot
 
-```{r}
+```{r ggplot_types02}
 (groupM <- aggregate(mood ~ sex + group, data=myDf, FUN=mean))
 ggplot(groupM, aes(x=group, y=mood, color=sex, shape=sex, group=sex)) +
     geom_point(size=3) +
@@ -64,7 +64,7 @@ ggplot(groupM, aes(x=group, y=mood, color=sex, shape=sex, group=sex)) +
 
 Stacked barplot - absolute frequencies
 
-```{r diagGgplot03}
+```{r  ggplot_types03}
 ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
     geom_bar(stat="count", position=position_stack()) +
         ggtitle("Rating frequencies by sex and group")
@@ -72,7 +72,7 @@ ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
 
 Stacked barplot - conditional relative frequencies
 
-```{r}
+```{r ggplot_types04}
 ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
     geom_bar(stat="count",
              aes(y=(..count..) / sum(..count..)),
@@ -82,7 +82,7 @@ ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
 
 Grouped barplot - relative frequencies
 
-```{r}
+```{r ggplot_types05}
 ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
     geom_bar(stat="count",
              aes(y=(..count..) / sum(..count..)),
@@ -94,7 +94,7 @@ ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
 
 Absolute frequencies
 
-```{r diagGgplot04}
+```{r  ggplot_types06}
 ggplot(myDf, aes(x=IQ)) +
         geom_histogram(bins=20) +
         ggtitle("Histogram IQ by group") +
@@ -103,7 +103,7 @@ ggplot(myDf, aes(x=IQ)) +
 
 Density with nonparametric kernel density estimator
 
-```{r}
+```{r ggplot_types07}
 ggplot(myDf, aes(x=mood)) +
     geom_histogram(aes(y=..density..)) +
     ggtitle("Histogram mood by group") +
@@ -114,7 +114,7 @@ ggplot(myDf, aes(x=mood)) +
 
 Add a `geom_beeswarm()` layer to show raw data.
 
-```{r}
+```{r ggplot_types08}
 library(ggbeeswarm)
 ggplot(myDf, aes(x=sex, y=height, fill=sex)) +
     geom_boxplot(outlier.shape=NULL) +
@@ -127,7 +127,7 @@ ggplot(myDf, aes(x=sex, y=height, fill=sex)) +
 
 Against normal distribution
 
-```{r}
+```{r ggplot_types09}
 ggplot(myDf, aes(sample=height)) +
     geom_qq() +
     geom_qq_line(color="blue")
@@ -135,7 +135,7 @@ ggplot(myDf, aes(sample=height)) +
 
 Against selected distribution (here: t)
 
-```{r}
+```{r ggplot_types10}
 parL <- list(df=10, ncp=0)
 ggplot(myDf, aes(sample=height)) +
     geom_qq(distribution=qt, dparams=parL) +
@@ -144,7 +144,7 @@ ggplot(myDf, aes(sample=height)) +
 
 Compare quantiles of two variables
 
-```{r}
+```{r ggplot_types11}
 probs <- ppoints(50)
 qDat  <- data.frame(qmood=quantile(myDf$mood, probs),
                     qheight=quantile(myDf$height, probs))
@@ -160,7 +160,7 @@ Multi-panel plots
 
 Split the diagram into panels using `facet_grid()`.
 
-```{r diagGgplot02}
+```{r  ggplot_types12}
 ggplot(myDf, aes(x=rating, y=IQ, colour=sex, shape=group)) +
         geom_point(size=3, position=position_dodge(width=0.3)) +
         facet_grid(. ~ group) +
@@ -168,12 +168,14 @@ ggplot(myDf, aes(x=rating, y=IQ, colour=sex, shape=group)) +
         guides(shape=FALSE)
 ```
 
+See also `facet_wrap()`. Option `scales="free_y"` enables individual y-axis scaling in each panel.
+
 Additional diagram elements
 -------------------------
 
 Add error bars
 
-```{r}
+```{r ggplot_types13}
 groupN     <- as.data.frame(xtabs(~ sex + group, data=myDf))
 groupSD    <- aggregate(mood ~ sex + group, data=myDf, FUN=sd)
 groupMSD   <- merge(groupM, groupSD, by=c("sex", "group"), suffixes=c(".M", ".SD"))
@@ -196,7 +198,7 @@ ggplot(groupMSDN, aes(x=group, y=mood.M, ymin=SEMlo, ymax=SEMup,
  * `ggtitle()` for a diagram title
  * `annotate()` for text given directly as an argument
 
-```{r diagGgplot06}
+```{r  ggplot_types14}
 ggplot(myDf, aes(x=height, y=IQ, colour=sex:group, shape=sex)) +
         geom_hline(aes(yintercept=100), linetype=2) +
         geom_vline(aes(xintercept=180), linetype=2) +

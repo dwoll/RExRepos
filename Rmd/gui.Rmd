@@ -1,6 +1,6 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
+author: "Daniel Wollschlaeger"
 title: "R user interfaces"
 categories: [RBasics]
 rerCat: R_Basics
@@ -78,4 +78,5 @@ Compared to the standard user interface that is already included with R, there a
 ### Graphical front-ends for R functions
 
  - [Rcmdr](https://socserv.mcmaster.ca/jfox/Misc/Rcmdr/): R Commander - A Basic-Statistics GUI for R based on Java
- - [RKWard](https://rkward.kde.org/) graphical user interface to R: Linux and limited Windows support
+ - [Jamovi](https://www.jamovi.org/): Graphical statistical spreadsheet based on R
+ - [RKWard](https://rkward.kde.org/): Graphical user interface to R: Linux and limited Windows support

@@ -1,7 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title><%= @item[:title] %></title>
@@ -15,12 +13,12 @@
     <link  href="<%= @config[:base_url] + @config[:rer][:assetPath] %>/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
     <link  href="<%= @config[:base_url] + @config[:rer][:assetPath] %>/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
     <link  href="<%= @config[:base_url] + @config[:rer][:assetPath] %>/css/syntax.css" rel="stylesheet" type="text/css" media="all">
-    <script src="<%= @config[:base_url] + @config[:rer][:assetPath] %>/js/jquery.min.js" type="text/javascript"></script>
-    <script src="<%= @config[:base_url] + @config[:rer][:assetPath] %>/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="<%= @config[:base_url] + @config[:rer][:assetPath] %>/js/jquery.min.js"></script>
+    <script src="<%= @config[:base_url] + @config[:rer][:assetPath] %>/js/bootstrap.min.js"></script>
     <script type='text/x-mathjax-config'>
       MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
     </script>
-    <script type='text/javascript' async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+    <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
   </head>
 
   <body>

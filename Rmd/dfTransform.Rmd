@@ -1,6 +1,6 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
+author: "Daniel Wollschlaeger"
 title: "Choose names, variables, cases - base R"
 categories: [DataFrames]
 rerCat: Data_Frames

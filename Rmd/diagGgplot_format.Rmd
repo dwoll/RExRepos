@@ -1,6 +1,6 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
+author: "Daniel Wollschlaeger"
 title: "Diagrams with the ggplot2 package"
 categories: [Diagrams]
 rerCat: Diagrams
@@ -43,15 +43,24 @@ myDf   <- data.frame(sex, group, sgComb, IQ, height, rating, mood)
 Control element position
 -------------------------
 
-```{r}
+```{r ggplot_format01a}
 library(ggplot2)
-(pHa <- ggplot(myDf, aes(x=mood, fill=sex)) +
-    geom_histogram(aes(y=..density..), position=position_dodge()))
+ggplot(myDf, aes(x=mood, fill=sex)) +
+    geom_histogram(aes(y=..density..), position=position_dodge())
+```
 
-(pHb <- ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
+Random jitter - useful for overlapping points, e.g., when variables are integer.
+
+```{r ggplot_format01b}
+ggplot(myDf, aes(x=height, y=mood)) +
+    geom_point(position=position_jitter(height=0.2))
+```
+
+```{r ggplot_format01c}
+ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
     geom_bar(stat="count",
              aes(y=(..count..) / sum(..count..)),
-             position=position_fill()))
+             position=position_fill())
 ```
 
 Format axes
@@ -59,20 +68,19 @@ Format axes
 
 Change order of categories by changing order of factor levels.
 
-```{r}
+```{r ggplot_format02}
 levels(myDf$rating)
 levels(myDf$rating) <- rev(levels(myDf$rating))
 ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
     geom_bar(stat="count",
              aes(y=(..count..) / sum(..count..)),
              position=position_fill()) +
-    labs(x="Rating category", y="Cumulative relative frequency") +
-    guides(x=guide_axis(angle=90))
+    labs(x="Rating category", y="Cumulative relative frequency")
 ```
 
 Rotate x-axis labels and fine tune x-axis limits / breaks.
 
-```{r}
+```{r ggplot_format03}
 ggplot(myDf, aes(x=height, y=mood, colour=sex, shape=group)) +
     geom_point(size=3) +
     scale_x_continuous(limits=c(150, 200),
@@ -84,7 +92,7 @@ ggplot(myDf, aes(x=height, y=mood, colour=sex, shape=group)) +
 
 Flip x- and y-axis
 
-```{r}
+```{r ggplot_format04}
 ggplot(myDf, aes(x=sex, y=height, fill=sex)) +
     geom_boxplot() +
     coord_flip(ylim=c(140, 200))
@@ -93,7 +101,7 @@ ggplot(myDf, aes(x=sex, y=height, fill=sex)) +
 Format legend
 -------------------------
 
-```{r}
+```{r ggplot_format05}
 ggplot(myDf, aes(x=height, y=mood, colour=sex:group, shape=sex)) +
     geom_hline(aes(yintercept=100), linetype=2) +
     geom_vline(aes(xintercept=180), linetype=2) +
@@ -110,7 +118,7 @@ ggplot(myDf, aes(x=height, y=mood, colour=sex:group, shape=sex)) +
 Format color, shape and line type
 -------------------------
 
-```{r}
+```{r ggplot_format06}
 library(colorspace)
 
 ggplot(groupM, aes(x=group, y=mood, color=sex, shape=sex, group=sex)) +
@@ -126,7 +134,7 @@ ggplot(myDf, aes(x=mood, fill=group)) +
 
 Use themes for a collection of pre-set formatting choices.
 
-```{r}
+```{r ggplot_format07}
 ggplot(myDf, aes(x=mood, fill=group)) +
     geom_histogram(aes(y=..density..), alpha=0.5) +
     geom_density(alpha=0.7) +
@@ -134,7 +142,7 @@ ggplot(myDf, aes(x=mood, fill=group)) +
     theme_bw()
 ```
 
-```{r}
+```{r ggplot_format08}
 ggplot(myDf, aes(x=sex, y=height, fill=sex)) +
     geom_boxplot() +
     coord_flip(ylim=c(140, 200)) +

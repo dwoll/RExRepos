@@ -1,6 +1,6 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
+author: "Daniel Wollschlaeger"
 title: "Analysis of covariance (ANCOVA)"
 categories: [Univariate, ANOVA]
 rerCat: Univariate

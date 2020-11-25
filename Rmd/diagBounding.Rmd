@@ -1,6 +1,6 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
+author: "Daniel Wollschlaeger"
 title: "Convex hull, (minimum) bounding box, and minimum enclosing circle"
 categories: [Diagrams, SpecificDiagrams]
 rerCat: Diagrams

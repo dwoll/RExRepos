@@ -1,6 +1,6 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
+author: "Daniel Wollschlaeger"
 title: "Crossvalidation and bootstrap prediction error for linear and generalized linear models"
 categories: [Univariate]
 rerCat: Univariate

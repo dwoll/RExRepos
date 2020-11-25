@@ -1,13 +1,13 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
-title: "Split and merge data frames - dplyr"
+author: "Daniel Wollschlaeger"
+title: "Split and combine data frames - dplyr"
 categories: [DataFrames]
 rerCat: Data_Frames
 tags: [DataFrames]
 ---
 
-Split and merge data frames - package `dplyr`
+Split and combine data frames - package `dplyr`
 =========================
 
 Install required packages

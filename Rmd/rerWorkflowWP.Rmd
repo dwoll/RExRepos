@@ -1,6 +1,6 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
+author: "Daniel Wollschlaeger"
 title: "Build websites with R and WordPress"
 categories: [Workflow]
 rerCat: Workflow

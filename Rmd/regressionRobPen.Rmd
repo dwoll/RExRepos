@@ -1,6 +1,6 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
+author: "Daniel Wollschlaeger"
 title: "Robust and penalized regression"
 categories: [Univariate, Regression]
 rerCat: Univariate

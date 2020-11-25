@@ -1,6 +1,6 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
+author: "Daniel Wollschlaeger"
 title: "Aggregate data vectors by group"
 categories: [Descriptive]
 rerCat: Descriptive

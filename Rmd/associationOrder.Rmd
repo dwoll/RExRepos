@@ -1,6 +1,6 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
+author: "Daniel Wollschlaeger"
 title: "Association tests and measures for ordered categorical variables"
 categories: [Descriptive]
 rerCat: Descriptive

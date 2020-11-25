@@ -1,13 +1,13 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
-title: "Split and merge data frames"
+author: "Daniel Wollschlaeger"
+title: "Split and combine data frames"
 categories: [DataFrames]
 rerCat: Data_Frames
 tags: [DataFrames]
 ---
 
-Split and merge data frames
+Split and combine data frames
 =========================
 
 Simulate data

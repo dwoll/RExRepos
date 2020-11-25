@@ -1,6 +1,6 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
+author: "Daniel Wollschlaeger"
 title: "Sum, product, and range of data"
 categories: [Descriptive]
 rerCat: Descriptive

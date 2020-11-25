@@ -1,13 +1,13 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
-title: "Data transformations"
+author: "Daniel Wollschlaeger"
+title: "Variable transformations"
 categories: [RBasics]
 rerCat: R_Basics
 tags: [RBasics]
 ---
 
-Data transformations
+Variable transformations
 =========================
 
 TODO

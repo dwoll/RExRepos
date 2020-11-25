@@ -1,3 +1,4 @@
+## TODO R bug 15012 is fixed -> use gsub() instead of external sed
 ## knit one input Rmd file to one output md file
 dwKnit <- function(fIn, fOut,
                    markdEngine=c("kramdown", "redcarpet", "pandoc"),
@@ -24,16 +25,16 @@ dwKnit <- function(fIn, fOut,
 
     ## for Jekyll + Redcarpet2, as well as for nanoc + pandoc,
     ## code blocks can start with knitr's default fenced code block ```r, otherwise:
-    if((siteGen == "jekyll") & (markdEngine == "kramdown")) {
+    if((siteGen == "jekyll") && (markdEngine == "kramdown")) {
         ## for Jekyll + kramdown, code blocks need to start with {% highlight r %}
         knitr::render_jekyll()
-    } else if((siteGen == "nanoc") & (markdEngine == "kramdown")) {
+    } else if((siteGen == "nanoc") && (markdEngine == "kramdown")) {
         ## for nanoc + kramdown, fenced code blocks need to start with ~~~ r
         hook.t <- function(x, options) stringr::str_c("\n\n~~~\n", x, "~~~\n\n")
         hook.r <- function(x, options) { 
             stringr::str_c("\n\n~~~ ", tolower(options$engine), "\n", x, "~~~\n\n")
         }
-    } else if((siteGen == "nanoc") & (markdEngine == "redcarpet")) {
+    } else if((siteGen == "nanoc") && (markdEngine == "redcarpet")) {
         ## for nanoc + Redcarpet2, fenced code blocks need to start with ```language-r
         hook.t <- function(x, options) stringr::str_c("\n\n```\n", x, "```\n\n")
         hook.r <- function(x, options) { 

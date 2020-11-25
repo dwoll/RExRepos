@@ -1,6 +1,6 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
+author: "Daniel Wollschlaeger"
 title: "Multiple diagrams per window or device"
 categories: [Diagrams, SpecificDiagrams]
 rerCat: Diagrams

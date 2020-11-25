@@ -1,13 +1,13 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
-title: "Bootstrapping linear models"
+author: "Daniel Wollschlaeger"
+title: "Nonparametric bootstrapping linear models"
 categories: [Nonparametric, Resampling]
 rerCat: Nonparametric
 tags: [Bootstrapping]
 ---
 
-Bootstrapping linear models
+Nonparametric bootstrapping of linear models
 ========================================================
 
 TODO

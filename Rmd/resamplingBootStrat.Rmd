@@ -1,13 +1,13 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
-title: "Stratified bootstrapping"
+author: "Daniel Wollschlaeger"
+title: "Nonparametric stratified bootstrapping"
 categories: [Nonparametric, Resampling]
 rerCat: Nonparametric
 tags: [Bootstrapping]
 ---
 
-Stratified bootstrapping
+Nonparametric stratified bootstrapping
 ========================================================
 
 TODO

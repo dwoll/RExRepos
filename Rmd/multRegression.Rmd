@@ -1,6 +1,6 @@
 ---
 license: Creative Commons BY-SA
-author: Daniel Wollschlaeger
+author: "Daniel Wollschlaeger"
 title: "Multivariate multiple regression"
 categories: [Multivariate]
 rerCat: Multivariate
