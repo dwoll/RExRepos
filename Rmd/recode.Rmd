@@ -182,7 +182,7 @@ fct_drop(status[1:2], "mid")
 (facGrp <- factor(rep(LETTERS[1:3], each=5)))
 library(forcats)
 fct_relevel(facGrp, "A", after=1)
-fct_relevel(fac1, "A", after=Inf)
+fct_relevel(facGrp, "A", after=Inf)
 ```
 
 #### Reorder group levels according to group statistics

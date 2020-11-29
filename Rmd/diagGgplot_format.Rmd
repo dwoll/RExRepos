@@ -120,6 +120,7 @@ Format color, shape and line type
 
 ```{r ggplot_format06}
 library(colorspace)
+(groupM <- aggregate(mood ~ sex + group, data=myDf, FUN=mean))
 
 ggplot(groupM, aes(x=group, y=mood, color=sex, shape=sex, group=sex)) +
     geom_point(size=8, stroke=2) +

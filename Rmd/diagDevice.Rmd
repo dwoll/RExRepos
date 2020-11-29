@@ -65,7 +65,7 @@ graphics.off()
 
 `Cairo()` has a `dpi` option for choosing the graphics resolution in the output file. Option `type` chooses the type of the graphics file.
 
-```{r eval=FALSE}
+```{r}
 library(Cairo)
 Cairo(width=5, height=5, units="in", file="Cairo_pdf.pdf", type="pdf",
       bg="white", canvas="white", dpi=120)

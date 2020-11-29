@@ -387,7 +387,9 @@ Detach (automatically) loaded packages (if possible)
 ```{r}
 try(detach(package:Hmisc))
 try(detach(package:survival))
-try(detach(package:splines))
+try(detach(package:lattice))
+try(detach(package:Formula))
+try(detach(package:ggplot2))
 try(detach(package:mvtnorm))
 try(detach(package:plotrix))
 ```

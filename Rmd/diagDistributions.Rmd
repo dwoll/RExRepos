@@ -74,6 +74,7 @@ Nj <- 40
 P  <- 3
 DV <- rnorm(P*Nj, mean=100, sd=15)
 IV <- gl(P, Nj, labels=c("Control", "Group A", "Group B"))
+Mj <- tapply(DV, IV, FUN=mean)
 ```
 
 ```{r rerDiagDistributions04}

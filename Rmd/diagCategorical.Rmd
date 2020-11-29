@@ -10,17 +10,6 @@ tags: [Diagrams]
 Diagrams for categorical data
 =========================
 
-Install required packages
--------------------------
-
-[`plotrix`](https://cran.r-project.org/package=plotrix)
-
-```{r}
-wants <- c("plotrix")
-has   <- wants %in% rownames(installed.packages())
-if(any(!has)) install.packages(wants[!has])
-```
-
 Barplots
 -------------------------
 
@@ -132,10 +121,3 @@ Useful packages
 -------------------------
 
 More plot types for categorical data are available in packages [`vcd`](https://cran.r-project.org/package=vcd) and [`vcdExtra`](https://cran.r-project.org/package=vcdExtra).
-
-Detach (automatically) loaded packages (if possible)
--------------------------
-
-```{r}
-try(detach(package:plotrix))
-```

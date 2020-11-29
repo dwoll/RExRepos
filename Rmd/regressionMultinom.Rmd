@@ -207,6 +207,7 @@ anova(vglmFitMN, vglmFitR, type="I")
 Likelihood-ratio-test for the full model against the 0-model without predictors (just intercept)
 
 ```{r}
+vglm0 <- vglm(Ycateg ~ 1, family=multinomial(refLevel=1), data=dfMN)
 anova(vglmFitMN, vglm0, type="I")
 ```
 

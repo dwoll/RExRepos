@@ -239,6 +239,7 @@ anova(vglmFit, vglmR, type="I")
 Likelihood-ratio-test for the full model against the 0-model without predictors (just intercept)
 
 ```{r}
+vglm0 <- vglm(Yord ~ 1, family=propodds, data=dfOrd)
 anova(vglmFit, vglm0, type="I")
 ```
 

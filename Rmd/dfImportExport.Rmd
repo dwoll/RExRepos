@@ -195,7 +195,7 @@ END PROGRAM.
 
 One option is to use text files (tab-separated or comma-separated) as described above to exchange data with spreadsheet applications.
 
-```{r}
+```{r eval=FALSE}
 library(writexl)
 write_xlsx(myDf, path="myDf.xlsx")
 

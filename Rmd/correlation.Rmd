@@ -207,5 +207,4 @@ Detach (automatically) loaded packages (if possible)
 try(detach(package:psych))
 try(detach(package:coin))
 try(detach(package:survival))
-try(detach(package:splines))
 ```
