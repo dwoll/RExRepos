@@ -1,0 +1,15 @@
+<!-- ### footer include starts ### -->
+<% unless @item[:author].nil? %>
+<footer>
+  &copy; 2020
+  <%= if @item[:author].class.name == "Array"
+      @item[:author].join(", ") + " -"
+    else
+      @item[:author] + " -"
+    end %>
+  <% unless @item[:license].nil? %>
+  licensed under CC-BY-SA <a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="<%= @config[:base_url] + @config[:rer][:assetPath] %>/img/cc-by-sa80x15.png" width="80" height="15"alt="Creative Commons BY-SA" /></a>
+  <% end %>
+</footer>
+<% end %>
+<!-- ### footer include ends ### -->

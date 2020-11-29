@@ -1,55 +1,34 @@
-<ul class="nav">
-  <% @config[:rer][:rerCategs].each_with_index do |(categ, posts), index|
-     unless index == @config[:rer][:rerCategs].size - 1 %>
-  <li class="dropdown <% if @item[:rerCat] == categ.to_s %>active<% end %> ">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= categ.to_s.gsub("_", " ") %> <span class="caret"></span></a>
-    <ul class="dropdown-menu <% if index == @config[:rer][:rerCategs].size - 2 %>dropdown-menu-right<% end %>" role="menu">
-      <li><a href="<%= @config[:base_url] + "/rer" + categ.to_s + ".html" %>">Overview</a></li>
-      <li class="divider"></li>
-	  <% ## check to see if we have sub-categories
-	     ## then title is a hash with fileName : title entries %>
-      <% posts.each do |posting, title|
-        unless title.class.name == "String" %>
-      <li class="dropdown-header"><%= posting.to_s.gsub("_", " ") %></li>
-      <% title.each do |thePosting, theTitle| %>
-      <li<% if File.basename(@item.identifier) == thePosting.to_s %> class="active"><%= theTitle %></li>
-	  <% else %>><a href="<%= @config[:base_url] + "/posts/" + thePosting.to_s %>.html"><%= theTitle %></a></li>
-      <% end
-         end
-         else %>
-      <li<% if File.basename(@item.identifier) == posting.to_s %> class="active"><%= title %></li>
-      <% else %>><a href="<%= @config[:base_url] + "/posts/" + posting.to_s %>.html"><%= title %></a></li>
-      <% end
-         end
-         end %>
-    </ul>
-  </li>
-  <% else %>
-</ul>
-<ul class="nav navbar-nav pull-right">
-  <li class="dropdown <% if @item[:rerCat] == categ.to_s %>active<% end %> ">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= categ.to_s.gsub("_", " ") %> <span class="caret"></span></a>
-    <ul class="dropdown-menu dropdown-menu-right" role="menu">
-      <li><a href="<%= @config[:base_url] + "/rer" + categ.to_s + ".html" %>">Overview</a></li>
-      <li class="divider"></li>
-	  <% ## check to see if we have sub-categories
-	     ## then title is a hash with fileName : title entries %>
-      <% posts.each do |posting, title|
-        unless title.class.name == "String" %>
-      <li class="nav-header"><%= posting.to_s.gsub("_", " ") %></li>
-      <% title.each do |thePosting, theTitle| %>
-      <li<% if File.basename(@item.identifier) == thePosting.to_s %> class="active"><%= theTitle %></li>
-	  <% else %>><a href="<%= @config[:base_url] + "/posts/" + thePosting.to_s %>.html"><%= theTitle %></a></li>
-      <% end
-         end
-         else %>
-      <li<% if File.basename(@item.identifier) == posting.to_s %> class="active"><%= title %></li>
-      <% else %>><a href="<%= @config[:base_url] + "/posts/" + posting.to_s %>.html"><%= title %></a></li>
-      <% end
-         end
-         end %>
-    </ul>
-  </li>
-     <% end
-        end %>
-</ul>
+<!-- ### navbar include starts ### -->
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"     aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="<%= @config[:base_url] %>/index.html"><%= @config[:title] %></a>
+    
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <% @config[:rer][:rerCategs].each_with_index do |(categ, posts), index| %>
+          <li class="nav-item dropdown<% if @item[:rerCat] == categ.to_s %> active<% end %>">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdown<%= index.to_s %>" role="button" aria-haspopup="true" aria-expanded="false"><%= categ.to_s.gsub("_", " ") %></a>
+            <div class="dropdown-menu" aria-labelledby="dropdown<%= index.to_s %>">
+              <a class="dropdown-item" href="<%= @config[:base_url] + "/rer" + categ.to_s + ".html" %>">Overview</a>
+              <div class="dropdown-divider"></div>
+              <% ## check to see if we have sub-categories - then title is a hash with fileName : title entries ##
+                posts.each do |posting, title|
+                  unless title.class.name == "String" %>
+                    <div class="nav-header"><%= posting.to_s.gsub("_", " ") %></div>
+                    <% title.each do |thePosting, theTitle| %>
+                      <a class="dropdown-item<% if File.basename(@item.identifier) == thePosting.to_s %> active<% end %>" href="<%= @config[:base_url] + "/posts/" + thePosting.to_s %>.html"><%= theTitle %></a>
+                    <% end
+                  else %>
+                    <a class="dropdown-item<% if File.basename(@item.identifier) == posting.to_s %> active<% end %>" href="<%= @config[:base_url] + "/posts/" + posting.to_s %>.html"><%= title %></a>
+                  <% end
+                end %>
+            </div> <!-- /dropdown-menu -->
+          </li>
+          <% end %>
+        </ul>
+      </div> <!-- /navbar-collapse -->
+    </nav>
+    <!-- ### navbar include ### ends -->

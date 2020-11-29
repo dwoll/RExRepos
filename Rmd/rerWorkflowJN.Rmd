@@ -13,7 +13,7 @@ Build websites with R and nanoc or Jekyll
 Workflow for static site generators
 -------------------------
 
-Using static website generators (SSG) like [nanoc](https://nanoc.ws/), [Jekyll](https://jekyllrb.com/), or [Hugo](https://gohugo.io) to automatically build a website based on [R markdown](https://rmarkdown.rstudio.com/) documents currently requires dealing with a couple of technical details.
+Using static website generators (SSG) like [nanoc](https://nanoc.ws/), [Jekyll](https://jekyllrb.com/), or [Hugo](https://gohugo.io/) to automatically build a website based on [R markdown](https://rmarkdown.rstudio.com/) documents currently requires dealing with a couple of technical details.
 
  * The first step of the workflow requires [`knitr`](http://yihui.name/knitr/) to turn the R markdown documents into regular markdown. I use an [R script](https://github.com/dwoll/RExRepos/blob/master/dwKnit.R) that gets called from a [Makefile](https://github.com/dwoll/RExRepos/blob/master/Rmd/Makefile).
  * The plain markdown files are then processed into regular HTML by the SSG. This is done by a markdown engine - popular choices are [pandoc](https://pandoc.org/), [kramdown](https://kramdown.gettalong.org/), and [Redcarpet](https://github.com/vmg/redcarpet/). Unfortunately, not all engines are supported out-of-the-box by nanoc and Jekyll. Also unfortunately, the engines have slightly different behavior and feature sets when it comes to markdown extensions.
@@ -22,7 +22,7 @@ Using static website generators (SSG) like [nanoc](https://nanoc.ws/), [Jekyll](
 Setup for nanoc
 -------------------------
 
-This website is currently (2020) built with [nanoc](http://nanoc.ws/) (version 4.11.0, compatibility options for working with nanoc3 config), using Ruby (version 2.7.0). The design uses the [Bootstrap framework](https://getbootstrap.com/) (version 3.3.0). As a markdown engine, I use pandoc (version 2.5) because it provides
+This website is currently (2020) built with [nanoc](http://nanoc.ws/) (version 4.11.0, compatibility options for working with nanoc3 config), using Ruby (version 2.7.0). The design uses the [Bootstrap framework](https://getbootstrap.com/) (version 4.5.3). As a markdown engine, I use pandoc (version 2.5) because it provides
 
  * automatical creation of a table-of-contents
  * [MathJax](https://www.mathjax.org/) support for great math rendering based on \(\LaTeX\) syntax

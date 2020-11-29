@@ -3,10 +3,8 @@ title: Diagrams
 rerCat: Diagrams
 ---
 
-R base graphics
+R graphics
 ----------------
-
-The examples on this site mostly cover so-called R base graphics, as opposed to diagrams based on the [`ggplot2`](https://ggplot2.tidyverse.org/) framework.
 
 <%= render 'rerPostList' %>
 

@@ -1,22 +1,19 @@
-<% ## list all posts (filename : title) for given category
-   unless @item[:rerCat].nil?
-   rerCat = @item[:rerCat] %>
-<ul class="nav nav-list">
-  <% ## check to see if we have sub-categories
-	 ## then title is a hash with fileName : title entries %>
-  <% @config[:rer][:rerCategs][rerCat.to_sym].each do |posting, title|
-    unless title.class.name == "String" %>
-  <li class="nav-header"><%= posting.to_s.gsub("_", " ") %></li>
-  <% title.each do |thePosting, theTitle| %>
-  <li<% if File.basename(@item.identifier) == thePosting.to_s %> class="active"><%= theTitle %></li>
-  <% else %>><a href="<%= @config[:base_url] + "/posts/" + thePosting.to_s %>.html"><%= theTitle %></a></li>
-  <% end
-     end
-     else %>
-  <li<% if File.basename(@item.identifier) == posting.to_s %> class="active"><%= title %></li>
-  <% else %>><a href="<%= @config[:base_url] + "/posts/" + posting.to_s %>.html"><%= title %></a></li>
-  <% end
-     end
-     end %>
+<!-- ### rerPostList include starts ### -->
+<% ## list all posts (filename : title) for given category ## %>
+<% unless @item[:rerCat].nil?
+  rerCat = @item[:rerCat] %>
+<ul class="nav flex-column">
+<% ## check to see if we have sub-categories - then title is a hash with fileName : title entries ## %>
+<% @config[:rer][:rerCategs][rerCat.to_sym].each do |posting, title|
+  unless title.class.name == "String" %>
+<li class="nav-header"><%= posting.to_s.gsub("_", " ") %></li>
+<% title.each do |thePosting, theTitle| %>
+<li class="nav-item"><a class="nav-link<% if File.basename(@item.identifier) == thePosting.to_s %> active<% end %>" href="<%= @config[:base_url] + "/posts/" + thePosting.to_s %>.html"><%= theTitle %></a></li>
+<% end %>
+<% else %>
+<li class="nav-item"><a class="nav-link<% if File.basename(@item.identifier) == posting.to_s %> active<% end %>" href="<%= @config[:base_url] + "/posts/" + posting.to_s %>.html"><%= title %></a></li>
+<% end
+   end %>
 </ul>
 <% end %>
+<!-- ### rerPostList include ends ### -->
