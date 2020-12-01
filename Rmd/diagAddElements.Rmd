@@ -339,7 +339,7 @@ arrows(x0=barsX, y0=limLo, x1=barsX, y1=limHi, code=3, angle=90,
 Raster images
 -------------------------
 
-See packages [`EBImage`](http://www.bioconductor.org/packages/release/bioc/html/EBImage.html) or [`adimpro`](https://cran.r-project.org/package=adimpro) to read in image files of various formats.
+See packages [`imager`](https://cran.r-project.org/package=imager) or [`adimpro`](https://cran.r-project.org/package=adimpro) to read in image files of various formats.
 
 2-D color ramp square pattern
 

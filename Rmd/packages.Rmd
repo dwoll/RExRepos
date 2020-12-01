@@ -30,10 +30,10 @@ Useful online resources
 -------------------------
 
  * [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/web/packages/): These mirror servers are the primary hosts for contributed R add-on packages
+ * [r-pkg.org](https://r-pkg.org/): Search and browse CRAN packages with a nicer user interface
  * [CRAN Task Views](https://cran.r-project.org/web/views/): An organized and maintained list of packages useful for a specific data analysis task (e.g., multivariate statistics or psychometric models)
  * [BioConductor](http://www.bioconductor.org/): A host for add-on packages especially useful for genomic data analysis
  * [rdrr.io](https://rdrr.io/): Search R related content - packages / help files
- * [r4stats package overview](http://r4stats.com/articles/add-ons/): A list of popular R packages and how their functionality compares to SPSS/SAS
 
 Install and update add-on packages
 -------------------------
@@ -65,7 +65,7 @@ library()
 ### Install and remove add-on packages
 
 ```{r eval=FALSE}
-setRepositories("https://cran.ma.imperial.ac.uk/")
+setRepositories("https://cloud.r-project.org/")
 install.packages(c("coin", "car"))
 install.packages("coin", repos="https://cran.at.r-project.org/")
 update.packages()
@@ -102,17 +102,25 @@ Get a return value `TRUE` or `FALSE` that indicates whether package could be loa
 library(doesNotExist, logical.return=TRUE)
 ```
 
-Explicitly state which package a function is from - if multiple packages export a function with the same name.
-
-```{r}
-base::mean(c(1, 3, 4))
-```
-
 ### Know which packages are currently loaded
 
 ```{r}
 sessionInfo()
 search()
+```
+
+### Is one package masking functions from a different package?
+
+If different packages provide functions with the same name, the function from the package loaded later *masks* the function from the package loaded earlier. Check if this happened:
+
+```{r}
+conflicts(detail=TRUE)
+```
+
+Explicitly state which package a function should be taken from.
+
+```{r}
+base::mean(c(1, 3, 4))
 ```
 
 ### Un-load a package

@@ -10,10 +10,6 @@ tags: [Regression]
 Multiple linear regression
 =========================
 
-```{r echo=FALSE}
-knit_hooks$set(rgl=hook_rgl)
-```
-
 TODO
 -------------------------
 
@@ -50,7 +46,7 @@ dfRegr <- data.frame(X1, X2, X3, Y)
 lm(scale(Y) ~ scale(X1) + scale(X2), data=dfRegr)
 ```
 
-```{r rerRegression01, rgl=TRUE}
+```{r rerRegression01}
 library(car)
 scatter3d(Y ~ X1 + X2, fill=FALSE, data=dfRegr)
 ```

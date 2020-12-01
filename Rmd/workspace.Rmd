@@ -24,7 +24,7 @@ setwd("d:/daniel/work/r/")
 Create and remove objects
 -------------------------
 
-Create some objects
+Create some objects - names have to start with a letter. After that, names can contain digits, underscores, and dots. See `help(Reserved)` for names that cannot be used.
 
 ```{r}
 Aval <- 7
@@ -36,8 +36,8 @@ ls()
 List available objects
 
 ```{r}
-# objects in .GlobalEnv workspace that have a capital C in their name
-ls(".GlobalEnv", pattern="C")
+# objects that have a capital C in their name
+ls(pattern="C")
 exists("Bval")
 exists("doesNotExist")
 ```
@@ -94,7 +94,7 @@ By default, `savehistory()` saves the command history to the file `.Rhistory` in
 
 ```{r eval=FALSE}
 history()
-savehistory("d:/daniel/work/r/history.r")
+savehistory("d:/daniel/work/r/history.R")
 ```
 
 By default, `save.image()` saves all objects in the workspace to the file `.RData` in the current working directory.

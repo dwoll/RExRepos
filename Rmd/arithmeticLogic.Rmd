@@ -20,6 +20,8 @@ R as a pocket calculator
 
 ### Arithmetic operators
 
+See `help(Arithmetic)`
+
 ```{r}
 3 + 7
 9 / 3
@@ -186,7 +188,7 @@ sin(pi)
 1 - ((1/48) * 48)
 ```
 
-[What every computer scientist should know about floating-point arithmetic](http://docs.sun.com/source/806-3568/ncg_goldberg.html)
+[What every computer scientist should know about floating-point arithmetic](https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html)
 
 ### Checking decimal numbers for equality
 

@@ -130,7 +130,6 @@ vglm(Y ~ X1 + X2, family=negbinomial, data=dfCount)
 
 ```{r}
 library(pscl)
-dfCount <- data.frame(X1=XY[ , 1], X2=XY[ , 2], Y)
 glmFitNB <- glm.nb(Y ~ X1 + X2, data=dfCount)
 odTest(glmFitNB)
 ```

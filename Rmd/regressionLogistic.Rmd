@@ -13,15 +13,15 @@ Binary logistic regression
 TODO
 -------------------------
 
- - link to associationOrder for `pROC`, regressionOrdinal, regressionMultinom, regressionDiag for outliers, collinearity, crossvalidation
+ - link to regressionOrdinal, regressionMultinom, regressionDiag for outliers, collinearity, crossvalidation
 
 Install required packages
 -------------------------
 
-[`rms`](https://cran.r-project.org/package=rms), [`DescTools`](https://cran.r-project.org/package=DescTools)
+[`rms`](https://cran.r-project.org/package=rms), [`DescTools`](https://cran.r-project.org/package=DescTools), [`pROC`](https://cran.r-project.org/package=pROC)
 
 ```{r}
-wants <- c("rms", "DescTools")
+wants <- c("rms", "DescTools", "pROC")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -140,14 +140,24 @@ logLik(glmFit)
 AIC(glmFit)
 ```
 
-Nagelkerke's pseudo-\(R^{2}\) (R2), area under the ROC-Kurve (C), Somers' \(D_{xy}\) (Dxy), Goodman & Kruskal's \(\gamma\) (Gamma), Kendall's \(\tau\) (Tau-a)
+Nagelkerke's pseudo-\(R^{2}\) (R2), area under the ROC-Kurve (AUC = 'C'), Somers' \(D_{xy}\) (Dxy), Goodman & Kruskal's \(\gamma\) (Gamma), Kendall's \(\tau\) (Tau-a) using package `rms`
 
 ```{r}
 library(rms)
 lrm(postFac ~ DVpre + IV, data=dfAncova)
 ```
 
-For plotting the ROC-curve, see `pROC` in associationOrder
+Plot ROC-curve using package `pROC` - also gives AUC
+
+```{r}
+library(pROC)
+(rocRes <- roc(glmFit$y, glmFit$fitted.values,
+               plot=TRUE, ci=TRUE, main="ROC-Kurve",
+               xlab="1-Spezifität (TN / (TN+FP))", ylab="Sensitivität (TP / (TP+FN))"))
+
+rocCI <- ci.se(rocRes)
+plot(rocCI, type="shape")
+```
 
 ### McFadden, Cox & Snell and Nagelkerke pseudo \(R^{2}\)
 
@@ -224,4 +234,5 @@ try(detach(package:survival))
 try(detach(package:Formula))
 try(detach(package:ggplot2))
 try(detach(package:DescTools))
+try(detach(package:pROC))
 ```

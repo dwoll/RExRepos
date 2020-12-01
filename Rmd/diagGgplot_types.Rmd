@@ -13,10 +13,10 @@ Diagrams with the `ggplot2` package
 Install required packages
 -------------------------
 
-[`ggplot2`](https://cran.r-project.org/package=ggplot2), [`ggbeeswarm`](https://cran.r-project.org/package=ggbeeswarm)
+[`ggplot2`](https://cran.r-project.org/package=ggplot2), [`ggbeeswarm`](https://cran.r-project.org/package=ggbeeswarm), [`cowplot`](https://cran.r-project.org/package=cowplot), [`patchwork`](https://cran.r-project.org/package=patchwork)
 
 ```{r}
-wants <- c("ggplot2", "ggbeeswarm")
+wants <- c("ggplot2", "ggbeeswarm", "cowplot", "patchwork")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -28,15 +28,15 @@ Data needs to be in long format.
 
 ```{r}
 Njk    <- 50
-P      <- 3
+P      <- 4
 Q      <- 2
 IQ     <- rnorm(P*Q*Njk, mean=100, sd=15)
 height <- rnorm(P*Q*Njk, mean=175, sd=7)
 rating <- factor(sample(LETTERS[1:3], Njk*P*Q, replace=TRUE))
 sex    <- factor(rep(c("f", "m"), times=P*Njk))
-group  <- factor(rep(c("control", "placebo", "treatment"), each=Q*Njk))
+group  <- factor(rep(c("control", "placebo", "treatA", "treatB"), each=Q*Njk))
 sgComb <- interaction(sex, group)
-mood   <- round(rnorm(P*Q*Njk, mean=c(85, 80, 110, 90, 130, 100)[sgComb], sd=25))
+mood   <- round(rnorm(P*Q*Njk, mean=c(85, 80, 110, 90, 130, 100, 93, 121)[sgComb], sd=25))
 myDf   <- data.frame(sex, group, sgComb, IQ, height, rating, mood)
 ```
 
@@ -158,17 +158,25 @@ ggplot(qDat, aes(x=qmood, y=qheight)) +
 Multi-panel plots
 -------------------------
 
-Split the diagram into panels using `facet_grid()`.
+Split the diagram into panels by column using `facet_grid()`.
 
-```{r  ggplot_types12}
-ggplot(myDf, aes(x=rating, y=IQ, colour=sex, shape=group)) +
+```{r ggplot_types12a}
+ggplot(myDf, aes(x=rating, y=IQ, colour=sex)) +
         geom_point(size=3, position=position_dodge(width=0.3)) +
         facet_grid(. ~ group) +
         ggtitle("IQ ~ height split by sex and group") +
         guides(shape=FALSE)
 ```
 
-See also `facet_wrap()`. Option `scales="free_y"` enables individual y-axis scaling in each panel.
+Split the diagram into matrix of panels using `facet_wrap()`. Option `scales="free_y"` produces separate y-axis for each panel.
+
+```{r ggplot_types12b}
+ggplot(myDf, aes(x=rating, y=IQ, colour=sex)) +
+        geom_point(size=3, position=position_dodge(width=0.3)) +
+        facet_wrap(. ~ group, scales="free_y") +
+        ggtitle("IQ ~ height split by sex and group") +
+        guides(shape=FALSE)
+```
 
 Additional diagram elements
 -------------------------
@@ -211,6 +219,34 @@ ggplot(myDf, aes(x=height, y=IQ, colour=sex:group, shape=sex)) +
         annotate("text", x=165, y=130, label="annotation")
 ```
 
+Put different plots on the same page
+-------------------------
+
+Using package `cowplot`
+
+```{r ggplot_types15}
+library(cowplot)
+p1 <- ggplot(myDf, aes(x=height, y=IQ, color=group)) +
+    geom_point()
+
+p2 <- ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
+    geom_bar(stat="count", position=position_stack()) +
+    ggtitle("Rating frequencies by sex and group")
+
+plot_grid(p1, p2, ncol=1, align="v")
+```
+
+Using package `patchwork`
+
+```{r}
+library(patchwork)
+p1 + p2 + plot_layout(ncol=2)
+```
+
+```{r ggplot_types16}
+p1 + p2 + plot_layout(ncol=1)
+```
+
 Save `ggplot2` diagrams to file
 -------------------------
 
@@ -233,6 +269,8 @@ Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
+try(detach(package:cowplot))
+try(detach(package:patchwork))
 try(detach(package:ggbeeswarm))
 try(detach(package:ggplot2))
 ```

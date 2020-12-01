@@ -14,7 +14,6 @@ TODO
 -------------------------
 
  - link to diagCategorical, diagScatter, diagMultivariate, diagAddElements, diagBounding
- - new R 2.15.1+ `qqplot()` options `distribution` and `probs`
 
 Install required packages
 -------------------------

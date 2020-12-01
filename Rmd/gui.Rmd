@@ -46,7 +46,11 @@ For batch mode:
 
 `Rterm.exe --no-restore --no-save < input.r > output.txt`
 
-### Get and set options
+### Startup configuration and global options
+
+On startup, several configuration files are read, see `help(Startup)`.
+
+Get value for global option
 
 ```{r}
 getOption("width")
@@ -58,8 +62,6 @@ Change option, save previous value, and restore previous value
 op <- options(width=70)
 options(op)
 ```
-
-Also see `help(Startup)` for files controlling the startup options.
 
 Contributed user interfaces to R
 ----------------

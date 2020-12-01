@@ -10,10 +10,6 @@ tags: [Diagrams]
 Diagrams for multivariate data
 =========================
 
-```{r echo=FALSE}
-knit_hooks$set(rgl=hook_rgl)
-```
-
 TODO
 -------------------------
 
@@ -81,7 +77,7 @@ persp(X, Y, matZ, xlab="x", ylab="y", zlab="Density", theta=5, phi=35,
 
 ### Interactive 3-D scatter plot
 
-```{r rerDiagMultivariate04, rgl=TRUE}
+```{r eval=FALSE}
 library(rgl)
 vecX <- rep(seq(-10, 10, length.out=10), times=10)
 vecY <- rep(seq(-10, 10, length.out=10),  each=10)
@@ -90,6 +86,7 @@ plot3d(vecX, vecY, vecZ, main="3D Scatterplot",
        col="blue", type="h", aspect=TRUE)
 spheres3d(vecX, vecY, vecZ, col="red", radius=2)
 grid3d(c("x", "y+", "z"))
+## not shown
 ```
 
 ```{r rerDiagMultivariate05, eval=FALSE}
@@ -100,6 +97,8 @@ example(persp3d)
 
 Conditioning plots
 -------------------------
+
+Better looking plots similar to the following ones can be generated very easily based on the [`ggplot2`](https://ggplot2.tidyverse.org/) package.
 
 ```{r rerDiagMultivariate06}
 Njk    <- 25
@@ -205,7 +204,6 @@ Useful packages
  - Package [`ggplot2`](https://cran.r-project.org/package=ggplot2) provides its own graphics system and many functions for multi-panel plots.
  - Packages [`googleVis`](https://cran.r-project.org/package=googleVis) and [`plotly`](https://CRAN.R-project.org/package=plotly) create online interactive diagrams based on JavaScript libraries.
  - Package [`rayshader`](https://github.com/tylermorganwall/rayshader/) shows how to render advanced 3D scenes
- - Package [`imager`](https://CRAN.R-project.org/package=imager) can read bitmap images and has many functions for image analysis / manipulation
 
 Detach (automatically) loaded packages (if possible)
 -------------------------
@@ -215,6 +213,6 @@ try(detach(package:car))
 try(detach(package:carData))
 try(detach(package:ellipse))
 try(detach(package:mvtnorm))
-try(detach(package:rgl))
+# try(detach(package:rgl))
 try(detach(package:lattice))
 ```
