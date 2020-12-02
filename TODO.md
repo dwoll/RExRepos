@@ -26,5 +26,4 @@ DFroh <- do.call("rbind", DFlist)
  * anovaCRFpq -> `model.tables()`
  * anovaMixed -> RBF-pq, SPF-p.q with compound symmetry
  * crossvalidation -> `rms::validate()` for `rms::ols()`, `rms::lrm()`, `rms::cph()`
- * resamplingPerm -> Monte-Carlo permutation tests instead of exact ones
  * diagMultivariate -> `psych::cor.plot()`
