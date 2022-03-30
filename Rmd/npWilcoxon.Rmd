@@ -123,9 +123,22 @@ SignTest(DVdiff$DV, mu=medH0)
 ### Wilcoxon signed rank test
 
 ```{r}
+wilcox.test(DV ~ IV, alternative="less", paired=TRUE, data=wDepDf)
+```
+
+Using package `coin`
+
+```{r}
 library(coin)
 wilcoxsign_test(DV ~ IV | id, alternative="less",
                 distribution="exact", data=wDepDf)
+```
+
+Based on data in wide format
+
+```{r eval=FALSE}
+# requires R version >= 4.0.0
+wilcox.test(Pair(DVpre, DVpost) ~ 1, alternative="less")
 ```
 
 ### van der Waerden normal scores test

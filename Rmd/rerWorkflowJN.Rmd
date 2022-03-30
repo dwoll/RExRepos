@@ -49,9 +49,13 @@ A website like this could also be built with [Jekyll](https://jekyllrb.com/). Ho
  * Posts cannot contain double braces as these are delimiters for Jekyll's template engine [Liquid](https://github.com/Shopify/liquid/wiki). Unfortunately, double braces are valid R output, e.g., from package `sets`. You have to replace them before running Jekyll.
  * The post filenames have to conform to Jekyll standards (start with the date), i.e., have the format "YYYY-MM-DD-title.md".
 
-Setup for Hugo using package `blogdown`
+Other solutions
 -------------------------
 
-`knitr`-based online publication is supported by the R package [blogdown](https://github.com/rstudio/blogdown/) which supports [Hugo](https://gohugo.io).
+`knitr`-based online publication is possible with the R package [blogdown](https://github.com/rstudio/blogdown/) which supports [Hugo](https://gohugo.io).
 
  * [Blogdown chapter 2: Hugo](https://bookdown.org/yihui/blogdown/hugo.html)
+
+A new R package for building entire websites based on R markdown files is [`distill`](https://rstudio.github.io/distill/)
+
+ * [(Re-)introducing Distill for R Markdown](https://blog.rstudio.com/2020/12/07/distill/)

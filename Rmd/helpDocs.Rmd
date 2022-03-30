@@ -23,8 +23,15 @@ help(round)
 # not shown (opens browser window)
 ```
 
+Function Arguments
+
 ```{r}
 args(round)
+```
+
+Application examples
+
+```{r}
 example(round)
 ```
 
@@ -98,7 +105,7 @@ Books
   * R for data science and machine learning:
       * James G, Witten D, Hastie T, Tibshirani R. 2013. An introduction to statistical learning with applications in R. New York, NY: Springer. [URL](http://faculty.marshall.usc.edu/gareth-james/ISL/)
 	  * Kuhn M, Johnson K. 2013. Applied predictive modeling. New York, NY: Springer. [URL](http://appliedpredictivemodeling.com/)
-      * Wickham H, Grolemund G. 2017. R for data science. Sebastopol, CA: O’Reilly. [URL](https://r4ds.had.co.nz/)
+      * Wickham H, Grolemund G. 2017. R for data science. Sebastopol, CA: O'Reilly. [URL](https://r4ds.had.co.nz/)
 
 ### Diagrams
 
@@ -106,14 +113,14 @@ Books
  * Unwin, A. (2015). Graphical data analysis with R. Boca Raton, FL: Chapman & Hall/CRC. [URL](http://www.gradaanwr.net/)
  * Wickham, H; Sievert C. (2016). ggplot2: Elegant Graphics for Data Analysis. New York, NY: Springer. [URL](https://ggplot2-book.org/)
  * Chang, W. (2018).R Graphics Cookbook (2nd ed). Sebastopol, CA: O'Reilly. [URL](https://r-graphics.org/)
- * Wilke, C. O. (2019). Fundamentals of data visualization. Sebastopol, CA: O’Reilly. [URL](https://serialmentor.com/dataviz/)
+ * Wilke, C. O. (2019). Fundamentals of data visualization. Sebastopol, CA: O'Reilly. [URL](https://serialmentor.com/dataviz/)
 
 ### Programming with R
 
   * Chambers JM. 2016. Extending R. Boca Raton, FL: Chapman & Hall/CRC.
-  * Gillespie C, Lovelace R. 2017. Efficient R programming. Sebastopol, CA: O’Reilly. [URL](https://csgillespie.github.io/efficientR/)
+  * Gillespie C, Lovelace R. 2017. Efficient R programming. Sebastopol, CA: O'Reilly. [URL](https://csgillespie.github.io/efficientR/)
   * Wickham H. 2019. Advanced R (2nd ed). Boca Raton, FL: Chapman & Hall/CRC. [URL](https://adv-r.hadley.nz/)
-  * Wickham H. 2015. R packages. Sebastopol, CA: O’Reilly. [URL](https://r-pkgs.org/)
+  * Wickham H. 2015. R packages. Sebastopol, CA: O'Reilly. [URL](https://r-pkgs.org/)
  
 ### Transition from other statistical software packages
 
@@ -128,6 +135,6 @@ Books
  * Gandrud, C. (2020). Reproducible research with R & RStudio (3rd ed). Boca Raton, FL: Chapman & Hall/CRC. [URL](http://christophergandrud.github.io/RepResR-RStudio/)
  * Stodden, V., Leisch, F. & Peng, R. D. (2014). Implementing Reproducible Research. Boca Raton, FL: Chapman & Hall/CRC.
 
-### Shiny for interactive Web-Apps:
+### Shiny for interactive Web-Apps
   * Sievert C. 2020. Interactive web-based data visualization with R, plotly, and shiny. Boca Raton, FL: Chapman & Hall/CRC. [URL](https://plotly-r.com/)
-  * Wickham H. 2020. Mastering shiny. Sebastopol, CA: O’Reilly. [URL](https://mastering-shiny.org/)
+  * Wickham H. 2020. Mastering shiny. Sebastopol, CA: O'Reilly. [URL](https://mastering-shiny.org/)

@@ -1,0 +1,93 @@
+---
+license: Creative Commons BY-SA
+author: "Daniel Wollschlaeger"
+title: "Numerical Optimization"
+categories: [Numerical]
+rerCat: Numerical
+tags: [MDS]
+---
+
+Numerical Optimization
+=========================
+
+Use cases
+-------------------------
+
+### Maximum-likelihood estimation
+
+Weibull distribution
+
+```{r}
+library(MASS)
+X <- rweibull(100, shape=1.5, scale=100)
+fitdistr(X, densfun="weibull", start=list(shape=1, scale=50))
+```
+
+### \(\chi^{2}\) test of normality
+
+The \(\chi^{2}\) normality test that compares observed and expected category frequencies after partitioning the value range into discrete bins (categories) does not work correctly when the sample mean and standard deviation are taken as estimates \(\hat{\mu}\) and \(\hat{\sigma}\). The test statistic then does not actually have a \(\chi^{2}\) distribution.
+
+```{r}
+DV <- rnorm(50, mean=0, sd=1)
+mean(DV)
+sd(DV)
+```
+
+Instead, it is necessary to estimate \(\hat{\mu}\) and \(\hat{\sigma}\) taking into account the chosen categories One possibility to do this is by finding the minimum \(\chi^{2}\) estimates, i.e., those estimates that minimize the observed \(X^{2}\) statistic.
+
+```{r}
+nCls <- 4  # number of classes
+
+## category limits -> cut points for equal-probability intervals
+limits <- qnorm(seq(from=1/nCls, to=(nCls-1)/nCls, length.out=nCls-1),
+                mean=0, sd=1)
+
+## determine observed category frequencies
+breaks   <- c(-Inf, limits, Inf)
+DVcut    <- cut(DV, breaks=breaks)
+observed <- table(DVcut)
+
+## function that calculates the empirical X^2 test statistic
+## needs to be minimized -> objective function
+minFunMin <- function(param, brks, obs) {
+    if(param[2] < 1e-4) { return(NA_real_) }
+    probs    <- diff(pnorm(brks, mean=param[1], sd=param[2]))
+    expected <- sum(obs) * probs
+    sum((obs-expected)^2 / expected)
+}
+```
+
+Optimization = minimization of objective function
+
+```{r}
+resMinChisq <- optim(c(mean(DV), sd(DV)), minFunMin,
+                     brks=breaks, obs=observed, gr=NULL, method="BFGS")
+resMinChisq$par                         # min-chi^2-Schätzer
+```
+
+The other possibility is a grouped maximum likelihood estimate - where the likelihood comes from the multinomial distribution.
+
+```{r}
+## objective function
+## negative multinomial log likelihood
+minFunGML <- function(param, brks, obs) {
+    if(param[2] < 1e-4) { return(NA_real_) }
+    probs <- diff(pnorm(brks, mean=param[1], sd=param[2]))
+    -dmultinom(obs, size=sum(obs), prob=probs, log=TRUE)
+}
+
+## optimize -> minimize objective function
+resGrML <- optim(c(mean(DV), sd(DV)), minFunGML,
+                 brks=breaks, obs=observed, gr=NULL, method="BFGS")
+resGrML$par
+```
+
+Further resources
+-------------------------
+
+  * [CRAN Task View 'Optimization'](https://CRAN.R-project.org/view=Optimization)
+
+Useful packages
+-------------------------
+
+  * [`fitdistrplus`](https://cran.r-project.org/package=fitdistrplus)

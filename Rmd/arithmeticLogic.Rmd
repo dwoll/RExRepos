@@ -25,15 +25,19 @@ See `help(Arithmetic)`
 ```{r}
 3 + 7
 9 / 3
-9 * (3+2)
 12^2 + 1.5*10
 10 %/% 3
 10 %% 3
 ```
 
-Also see `help(Syntax)` for operator precendence / associativity: This determines the order in which computations are carried out when multiple operators are present.
+Also see `help(Syntax)` for operator precendence / associativity: This determines the order in which computations are carried out when multiple operators are present. Use parentheses to make execution order explicit.
 
-Using operators as functions
+```{r}
+9 * (3+2)
+(9*3) + 2
+```
+
+Using operators in function notation
 
 ```{r}
 "/"(1, 10)

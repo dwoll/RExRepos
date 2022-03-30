@@ -110,4 +110,4 @@ summary(randWeeks)
 Useful packages
 -------------------------
 
-Package [`lubridate`](https://cran.r-project.org/package=lubridate) provides many functions for efficiently and consistently handling times and dates. More packages can be found in CRAN task view [Time Series](https://cran.r-project.org/web/views/TimeSeries.html).
+Package [`lubridate`](https://cran.r-project.org/package=lubridate) provides many functions for efficiently and consistently handling times and dates. More packages can be found in CRAN task view [Time Series](https://CRAN.R-project.org/view=TimeSeries).

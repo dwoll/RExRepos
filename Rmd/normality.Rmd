@@ -24,13 +24,35 @@ if(any(!has)) install.packages(wants[!has])
 Univariate normality
 -------------------------
 
+### Histogram and density estimate
+
+```{r rerNormality01a}
+set.seed(123)
+DV <- rnorm(30, mean=1.5, sd=3)
+hist(DV, breaks="FD", freq=FALSE)
+lines(density(DV), col="blue", lwd=2)
+
+#  Add normal density
+
+M  <- mean(DV)
+SD <- sd(DV)
+curve(dnorm(x, mean=M, sd=SD), from=min(DV), to=max(DV),
+      col="red", lwd=2, add=TRUE)
+```
+
 ### QQ-plot
 
-```{r rerNormality01}
-set.seed(123)
-DV <- rnorm(20, mean=1.5, sd=3)
+```{r rerNormality01b}
 qqnorm(DV, pch=20, cex=2)
 qqline(DV, col="gray60", lwd=2)
+```
+
+### Skewness and kurtosis
+
+```{r}
+library(DescTools)
+Skew(DV, method=2)
+Kurt(DV, method=2)
 ```
 
 ### Shapiro-Wilk-test

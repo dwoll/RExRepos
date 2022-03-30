@@ -107,7 +107,7 @@ summary(fitMedBoot)
 Useful packages
 -------------------------
 
-More complex structural equation models are supported by packages [`sem`](https://cran.r-project.org/package=sem), [`OpenMx`](https://openmx.ssri.psu.edu/), and [`lavaan`](https://cran.r-project.org/package=lavaan). More packages can be found in CRAN task view [Psychometric Models](https://cran.r-project.org/web/views/Psychometrics.html).
+More complex structural equation models are supported by packages [`sem`](https://cran.r-project.org/package=sem), [`OpenMx`](https://openmx.ssri.psu.edu/), and [`lavaan`](https://cran.r-project.org/package=lavaan). More packages can be found in CRAN task view [Psychometric Models](https://CRAN.R-project.org/view=Psychometrics).
 
 Detach (automatically) loaded packages (if possible)
 -------------------------

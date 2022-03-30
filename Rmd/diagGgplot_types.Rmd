@@ -24,8 +24,6 @@ if(any(!has)) install.packages(wants[!has])
 Simulate data
 -------------------------
 
-Data needs to be in long format.
-
 ```{r}
 Njk    <- 50
 P      <- 4
@@ -47,47 +45,45 @@ Diagram types
 
 ```{r  ggplot_types01}
 library(ggplot2)
-ggplot(myDf, aes(x=height, y=IQ, colour=sex, shape=group)) +
+ggplot(myDf, aes(x=height, y=IQ)) +
         geom_point(size=3)
 ```
 
 ### Line plot
 
-```{r ggplot_types02}
-(groupM <- aggregate(mood ~ sex + group, data=myDf, FUN=mean))
-ggplot(groupM, aes(x=group, y=mood, color=sex, shape=sex, group=sex)) +
+`group=TRUE` is necessary here
+
+```{r ggplot_types02a}
+(groupM <- aggregate(mood ~ group, data=myDf, FUN=mean))
+ggplot(groupM, aes(x=group, y=mood, group=TRUE)) +
     geom_point(size=3) +
     geom_line()
 ```
 
+```{r ggplot_types02b}
+(groupM <- aggregate(mood ~ group, data=myDf, FUN=mean))
+ggplot(groupM, aes(x=group, y=mood, group=TRUE)) +
+    geom_point(size=3) +
+    geom_step()
+```
+
 ### Barplot
 
-Stacked barplot - absolute frequencies
+Absolute frequencies
 
 ```{r  ggplot_types03}
-ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
-    geom_bar(stat="count", position=position_stack()) +
-        ggtitle("Rating frequencies by sex and group")
+ggplot(myDf, aes(x=rating)) +
+    geom_bar(stat="count") +
+        ggtitle("Rating frequencies")
 ```
 
-Stacked barplot - conditional relative frequencies
+Relative frequencies
 
 ```{r ggplot_types04}
-ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
+ggplot(myDf, aes(x=rating)) +
     geom_bar(stat="count",
-             aes(y=(..count..) / sum(..count..)),
-             position=position_fill()) +
-        ggtitle("Rating frequencies by sex and group")
-```
-
-Grouped barplot - relative frequencies
-
-```{r ggplot_types05}
-ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
-    geom_bar(stat="count",
-             aes(y=(..count..) / sum(..count..)),
-             position=position_dodge()) +
-    ggtitle("Rating frequencies by sex and group")
+             aes(y=(..count..) / sum(..count..))) +
+        ggtitle("Relative rating frequencies")
 ```
 
 ### Histogram
@@ -116,7 +112,7 @@ Add a `geom_beeswarm()` layer to show raw data.
 
 ```{r ggplot_types08}
 library(ggbeeswarm)
-ggplot(myDf, aes(x=sex, y=height, fill=sex)) +
+ggplot(myDf, aes(x=sex, y=height)) +
     geom_boxplot(outlier.shape=NULL) +
     geom_beeswarm(alpha=0.5) +
     ggtitle("Height by sex") +
@@ -133,7 +129,7 @@ ggplot(myDf, aes(sample=height)) +
     geom_qq_line(color="blue")
 ```
 
-Against selected distribution (here: t)
+Against pre-specified distribution (here: t)
 
 ```{r ggplot_types10}
 parL <- list(df=10, ncp=0)
@@ -161,8 +157,8 @@ Multi-panel plots
 Split the diagram into panels by column using `facet_grid()`.
 
 ```{r ggplot_types12a}
-ggplot(myDf, aes(x=rating, y=IQ, colour=sex)) +
-        geom_point(size=3, position=position_dodge(width=0.3)) +
+ggplot(myDf, aes(x=rating, y=IQ)) +
+        geom_point(size=3) +
         facet_grid(. ~ group) +
         ggtitle("IQ ~ height split by sex and group") +
         guides(shape=FALSE)
@@ -171,8 +167,8 @@ ggplot(myDf, aes(x=rating, y=IQ, colour=sex)) +
 Split the diagram into matrix of panels using `facet_wrap()`. Option `scales="free_y"` produces separate y-axis for each panel.
 
 ```{r ggplot_types12b}
-ggplot(myDf, aes(x=rating, y=IQ, colour=sex)) +
-        geom_point(size=3, position=position_dodge(width=0.3)) +
+ggplot(myDf, aes(x=rating, y=IQ)) +
+        geom_point(size=3) +
         facet_wrap(. ~ group, scales="free_y") +
         ggtitle("IQ ~ height split by sex and group") +
         guides(shape=FALSE)
@@ -207,7 +203,7 @@ ggplot(groupMSDN, aes(x=group, y=mood.M, ymin=SEMlo, ymax=SEMup,
  * `annotate()` for text given directly as an argument
 
 ```{r  ggplot_types14}
-ggplot(myDf, aes(x=height, y=IQ, colour=sex:group, shape=sex)) +
+ggplot(myDf, aes(x=height, y=IQ)) +
         geom_hline(aes(yintercept=100), linetype=2) +
         geom_vline(aes(xintercept=180), linetype=2) +
         geom_point(size=3) +
@@ -226,10 +222,10 @@ Using package `cowplot`
 
 ```{r ggplot_types15}
 library(cowplot)
-p1 <- ggplot(myDf, aes(x=height, y=IQ, color=group)) +
+p1 <- ggplot(myDf, aes(x=height, y=IQ)) +
     geom_point()
 
-p2 <- ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
+p2 <- ggplot(myDf, aes(x=rating)) +
     geom_bar(stat="count", position=position_stack()) +
     ggtitle("Rating frequencies by sex and group")
 
@@ -238,12 +234,12 @@ plot_grid(p1, p2, ncol=1, align="v")
 
 Using package `patchwork`
 
-```{r}
+```{r ggplot_types16}
 library(patchwork)
 p1 + p2 + plot_layout(ncol=2)
 ```
 
-```{r ggplot_types16}
+```{r ggplot_types17}
 p1 + p2 + plot_layout(ncol=1)
 ```
 
@@ -253,7 +249,7 @@ Save `ggplot2` diagrams to file
 Graphics file format is determined from file ending.
 
 ```{r eval=FALSE}
-p <- ggplot(myDf, aes(x=height, y=IQ, colour=sex, shape=group)) +
+p <- ggplot(myDf, aes(x=height, y=IQ)) +
         geom_point(size=3)
 
 ggsave(p, file="diag_ggplot.pdf", width=9, height=6, units="in")

@@ -216,7 +216,12 @@ rer:
         diagMultiple: "Multiple diagrams per graphics device"
       Diagrams_ggplot2:
         diagGgplot_types: "Diagram types with the ggplot2 package"
-        diagGgplot_format: "Format diagrams with the ggplot2 package"
+        diagGgplot_aes: "Color, line type, and point shape in ggplot2 diagrams"
+        diagGgplot_format: "Format ggplot2 diagrams"
+    Numerical:
+      numRoot: "Root finding"
+      numIntegrate: "Numerical integration and differentiation"
+      numOptimize: "Numerical optimization"
     Workflow:
       rerWorkflowJN: "Build websites with R and nanoc or Jekyll"
       rerWorkflowWP: "Build websites with R and WordPress"

@@ -1,15 +1,17 @@
 ---
-license: Creative Commons BY-SA
-author: "Daniel Wollschlaeger"
 title: "Convex hull, (minimum) bounding box, and minimum enclosing circle"
-categories: [Diagrams, SpecificDiagrams]
+author: "Daniel Wollschlaeger"
+license: Creative Commons BY-SA
+categories:
+- Diagrams
+- SpecificDiagrams
 rerCat: Diagrams
-tags: [Diagrams]
+tags: Diagrams
 ---
 
 Convex hull, (minimum) bounding box, and minimum enclosing circle
 =========================
- 
+
 Convex hull
 -------------------------
 
@@ -134,6 +136,37 @@ Minimum enclosing circle
 
 Skyum algorithm based on the convex hull
 
+### Identify collinear points on convex hull
+
+```{r}
+## assumes that points in xy are already oredered
+idCollinear <- function(xy) {
+    if(!is.matrix(xy))  { stop("xy must be a matrix") }
+    if(!is.numeric(xy)) { stop("xy must be numeric") }
+    if(nrow(xy) < 3L)   { stop("xy must have at least 3 points") }
+    if(ncol(xy) != 2L)  { stop("xy must have 2 columns") }
+
+    n    <- nrow(xy)
+    idx  <- seq_len(n)
+    post <- (idx %% n) + 1              # next point in S
+    prev <- idx[order(post)]            # previous point in S
+
+    del <- integer(0)
+    ## check all sets of 3 consecutive points if they lie in 1D sub-space
+    for(i in idx) {
+        pts <- rbind(xy[prev[i], ],
+                     xy[i, ],
+                     xy[post[i], ])
+        pts_rank <- qr(scale(pts, center=TRUE, scale=FALSE))$rank
+        if(pts_rank < 2L) {
+            del[length(del) + 1] <- i
+        }
+    }
+
+    del
+}
+```
+
 ### Circle defined by three points
 
 ```{r}
@@ -240,6 +273,17 @@ getMinCircle <- function(xy) {
     H    <- chull(xy)      # convex hull indices (vertices ordered clockwise)
     hPts <- xy[H, ]        # points that make up the convex hull
 
+    ## remove collinear points on convex hull, if any
+    del <- idCollinear(hPts)
+    if(length(del) >= 1L) {
+        H    <- H[-del]
+        hPts <- hPts[-del, ]
+
+        if(length(H) < 2L) {
+            stop("less than 2 points left after removing collinear points on convex hull")
+        }
+    }
+
     ## min circle may touch convex hull in only two points
     ## if so, it is centered between the hull points with max distance
     maxPD  <- getMaxPairDist(hPts)
@@ -297,3 +341,14 @@ lines(circ, col="blue", lwd=2)
 points(xy, pch=16, cex=1.5)
 ```
 
+Notes
+-------------------------
+
+Note that the presented implementation of the minimum bounding box and of the minimum enclosing circle were written ad-hoc "to get the job done" with a limited amount of mostly random point data. The implementations are not rigorously tested for numerical stability, and are not optimized. Advanced implementations (with generalizations to higher dimensions) may be found in solid computer graphics libraries.
+
+  * [Computational Geometry Algorithms Library. 2021. CGAL Chapter 65: Bounding Volumes](https://doc.cgal.org/Manual/latest/doc_html/cgal_manual/Bounding_volumes/Chapter_main.html)
+  * [Fischer, K.; Gaertner, B.; Kutz, M. 2003. Fast smallest-enclosing-ball computation in high dimensions. In: Proceedings of the 11th  European Symposium on Algorithms (ESA), 630-641](https://github.com/hbf/miniball)
+  * [Gaertner, B. 2021. Miniball: Smallest Enclosing Balls of Points](https://people.inf.ethz.ch/gaertner/subdir/software/miniball.html)
+  * Skyum, S. 1991. A simple algorithm for computing the smallest enclosing circle. Information Processing Letters 37(3), 121-125.
+  * Toussaint, G. T. 1983. Solving geometric problems with the rotating calipers. In: Proceedings of the 1983 IEEE MELECON. Athens, Greece: IEEE Computer Society.
+  * Welzl, E. 1991. Smallest enclosing disks (balls and ellipsoids). In: Maurer H. (eds), New Results and New Trends in Computer Science 555, 359-370. doi 10.1007/BFb0038202.

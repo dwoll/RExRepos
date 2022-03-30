@@ -35,7 +35,7 @@ In the non-proportional case, so-called type I, II, or III sums of squares can g
 
 SAS and SPSS use SS type III as their default, while functions that ship with base R use type I. This can lead to different results when analyzing the same data with different statistics packages.
 
-A thorough resource on the topic is chapter 7 of Maxwell & Delaney (2004). Designing Experiments and Analyzing Data. A Model Comparison Perspective. Mahwah, NJ: Lawrence Erlbaum.
+A thorough resource on the topic is chapter 7 of Maxwell & Delaney (2004). Designing Experiments and Analyzing Data. A Model Comparison Perspective. Mahwah, NJ: Lawrence Erlbaum. A formula for type III SS is derived in [https://arxiv.org/pdf/1804.00545v1.pdf](https://arxiv.org/pdf/1804.00545v1.pdf).
 
 Hypotheses for main effects
 -------------------------

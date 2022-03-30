@@ -58,14 +58,20 @@ mapply(t.test, tDf1, tDf2, MoreArgs=list(alternative="less", var.equal=TRUE))
 Separate descriptive statistics for each group for many variables
 -------------------------
 
+### `split()` -> `sapply()`
+
 ```{r}
 (splitRes <- split(myDf1, myDf1$group))
 sapply(splitRes, function(x) mean(x$IQ))
 ```
 
+Here equivalent to
+
 ```{r}
 tapply(myDf1$IQ, myDf1$group, FUN=mean)
 ```
+
+### `aggregate()`
 
 ```{r}
 numDf <- subset(myDf1, select=c("age", "IQ", "rating"))
@@ -73,6 +79,24 @@ aggregate(numDf, list(myDf1$sex, myDf1$group), FUN=mean)
 aggregate(cbind(age, IQ, rating) ~ sex + group, FUN=mean, data=myDf1)
 aggregate(cbind(age, IQ, rating) ~ 1, FUN=mean, data=myDf1)
 ```
+
+Calculate different measures by group
+
+```{r}
+(groupN   <- as.data.frame(xtabs(~ sex + group, data=myDf1)))
+(groupM   <- aggregate(age ~ sex + group, data=myDf1, FUN=mean))
+(groupSD  <- aggregate(age ~ sex + group, data=myDf1, FUN=sd))
+```
+
+Merge all results into one data frame
+
+```{r}
+(groupMSD <- merge(groupM, groupSD, by=c("sex", "group"),
+                   suffixes=c(".M", ".SD")))
+(groupMSDN <- merge(groupMSD, groupN, by=c("sex", "group")))
+```
+    
+### `by()`
 
 ```{r}
 by(numDf, list(myDf1$sex, myDf1$group), FUN=function(x) sapply(x, mean))

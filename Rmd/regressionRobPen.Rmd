@@ -183,7 +183,7 @@ legend(x="bottomleft", legend=c("X1", "X2", "X3"), lwd=2,
 Further resources
 -------------------------
 
-More information can be found in CRAN task view [Robust Statistical Methods](https://cran.r-project.org/web/views/Robust.html).
+More information can be found in CRAN task view [Robust Statistical Methods](https://CRAN.R-project.org/view=Robust).
 
 Detach (automatically) loaded packages (if possible)
 -------------------------

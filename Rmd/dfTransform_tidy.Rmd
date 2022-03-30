@@ -43,7 +43,7 @@ rating <- round(runif(N, min=0, max=6))
 Rename variables
 -------------------------
 
-### Specify new and old name explicitly
+### Specify new and old names explicitly
 
 ```{r}
 library(dplyr)
@@ -54,13 +54,23 @@ myDf1 %>%
 
 ### Specify new and old name programmatically
 
+Make all names lower case that start with 'i' or 'I'
+
 ```{r}
 myDf1 %>%
     rename_with(tolower, matches("^i.+"))
+```
 
+Prefix all `character` variables with `fac_`
+
+```{r}
 myDf1 %>%
     rename_with(~paste0("fac_", .), where(is.character))
+```
 
+Make all variable names upper case
+
+```{r}
 myDf1 %>%
     rename_with(toupper)
 ```
@@ -165,6 +175,7 @@ getNA <- function(x, prob=c(0.7, 0.3)) {
     if_else(sample(c(TRUE, FALSE), length(x), replace=TRUE, prob=prob), x, NAval)
 }
 
+set.seed(123)
 myDf1NA <- myDf1 %>%
     mutate(group=getNA(group),
            age=getNA(age),
@@ -174,14 +185,14 @@ myDf1NA <- myDf1 %>%
 myDf1NA
 ```
 
-Show missings in variables "from group to IQ"
+Show only cases with all missings in variables "from group to IQ"
 
 ```{r}
 myDf1NA %>%
     filter(across(group:IQ, is.na))
 ```
 
-Show only cases with uneven values on numeric variables
+Show only cases with uneven values on all numeric variables
 
 ```{r}
 myDf1NA %>%

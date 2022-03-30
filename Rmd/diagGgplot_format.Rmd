@@ -1,13 +1,13 @@
 ---
 license: Creative Commons BY-SA
 author: "Daniel Wollschlaeger"
-title: "Diagrams with the ggplot2 package"
+title: "Format ggplot2 diagrams"
 categories: [Diagrams]
 rerCat: Diagrams
 tags: [Diagrams, ggplot2]
 ---
 
-Diagrams with the `ggplot2` package
+Format diagrams with the `ggplot2` package
 =========================
 
 Install required packages
@@ -43,6 +43,8 @@ myDf   <- data.frame(sex, group, sgComb, IQ, height, rating, mood)
 Control element position
 -------------------------
 
+Side-by-side = "dodge"
+
 ```{r ggplot_format01a}
 library(ggplot2)
 ggplot(myDf, aes(x=mood, fill=sex)) +
@@ -52,11 +54,16 @@ ggplot(myDf, aes(x=mood, fill=sex)) +
 Random jitter - useful for overlapping points, e.g., when variables are integer.
 
 ```{r ggplot_format01b}
-ggplot(myDf, aes(x=height, y=mood)) +
-    geom_point(position=position_jitter(height=0.2))
+ggplot(myDf, aes(x=group, y=mood)) +
+    geom_point()
 ```
 
 ```{r ggplot_format01c}
+ggplot(myDf, aes(x=group, y=mood)) +
+    geom_point(position=position_jitter(width=0.2))
+```
+
+```{r ggplot_format01d}
 ggplot(myDf, aes(x=rating, group=sex, fill=sex)) +
     geom_bar(stat="count",
              aes(y=(..count..) / sum(..count..)),
@@ -134,6 +141,7 @@ ggplot(myDf, aes(x=mood, fill=group)) +
 ```
 
 Use themes for a collection of pre-set formatting choices.
+-------------------------
 
 ```{r ggplot_format07}
 ggplot(myDf, aes(x=mood, fill=group)) +

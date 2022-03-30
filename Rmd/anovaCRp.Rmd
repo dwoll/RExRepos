@@ -68,16 +68,24 @@ model.tables(aovCRp, type="means")
 
 ### Model comparisons using `anova(lm())`
 
-```{r}
-(anovaCRp <- anova(lm(DV ~ IV, data=dfCRp)))
-```
+Full model
 
 ```{r}
-anova(lm(DV ~ 1, data=dfCRp), lm(DV ~ IV, data=dfCRp))
+fit_lmF <- lm(DV ~ IV, data=dfCRp)
+(anovaCRp <- anova(fit_lmF))
 ```
+
+`anova()` returns a data frame where values can be easily extracted
 
 ```{r}
 anovaCRp["Residuals", "Sum Sq"]
+```
+
+Restricted model and model comparison
+
+```{r}
+fit_lmR <- lm(DV ~ 1, data=dfCRp)
+anova(fit_lmR, fit_lmF)
 ```
 
 Effect size estimates

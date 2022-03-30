@@ -146,7 +146,7 @@ legend(x="topright", lwd=2, col=c("black", "blue", "red"),
 ### Cumulative hazard
 
 ```{r rerSurvivalCoxPH02}
-library(survival)                # for basehaz()
+library(survival)
 with(CPHnew, head(data.frame(time, cum_haz=-log(surv)), n=4))
 
 plot(CPHnew, fun="cumhaz", col=c("blue", "red"),
@@ -162,7 +162,7 @@ Model diagnostics
 
 ### Proportional hazards assumption
 
-log-log plot for categorized predictor `X`.
+Complementary log-log plot for categorized predictor `X`.
 
 ```{r rerSurvivalCoxPH03}
 library(survival)                # for survfit()
@@ -192,7 +192,7 @@ library(survival)                      # for cox.zph()
 Plot scaled Schoenfeld-residuals against covariates
 
 ```{r rerSurvivalCoxPH04}
-par(mfrow=c(2, 2), cex.main=1.4, cex.lab=1.4)
+par(mfrow=c(1, 2), cex.main=1.4, cex.lab=1.4)
 plot(czph)
 ```
 
@@ -222,7 +222,7 @@ legend(x="bottomleft", col="blue", lwd=2, legend="LOESS fit", cex=1.4)
 Predicted hazard ratios
 -------------------------
 
-With respect to an average pseudo-observation with covariate values equal to the sample means. For factors: means of dummy-coded indicator variables.
+Hazard ratio relative to an average pseudo-observation with covariate values equal to the sample means. For factors: means of dummy-coded indicator variables.
 
 ```{r}
 library(survival)
@@ -249,7 +249,8 @@ with(Shat2, head(data.frame(time, surv), n=4))
 Further resources
 -------------------------
 
-For Cox PH models with Firth's penalized likelihood, see package [`coxphf`](https://cran.r-project.org/package=coxphf).
+  * [CRAN Task View 'survival'](https://CRAN.R-project.org/view=Survival)
+  * For Cox PH models with Firth's penalized likelihood, see package [`coxphf`](https://cran.r-project.org/package=coxphf).
 
 Detach (automatically) loaded packages (if possible)
 -------------------------

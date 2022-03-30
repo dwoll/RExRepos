@@ -1,0 +1,156 @@
+---
+license: Creative Commons BY-SA
+author: "Daniel Wollschlaeger"
+title: "Integration and Differentiation"
+categories: [Numerical]
+rerCat: Numerical
+tags: [MDS]
+---
+
+Integration and Differentiation
+=========================
+
+Install required packages
+-------------------------
+
+[`numDeriv`](https://cran.r-project.org/package=numDeriv)
+
+```{r}
+wants <- c("numDeriv")
+has   <- wants %in% rownames(installed.packages())
+if(any(!has)) install.packages(wants[!has])
+```
+
+Integration
+-------------------------
+
+### Example
+
+Half the normal density is to the left of the mean
+
+```{r}
+integrate(dnorm, -Inf, 1, mean=1, sd=2)$value
+pnorm(1, mean=1, sd=2)
+```
+
+### Re-implement normal cumulative distribution function
+
+Case study for implementing a cumulative distribution function which may not be available in closed form whereas the corresponding density function is.
+
+Naive implementation of normal density - numerically unstable, only works within narrow parameter range.
+
+```{r}
+dGauss <- function(x, mu=0, sigma=1) {
+    (1/(sigma*sqrt(2*pi))) * exp(-0.5 * ((x-mu)/sigma)^2)
+}
+```
+
+Implement normal cumulative distribution function by integrating density function.
+
+```{r}
+pGauss <- function(x, mu=0, sigma=1) {
+    integrate(dGauss, lower=-Inf, upper=x, mu=mu, sigma=sigma)$value
+}
+```
+
+Check custom CDF against R implementation
+
+```{r}
+pGauss(1, mu=0, sigma=1)
+pnorm(1, mean=0, sd=1)
+```
+
+Differentiation
+-------------------------
+
+### Examples
+
+Density function = derivative of cumulative distribution function. Check with normal distribution.
+
+```{r}
+library(numDeriv)
+x <- seq(-2, 2, length.out=5)
+grad(pnorm, x, mean=0, sd=1)
+dnorm(x, mean=0, sd=1)
+```
+
+Derivative of exponential function is exponential function.
+
+```{r}
+library(numDeriv)
+exp(x)
+grad(exp, x)
+```
+
+### Delta method for standard error of function of parameter estimates
+
+Maximum likelihood parameter estimate in Poisson regression
+
+```{r}
+N  <- 100
+X  <- rnorm(N, 0, 2)
+mu <- exp(1 + 0.5*X)
+Y  <- rpois(N, mu)
+glmFit <- glm(Y ~ X, family=poisson(link="log"))
+(bML   <- cbind(coef(glmFit)))
+```
+
+Function of the first two parameter estimates -> Evaluate function at ML estimate.
+
+```{r}
+f <- function(b) { b[1] / b[2] }
+f(bML)
+```
+
+Delta method -> approximate standard error of function of parameter estimates -> approximate Wald confidence interval
+
+```{r}
+library(numDeriv)
+(bGrad <- grad(f, bML))
+(SEdelta <- sqrt(t(bGrad) %*% vcov(glmFit) %*% bGrad))
+(CIdelta <- c(lo=f(bML) - c(qnorm(1-(0.05/2))*SEdelta),
+              up=f(bML) + c(qnorm(1-(0.05/2))*SEdelta)))
+```
+
+### Standard errors from Hessian matrix
+
+Poisson negative log-likelihood
+
+```{r}
+nllPois <- function(b, X, Y) {
+    mu <- exp(b[1] + b[2]*X)
+    -sum(Y*log(mu) - mu)
+}
+```
+
+Inverse of Hessian at ML estimate = variance-covariance matrix of parameter estimates.
+
+```{r}
+h <- hessian(nllPois, x=bML, X=X, Y=Y)
+solve(h)
+```
+
+Compare to `vcov()`
+
+```{r}
+vcov(glmFit)
+```
+
+Further resources
+-------------------------
+
+  * [CRAN Task View 'Numerical Mathematics'](https://CRAN.R-project.org/view=NumericalMathematics)
+
+Useful packages
+-------------------------
+
+  * [`statmod`](https://cran.r-project.org/package=statmod) - `gauss.quad()` for Gaussian quadrature
+  * [`cubature`](https://cran.r-project.org/package=cubature)
+  * [`polyCub`](https://cran.r-project.org/package=polyCub)
+
+Detach (automatically) loaded packages (if possible)
+-------------------------
+
+```{r}
+try(detach(package:numDeriv))
+```

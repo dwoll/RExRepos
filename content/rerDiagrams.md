@@ -13,6 +13,7 @@ Further resources
 
 ### Online
 
+ * [CRAN Task View 'Graphics'](https://CRAN.R-project.org/view=Graphics)
  * [R Graph Gallery](https://www.r-graph-gallery.com/): Many examples
  * [Cookbook for R: `ggplot2` diagrams](https://r-graphics.org/): Diagrams with the [`ggplot2`](https://ggplot2.tidyverse.org/) package
 

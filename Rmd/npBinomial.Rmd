@@ -50,7 +50,7 @@ sum(dbinom(hits:N, N, p=pH0)) + sum(dbinom(0, N, p=pH0))
 
 ```{r}
 library(DescTools)
-BinomCI(tab[1], sum(tab), method=c("wilson", "jeffreys"))
+BinomCI(tab[1], sum(tab), method=c("wilson", "jeffreys", "midp"))
 ```
 
 \(\chi^{2}\)-test for proportions

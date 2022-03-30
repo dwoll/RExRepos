@@ -114,8 +114,8 @@ Higher moments: skewness and kurtosis
 
 ```{r}
 library(DescTools)
-Skew(age)
-Kurt(age)
+Skew(age, method=2)
+Kurt(age, method=2)
 ```
 
 Detach (automatically) loaded packages (if possible)

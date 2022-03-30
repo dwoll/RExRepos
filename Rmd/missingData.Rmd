@@ -157,6 +157,11 @@ rowMeans(mat, na.rm=TRUE)
 cov(matNA, use="pairwise.complete.obs")
 ```
 
+Further resources
+-------------------------
+
+  * [CRAN Task View 'Missing Data'](https://CRAN.R-project.org/view=MissingData)
+
 Useful packages
 -------------------------
 

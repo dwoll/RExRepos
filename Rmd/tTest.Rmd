@@ -101,6 +101,15 @@ tDepDf <- data.frame(DV=c(DVpre, DVpost),
 t.test(DV ~ IV, alternative="less", paired=TRUE, data=tDepDf)
 ```
 
+Based on data in wide format
+
+```{r eval=FALSE}
+# requires R version >= 4.0.0
+t.test(Pair(DVpre, DVpost) ~ 1, alternative="less")
+```
+
+Equivalent: one-sample t-test for variable built of pair-wise differences
+
 ```{r results='hide'}
 DVdiff <- DVpre - DVpost
 t.test(DVdiff, alternative="less")

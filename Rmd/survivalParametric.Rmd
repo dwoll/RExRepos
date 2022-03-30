@@ -123,6 +123,11 @@ Transform AFT parameter \(\hat{\gamma}_{j} = - \hat{\beta}_{j} \cdot \hat{a}\) t
 (betaHat <- -coef(fitWeib) / fitWeib$scale)
 ```
 
+```{r}
+fitCox <- coxph(Surv(obsT, status) ~ X + IV, data=dfSurv)
+coef(fitCox)
+```
+
 ### Model comparisons
 
 Exponential model = restricted Weibull model with shape parameter \(a = 1\).
@@ -167,6 +172,11 @@ matlines(cbind(FWeib$fit[2, ],
 legend(x="topright", lwd=2, lty=c(1, 2, 1, 2), col=c("blue", "blue", "red", "red"),
        legend=c("sex=m, X=0, IV=A", "+- 2*SE", "sex=m, X=0, IV=C", "+- 2*SE"))
 ```
+
+Further resources
+-------------------------
+
+  * [CRAN Task View 'survival'](https://CRAN.R-project.org/view=Survival)
 
 Detach (automatically) loaded packages (if possible)
 -------------------------

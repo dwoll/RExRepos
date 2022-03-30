@@ -1,6 +1,6 @@
 ---
 rerCat: Index
-title: "RExRepos - R Examples Repository"
+title: "R Examples Repository"
 ---
 
 ### R code examples for a number of common data analysis tasks

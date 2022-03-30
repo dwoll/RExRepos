@@ -13,10 +13,10 @@ Stuart-Maxwell-test for marginal homogeneity
 Install required packages
 -------------------------
 
-[`coin`](https://cran.r-project.org/package=coin)
+[`coin`](https://cran.r-project.org/package=coin), [`DescTools`](https://cran.r-project.org/package=DescTools)
 
 ```{r}
-wants <- c("coin")
+wants <- c("coin", "DescTools")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -37,10 +37,19 @@ library(coin)
 mh_test(cTab, distribution=approximate(nresample=9999))
 ```
 
+Bhapkar-Test
+-------------------------
+
+```{r}
+library(DescTools)
+BhapkarTest(cTab)
+```
+
 Detach (automatically) loaded packages (if possible)
 -------------------------
 
 ```{r}
 try(detach(package:coin))
 try(detach(package:survival))
+try(detach(package:DescTools))
 ```

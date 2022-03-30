@@ -18,10 +18,10 @@ TODO
 Install required packages
 -------------------------
 
-[`coin`](https://cran.r-project.org/package=coin)
+[`coin`](https://cran.r-project.org/package=coin), [`remotes`](https://cran.r-project.org/package=remotes)
 
 ```{r}
-wants <- c("coin")
+wants <- c("coin", "remotes")
 has   <- wants %in% rownames(installed.packages())
 if(any(!has)) install.packages(wants[!has])
 ```
@@ -64,6 +64,8 @@ library()
 
 ### Install and remove add-on packages
 
+Install from CRAN
+
 ```{r eval=FALSE}
 setRepositories("https://cloud.r-project.org/")
 install.packages(c("coin", "car"))
@@ -73,7 +75,12 @@ update.packages()
 # not shown
 ```
 
-See `install_github()` from package [`remotes`](https://cran.r-project.org/package=remotes) for installing from [GitHub](https://github.com/) repositories.
+Install from [GitHub](https://github.com/) repository (note: no quality control)
+
+```{r eval=FALSE}
+library(remotes)
+install_github("dwoll/DVHmetrics")
+```
 
 ### Information provided by add-on packages
 
@@ -117,6 +124,12 @@ If different packages provide functions with the same name, the function from th
 conflicts(detail=TRUE)
 ```
 
+Prevent masking - make conflicts an error when running `library()`
+
+```{r eval=FALSE}
+options(conflicts.policy="strict")
+```
+
 Explicitly state which package a function should be taken from.
 
 ```{r}
@@ -144,4 +157,5 @@ Detach (automatically) loaded packages (if possible)
 ```{r}
 try(detach(package:coin))
 try(detach(package:survival))
+try(detach(package:remotes))
 ```
