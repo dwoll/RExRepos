@@ -29,13 +29,13 @@ if(any(!has)) install.packages(wants[!has])
 Background
 -------------------------
 
-Non-orthogonal factorial between-subjects designs typically result from non-proportional unequal cell sizes. Proportional unequal cell sizes are present when \(n_{jk}/n_{jk'} = n_{j'k}/n_{j'k'}\) and \(n_{jk}/n_{j'k} = n_{jk'}/n_{j'k'}\) for all \(j, j', k, k'\) holds.
+Non-orthogonal factorial between-subjects designs typically result from non-proportional unequal cell sizes. Proportional unequal cell sizes are present when \(n_{jk}/n_{jk'} = n_{j'k}/n_{j'k'}\) and \(n_{jk}/n_{j'k} = n_{jk'}/n_{j'k'}\) holds for all \(j, j', k, k'\).
 
 In the non-proportional case, so-called type I, II, or III sums of squares can give different results in an ANOVA for all tests but the highest interaction effect. "Types of SS" is a misnomer: The SS of an effect is the sum of squared differences between the predicted values from the least-squares fit of a restricted model and the prediction from the least-squares fit of a more general model. What differs between the "types of SS" is the choice for the restricted and more general model when testing an effect. Orthogonal designs obscure these differences because then all SS types will be equal.
 
 SAS and SPSS use SS type III as their default, while functions that ship with base R use type I. This can lead to different results when analyzing the same data with different statistics packages.
 
-A thorough resource on the topic is chapter 7 of Maxwell & Delaney (2004). Designing Experiments and Analyzing Data. A Model Comparison Perspective. Mahwah, NJ: Lawrence Erlbaum. A formula for type III SS is derived in [https://arxiv.org/pdf/1804.00545v1.pdf](https://arxiv.org/pdf/1804.00545v1.pdf).
+A thorough resource on the topic is chapter 7 of Maxwell & Delaney (2004). Designing Experiments and Analyzing Data. A Model Comparison Perspective. Mahwah, NJ: Lawrence Erlbaum. A formula for type III SS is derived in LaMotte (2019), doi 10.1080/03610926.2019.1586933 [PDF](https://arxiv.org/pdf/1804.00545v1.pdf).
 
 Hypotheses for main effects
 -------------------------

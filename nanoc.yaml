@@ -211,7 +211,7 @@ rer:
         diagCategorical: "Diagrams for categorical data"
         diagDistributions: "Visualize univariate and bivariate distributions"
         diagMultivariate: "Diagrams for multivariate data"
-        diagBounding: "Convex hull, (minimum) bounding box, minimum enclosing circle"
+        diagBounding: "Convex hull, (minimum) bounding box, minimum enclosing ellipse, and minimum enclosing circle"
         diagSplines: "Linear interpolation, polynomial smoothing, and splines"
         diagMultiple: "Multiple diagrams per graphics device"
       Diagrams_ggplot2:

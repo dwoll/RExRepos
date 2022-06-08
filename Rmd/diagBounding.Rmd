@@ -1,15 +1,15 @@
 ---
-title: "Convex hull, (minimum) bounding box, and minimum enclosing circle"
+title: "Convex hull, (minimum) bounding box, minimum enclosing ellipse, and minimum enclosing circle"
 author: "Daniel Wollschlaeger"
 license: Creative Commons BY-SA
 categories:
 - Diagrams
 - SpecificDiagrams
 rerCat: Diagrams
-tags: Diagrams
+tags: [Diagrams]
 ---
 
-Convex hull, (minimum) bounding box, and minimum enclosing circle
+Convex hull, (minimum) bounding box, minimum enclosing ellipse, and minimum enclosing circle
 =========================
 
 Convex hull
@@ -21,6 +21,7 @@ Convex hull
 set.seed(123)
 xy      <- matrix(rnorm(24, 100, 15), ncol=2)
 hullIdx <- chull(xy)
+hullIdx
 ```
 
 ```{r rerDiagBounding01}
@@ -34,7 +35,7 @@ Bounding box
 
 ```{r}
 getBoundingBox <- function(xy) {
-    stopifnot(is.matrix(xy), is.numeric(xy), ncol(xy) == 2)
+    stopifnot(is.matrix(xy), is.numeric(xy), nrow(xy) >= 2, ncol(xy) == 2)
     x   <- range(xy[ , 1])
     y   <- range(xy[ , 2])
     pts <- c(xleft=x[1], ybottom=y[1], xright=x[2], ytop=y[2])
@@ -129,6 +130,76 @@ points(xy, pch=16, cex=1.5)
 
 ```{r}
 mbb$width * mbb$height      ## box area
+```
+
+Minimum enclosing ellipse
+-------------------------
+
+### Kachiyan's algorithm
+
+Adapted from Matlab code by [Jacob on Stack Overflow](https://stackoverflow.com/a/1768440).
+
+```{r rerDiagBoundingEll1}
+getMinEllipse <- function(xy, tol=0.001, max_iter=1000) {
+    stopifnot(is.matrix(xy), is.numeric(xy), nrow(xy) >= 2, ncol(xy) == 2)
+
+    H    <- chull(xy)   # convex hull indices (vertices ordered clockwise)
+    hPts <- t(xy[H, ])  # points that make up the convex hull
+    p    <- nrow(hPts)  # dimension
+    N    <- ncol(hPts)  # number of points on hull
+    Q    <- rbind(hPts, rep(1, N))
+    iter <- 1           # iteration
+    err  <- 1           # remaining error
+    u    <- rep(1/N, N)
+
+    # Khachiyan's algorithm
+    while((err > tol) && (iter < max_iter)) {
+        X         <- Q %*% diag(u) %*% t(Q)
+        m         <- diag(t(Q) %*% solve(X) %*% Q)
+        maximum   <- max(m)
+        j         <- which.max(m)
+        step_size <- (maximum - p-1) / ((p+1)*(maximum-1))
+        new_u     <- (1 - step_size)*u
+        new_u[j]  <- new_u[j] + step_size
+        err       <- sqrt(sum((new_u-u)^2))
+        iter      <- iter + 1
+        u         <- new_u
+    }
+    
+    if(iter >= max_iter) {
+        warning(paste("Maximum number of iterations reached. Error is still:", err))
+    }
+    
+    ctr   <- hPts %*% u                # ellipse center
+    E     <- (1/p) * solve((hPts %*% diag(u) %*% t(hPts)) - tcrossprod(ctr))
+    shape <- solve(E)
+    area0 <- pi                        # area unit circle
+    area  <- area0 * sqrt(det(shape))  # area ellipse
+    rad   <- sqrt(eigen(shape)$values) # length ellipse semi axes
+
+    list(ctr=ctr, shape=shape, area=area, rad=rad)
+}
+```
+
+### Draw the minimum enclosing ellipse
+
+```{r rerDiagBoundingEll2}
+me     <- getMinEllipse(xy)
+CF     <- chol(me$shape, pivot=TRUE)      # Cholesky-factor
+CFord  <- order(attr(CF, "pivot"))
+angles <- seq(0, 2*pi, length.out=100)    # angles in radians
+ell    <- 1 * cbind(cos(angles), sin(angles)) %*% CF[ , CFord]  # ellipse
+ellCtr <- sweep(ell, 2, me$ctr, "+")      # move ellipse to center
+
+# determine axis limits so that the ellipse will be visible
+xLims <- me$ctr[1] + c(-me$rad[1], me$rad[1])
+yLims <- me$ctr[2] + c(-me$rad[1], me$rad[1])
+
+# draw points and ellipse
+plot(xy, xlab="x", ylab="y", xlim=xLims, ylim=yLims, asp=1, type="n")
+points(xy, pch=16)
+points(me$ctr[1], me$ctr[2], pch=4, cex=1.5, lwd=2, col="blue")  # center
+polygon(ellCtr, border="blue")         # ellipse
 ```
 
 Minimum enclosing circle
@@ -352,3 +423,4 @@ Note that the presented implementation of the minimum bounding box and of the mi
   * Skyum, S. 1991. A simple algorithm for computing the smallest enclosing circle. Information Processing Letters 37(3), 121-125.
   * Toussaint, G. T. 1983. Solving geometric problems with the rotating calipers. In: Proceedings of the 1983 IEEE MELECON. Athens, Greece: IEEE Computer Society.
   * Welzl, E. 1991. Smallest enclosing disks (balls and ellipsoids). In: Maurer H. (eds), New Results and New Trends in Computer Science 555, 359-370. doi 10.1007/BFb0038202.
+  * Todd MJ and Yildrim EA. On Khachiyan's Algorithm for the Computation of Minimum Volume Enclosing Ellipsoids. Discrete Applied Mathematics 2007: 155: 1731-1744. [PDF](https://people.orie.cornell.edu/miketodd/TYKhach.pdf)

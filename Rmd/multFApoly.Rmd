@@ -114,7 +114,6 @@ fap <- fa.parallel.poly(ordNum)   # parallel analysis for dichotomous data
 ```
 
 ```{r rerMultFApoly03}
-fap
 vss(pc$correlations, n.obs=N, rotate="varimax")  # very simple structure
 ```
 

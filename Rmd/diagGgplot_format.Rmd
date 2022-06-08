@@ -115,10 +115,11 @@ ggplot(myDf, aes(x=height, y=mood, colour=sex:group, shape=sex)) +
     geom_point(size=3) +
     geom_smooth(method=lm, se=TRUE, size=1.2, fullrange=TRUE) +
     facet_grid(sex ~ group) +
-    labs(title="mood ~ height getrennt nach Geschlecht + Gruppe") +
-    geom_text(aes(x=190, y=70, label=sgComb), size=7, hjust="right") +
+    labs(title="mood ~ height stratified by sex + group") +
+    geom_text(aes(x=190, y=70, label=sgComb),
+              size=7, hjust="right", show.legend=FALSE) +
     annotate("text", x=165, y=35, size=7, label="Annotation") +
-    guides(shape=FALSE) +
+    guides(shape="none") +
     theme(legend.position="bottom")
 ```
 

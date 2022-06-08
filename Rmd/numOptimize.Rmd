@@ -33,7 +33,7 @@ mean(DV)
 sd(DV)
 ```
 
-Instead, it is necessary to estimate \(\hat{\mu}\) and \(\hat{\sigma}\) taking into account the chosen categories One possibility to do this is by finding the minimum \(\chi^{2}\) estimates, i.e., those estimates that minimize the observed \(X^{2}\) statistic.
+Instead, it is necessary to estimate \(\hat{\mu}\) and \(\hat{\sigma}\) taking into account the chosen categories. One possibility to do this is by finding the minimum \(\chi^{2}\) estimates, i.e., those estimates that minimize the observed \(X^{2}\) statistic.
 
 ```{r}
 nCls <- 4  # number of classes
@@ -62,7 +62,7 @@ Optimization = minimization of objective function
 ```{r}
 resMinChisq <- optim(c(mean(DV), sd(DV)), minFunMin,
                      brks=breaks, obs=observed, gr=NULL, method="BFGS")
-resMinChisq$par                         # min-chi^2-Schätzer
+resMinChisq$par                         # min-chi^2-estimate
 ```
 
 The other possibility is a grouped maximum likelihood estimate - where the likelihood comes from the multinomial distribution.

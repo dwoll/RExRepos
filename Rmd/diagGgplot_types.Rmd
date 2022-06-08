@@ -161,7 +161,7 @@ ggplot(myDf, aes(x=rating, y=IQ)) +
         geom_point(size=3) +
         facet_grid(. ~ group) +
         ggtitle("IQ ~ height split by sex and group") +
-        guides(shape=FALSE)
+        guides(shape="none")
 ```
 
 Split the diagram into matrix of panels using `facet_wrap()`. Option `scales="free_y"` produces separate y-axis for each panel.
@@ -171,7 +171,7 @@ ggplot(myDf, aes(x=rating, y=IQ)) +
         geom_point(size=3) +
         facet_wrap(. ~ group, scales="free_y") +
         ggtitle("IQ ~ height split by sex and group") +
-        guides(shape=FALSE)
+        guides(shape="none")
 ```
 
 Additional diagram elements
@@ -181,6 +181,7 @@ Add error bars
 
 ```{r ggplot_types13}
 groupN     <- as.data.frame(xtabs(~ sex + group, data=myDf))
+groupM     <- aggregate(mood ~ sex + group, data=myDf, FUN=mean)
 groupSD    <- aggregate(mood ~ sex + group, data=myDf, FUN=sd)
 groupMSD   <- merge(groupM, groupSD, by=c("sex", "group"), suffixes=c(".M", ".SD"))
 groupMSDN  <- merge(groupMSD, groupN, by=c("sex", "group"))

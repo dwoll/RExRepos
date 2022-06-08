@@ -143,12 +143,17 @@ anova(lme(Y ~ Xw1, random=~1 | id, method="ML", data=d1))
 Assume compound symmetry
 
 ```{r}
-lmeFit <- lme(Y ~ Xw1, random=~1 | id, correlation=corCompSymm(form=~1|id),
+lmeFit <- lme(Y ~ Xw1, random=~1 | id,
+              correlation=corCompSymm(form=~1|id),
               method="ML", data=d1)
 anova(lmeFit)
 ```
 
-```{r}
+Only 1 random effect, here all equivalent (not run):
+
+```{r eval=FALSE}
+anova(lme(Y ~ Xw1, random=list(id=pdIdent(~ 1)),       method="REML", data=d1))
+anova(lme(Y ~ Xw1, random=list(id=pdDiag(~ 1)),        method="REML", data=d1))
 anova(lme(Y ~ Xw1, random=list(id=pdCompSymm(~Xw1-1)), method="REML", data=d1))
 ```
 
@@ -176,7 +181,7 @@ Model comparison \(F\)-test with \(p\)-value with Kenward-Roger corrected degree
 
 ```{r}
 # restricted model
-fitR <- lmer(Y ~ 1 + (1|id), data=d1)
+fitR <- lme4::lmer(Y ~ 1 + (1|id), data=d1)
 library(pbkrtest)
 KRmodcomp(fitF, fitR)
 ```
@@ -227,7 +232,8 @@ summary(aov(Y ~ Xw1*Xw2 + Error(id/(Xw1*Xw2)), data=d2))
 #### Using `lme()` from package `nlme`
 
 ```{r}
-anova(lme(Y ~ Xw1*Xw2, random=list(id=pdBlocked(list(~1, pdIdent(~Xw1-1), pdIdent(~Xw2-1)))),
+anova(lme(Y ~ Xw1*Xw2,
+          random=list(id=pdBlocked(list(~1, pdIdent(~Xw1-1), pdIdent(~Xw2-1)))),
           method="ML", data=d2))
 ```
 
@@ -280,11 +286,16 @@ anova(lme(Y ~ Xb1*Xw1, random=~1 | id, method="ML", data=d1))
 Assume compound symmetry
 
 ```{r}
-anova(lme(Y ~ Xb1*Xw1, random=~1 | id, correlation=corCompSymm(form=~1|id),
+anova(lme(Y ~ Xb1*Xw1, random=~1 | id,
+          correlation=corCompSymm(form=~1|id),
           method="ML", data=d1))
 ```
 
-```{r}
+Only 1 random effect, here all equivalent (not run):
+
+```{r eval=FALSE}
+anova(lme(Y ~ Xb1*Xw1, random=list(id=pdIdent(~ 1)),       method="REML", data=d1))
+anova(lme(Y ~ Xb1*Xw1, random=list(id=pdDiag(~ 1)),        method="REML", data=d1))
 anova(lme(Y ~ Xb1*Xw1, random=list(id=pdCompSymm(~Xw1-1)), method="REML", data=d1))
 ```
 
@@ -325,13 +336,16 @@ Assume compound symmetry
 
 ```{r}
 anova(lme(Y ~ Xb1*Xb2*Xw1, random=~1 | id,
-          correlation=corCompSymm(form=~1 | id), method="ML", data=d1))
+          correlation=corCompSymm(form=~1 | id),
+          method="ML", data=d1))
 ```
 
-```{r}
-anova(lme(Y ~ Xb1*Xb2*Xw1,
-          random=list(id=pdBlocked(list(~1, pdCompSymm(~Xw1-1)))),
-          method="ML", data=d1))
+Only 1 random effect, here all equivalent (not run):
+
+```{r eval=FALSE}
+anova(lme(Y ~ Xb1*Xb2*Xw1, random=list(id=pdIdent(~ 1)),        method="ML", data=d1))
+anova(lme(Y ~ Xb1*Xb2*Xw1, random=list(id=pdDiag(~ 1)),         method="ML", data=d1))
+anova(lme(Y ~ Xb1*Xb2*Xw1, random=list(id=pdCompSymm(~Xw1-1)),  method="ML", data=d1))
 ```
 
 #### Using `lmer()` from package `lme4`

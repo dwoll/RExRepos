@@ -90,12 +90,12 @@ Books
   * Linear mixed models
       * Galecki AT, Burzykowski T. 2013. Linear Mixed-Effects Models Using R: A Step-by-Step Approach. New York, NY: Springer.
       * Pinheiro JC, Bates, DM. 2000. Mixed-Effects Models in S and S-PLUS. New York, NY: Springer.
-      * West BT, Welch, KB, Galecki AT. 2014. Linear mixed models: A practical guide using statistical software (2n ed). Boca Raton, FL: Chapman & Hall/CRC. [URL](http://www-personal.umich.edu/~bwest/almmussp.html)
+      * West BT, Welch, KB, Galecki AT. 2022. Linear mixed models: A practical guide using statistical software (3rd ed). Boca Raton, FL: Chapman & Hall/CRC. [URL](http://www-personal.umich.edu/~bwest/almmussp.html)
   * Resampling methods
       * Chihara L, Hesterberg T. 2018. Mathematical Statistics with Resampling and R (2nd ed). Hoboken, NJ: Wiley. [URL](https://sites.google.com/site/chiharahesterberg/)
   * Time series
-      * Shumway RH, Stoffer DS. 2016. Time series analysis and its applications (4th ed). New York, NY: Springer. [URL](https://www.stat.pitt.edu/stoffer/tsa4/)
-      * Shumway RH, Stoffer DS. 2019. Time Series: A Data Analysis Approach Using R. Boca Raton, FL: Chapman & Hall/CRC. [URL](https://www.stat.pitt.edu/stoffer/tsda/)
+      * Shumway RH, Stoffer DS. 2016. Time series analysis and its applications (4th ed). New York, NY: Springer. [URL](https://github.com/nickpoison/tsa4)
+      * Shumway RH, Stoffer DS. 2019. Time Series: A Data Analysis Approach Using R. Boca Raton, FL: Chapman & Hall/CRC. [URL](https://github.com/nickpoison/tsda)
       * Hyndman RJ, Athanasopoulos G. 2019. Forecasting: Principles and practice (2nd ed). Melbourne, Australia: OTexts. [URL](https://otexts.com/fpp2/)
   * Bayes methods
       * Kruschke JK. 2015. Doing Bayesian data analysis: A tutorial with R, JAGS, and Stan (2nd ed). Amsterdam: Academic Press. [URL](http://doingbayesiandataanalysis.blogspot.com/)
