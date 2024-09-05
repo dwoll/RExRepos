@@ -36,12 +36,16 @@ Y  <- 0.5*X1 - 0.3*X2 - 0.4*X3 + 10 + rnorm(N, 0, 3)
 dfRegr <- data.frame(X1, X2, X3, Y)
 ```
 
-### Crossvalidation
+### Fit model and do crossvalidation
+
+Ordinary linear regression using `glm()`
 
 ```{r}
 glmFit <- glm(Y ~ X1 + X2 + X3, data=dfRegr,
               family=gaussian(link="identity"))
 ```
+
+\(k\)-fold crossvalidation
 
 ```{r}
 library(boot)                          # for cv.glm()
@@ -118,7 +122,7 @@ getBSB <- function(dat, idx) {
     bsFit <- try(glm(postFac ~ DVpre, family=binomial(link="logit"), subset=idx, data=dat))
     fail  <- inherits(bsFit, "try-error")
     if(fail || !bsFit$converged) {
-        return(NA)
+        return(NA_real_)
     } else {
         BbsTrn <- brierB(bsFit$y, predict(bsFit, type="response"))
         BbsTst <- brierB(as.numeric(dat$postFac)-1, predict(bsFit, newdata=dat, type="response"))
@@ -127,7 +131,8 @@ getBSB <- function(dat, idx) {
 }
 ```
 
-Bootstrap logistic regression, calculate optimim in prediction error.
+Bootstrap logistic regression, calculate optimism in prediction error.
+
 ```{r}
 library(boot)                          # for boot()
 nR    <- 999

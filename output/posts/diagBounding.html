@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Convex hull, (minimum) bounding box, and minimum enclosing circle</title>
+    <meta name="author" content="Daniel Wollschlaeger">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="http://dwoll.de/rexrepos/content/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="http://dwoll.de/rexrepos/content/assets/css/style.css" rel="stylesheet" type="text/css" media="all">
+    <link href="http://dwoll.de/rexrepos/content/assets/css/syntax.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+
+  <body>
+    <!-- ### navbar include starts ### -->
+    <nav class="navbar navbar-expand-md fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="http://dwoll.de/rexrepos/index.html">RExRepos</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+    
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown0" role="button" aria-expanded="false">R Basics</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown0">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerR_Basics.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/gui.html">R user interfaces</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/helpDocs.html">Getting help and documentation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/workspace.html">Exploring the workspace</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/packages.html">Add-on packages</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/arithmeticLogic.html">Arithmetic and logic</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/vector.html">Vectors</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/generateData.html">Generate systematic and random data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/transformData.html">Variable transformations</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/recode.html">Recode variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/factors.html">Factors</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/sets.html">Sets</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/combinatorics.html">Combinatorics</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/matrix.html">Matrices</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/strings.html">Character strings</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/timeDate.html">Time and date</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown1" role="button" aria-expanded="false">Descriptive</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown1">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerDescriptive.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/sumProdRange.html">Sum, product, and range of data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/mean.html">The mean and other location measures</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/variance.html">Variance, robust spread measures, skewness, and kurtosis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/correlation.html">Covariance, correlation, association for continuous variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/matrixStatistics.html">Descriptive statistics for data in matrices</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/frequencies.html">Frequency tables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/association.html">Association for unordered categorical variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/associationOrder.html">Association for ordered categorical variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/interRaterICC.html">Inter-rater-reliability and intra-class-correlation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/aggregate.html">Aggregate data vectors by group</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/missingData.html">Deal with missing data</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown2" role="button" aria-expanded="false">Data Frames</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown2">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerData_Frames.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dataFrames.html">Create and analyze data frames</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfImportExport.html">Data import and export</a>
+                  
+                    <div class="nav-header">Data wrangling base R</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfTransform.html">Choose names, variables, cases</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfSplitMerge.html">Split and combine data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfReshape.html">Reshape data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfAggregate.html">Aggregate data frames</a>
+                    
+                    <div class="nav-header">Data wrangling dplyr tidyr</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfTransform_tidy.html">Choose names, variables, cases</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfSplitMerge_tidy.html">Split and combine data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfReshape_tidy.html">Reshape data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfAggregate_tidy.html">Aggregate data frames</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown3" role="button" aria-expanded="false">Univariate</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown3">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerUnivariate.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Regression Models</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regression.html">Multiple linear regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionRobPen.html">Robust and penalized regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionModMed.html">Moderation and mediation</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionLogistic.html">Logistic regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionOrdinal.html">Ordinal regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionMultinom.html">Multinomial regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionPoisson.html">Poisson regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/logLinear.html">Log-linear models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionDiag.html">Regression diagnostics</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/crossvalidation.html">Crossvalidation</a>
+                    
+                    <div class="nav-header">Survival analysis</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalKM.html">Kaplan-Meier-estimate</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalCoxPH.html">Cox proportional hazards</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalParametric.html">Parametric proportional hazards</a>
+                    
+                    <div class="nav-header">t Tests</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/tTest.html">t-tests</a>
+                    
+                    <div class="nav-header">ANOVA</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaCRp.html">One-way ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaCRFpq.html">Two-way ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/ancova.html">Analysis of covariance</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaRBp.html">One-way repeated-measures ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaRBFpq.html">Two-way repeated-measures ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSPFpq.html">Two-way split-plot ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSPFpqr.html">Three-way split-plot ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaMixed.html">Mixed effects models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSStypes.html">Sum of squares type I, II, and III</a>
+                    
+                    <div class="nav-header">General Topics</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/normality.html">Assess normality</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/varianceHom.html">Assess variance homogeneity</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown4" role="button" aria-expanded="false">Nonparametric</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown4">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerNonparametric.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Classical nonparametric tests</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npWilcoxon.html">Location 1,2 groups (Sign, Wilcoxon signed-rank, Wilcoxon-Mann-Whitney)</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npKruskalFriedman.html">Location 3+ groups (Kruskal-Wallis, linear-by-linear, Friedman, Page)</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npBinomial.html">Binomial and chi^2 for proportions</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npRuns.html">Runs</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/association.html">Association for unordered categorical variables</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/associationOrder.html">Association for ordered categorical variables</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npCochran.html">Cochran-Q</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npBowker.html">Bowker</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npMcNemar.html">McNemar</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npStuartMaxwell.html">Stuart-Maxwell for marginal homogeneity</a>
+                    
+                    <div class="nav-header">Resampling methods</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingPerm.html">Permutation tests</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBoot.html">Nonparametric bootstrapping</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootStrat.html">Stratified nonparametric bootstrapping</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootALM.html">Nonparametric bootstrapping linear models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootParam.html">Parametric bootstrapping</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown5" role="button" aria-expanded="false">Multivariate</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown5">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerMultivariate.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/linearAlgebra.html">Linear algebra calculations</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multPCA.html">Principal components analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multFA.html">Factor analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multFApoly.html">Factor analysis for ordinal data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multMDS.html">Multidimensional scaling</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multRegression.html">Multivariate multiple regression</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multHotelling.html">Hotelling's T^2-test</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multMANOVA.html">Multivariate analysis of variance</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multLDA.html">Linear discriminant analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/normality.html">Assess multivariate normality</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown active">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown6" role="button" aria-expanded="false">Diagrams</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown6">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerDiagrams.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Diagram basics</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagDevice.html">Graphics devices</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagScatter.html">Scatter plots and line diagrams</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagFormat.html">Customize diagrams: Formatting</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagAddElements.html">Customize diagrams: Add elements</a>
+                    
+                    <div class="nav-header">Specific diagrams</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagCategorical.html">Diagrams for categorical data</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagDistributions.html">Visualize univariate and bivariate distributions</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagMultivariate.html">Diagrams for multivariate data</a>
+                    
+                      <a class="dropdown-item active" href="http://dwoll.de/rexrepos/posts/diagBounding.html">Convex hull, (minimum) bounding box, minimum enclosing ellipse, and minimum enclosing circle</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagSplines.html">Linear interpolation, polynomial smoothing, and splines</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagMultiple.html">Multiple diagrams per graphics device</a>
+                    
+                    <div class="nav-header">Diagrams ggplot2</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_types.html">Diagram types with the ggplot2 package</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_aes.html">Color, line type, and point shape in ggplot2 diagrams</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_format.html">Format ggplot2 diagrams</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown7" role="button" aria-expanded="false">Numerical</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown7">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerNumerical.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numRoot.html">Root finding</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numIntegrate.html">Numerical integration and differentiation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numOptimize.html">Numerical optimization</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown8" role="button" aria-expanded="false">Workflow</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown8">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerWorkflow.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/rerWorkflowJN.html">Build websites with R and nanoc or Jekyll</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/rerWorkflowWP.html">Build websites with R and WordPress</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+        </ul>
+      </div> <!-- /navbar-collapse -->
+    </div> <!-- /container-fluid -->
+    </nav>
+    <!-- ### navbar include ### ends -->
+
+    <div class="container-fluid" id="top">
+      <div class="row">
+      <!-- ### top include ends ### -->
+
+        <div class="col-sm-4 col-md-2 dw_sidebar">
+          <!-- ### rerPostList include starts ### -->
+
+<ul class="nav flex-column">
+
+<li class="nav-header">Diagram basics</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagDevice.html">Graphics devices</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagScatter.html">Scatter plots and line diagrams</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagFormat.html">Customize diagrams: Formatting</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagAddElements.html">Customize diagrams: Add elements</a></li>
+
+
+<li class="nav-header">Specific diagrams</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagCategorical.html">Diagrams for categorical data</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagDistributions.html">Visualize univariate and bivariate distributions</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagMultivariate.html">Diagrams for multivariate data</a></li>
+
+<li class="nav-item"><a class="nav-link active" href="http://dwoll.de/rexrepos/posts/diagBounding.html">Convex hull, (minimum) bounding box, minimum enclosing ellipse, and minimum enclosing circle</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagSplines.html">Linear interpolation, polynomial smoothing, and splines</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagMultiple.html">Multiple diagrams per graphics device</a></li>
+
+
+<li class="nav-header">Diagrams ggplot2</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagGgplot_types.html">Diagram types with the ggplot2 package</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagGgplot_aes.html">Color, line type, and point shape in ggplot2 diagrams</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagGgplot_format.html">Format ggplot2 diagrams</a></li>
+
+
+</ul>
+
+<!-- ### rerPostList include ends ### -->
+
+          <hr />
+          <!-- ### rerCategTagList include starts ### -->
+    <ul class="nav flex-column">
+      <li class="dropdown-header">Tags</li>
+      
+      <li><ul class="nav nav-list">
+        
+        <li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/tags.html#Diagrams-ref">Diagrams</a></li>
+        
+      </ul></li>
+      
+    </ul>
+    <!-- ### rerCategTagList include ends ### -->
+
+        </div> <!-- /col-sm-4 col-md-2 -->
+
+        <div class="col-sm-8 col-md-10 dw_main">
+          <h1>Convex hull, (minimum) bounding box, and minimum enclosing circle</h1>
+          <div class="markdown-toc">
+<ul><li><a href="#convex-hull">Convex hull</a></li><li><a href="#bounding-box">Bounding box</a></li><li><a href="#minimum-bounding-box">Minimum bounding box</a><ul><li><a href="#rotating-calipers-algorithm">Rotating calipers algorithm</a></li><li><a href="#draw-the-minimum-bounding-box">Draw the minimum bounding box</a></li></ul></li><li><a href="#minimum-enclosing-circle">Minimum enclosing circle</a><ul><li><a href="#circle-defined-by-three-points">Circle defined by three points</a></li><li><a href="#vertex-that-produces-the-circle-with-the-maximum-radius">Vertex that produces the circle with the maximum radius</a></li><li><a href="#check-if-the-angle-at-b-in-triangle-abc-exceeds-90-degrees">Check if the angle at B in triangle ABC exceeds 90 degrees</a></li><li><a href="#maximum-pairwise-distance-between-two-2d-points">Maximum pairwise distance between two 2D-points</a></li><li><a href="#minimal-enclosing-circle">Minimal enclosing circle</a></li><li><a href="#draw-the-minimal-enclosing-circle">Draw the minimal enclosing circle</a></li></ul></li><li><a href="#get-the-article-source-from-github">Get the article source from GitHub</a></li></ul>
+</div>
+<h2 id="convex-hull">Convex hull</h2><p><code>chull()</code> returns the ordered indices of the matrix rows corresponding to corners of the convex hull.</p><div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>xy      &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">24</span>, <span class="dv">100</span>, <span class="dv">15</span>), <span class="dt">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>hullIdx &lt;-<span class="st"> </span><span class="kw">chull</span>(xy)</span></code></pre></div><div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">plot</span>(xy, <span class="dt">xlab=</span><span class="st">&quot;x&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;y&quot;</span>, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">polygon</span>(xy[hullIdx, ], <span class="dt">border=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="kw">points</span>(xy, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex=</span><span class="fl">1.5</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagBounding01-1.png" alt="" /><figcaption>plot of chunk rerDiagBounding01</figcaption></figure><h2 id="bounding-box">Bounding box</h2><div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>getBoundingBox &lt;-<span class="st"> </span><span class="cf">function</span>(xy) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="kw">stopifnot</span>(<span class="kw">is.matrix</span>(xy), <span class="kw">is.numeric</span>(xy), <span class="kw">ncol</span>(xy) <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>    x   &lt;-<span class="st"> </span><span class="kw">range</span>(xy[ , <span class="dv">1</span>])</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    y   &lt;-<span class="st"> </span><span class="kw">range</span>(xy[ , <span class="dv">2</span>])</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    pts &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">xleft=</span>x[<span class="dv">1</span>], <span class="dt">ybottom=</span>y[<span class="dv">1</span>], <span class="dt">xright=</span>x[<span class="dv">2</span>], <span class="dt">ytop=</span>y[<span class="dv">2</span>])</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">pts=</span>pts, <span class="dt">width=</span><span class="kw">abs</span>(<span class="kw">diff</span>(x)), <span class="dt">height=</span><span class="kw">abs</span>(<span class="kw">diff</span>(y))))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>}</span></code></pre></div><div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>bb &lt;-<span class="st"> </span><span class="kw">getBoundingBox</span>(xy)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="kw">plot</span>(xy, <span class="dt">xlab=</span><span class="st">&quot;x&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;y&quot;</span>, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="kw">rect</span>(bb<span class="op">$</span>pts[<span class="dv">1</span>], bb<span class="op">$</span>pts[<span class="dv">2</span>], bb<span class="op">$</span>pts[<span class="dv">3</span>], bb<span class="op">$</span>pts[<span class="dv">4</span>], <span class="dt">border=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="st">&quot;2&quot;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="kw">points</span>(xy, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex=</span><span class="fl">1.5</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagBounding02-1.png" alt="" /><figcaption>plot of chunk rerDiagBounding02</figcaption></figure><div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>bb<span class="op">$</span>width <span class="op">*</span><span class="st"> </span>bb<span class="op">$</span>height</span></code></pre></div><pre><code>[1] 2516.849</code></pre><h2 id="minimum-bounding-box">Minimum bounding box</h2><h3 id="rotating-calipers-algorithm">Rotating calipers algorithm</h3><div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>getMinBBox &lt;-<span class="st"> </span><span class="cf">function</span>(xy) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>    <span class="kw">stopifnot</span>(<span class="kw">is.matrix</span>(xy), <span class="kw">is.numeric</span>(xy), <span class="kw">nrow</span>(xy) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>, <span class="kw">ncol</span>(xy) <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>    <span class="co">## rotating calipers algorithm using the convex hull</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>    H    &lt;-<span class="st"> </span><span class="kw">chull</span>(xy)                    <span class="co"># hull indices, vertices ordered clockwise</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>    n    &lt;-<span class="st"> </span><span class="kw">length</span>(H)                    <span class="co"># number of hull vertices</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>    hull &lt;-<span class="st"> </span>xy[H, ]                      <span class="co"># hull vertices</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>    <span class="co">## unit basis vectors for all subspaces spanned by the hull edges</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>    hDir  &lt;-<span class="st"> </span><span class="kw">diff</span>(<span class="kw">rbind</span>(hull, hull[<span class="dv">1</span>,])) <span class="co"># account for circular hull vertices</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a>    hLens &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">rowSums</span>(hDir<span class="op">^</span><span class="dv">2</span>))       <span class="co"># length of basis vectors</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a>    huDir &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">1</span><span class="op">/</span>hLens) <span class="op">%*%</span><span class="st"> </span>hDir      <span class="co"># scaled to unit length</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a>    <span class="co">## unit basis vectors for the orthogonal subspaces</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a>    <span class="co">## rotation by 90 deg -&gt; y&#39; = x, x&#39; = -y</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a>    ouDir &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="op">-</span>huDir[ , <span class="dv">2</span>], huDir[ , <span class="dv">1</span>])</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a>    <span class="co">## project hull vertices on the subspaces spanned by the hull edges, and on</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true"></a>    <span class="co">## the subspaces spanned by their orthogonal complements - in subspace coords</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true"></a>    projMat &lt;-<span class="st"> </span><span class="kw">rbind</span>(huDir, ouDir) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(hull)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true"></a>    <span class="co">## range of projections and corresponding width/height of bounding rectangle</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true"></a>    rangeH  &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">numeric</span>(n<span class="op">*</span><span class="dv">2</span>), <span class="dt">ncol=</span><span class="dv">2</span>)   <span class="co"># hull edge</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true"></a>    rangeO  &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">numeric</span>(n<span class="op">*</span><span class="dv">2</span>), <span class="dt">ncol=</span><span class="dv">2</span>)   <span class="co"># orth subspace</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true"></a>    widths  &lt;-<span class="st"> </span><span class="kw">numeric</span>(n)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true"></a>    heights &lt;-<span class="st"> </span><span class="kw">numeric</span>(n)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq</span>(<span class="dt">along=</span>H)) {</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true"></a>        rangeH[i, ] &lt;-<span class="st"> </span><span class="kw">range</span>(projMat[  i, ])</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true"></a>        rangeO[i, ] &lt;-<span class="st"> </span><span class="kw">range</span>(projMat[n<span class="op">+</span>i, ])  <span class="co"># orth subspace is in 2nd half</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true"></a>        widths[i]   &lt;-<span class="st"> </span><span class="kw">abs</span>(<span class="kw">diff</span>(rangeH[i, ]))</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true"></a>        heights[i]  &lt;-<span class="st"> </span><span class="kw">abs</span>(<span class="kw">diff</span>(rangeO[i, ]))</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true"></a>    }</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true"></a>    <span class="co">## extreme projections for min-area rect in subspace coordinates</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true"></a>    eMin  &lt;-<span class="st"> </span><span class="kw">which.min</span>(widths<span class="op">*</span>heights)   <span class="co"># hull edge leading to minimum-area</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true"></a>    hProj &lt;-<span class="st"> </span><span class="kw">rbind</span>(   rangeH[eMin, ], <span class="dv">0</span>)</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true"></a>    oProj &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="dv">0</span>, rangeO[eMin, ])</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true"></a></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true"></a>    <span class="co">## move projections to rectangle corners</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true"></a>    hPts &lt;-<span class="st"> </span><span class="kw">sweep</span>(hProj, <span class="dv">1</span>, oProj[ , <span class="dv">1</span>], <span class="st">&quot;+&quot;</span>)</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true"></a>    oPts &lt;-<span class="st"> </span><span class="kw">sweep</span>(hProj, <span class="dv">1</span>, oProj[ , <span class="dv">2</span>], <span class="st">&quot;+&quot;</span>)</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true"></a></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true"></a>    <span class="co">## corners in standard coordinates, rows = x,y, columns = corners</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true"></a>    <span class="co">## in combined (4x2)-matrix: reverse point order to be usable in polygon()</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true"></a>    basis &lt;-<span class="st"> </span><span class="kw">cbind</span>(huDir[eMin, ], ouDir[eMin, ])  <span class="co"># basis formed by hull edge and orth</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true"></a>    hCorn &lt;-<span class="st"> </span>basis <span class="op">%*%</span><span class="st"> </span>hPts</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true"></a>    oCorn &lt;-<span class="st"> </span>basis <span class="op">%*%</span><span class="st"> </span>oPts</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true"></a>    pts   &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">cbind</span>(hCorn, oCorn[ , <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>)]))</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true"></a></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true"></a>    <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">pts=</span>pts, <span class="dt">width=</span>widths[eMin], <span class="dt">height=</span>heights[eMin]))</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true"></a>}</span></code></pre></div><h3 id="draw-the-minimum-bounding-box">Draw the minimum bounding box</h3><div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>mbb &lt;-<span class="st"> </span><span class="kw">getMinBBox</span>(xy)       <span class="co">## minimum bounding box</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>H   &lt;-<span class="st"> </span><span class="kw">chull</span>(xy)            <span class="co">## convex hull</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="co"># plot original points, convex hull, and minimum bounding box</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a><span class="kw">plot</span>(xy, <span class="dt">xlab=</span><span class="st">&quot;x&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;y&quot;</span>, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>         <span class="dt">xlim=</span><span class="kw">range</span>(<span class="kw">c</span>(xy[ , <span class="dv">1</span>], mbb<span class="op">$</span>pts[ , <span class="dv">1</span>])),</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>         <span class="dt">ylim=</span><span class="kw">range</span>(<span class="kw">c</span>(xy[ , <span class="dv">2</span>], mbb<span class="op">$</span>pts[ , <span class="dv">2</span>])))</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a><span class="kw">polygon</span>(xy[H, ], <span class="dt">col=</span><span class="ot">NA</span>)    <span class="co">## show convex hull</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a><span class="kw">polygon</span>(mbb<span class="op">$</span>pts, <span class="dt">border=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a><span class="kw">points</span>(xy, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex=</span><span class="fl">1.5</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagBounding03-1.png" alt="" /><figcaption>plot of chunk rerDiagBounding03</figcaption></figure><div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>mbb<span class="op">$</span>width <span class="op">*</span><span class="st"> </span>mbb<span class="op">$</span>height      <span class="co">## box area</span></span></code></pre></div><pre><code>[1] 2127.255</code></pre><h2 id="minimum-enclosing-circle">Minimum enclosing circle</h2><p>Skyum algorithm based on the convex hull</p><h3 id="circle-defined-by-three-points">Circle defined by three points</h3><div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>getCircleFrom3 &lt;-<span class="st"> </span><span class="cf">function</span>(xy) {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>    <span class="kw">stopifnot</span>(<span class="kw">is.matrix</span>(xy), <span class="kw">is.numeric</span>(xy), <span class="kw">nrow</span>(xy) <span class="op">==</span><span class="st"> </span><span class="dv">3</span>, <span class="kw">ncol</span>(xy) <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>    aa &lt;-<span class="st"> </span>xy[<span class="dv">1</span>,  ]</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>    bb &lt;-<span class="st"> </span>xy[<span class="dv">2</span>,  ]</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>    cc &lt;-<span class="st"> </span>xy[<span class="dv">3</span>,  ]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>    y  &lt;-<span class="st"> </span>xy[ , <span class="dv">2</span>]</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a>    xDeltaA &lt;-<span class="st"> </span>bb[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>aa[<span class="dv">1</span>]</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a>    yDeltaA &lt;-<span class="st"> </span>bb[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>aa[<span class="dv">2</span>]</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a>    xDeltaB &lt;-<span class="st"> </span>cc[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>bb[<span class="dv">1</span>]</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true"></a>    yDeltaB &lt;-<span class="st"> </span>cc[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>bb[<span class="dv">2</span>]</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true"></a>    xDeltaC &lt;-<span class="st"> </span>cc[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>aa[<span class="dv">1</span>]</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true"></a>    yDeltaC &lt;-<span class="st"> </span>cc[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>aa[<span class="dv">2</span>]</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true"></a>    <span class="co">## check if the points are collinear: qr(xy)$rank == 1, or:</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true"></a>    <span class="co">## determinant of difference matrix = 0, no need to use det()</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true"></a>    dMat &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(xDeltaA, yDeltaA), <span class="kw">c</span>(xDeltaB, yDeltaB))</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true"></a>    <span class="cf">if</span>(<span class="kw">isTRUE</span>(<span class="kw">all.equal</span>(dMat[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">*</span>dMat[<span class="dv">2</span>,<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>dMat[<span class="dv">1</span>,<span class="dv">2</span>]<span class="op">*</span>dMat[<span class="dv">2</span>,<span class="dv">1</span>], <span class="dv">0</span>, <span class="dt">check.attributes=</span><span class="ot">FALSE</span>))) {</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true"></a>        <span class="co">## define the circle as the one that&#39;s centered between the points</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true"></a>        rangeX &lt;-<span class="st"> </span><span class="kw">range</span>(<span class="kw">c</span>(aa[<span class="dv">1</span>], bb[<span class="dv">1</span>], cc[<span class="dv">1</span>]))</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true"></a>        rangeY &lt;-<span class="st"> </span><span class="kw">range</span>(<span class="kw">c</span>(aa[<span class="dv">2</span>], bb[<span class="dv">2</span>], cc[<span class="dv">2</span>]))</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true"></a>        ctr    &lt;-<span class="st"> </span><span class="kw">c</span>(rangeX[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span><span class="op">*</span><span class="kw">diff</span>(rangeX), rangeY[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span><span class="op">*</span><span class="kw">diff</span>(rangeY))</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true"></a>        rad    &lt;-<span class="st"> </span><span class="kw">sqrt</span>((<span class="fl">0.5</span><span class="op">*</span><span class="kw">diff</span>(rangeX))<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>(<span class="fl">0.5</span><span class="op">*</span><span class="kw">diff</span>(rangeY))<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true"></a>    } <span class="cf">else</span> {</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true"></a>        rad &lt;-<span class="st"> </span><span class="kw">prod</span>(<span class="kw">dist</span>(xy)) <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">abs</span>(<span class="kw">det</span>(<span class="kw">cbind</span>(xy, <span class="dv">1</span>))))  <span class="co"># circle radius</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true"></a>        v1  &lt;-<span class="st"> </span><span class="kw">rowSums</span>(xy<span class="op">^</span><span class="dv">2</span>)                    <span class="co"># first vector in the numerator</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true"></a>        v2x &lt;-<span class="st"> </span><span class="kw">c</span>( xDeltaB, <span class="op">-</span>xDeltaC,  xDeltaA)  <span class="co"># 2nd vector numerator for Mx</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true"></a>        v2y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span>yDeltaB,  yDeltaC, <span class="op">-</span>yDeltaA)  <span class="co"># 2nd vector numerator for My</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true"></a>        ctr &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">t</span>(v1) <span class="op">%*%</span><span class="st"> </span>v2y, <span class="kw">t</span>(v1) <span class="op">%*%</span><span class="st"> </span>v2x) <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(<span class="kw">t</span>(y) <span class="op">%*%</span><span class="st"> </span>v2x))  <span class="co"># center</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true"></a>    }</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true"></a></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true"></a>    <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">ctr=</span>ctr, <span class="dt">rad=</span>rad))</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true"></a>}</span></code></pre></div><h3 id="vertex-that-produces-the-circle-with-the-maximum-radius">Vertex that produces the circle with the maximum radius</h3><p>Used later in <code>getMinCircle()</code></p><div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>getMaxRad &lt;-<span class="st"> </span><span class="cf">function</span>(xy, S) {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>    <span class="kw">stopifnot</span>(<span class="kw">is.matrix</span>(xy), <span class="kw">is.numeric</span>(xy), <span class="kw">nrow</span>(xy) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>, <span class="kw">ncol</span>(xy) <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>    <span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(S), <span class="kw">length</span>(S) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>, <span class="kw">length</span>(S) <span class="op">&lt;=</span><span class="st"> </span><span class="kw">nrow</span>(xy))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a>    n    &lt;-<span class="st"> </span><span class="kw">length</span>(S)                    <span class="co"># number of points</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a>    Sidx &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">along=</span>S)                 <span class="co"># index for points</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a>    rads &lt;-<span class="st"> </span><span class="kw">numeric</span>(n)                   <span class="co"># radii for all circles</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a>    post &lt;-<span class="st"> </span>(Sidx <span class="op">%%</span><span class="st"> </span>n) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>              <span class="co"># next point in S</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a>    prev &lt;-<span class="st"> </span>Sidx[<span class="kw">order</span>(post)]            <span class="co"># previous point in S</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a>    <span class="cf">for</span>(i <span class="cf">in</span> Sidx) {</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a>        pts     &lt;-<span class="st"> </span><span class="kw">rbind</span>(xy[S[prev[i]], ], xy[S[i], ], xy[S[post[i]], ])</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a>        rads[i] &lt;-<span class="st"> </span><span class="kw">getCircleFrom3</span>(pts)<span class="op">$</span>rad  <span class="co"># circle radius</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a>    }</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true"></a>    <span class="kw">return</span>(<span class="kw">which.max</span>(rads))</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true"></a>}</span></code></pre></div><h3 id="check-if-the-angle-at-b-in-triangle-abc-exceeds-90-degrees">Check if the angle at B in triangle ABC exceeds 90 degrees</h3><div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>isBiggerThan90 &lt;-<span class="st"> </span><span class="cf">function</span>(xy) {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>    <span class="kw">stopifnot</span>(<span class="kw">is.matrix</span>(xy), <span class="kw">is.numeric</span>(xy), <span class="kw">nrow</span>(xy) <span class="op">==</span><span class="st"> </span><span class="dv">3</span>, <span class="kw">ncol</span>(xy) <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>    d   &lt;-<span class="st"> </span><span class="kw">dist</span>(xy)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>    dAB &lt;-<span class="st"> </span>d[<span class="dv">1</span>]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>    dAC &lt;-<span class="st"> </span>d[<span class="dv">2</span>]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a>    dBC &lt;-<span class="st"> </span>d[<span class="dv">3</span>]</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a>    <span class="kw">return</span>((dAB<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>dBC<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>dAC<span class="op">^</span><span class="dv">2</span>) <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a>}</span></code></pre></div><h3 id="maximum-pairwise-distance-between-two-2d-points">Maximum pairwise distance between two 2D-points</h3><div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a>getMaxPairDist &lt;-<span class="st"> </span><span class="cf">function</span>(xy) {</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a>    <span class="kw">stopifnot</span>(<span class="kw">is.matrix</span>(xy), <span class="kw">is.numeric</span>(xy), <span class="kw">ncol</span>(xy) <span class="op">==</span><span class="st"> </span><span class="dv">2</span>, <span class="kw">nrow</span>(xy) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>    <span class="co"># 2D -&gt; only convex hull is relevant</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>    H    &lt;-<span class="st"> </span><span class="kw">chull</span>(xy)      <span class="co"># convex hull indices (vertices ordered clockwise)</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>    pts  &lt;-<span class="st"> </span>xy[H, ]        <span class="co"># points that make up the convex hull</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a>    N    &lt;-<span class="st"> </span><span class="kw">nrow</span>(pts)                      <span class="co"># number of points on hull</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a>    dMat &lt;-<span class="st"> </span><span class="kw">dist</span>(pts, <span class="dt">method=</span><span class="st">&quot;euclidean&quot;</span>)  <span class="co"># distance matrix</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a>    idx  &lt;-<span class="st"> </span><span class="kw">which.max</span>(<span class="kw">as.matrix</span>(dMat))     <span class="co"># maximum distance</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a>    i    &lt;-<span class="st"> </span>(idx<span class="dv">-1</span>) <span class="op">%/%</span><span class="st"> </span>N<span class="op">+</span><span class="dv">1</span>                <span class="co"># column -&gt; point 1</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a>    j    &lt;-<span class="st"> </span>(idx<span class="dv">-1</span>) <span class="op">%%</span><span class="st">  </span>N<span class="op">+</span><span class="dv">1</span>                <span class="co"># row    -&gt; point 2</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true"></a>    mPts &lt;-<span class="st"> </span>H[<span class="kw">c</span>(i, j)]                     <span class="co"># rows with max distance</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true"></a>    dst  &lt;-<span class="st"> </span><span class="kw">max</span>(dMat)                      <span class="co"># max distance</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true"></a>    <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">d=</span>dst, <span class="dt">idx=</span>mPts))</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true"></a>}</span></code></pre></div><h3 id="minimal-enclosing-circle">Minimal enclosing circle</h3><div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a>getMinCircle &lt;-<span class="st"> </span><span class="cf">function</span>(xy) {</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a>    <span class="kw">stopifnot</span>(<span class="kw">is.matrix</span>(xy), <span class="kw">is.numeric</span>(xy), <span class="kw">nrow</span>(xy) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>, <span class="kw">ncol</span>(xy) <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>    H    &lt;-<span class="st"> </span><span class="kw">chull</span>(xy)      <span class="co"># convex hull indices (vertices ordered clockwise)</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>    hPts &lt;-<span class="st"> </span>xy[H, ]        <span class="co"># points that make up the convex hull</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a>    <span class="co">## min circle may touch convex hull in only two points</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a>    <span class="co">## if so, it is centered between the hull points with max distance</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true"></a>    maxPD  &lt;-<span class="st"> </span><span class="kw">getMaxPairDist</span>(hPts)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true"></a>    idx    &lt;-<span class="st"> </span>maxPD<span class="op">$</span>idx    <span class="co"># index of points with max distance</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true"></a>    rad    &lt;-<span class="st"> </span>maxPD<span class="op">$</span>d <span class="op">/</span><span class="st"> </span><span class="dv">2</span>  <span class="co"># half the distance -&gt; radius</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true"></a>    rangeX &lt;-<span class="st"> </span><span class="kw">c</span>(hPts[idx[<span class="dv">1</span>], <span class="dv">1</span>], hPts[idx[<span class="dv">2</span>], <span class="dv">1</span>])</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true"></a>    rangeY &lt;-<span class="st"> </span><span class="kw">c</span>(hPts[idx[<span class="dv">1</span>], <span class="dv">2</span>], hPts[idx[<span class="dv">2</span>], <span class="dv">2</span>])</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true"></a>    ctr    &lt;-<span class="st"> </span><span class="kw">c</span>(rangeX[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span><span class="op">*</span><span class="kw">diff</span>(rangeX), rangeY[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span><span class="op">*</span><span class="kw">diff</span>(rangeY))</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true"></a>    <span class="co">## check if circle centered between hPts[pt1Idx, ] and hPts[pt2Idx, ]</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true"></a>    <span class="co">## contains all points (all distances &lt;= rad)</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true"></a>    dst2ctr &lt;-<span class="st"> </span><span class="kw">dist</span>(<span class="kw">rbind</span>(ctr, hPts[<span class="op">-</span>idx, ]))      <span class="co"># distances to center</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true"></a>    <span class="cf">if</span>(<span class="kw">all</span>(<span class="kw">as.matrix</span>(dst2ctr)[<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span>rad)) {    <span class="co"># if all &lt;= rad, we&#39;re done</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true"></a>        tri &lt;-<span class="st"> </span><span class="kw">rbind</span>(hPts[idx, ], ctr)</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true"></a>        <span class="kw">return</span>(<span class="kw">getCircleFrom3</span>(tri))</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true"></a>    }</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true"></a></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true"></a>    <span class="co">## min circle touches hull in three points - Skyum algorithm</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true"></a>    S &lt;-<span class="st"> </span>H                               <span class="co"># copy of hull indices that will be changed</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true"></a>    <span class="cf">while</span>(<span class="kw">length</span>(S) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>) {</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true"></a>        n    &lt;-<span class="st"> </span><span class="kw">length</span>(S)                <span class="co"># number of remaining hull vertices</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true"></a>        Sidx &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">along=</span>S)             <span class="co"># index for vertices</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true"></a>        post &lt;-<span class="st"> </span>(Sidx <span class="op">%%</span><span class="st"> </span>n) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>          <span class="co"># next vertex in S</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true"></a>        prev &lt;-<span class="st"> </span>Sidx[<span class="kw">order</span>(post)]        <span class="co"># previous vertex in S</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true"></a>        mIdx &lt;-<span class="st"> </span><span class="kw">getMaxRad</span>(xy, S)         <span class="co"># idx for maximum radius</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true"></a></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true"></a>        <span class="co">## triangle where mIdx is vertex B in ABC</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true"></a>        Smax &lt;-<span class="st"> </span><span class="kw">rbind</span>(xy[S[prev[mIdx]], ], xy[S[mIdx], ], xy[S[post[mIdx]], ])</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true"></a></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true"></a>        <span class="co">## if there&#39;s only two hull vertices, we&#39;re done</span></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true"></a>        <span class="cf">if</span>(n <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>) { <span class="cf">break</span> }</span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true"></a></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true"></a>        <span class="co">## check if angle(ABC) is &gt; 90</span></span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true"></a>        <span class="co">## if so, eliminate B - if not, we&#39;re done</span></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true"></a>        <span class="cf">if</span>(<span class="kw">isBiggerThan90</span>(Smax)) { S &lt;-<span class="st"> </span>S[<span class="op">-</span>mIdx] } <span class="cf">else</span> { <span class="cf">break</span> }</span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true"></a>    }</span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true"></a></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true"></a>    <span class="kw">return</span>(<span class="kw">getCircleFrom3</span>(Smax))</span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true"></a>}</span></code></pre></div><h3 id="draw-the-minimal-enclosing-circle">Draw the minimal enclosing circle</h3><div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a>mc     &lt;-<span class="st"> </span><span class="kw">getMinCircle</span>(xy)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a>angles &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">2</span><span class="op">*</span>pi, <span class="dt">length.out=</span><span class="dv">200</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>circ   &lt;-<span class="st"> </span><span class="kw">cbind</span>(mc<span class="op">$</span>ctr[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>mc<span class="op">$</span>rad<span class="op">*</span><span class="kw">cos</span>(angles),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>                mc<span class="op">$</span>ctr[<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span>mc<span class="op">$</span>rad<span class="op">*</span><span class="kw">sin</span>(angles))</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a><span class="co"># determine axis limits so that the circle will be visible</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a>xLims &lt;-<span class="st"> </span>mc<span class="op">$</span>ctr[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="op">-</span>mc<span class="op">$</span>rad, mc<span class="op">$</span>rad)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a>yLims &lt;-<span class="st"> </span>mc<span class="op">$</span>ctr[<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="op">-</span>mc<span class="op">$</span>rad, mc<span class="op">$</span>rad)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true"></a><span class="kw">plot</span>(xy, <span class="dt">xlab=</span><span class="st">&quot;x&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;y&quot;</span>, <span class="dt">xlim=</span>xLims, <span class="dt">ylim=</span>yLims, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true"></a><span class="kw">lines</span>(circ, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true"></a><span class="kw">points</span>(xy, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex=</span><span class="fl">1.5</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagBounding04-1.png" alt="" /><figcaption>plot of chunk rerDiagBounding04</figcaption></figure><h2 id="get-the-article-source-from-github">Get the article source from GitHub</h2><p><a href="https://github.com/dwoll/RExRepos/raw/master/Rmd/diagBounding.Rmd">R markdown</a> - <a href="https://github.com/dwoll/RExRepos/raw/master/md/diagBounding.md">markdown</a> - <a href="https://github.com/dwoll/RExRepos/raw/master/R/diagBounding.R">R code</a> - <a href="https://github.com/dwoll/RExRepos/">all posts</a></p>
+        </div> <!-- /col-sm-8 col-md-10 -->
+      </div> <!--/row-->
+
+      <div class="row">
+        <div class="col toplink">
+          <!-- ### toplink include starts ### -->
+        <p class="toplink">
+          <span class="toplink"><a href="#top"><img src="http://dwoll.de/rexrepos/content/assets/img/cup-sm.png" width=23 height=14 /> top</a></span>
+        </p>
+        <!-- ### toplink include ends ### -->
+
+        </div> <!--/col-->
+      </div> <!--/row-->
+
+      <div class="row">
+        <div class="col footer">
+          <!-- ### footer include starts ### -->
+
+<footer>
+  &copy; 2020
+  Daniel Wollschlaeger -
+  
+  licensed under CC-BY-SA <a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="http://dwoll.de/rexrepos/content/assets/img/cc-by-sa80x15.png" width="80" height="15" alt="Creative Commons BY-SA" /></a>
+  
+</footer>
+
+<!-- ### footer include ends ### -->
+
+        </div> <!-- /col footer -->
+      </div> <!-- /row -->
+    </div><!-- /container-fluid -->
+<!-- ### bottom include starts ### -->
+    <!-- ### JavaScript include starts ### -->
+    <script src="http://dwoll.de/rexrepos/content/assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+    MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }};
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <!-- ### JavaScript include ends ### -->
+
+  </body>
+</html>
+

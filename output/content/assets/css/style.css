@@ -1,0 +1,93 @@
+/* Override some defaults */
+a {
+  color: #158cba;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+body {
+  padding-top: 56px;
+}
+
+.dropdown-item {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.nav-header {
+  padding-left: 15px;
+}
+
+.nav-item {
+  margin: 0px;
+}
+
+.nav-item .active {
+  color: #ffffff;
+  background-color: #158cba;
+}
+
+.nav-link {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 30px;
+}
+
+.dw_main {
+  padding-top: 10px;
+}
+
+.dw_sidebar {
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 10px;
+  border-right: 1px solid #cccccc;
+  /*background-color: #f5f5f5;*/
+}
+
+/* ToC */
+#markdown-toc {
+  margin-top:10px;
+  margin-left:0px;
+  padding: 10px 0px 10px 25px;
+  background-color: #fbfbfb;
+  border: 1px solid #ddd;
+}
+
+div.markdown-toc {
+  margin-top:10px;
+  margin-left:0px;
+  margin-bottom:10px;
+  padding: 10px 0px 0px 10px;
+  background-color: #fbfbfb;
+  border: 1px solid #ddd;
+}
+
+/* code boxes with horizontal scrollbars */
+.highlight pre {
+  white-space: pre; overflow: auto;
+}
+
+pre {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 5px;
+  background-color: #f5f5f5;
+}
+
+pre.sourceCode {
+  white-space: pre;
+  overflow: auto;
+}
+
+div.footer {
+  padding: 10px;
+  color: #aaaaaa;
+  background-color: #555555;
+}
+
+p.toplink {
+  padding-top: 15px;
+}

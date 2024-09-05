@@ -21,12 +21,14 @@ For blogging from R to WP, I recommend:
 
  - [SyntaxHighlighter](http://wordpress.org/extend/plugins/syntaxhighlighter/) plugin for WordPress for code boxes with R syntax highlighting
  - [MathJax](http://wordpress.org/extend/plugins/mathjax-latex/) plugin for WordPress for nice math rendering using \(\LaTeX\) syntax
- - [`RWordPress`](http://www.omegahat.org/RWordPress/) R package for uploading posts from R to WP
+ - [`RWordPress`](https://github.com/duncantl/RWordPress) R package for uploading posts from R to WP
 
-You will need to build `RWordPress` yourself, even on Windows. `RWordPress` depends on the packages `RCurl`, `XML`, and `XMLRPC`. Note that `XMLRPC` is available from the [BioConductor](http://bioconductor.org/packages/release/extra/html/XMLRPC.html) repository. On Linux, all build tools should already be installed, on Windows, download `Rtools<version>.exe` and follow the instructions from [Building R for Windows](https://cran.r-project.org/bin/windows/Rtools/). Then build and install `RWordPress`:
+You will need to build `RWordPress` yourself from its GitHub repository, using package [`remotes`](https://CRAN.R-project.org/package=remotes). `RWordPress` depends on the packages `RCurl`, `XML`, and `XMLRPC`. Note that `XMLRPC` is also only available from its [GitHub repository](https://github.com/duncantl/XMLRPC). On Linux, all build tools should already be installed, on Windows, download `Rtools<version>.exe` and follow the instructions from [Building R for Windows](https://cran.r-project.org/bin/windows/Rtools/). Then build and install `RWordPress`:
 
 ```{r eval=FALSE}
-install.packages("RWordPress", repos="http://www.omegahat.org/R", build=TRUE)
+install.packages("remotes")
+remotes::install_github("duncantl/XMLRPC")
+remotes::install_github("duncantl/RWordPress")
 ```
 
 Set up `RWordPress` with your login credentials and the site URL.
@@ -102,9 +104,13 @@ editPost(postID,
          publish=FALSE)
 ```
 
-
 For me, all this works fine, but I need to make sure the draft is opened first with the WP html editor, not the visual editor. So the html editor has to be "active", i.e., was used last. After openening the draft with the html editor, I have to switch to the visual editor, and then hit "publish". Publishing the post while still in the html editor does not work. Further switching between visual and html editor messes everything up.
 
 ### Use knitr's `knit2wp()` function
 
 knitr now provides it's own `knit2wp()` function that is similar to the one defined above. In addition, it also wraps the call to `newPost()`: see the [knitr to WP example](https://yihui.name/knitr/demo/wordpress/).
+
+See also
+-------------------------
+
+  * [Learning how to use the RWordPress package](https://peter.baumgartner.name/2017/08/12/learning-how-to-use-the-rwordpress-package/)

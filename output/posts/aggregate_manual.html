@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Aggregate data vectors by group</title>
+    <meta name="author" content="Daniel Wollschlaeger">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="http://dwoll.de/rexrepos/content/assets/css_new/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!--link href="http://dwoll.de/rexrepos/content/assets/css_new/style.css" rel="stylesheet" type="text/css" media="all"-->
+    <link href="http://dwoll.de/assets/css/dashboard.css" rel="stylesheet" type="text/css">
+    <link href="http://dwoll.de/rexrepos/content/assets/css_new/syntax.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="http://dwoll.de/rexrepos/index.html">RExRepos</a>
+
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">R Basics </a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerR_Basics.html">Overview</a>
+              <div class="dropdown-divider"></div>
+	            <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/gui.html">R user interfaces</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/helpDocs.html">Getting help and documentation</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/workspace.html">Exploring the workspace</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/packages.html">Add-on packages</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/arithmeticLogic.html">Arithmetic and logic</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/vector.html">Vectors</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/generateData.html">Generate systematic and random data</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/transformData.html">Data transformations</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/recode.html">Recode variables</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/factors.html">Factors</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/sets.html">Sets</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/combinatorics.html">Combinatorics</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/matrix.html">Matrices</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/strings.html">Character strings</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/timeDate.html">Time and date</a>
+            </div>
+          </li>
+          <li class="nav-item active dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown02" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Descriptive</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown02">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerDescriptive.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/sumProdRange.html">Sum, product, and range of data</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/mean.html">The mean and other location measures</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/variance.html">Variance, robust spread measures, skewness, and kurtosis</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/correlation.html">Covariance, correlation, association for continuous variables</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/matrixStatistics.html">Descriptive statistics for data in matrices</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/frequencies.html">Frequency tables</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/association.html">Association for unordered categorical variables</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/associationOrder.html">Association for ordered categorical variables</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/interRaterICC.html">Inter-rater-reliability and intra-class-correlation</a>
+              <a class="dropdown-item active" href="http://dwoll.de/rexrepos/posts/aggregate.html">Aggregate data vectors by group</a>
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/missingData.html">Deal with missing data</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  
+    <div class="container-fluid" id="top">
+      <div class="row">
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-faded sidebar">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="http://dwoll.de/rexrepos/posts/sumProdRange.html">Sum, product, and range of data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://dwoll.de/rexrepos/posts/mean.html">The mean and other location measures</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://dwoll.de/rexrepos/posts/variance.html">Variance, robust spread measures, skewness, and kurtosis</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://dwoll.de/rexrepos/posts/correlation.html">Covariance, correlation, association for continuous variables</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://dwoll.de/rexrepos/posts/matrixStatistics.html">Descriptive statistics for data in matrices</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://dwoll.de/rexrepos/posts/frequencies.html">Frequency tables</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://dwoll.de/rexrepos/posts/association.html">Association for unordered categorical variables</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://dwoll.de/rexrepos/posts/associationOrder.html">Association for ordered categorical variables</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://dwoll.de/rexrepos/posts/interRaterICC.html">Inter-rater-reliability and intra-class-correlation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active">Aggregate data vectors by group</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://dwoll.de/rexrepos/posts/missingData.html">Deal with missing data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://dwoll.de/rexrepos/posts/missingData.html">Deal with missing data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://dwoll.de/rexrepos/posts/missingData.html">Deal with missing data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://dwoll.de/rexrepos/posts/missingData.html">Deal with missing data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://dwoll.de/rexrepos/posts/missingData.html">Deal with missing data</a>
+            </li>
+          </ul>
+        </nav>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+          <h1>Aggregate data vectors by group</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Iaculis eu non diam phasellus vestibulum. Neque sodales ut etiam sit amet nisl purus. Et molestie ac feugiat sed. Lorem mollis aliquam ut porttitor leo. Quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit. Ornare massa eget egestas purus viverra accumsan in. Bibendum arcu vitae elementum curabitur vitae nunc sed. Bibendum at varius vel pharetra vel turpis nunc eget. Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Dui id ornare arcu odio ut sem nulla pharetra diam. Curabitur vitae nunc sed velit dignissim sodales ut eu.</p>
+
+          <p>Vitae proin sagittis nisl rhoncus mattis rhoncus. Egestas maecenas pharetra convallis posuere morbi leo. Pulvinar etiam non quam lacus suspendisse faucibus interdum posuere. Eget aliquet nibh praesent tristique. Maecenas sed enim ut sem viverra aliquet eget. Sit amet massa vitae tortor condimentum lacinia quis. Risus sed vulputate odio ut enim blandit volutpat maecenas volutpat. Amet massa vitae tortor condimentum lacinia. Auctor augue mauris augue neque gravida in fermentum. Faucibus pulvinar elementum integer enim. Venenatis a condimentum vitae sapien. Scelerisque eu ultrices vitae auctor eu augue ut lectus. Id velit ut tortor pretium viverra suspendisse. Pellentesque elit ullamcorper dignissim cras. Egestas erat imperdiet sed euismod nisi porta lorem mollis aliquam. Netus et malesuada fames ac turpis egestas maecenas. Eu nisl nunc mi ipsum.</p>
+            
+          <p>Vitae congue eu consequat ac felis donec et odio pellentesque. Risus nullam eget felis eget. Massa ultricies mi quis hendrerit dolor magna. Urna neque viverra justo nec ultrices dui sapien. Sodales ut eu sem integer vitae justo. Neque convallis a cras semper auctor neque vitae tempus quam. Risus ultricies tristique nulla aliquet enim tortor at auctor urna. Mattis rhoncus urna neque viverra justo nec ultrices dui. Nibh tortor id aliquet lectus proin nibh nisl condimentum. Nunc non blandit massa enim nec dui. Pellentesque adipiscing commodo elit at imperdiet dui accumsan. Porttitor massa id neque aliquam. Neque egestas congue quisque egestas diam. Magna fringilla urna porttitor rhoncus dolor purus non. Tempus iaculis urna id volutpat lacus.</p>
+            
+          <p>Porta non pulvinar neque laoreet suspendisse interdum consectetur libero id. Adipiscing elit pellentesque habitant morbi tristique senectus et netus et. Penatibus et magnis dis parturient montes nascetur ridiculus. Sit amet purus gravida quis blandit turpis cursus in hac. Aliquam etiam erat velit scelerisque in dictum. Etiam tempor orci eu lobortis elementum nibh tellus molestie nunc. Auctor augue mauris augue neque gravida in fermentum et sollicitudin. Sed adipiscing diam donec adipiscing. Tellus elementum sagittis vitae et leo. Pharetra magna ac placerat vestibulum lectus mauris. Et sollicitudin ac orci phasellus.</p>
+            
+          <p>Massa vitae tortor condimentum lacinia. Mi in nulla posuere sollicitudin. Mauris augue neque gravida in fermentum et sollicitudin ac. Purus semper eget duis at. Tempor id eu nisl nunc mi. Arcu felis bibendum ut tristique. Malesuada fames ac turpis egestas sed tempus. Venenatis tellus in metus vulputate eu. Praesent tristique magna sit amet purus gravida quis blandit turpis. Eget nullam non nisi est sit amet.</p>
+            
+          <p>Cursus euismod quis viverra nibh cras. Lectus proin nibh nisl condimentum id venenatis a condimentum vitae. Diam in arcu cursus euismod quis viverra nibh. Elit ut aliquam purus sit amet luctus. Erat imperdiet sed euismod nisi porta lorem mollis. Tempor orci eu lobortis elementum nibh tellus molestie nunc non. Eget dolor morbi non arcu. Varius vel pharetra vel turpis nunc. Lorem sed risus ultricies tristique nulla aliquet enim tortor at. In eu mi bibendum neque egestas congue quisque. Nibh cras pulvinar mattis nunc sed blandit.</p>
+            
+          <p>Sit amet luctus venenatis lectus magna fringilla. Lobortis elementum nibh tellus molestie nunc. Semper risus in hendrerit gravida rutrum. Ipsum suspendisse ultrices gravida dictum fusce. Lorem mollis aliquam ut porttitor leo a. Etiam dignissim diam quis enim. Scelerisque in dictum non consectetur a erat nam at. Elementum pulvinar etiam non quam. Tortor dignissim convallis aenean et tortor. Massa tempor nec feugiat nisl pretium fusce id velit ut. Dui nunc mattis enim ut tellus elementum sagittis vitae et.</p>
+            
+          <p>Pulvinar elementum integer enim neque volutpat ac. Arcu non sodales neque sodales ut etiam sit amet. Diam ut venenatis tellus in. Laoreet non curabitur gravida arcu. Praesent semper feugiat nibh sed pulvinar proin gravida hendrerit. Nunc pulvinar sapien et ligula ullamcorper malesuada. Lacus sed turpis tincidunt id aliquet risus. Pellentesque habitant morbi tristique senectus et netus. Nisi est sit amet facilisis magna etiam tempor orci. Eget nulla facilisi etiam dignissim diam quis enim lobortis. Dolor magna eget est lorem ipsum dolor sit. Velit ut tortor pretium viverra suspendisse potenti nullam ac tortor.</p>
+            
+          <p>Tellus elementum sagittis vitae et leo duis. Eget felis eget nunc lobortis mattis aliquam. Cum sociis natoque penatibus et. Ultricies mi quis hendrerit dolor magna eget. Lacus sed turpis tincidunt id aliquet. Sit amet nulla facilisi morbi tempus iaculis urna. Nibh mauris cursus mattis molestie a iaculis at erat. Pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus et. Tristique senectus et netus et malesuada. Sapien et ligula ullamcorper malesuada proin libero nunc. Est ultricies integer quis auctor elit sed vulputate. Cursus sit amet dictum sit. Nibh ipsum consequat nisl vel. Quam vulputate dignissim suspendisse in est ante in nibh. Hac habitasse platea dictumst vestibulum. Ipsum dolor sit amet consectetur adipiscing elit pellentesque. Iaculis nunc sed augue lacus viverra vitae congue eu. Porttitor eget dolor morbi non arcu risus quis varius.</p>
+            
+            <p>Massa id neque aliquam vestibulum morbi blandit cursus. Quis lectus nulla at volutpat. Volutpat consequat mauris nunc congue nisi vitae suscipit tellus. Elementum sagittis vitae et leo duis ut diam. Vel elit scelerisque mauris pellentesque. Fermentum et sollicitudin ac orci. Mi quis hendrerit dolor magna eget. Lacus sed viverra tellus in. Bibendum enim facilisis gravida neque convallis a cras semper auctor. Risus pretium quam vulputate dignissim suspendisse in est ante in. Feugiat nisl pretium fusce id velit. Lacus luctus accumsan tortor posuere ac. Mauris sit amet massa vitae tortor condimentum lacinia quis. Tellus molestie nunc non blandit massa enim.</p>
+      
+          <p class="toplink">
+            <span class="toplink"><a href="#top"><i class="icon-chevron-up"></i> top</a></span>
+          </p>
+            
+          <footer>
+            &copy; 2020
+            Daniel Wollschlaeger -
+            licensed under CC-BY-SA <a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="http://dwoll.de/rexrepos/content/assets/img/cc-by-sa80x15.png" width="80"         height="15"alt="Creative Commons BY-SA" /></a>
+          </footer>
+        </main>
+      </div><!--/row-->
+    </div><!--/.container-fluid-->
+    <!-- ### JavaScript include starts ### -->
+    <script src="http://dwoll.de/rexrepos/content/assets/js/jquery.min.js"></script>
+    <script src="http://dwoll.de/rexrepos/content/assets/js_new/bootstrap.bundle.min.js"></script>
+    <script>
+      MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }};
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <!-- ### JavaScript include ends ### -->
+  </body>
+</html>

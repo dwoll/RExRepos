@@ -203,6 +203,8 @@ library(readxl)
 myDf_read <- read_xlsx("myDf.xlsx")
 ```
 
+When date columns are not correctly formatted in Excel, they sometimes get imported as integer numbers. For dates, this is the number of days since 1899-12-30. For date-times, it's the number of seconds since 1899-12-30. To convert these numbers to dates or date-times, package [`openxlsx`](https://cran.r-project.org/package=openxlsx) has functions `convertToDate()` and `convertToDateTime()`.
+
 Read and write data from a database
 -------------------------
 
@@ -273,7 +275,7 @@ Useful resources
  * [R Data Import/Export](https://cran.at.r-project.org/doc/manuals/R-data.html)
  * [CRAN Task View 'Databases'](https://CRAN.R-project.org/view=Databases)
  * [CRAN Task View 'Web Technologies'](https://CRAN.R-project.org/view=WebTechnologies)
- * [`data.table`](https://cran.r-project.org/package=data.table) provides function `fread()` for high performance reading of large plain text data files.
+ * Package [`data.table`](https://cran.r-project.org/package=data.table) provides function `fread()` for high performance reading of large plain text data files.
  * Muenchen, R. A. (2011). R for SAS and SPSS Users (2nd ed.). New York, NY: Springer. [URL](http://r4stats.com/)
 
 Detach (automatically) loaded packages (if possible)

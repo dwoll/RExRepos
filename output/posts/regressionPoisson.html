@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Poisson-regression</title>
+    <meta name="author" content="Daniel Wollschlaeger">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="http://dwoll.de/rexrepos/content/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="http://dwoll.de/rexrepos/content/assets/css/style.css" rel="stylesheet" type="text/css" media="all">
+    <link href="http://dwoll.de/rexrepos/content/assets/css/syntax.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+
+  <body>
+    <!-- ### navbar include starts ### -->
+    <nav class="navbar navbar-expand-md fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="http://dwoll.de/rexrepos/index.html">RExRepos</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+    
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown0" role="button" aria-expanded="false">R Basics</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown0">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerR_Basics.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/gui.html">R user interfaces</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/helpDocs.html">Getting help and documentation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/workspace.html">Exploring the workspace</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/packages.html">Add-on packages</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/arithmeticLogic.html">Arithmetic and logic</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/vector.html">Vectors</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/generateData.html">Generate systematic and random data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/transformData.html">Variable transformations</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/recode.html">Recode variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/factors.html">Factors</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/sets.html">Sets</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/combinatorics.html">Combinatorics</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/matrix.html">Matrices</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/strings.html">Character strings</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/timeDate.html">Time and date</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown1" role="button" aria-expanded="false">Descriptive</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown1">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerDescriptive.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/sumProdRange.html">Sum, product, and range of data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/mean.html">The mean and other location measures</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/variance.html">Variance, robust spread measures, skewness, and kurtosis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/correlation.html">Covariance, correlation, association for continuous variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/matrixStatistics.html">Descriptive statistics for data in matrices</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/frequencies.html">Frequency tables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/association.html">Association for unordered categorical variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/associationOrder.html">Association for ordered categorical variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/interRaterICC.html">Inter-rater-reliability and intra-class-correlation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/aggregate.html">Aggregate data vectors by group</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/missingData.html">Deal with missing data</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown2" role="button" aria-expanded="false">Data Frames</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown2">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerData_Frames.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dataFrames.html">Create and analyze data frames</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfImportExport.html">Data import and export</a>
+                  
+                    <div class="nav-header">Data wrangling base R</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfTransform.html">Choose names, variables, cases</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfSplitMerge.html">Split and combine data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfReshape.html">Reshape data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfAggregate.html">Aggregate data frames</a>
+                    
+                    <div class="nav-header">Data wrangling dplyr tidyr</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfTransform_tidy.html">Choose names, variables, cases</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfSplitMerge_tidy.html">Split and combine data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfReshape_tidy.html">Reshape data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfAggregate_tidy.html">Aggregate data frames</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown active">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown3" role="button" aria-expanded="false">Univariate</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown3">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerUnivariate.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Regression Models</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regression.html">Multiple linear regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionRobPen.html">Robust and penalized regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionModMed.html">Moderation and mediation</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionLogistic.html">Logistic regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionOrdinal.html">Ordinal regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionMultinom.html">Multinomial regression</a>
+                    
+                      <a class="dropdown-item active" href="http://dwoll.de/rexrepos/posts/regressionPoisson.html">Poisson regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/logLinear.html">Log-linear models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionDiag.html">Regression diagnostics</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/crossvalidation.html">Crossvalidation</a>
+                    
+                    <div class="nav-header">Survival analysis</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalKM.html">Kaplan-Meier-estimate</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalCoxPH.html">Cox proportional hazards</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalParametric.html">Parametric proportional hazards</a>
+                    
+                    <div class="nav-header">t Tests</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/tTest.html">t-tests</a>
+                    
+                    <div class="nav-header">ANOVA</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaCRp.html">One-way ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaCRFpq.html">Two-way ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/ancova.html">Analysis of covariance</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaRBp.html">One-way repeated-measures ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaRBFpq.html">Two-way repeated-measures ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSPFpq.html">Two-way split-plot ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSPFpqr.html">Three-way split-plot ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaMixed.html">Mixed effects models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSStypes.html">Sum of squares type I, II, and III</a>
+                    
+                    <div class="nav-header">General Topics</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/normality.html">Assess normality</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/varianceHom.html">Assess variance homogeneity</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown4" role="button" aria-expanded="false">Nonparametric</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown4">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerNonparametric.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Classical nonparametric tests</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npWilcoxon.html">Location 1,2 groups (Sign, Wilcoxon signed-rank, Wilcoxon-Mann-Whitney)</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npKruskalFriedman.html">Location 3+ groups (Kruskal-Wallis, linear-by-linear, Friedman, Page)</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npBinomial.html">Binomial and chi^2 for proportions</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npRuns.html">Runs</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/association.html">Association for unordered categorical variables</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/associationOrder.html">Association for ordered categorical variables</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npCochran.html">Cochran-Q</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npBowker.html">Bowker</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npMcNemar.html">McNemar</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npStuartMaxwell.html">Stuart-Maxwell for marginal homogeneity</a>
+                    
+                    <div class="nav-header">Resampling methods</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingPerm.html">Permutation tests</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBoot.html">Nonparametric bootstrapping</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootStrat.html">Stratified nonparametric bootstrapping</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootALM.html">Nonparametric bootstrapping linear models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootParam.html">Parametric bootstrapping</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown5" role="button" aria-expanded="false">Multivariate</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown5">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerMultivariate.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/linearAlgebra.html">Linear algebra calculations</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multPCA.html">Principal components analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multFA.html">Factor analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multFApoly.html">Factor analysis for ordinal data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multMDS.html">Multidimensional scaling</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multRegression.html">Multivariate multiple regression</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multHotelling.html">Hotelling's T^2-test</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multMANOVA.html">Multivariate analysis of variance</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multLDA.html">Linear discriminant analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/normality.html">Assess multivariate normality</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown6" role="button" aria-expanded="false">Diagrams</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown6">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerDiagrams.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Diagram basics</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagDevice.html">Graphics devices</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagScatter.html">Scatter plots and line diagrams</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagFormat.html">Customize diagrams: Formatting</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagAddElements.html">Customize diagrams: Add elements</a>
+                    
+                    <div class="nav-header">Specific diagrams</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagCategorical.html">Diagrams for categorical data</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagDistributions.html">Visualize univariate and bivariate distributions</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagMultivariate.html">Diagrams for multivariate data</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagBounding.html">Convex hull, (minimum) bounding box, minimum enclosing ellipse, and minimum enclosing circle</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagSplines.html">Linear interpolation, polynomial smoothing, and splines</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagMultiple.html">Multiple diagrams per graphics device</a>
+                    
+                    <div class="nav-header">Diagrams ggplot2</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_types.html">Diagram types with the ggplot2 package</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_aes.html">Color, line type, and point shape in ggplot2 diagrams</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_format.html">Format ggplot2 diagrams</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown7" role="button" aria-expanded="false">Numerical</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown7">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerNumerical.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numRoot.html">Root finding</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numIntegrate.html">Numerical integration and differentiation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numOptimize.html">Numerical optimization</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown8" role="button" aria-expanded="false">Workflow</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown8">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerWorkflow.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/rerWorkflowJN.html">Build websites with R and nanoc or Jekyll</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/rerWorkflowWP.html">Build websites with R and WordPress</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+        </ul>
+      </div> <!-- /navbar-collapse -->
+    </div> <!-- /container-fluid -->
+    </nav>
+    <!-- ### navbar include ### ends -->
+
+    <div class="container-fluid" id="top">
+      <div class="row">
+      <!-- ### top include ends ### -->
+
+        <div class="col-sm-4 col-md-2 dw_sidebar">
+          <!-- ### rerPostList include starts ### -->
+
+<ul class="nav flex-column">
+
+<li class="nav-header">Regression Models</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/regression.html">Multiple linear regression</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/regressionRobPen.html">Robust and penalized regression</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/regressionModMed.html">Moderation and mediation</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/regressionLogistic.html">Logistic regression</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/regressionOrdinal.html">Ordinal regression</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/regressionMultinom.html">Multinomial regression</a></li>
+
+<li class="nav-item"><a class="nav-link active" href="http://dwoll.de/rexrepos/posts/regressionPoisson.html">Poisson regression</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/logLinear.html">Log-linear models</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/regressionDiag.html">Regression diagnostics</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/crossvalidation.html">Crossvalidation</a></li>
+
+
+<li class="nav-header">Survival analysis</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/survivalKM.html">Kaplan-Meier-estimate</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/survivalCoxPH.html">Cox proportional hazards</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/survivalParametric.html">Parametric proportional hazards</a></li>
+
+
+<li class="nav-header">t Tests</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/tTest.html">t-tests</a></li>
+
+
+<li class="nav-header">ANOVA</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/anovaCRp.html">One-way ANOVA</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/anovaCRFpq.html">Two-way ANOVA</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/ancova.html">Analysis of covariance</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/anovaRBp.html">One-way repeated-measures ANOVA</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/anovaRBFpq.html">Two-way repeated-measures ANOVA</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/anovaSPFpq.html">Two-way split-plot ANOVA</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/anovaSPFpqr.html">Three-way split-plot ANOVA</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/anovaMixed.html">Mixed effects models</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/anovaSStypes.html">Sum of squares type I, II, and III</a></li>
+
+
+<li class="nav-header">General Topics</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/normality.html">Assess normality</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/varianceHom.html">Assess variance homogeneity</a></li>
+
+
+</ul>
+
+<!-- ### rerPostList include ends ### -->
+
+          <hr />
+          <!-- ### rerCategTagList include starts ### -->
+    <ul class="nav flex-column">
+      <li class="dropdown-header">Tags</li>
+      
+      <li><ul class="nav nav-list">
+        
+        <li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/tags.html#Regression-ref">Regression</a></li>
+        
+        <li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/tags.html#GLM-ref">GLM</a></li>
+        
+      </ul></li>
+      
+    </ul>
+    <!-- ### rerCategTagList include ends ### -->
+
+        </div> <!-- /col-sm-4 col-md-2 -->
+
+        <div class="col-sm-8 col-md-10 dw_main">
+          <h1>Poisson-regression</h1>
+          <div class="markdown-toc">
+<ul><li><a href="#poisson-regression">Poisson-regression</a><ul><li><a href="#install-required-packages">Install required packages</a></li><li><a href="#poisson-regression-1">Poisson regression</a><ul><li><a href="#simulate-data">Simulate data</a></li><li><a href="#using-glm">Using <code>glm()</code></a></li><li><a href="#using-vglm-from-package-vgam">Using <code>vglm()</code> from package <code>VGAM</code></a></li><li><a href="#analyse-event-rates">Analyse event rates</a></li></ul></li><li><a href="#overdispersion">Overdispersion</a><ul><li><a href="#adjusted-poisson-regression">Adjusted Poisson-regression</a></li><li><a href="#heteroscedasticity-consistent-standard-errors">Heteroscedasticity consistent standard errors</a></li><li><a href="#negative-binomial-regression">Negative binomial regression</a></li><li><a href="#test-the-negative-binomial-model-against-the-poisson-model">Test the negative binomial model against the Poisson model</a></li></ul></li><li><a href="#zero-inflated-regression-models">Zero-inflated Regression models</a><ul><li><a href="#zero-inflated-poisson-regression">Zero-inflated Poisson regression</a></li><li><a href="#zero-inflated-negative-binomial-regression">Zero-inflated negative binomial regression</a></li></ul></li><li><a href="#detach-automatically-loaded-packages-if-possible">Detach (automatically) loaded packages (if possible)</a></li><li><a href="#get-the-article-source-from-github">Get the article source from GitHub</a></li></ul></li></ul>
+</div>
+<h1 id="poisson-regression">Poisson-regression</h1><h2 id="install-required-packages">Install required packages</h2><p><a href="http://cran.r-project.org/package=lmtest"><code>lmtest</code></a>, <a href="http://cran.r-project.org/package=MASS"><code>MASS</code></a>, <a href="http://cran.r-project.org/package=mvtnorm"><code>mvtnorm</code></a>, <a href="http://cran.r-project.org/package=pscl"><code>pscl</code></a>, <a href="http://cran.r-project.org/package=sandwich"><code>sandwich</code></a>, <a href="http://cran.r-project.org/package=VGAM"><code>VGAM</code></a></p><div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>wants &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;lmtest&quot;</span>, <span class="st">&quot;MASS&quot;</span>, <span class="st">&quot;mvtnorm&quot;</span>, <span class="st">&quot;pscl&quot;</span>, <span class="st">&quot;sandwich&quot;</span>, <span class="st">&quot;VGAM&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>has   &lt;-<span class="st"> </span>wants <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(<span class="kw">installed.packages</span>())</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="cf">if</span>(<span class="kw">any</span>(<span class="op">!</span>has)) <span class="kw">install.packages</span>(wants[<span class="op">!</span>has])</span></code></pre></div><h2 id="poisson-regression-1">Poisson regression</h2><h3 id="simulate-data">Simulate data</h3><div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">library</span>(mvtnorm)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>N     &lt;-<span class="st"> </span><span class="dv">200</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>sigma &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="op">-</span><span class="dv">3</span>, <span class="dv">2</span>,<span class="dv">16</span>,<span class="op">-</span><span class="dv">1</span>, <span class="dv">-3</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">8</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">ncol=</span><span class="dv">3</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>mu    &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>XY    &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(N, <span class="dt">mean=</span>mu, <span class="dt">sigma=</span>sigma)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>Y     &lt;-<span class="st"> </span><span class="kw">round</span>(XY[ , <span class="dv">3</span>] <span class="op">-</span><span class="st"> </span><span class="fl">1.5</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>Y[Y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>dfCount &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X1=</span>XY[ , <span class="dv">1</span>], <span class="dt">X2=</span>XY[ , <span class="dv">2</span>], Y)</span></code></pre></div><h3 id="using-glm">Using <code>glm()</code></h3><div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>glmFitP &lt;-<span class="st"> </span><span class="kw">glm</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2, <span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>), <span class="dt">data=</span>dfCount)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">summary</span>(glmFitP)</span></code></pre></div><pre><code>
+Call:
+glm(formula = Y ~ X1 + X2, family = poisson(link = &quot;log&quot;), data = dfCount)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-3.3237  -1.2454  -0.2932   0.8200   2.9249  
+
+Coefficients:
+              Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  1.932e-01  1.032e-01   1.872   0.0612 .  
+X1          -2.549e-01  2.260e-02 -11.281   &lt;2e-16 ***
+X2          -8.653e-05  1.149e-02  -0.008   0.9940    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 494.5  on 199  degrees of freedom
+Residual deviance: 356.2  on 197  degrees of freedom
+AIC: 838.43
+
+Number of Fisher Scoring iterations: 5</code></pre><p>Change factors for rate parameter <span class="math inline">\(\lambda\)</span></p><div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">exp</span>(<span class="kw">coef</span>(glmFitP))</span></code></pre></div><pre><code>(Intercept)          X1          X2 
+  1.2130876   0.7749815   0.9999135 </code></pre><p>Profile likelihood based confidence intervals for change factors</p><div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">exp</span>(<span class="kw">confint</span>(glmFitP))</span></code></pre></div><pre><code>                2.5 %    97.5 %
+(Intercept) 0.9877265 1.4802870
+X1          0.7412874 0.8099532
+X2          0.9776288 1.0226470</code></pre><h3 id="using-vglm-from-package-vgam">Using <code>vglm()</code> from package <code>VGAM</code></h3><div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">library</span>(VGAM)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="kw">summary</span>(vglmFit &lt;-<span class="st"> </span><span class="kw">vglm</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2, <span class="dt">family=</span>poissonff, <span class="dt">data=</span>dfCount))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="co"># not shown</span></span></code></pre></div><h3 id="analyse-event-rates">Analyse event rates</h3><p><code>offset</code> is the exposure <span class="math inline">\(\ln(t)\)</span></p><div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>Nt   &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>Ti   &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">20</span><span class="op">:</span><span class="dv">40</span>, Nt, <span class="dt">replace=</span><span class="ot">TRUE</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>Xt   &lt;-<span class="st"> </span><span class="kw">rnorm</span>(Nt, <span class="dv">100</span>, <span class="dv">15</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>Yt   &lt;-<span class="st"> </span><span class="kw">rbinom</span>(Nt, <span class="dt">size=</span>Ti, <span class="dt">prob=</span><span class="fl">0.5</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a><span class="kw">glm</span>(Yt <span class="op">~</span><span class="st"> </span>Xt, <span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>), <span class="dt">offset=</span><span class="kw">log</span>(Ti))</span></code></pre></div><pre><code>
+Call:  glm(formula = Yt ~ Xt, family = poisson(link = &quot;log&quot;), offset = log(Ti))
+
+Coefficients:
+(Intercept)           Xt  
+    -0.5466      -0.0017  
+
+Degrees of Freedom: 99 Total (i.e. Null);  98 Residual
+Null Deviance:      51.74 
+Residual Deviance: 50.73    AIC: 502.6</code></pre><h2 id="overdispersion">Overdispersion</h2><h3 id="adjusted-poisson-regression">Adjusted Poisson-regression</h3><p>Same parameter estimates as in Poisson model, but different standard errors, hence different p-values</p><div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>glmFitQP &lt;-<span class="st"> </span><span class="kw">glm</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2, <span class="dt">family=</span><span class="kw">quasipoisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>), <span class="dt">data=</span>dfCount)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="kw">summary</span>(glmFitQP)</span></code></pre></div><pre><code>
+Call:
+glm(formula = Y ~ X1 + X2, family = quasipoisson(link = &quot;log&quot;), 
+    data = dfCount)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-3.3237  -1.2454  -0.2932   0.8200   2.9249  
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.932e-01  1.297e-01   1.490    0.138    
+X1          -2.549e-01  2.839e-02  -8.979   &lt;2e-16 ***
+X2          -8.653e-05  1.443e-02  -0.006    0.995    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasipoisson family taken to be 1.578522)
+
+    Null deviance: 494.5  on 199  degrees of freedom
+Residual deviance: 356.2  on 197  degrees of freedom
+AIC: NA
+
+Number of Fisher Scoring iterations: 5</code></pre><p>Using <code>vglm()</code> from package <code>VGAM</code></p><div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="kw">library</span>(VGAM)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="kw">vglm</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2, <span class="dt">family=</span>quasipoissonff, <span class="dt">data=</span>dfCount)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span class="co"># not shown</span></span></code></pre></div><h3 id="heteroscedasticity-consistent-standard-errors">Heteroscedasticity consistent standard errors</h3><p>Same parameter estimates as in Poisson model, but different standard errors, hence different p-values</p><div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="kw">library</span>(sandwich)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a>hcSE &lt;-<span class="st"> </span><span class="kw">vcovHC</span>(glmFitP, <span class="dt">type=</span><span class="st">&quot;HC0&quot;</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a><span class="kw">library</span>(lmtest)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a><span class="kw">coeftest</span>(glmFitP, <span class="dt">vcov=</span>hcSE)</span></code></pre></div><pre><code>
+z test of coefficients:
+
+               Estimate  Std. Error z value Pr(&gt;|z|)    
+(Intercept)  0.19316888  0.13268996  1.4558   0.1455    
+X1          -0.25491612  0.02698458 -9.4467   &lt;2e-16 ***
+X2          -0.00008653  0.01319493 -0.0066   0.9948    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre><h3 id="negative-binomial-regression">Negative binomial regression</h3><p>Using <code>glm.nb()</code> from package <code>MASS</code></p><div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="kw">library</span>(MASS)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a>glmFitNB &lt;-<span class="st"> </span><span class="kw">glm.nb</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2, <span class="dt">data=</span>dfCount)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a><span class="kw">summary</span>(glmFitNB)</span></code></pre></div><pre><code>
+Call:
+glm.nb(formula = Y ~ X1 + X2, data = dfCount, init.theta = 5.181857797, 
+    link = log)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-2.7695  -1.0533  -0.2315   0.6472   2.4427  
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  0.166025   0.125963   1.318    0.187    
+X1          -0.261257   0.029119  -8.972   &lt;2e-16 ***
+X2           0.002651   0.014735   0.180    0.857    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for Negative Binomial(5.1819) family taken to be 1)
+
+    Null deviance: 345.33  on 199  degrees of freedom
+Residual deviance: 256.60  on 197  degrees of freedom
+AIC: 824.58
+
+Number of Fisher Scoring iterations: 1
+
+              Theta:  5.18 
+          Std. Err.:  1.79 
+
+ 2 x log-likelihood:  -816.58 </code></pre><p>Using <code>vglm()</code> from package <code>VGAM</code></p><div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="kw">library</span>(VGAM)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a><span class="kw">vglm</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2, <span class="dt">family=</span>negbinomial, <span class="dt">data=</span>dfCount)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a><span class="co"># not shown</span></span></code></pre></div><h3 id="test-the-negative-binomial-model-against-the-poisson-model">Test the negative binomial model against the Poisson model</h3><div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="kw">library</span>(pscl)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a><span class="kw">odTest</span>(glmFitNB)</span></code></pre></div><pre><code>Error in eval(expr, envir, enclos): Objekt &#39;dfCount&#39; nicht gefunden</code></pre><h2 id="zero-inflated-regression-models">Zero-inflated Regression models</h2><h3 id="zero-inflated-poisson-regression">Zero-inflated Poisson regression</h3><div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="kw">library</span>(pscl)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a>ziFitP &lt;-<span class="st"> </span><span class="kw">zeroinfl</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">|</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">dist=</span><span class="st">&quot;poisson&quot;</span>, <span class="dt">data=</span>dfCount)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true"></a><span class="kw">summary</span>(ziFitP)</span></code></pre></div><pre><code>
+Call:
+zeroinfl(formula = Y ~ X1 + X2 | 1, data = dfCount, dist = &quot;poisson&quot;)
+
+Pearson residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6788 -0.8887 -0.1755  0.7678  3.3165 
+
+Count model coefficients (poisson with log link):
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  0.456827   0.124391   3.672  0.00024 ***
+X1          -0.216984   0.025879  -8.385  &lt; 2e-16 ***
+X2          -0.002068   0.012180  -0.170  0.86516    
+
+Zero-inflation model coefficients (binomial with logit link):
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -1.8868     0.2927  -6.446 1.15e-10 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+
+Number of iterations in BFGS optimization: 10 
+Log-likelihood: -402.4 on 4 Df</code></pre><p>Using <code>vglm()</code> from package <code>VGAM</code></p><div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="kw">library</span>(VGAM)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a><span class="kw">vglm</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2, <span class="dt">family=</span>zipoissonff, <span class="dt">data=</span>dfCount)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a><span class="co"># not shown</span></span></code></pre></div><p>Vuong-Test using <code>vuong()</code> from package <code>pscl</code>: Poisson model against zero-inflated Poisson model</p><div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="kw">library</span>(pscl)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true"></a><span class="kw">vuong</span>(ziFitP, glmFitP)</span></code></pre></div><pre><code>[1] 2.649159
+          Raw AIC-corrected BIC-corrected 
+     2.045272      2.044531      1.653019 
+[1] 0.4775593
+[1] 13.81317 13.80817 11.16401
+Vuong Non-Nested Hypothesis Test-Statistic: 
+(test-statistic is asymptotically distributed N(0,1) under the
+ null that the models are indistinguishible)
+-------------------------------------------------------------
+              Vuong z-statistic             H_A  p-value
+Raw                    2.045272 model1 &gt; model2 0.020414
+AIC-corrected          2.044531 model1 &gt; model2 0.020451
+BIC-corrected          1.653019 model1 &gt; model2 0.049163</code></pre><h3 id="zero-inflated-negative-binomial-regression">Zero-inflated negative binomial regression</h3><div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a>ziFitNB &lt;-<span class="st"> </span><span class="kw">zeroinfl</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">|</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">dist=</span><span class="st">&quot;negbin&quot;</span>, <span class="dt">data=</span>dfCount)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true"></a><span class="kw">summary</span>(ziFitNB)</span></code></pre></div><pre><code>
+Call:
+zeroinfl(formula = Y ~ X1 + X2 | 1, data = dfCount, dist = &quot;negbin&quot;)
+
+Pearson residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6352 -0.8709 -0.1633  0.7424  3.3172 
+
+Count model coefficients (negbin with log link):
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  0.426760   0.136718   3.121   0.0018 ** 
+X1          -0.222478   0.028374  -7.841 4.48e-15 ***
+X2          -0.001403   0.012926  -0.109   0.9135    
+Log(theta)   3.474664   1.443439   2.407   0.0161 *  
+
+Zero-inflation model coefficients (binomial with logit link):
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)   -1.973      0.341  -5.786  7.2e-09 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+
+Theta = 32.287 
+Number of iterations in BFGS optimization: 26 
+Log-likelihood: -402.1 on 5 Df</code></pre><p>Using <code>vglm()</code> from package <code>VGAM</code></p><div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a><span class="kw">library</span>(VGAM)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true"></a><span class="kw">vglm</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2, <span class="dt">family=</span>zinegbinomial, <span class="dt">data=</span>dfCount)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true"></a><span class="co"># not shown</span></span></code></pre></div><p>Vuong-Test using <code>vuong()</code> from package <code>pscl</code>: negative binomial model against zero-inflated negative binomial model</p><div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a><span class="kw">library</span>(pscl)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a><span class="kw">vuong</span>(ziFitNB, glmFitNB)</span></code></pre></div><pre><code>[1] 2.649159
+          Raw AIC-corrected BIC-corrected 
+    1.6121411     1.6108359     0.9206495 
+[1] 0.2708982
+[1] 6.176240 6.171240 3.527081
+Vuong Non-Nested Hypothesis Test-Statistic: 
+(test-statistic is asymptotically distributed N(0,1) under the
+ null that the models are indistinguishible)
+-------------------------------------------------------------
+              Vuong z-statistic             H_A  p-value
+Raw                   1.6121411 model1 &gt; model2 0.053466
+AIC-corrected         1.6108359 model1 &gt; model2 0.053608
+BIC-corrected         0.9206495 model1 &gt; model2 0.178617</code></pre><h2 id="detach-automatically-loaded-packages-if-possible">Detach (automatically) loaded packages (if possible)</h2><div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>VGAM))</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>sandwich))</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>lmtest))</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>zoo))</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>pscl))</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>mvtnorm))</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>lattice))</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>splines))</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>stats4))</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>MASS))</span></code></pre></div><h2 id="get-the-article-source-from-github">Get the article source from GitHub</h2><p><a href="https://github.com/dwoll/RExRepos/raw/master/Rmd/regressionPoisson.Rmd">R markdown</a> - <a href="https://github.com/dwoll/RExRepos/raw/master/md/regressionPoisson.md">markdown</a> - <a href="https://github.com/dwoll/RExRepos/raw/master/R/regressionPoisson.R">R code</a> - <a href="https://github.com/dwoll/RExRepos/">all posts</a></p>
+        </div> <!-- /col-sm-8 col-md-10 -->
+      </div> <!--/row-->
+
+      <div class="row">
+        <div class="col toplink">
+          <!-- ### toplink include starts ### -->
+        <p class="toplink">
+          <span class="toplink"><a href="#top"><img src="http://dwoll.de/rexrepos/content/assets/img/cup-sm.png" width=23 height=14 /> top</a></span>
+        </p>
+        <!-- ### toplink include ends ### -->
+
+        </div> <!--/col-->
+      </div> <!--/row-->
+
+      <div class="row">
+        <div class="col footer">
+          <!-- ### footer include starts ### -->
+
+<footer>
+  &copy; 2020
+  Daniel Wollschlaeger -
+  
+  licensed under CC-BY-SA <a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="http://dwoll.de/rexrepos/content/assets/img/cc-by-sa80x15.png" width="80" height="15" alt="Creative Commons BY-SA" /></a>
+  
+</footer>
+
+<!-- ### footer include ends ### -->
+
+        </div> <!-- /col footer -->
+      </div> <!-- /row -->
+    </div><!-- /container-fluid -->
+<!-- ### bottom include starts ### -->
+    <!-- ### JavaScript include starts ### -->
+    <script src="http://dwoll.de/rexrepos/content/assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+    MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }};
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <!-- ### JavaScript include ends ### -->
+
+  </body>
+</html>
+

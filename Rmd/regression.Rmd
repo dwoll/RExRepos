@@ -121,6 +121,8 @@ anova(fit1, fit123)
 
 ### All predictor subsets
 
+As an alternative, see package [`lmSubsets`](https://cran.r-project.org/package=lmSubsets), also described [here](https://www.zeileis.org/news/lmsubsets/).
+
 ```{r rerRegression02}
 data(longley)
 head(longley)

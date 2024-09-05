@@ -1,17 +1,19 @@
 <!-- ### navbar include starts ### -->
-    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"     aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-md fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="<%= @config[:base_url] %>/index.html"><%= @config[:title] %></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="<%= @config[:base_url] %>/index.html"><%= @config[:title] %></a>
+      
     
       <!-- Everything you want hidden at 940px or less, place within here -->
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
           <% @config[:rer][:rerCategs].each_with_index do |(categ, posts), index|
              unless index == @config[:rer][:rerCategs].size - 1 %>
           <li class="nav-item dropdown<% if @item[:rerCat] == categ.to_s %> active<% end %>">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdown<%= index.to_s %>" role="button" aria-haspopup="true" aria-expanded="false"><%= categ.to_s.gsub("_", " ") %></a>
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown<%= index.to_s %>" role="button" aria-expanded="false"><%= categ.to_s.gsub("_", " ") %></a>
             <div class="dropdown-menu<% if index == @config[:rer][:rerCategs].size - 2 %> dropdown-menu-right<% end %>" aria-labelledby="dropdown<%= index.to_s %>">
               <a class="dropdown-item" href="<%= @config[:base_url] + "/rer" + categ.to_s + ".html" %>">Overview</a>
               <div class="dropdown-divider"></div>
@@ -32,7 +34,7 @@
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown<% if @item[:rerCat] == categ.to_s %> active<% end %>">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdown<%= index.to_s %>" role="button" aria-haspopup="true" aria-expanded="false"><%= categ.to_s.gsub("_", " ") %></a>
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown<%= index.to_s %>" role="button" aria-expanded="false"><%= categ.to_s.gsub("_", " ") %></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown<%= index.to_s %>">
               <a class="dropdown-item" href="<%= @config[:base_url] + "/rer" + categ.to_s + ".html" %>">Overview</a>
               <div class="dropdown-divider"></div>
@@ -53,5 +55,6 @@
              end %>
         </ul>
       </div> <!-- /navbar-collapse -->
+    </div> <!-- /container-fluid -->
     </nav>
     <!-- ### navbar include ### ends -->

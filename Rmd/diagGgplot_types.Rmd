@@ -260,7 +260,8 @@ ggsave(p, file="diag_ggplot.png", width=200, height=150, units="mm", dpi=300)
 Further online resources
 -------------------------
 
-See [Cookbook for R: `ggplot2` diagrams](https://r-graphics.org/) for many detailed examples of `ggplot2` diagrams.
+ * See [Cookbook for R: `ggplot2` diagrams](https://r-graphics.org/) for many detailed examples of `ggplot2` diagrams.
+ * Package [`esquisse`](https://cran.r-project.org/package=esquisse) provides an interactive Shiny app to create and customize ggplot2 diagrams.
 
 Detach (automatically) loaded packages (if possible)
 -------------------------

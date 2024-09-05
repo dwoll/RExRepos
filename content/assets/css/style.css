@@ -1,5 +1,43 @@
+/* Override some defaults */
+a {
+  color: #158cba;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 body {
   padding-top: 56px;
+}
+
+.navbar .bg-dark {
+  color: #ffffff;
+  background-color: #555555 !important;
+  border-color: #484848;
+}
+
+.navbar .navbar-brand {
+  color: #fff;
+  font-variant: normal;
+  text-transform: none;
+}
+
+.navbar a:hover {
+  text-decoration: none;
+}
+
+.navbar .nav-link {
+  color: #fff;
+  font-variant: normal;
+  text-transform: none;
+}
+
+.navbar .nav-link.active {
+  color: #aaaaaa;
+  font-variant: normal;
+  text-transform: none;
 }
 
 .dropdown-item {

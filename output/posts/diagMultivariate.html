@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Diagrams for multivariate data</title>
+    <meta name="author" content="Daniel Wollschlaeger">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="http://dwoll.de/rexrepos/content/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="http://dwoll.de/rexrepos/content/assets/css/style.css" rel="stylesheet" type="text/css" media="all">
+    <link href="http://dwoll.de/rexrepos/content/assets/css/syntax.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+
+  <body>
+    <!-- ### navbar include starts ### -->
+    <nav class="navbar navbar-expand-md fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="http://dwoll.de/rexrepos/index.html">RExRepos</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+    
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown0" role="button" aria-expanded="false">R Basics</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown0">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerR_Basics.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/gui.html">R user interfaces</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/helpDocs.html">Getting help and documentation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/workspace.html">Exploring the workspace</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/packages.html">Add-on packages</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/arithmeticLogic.html">Arithmetic and logic</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/vector.html">Vectors</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/generateData.html">Generate systematic and random data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/transformData.html">Variable transformations</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/recode.html">Recode variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/factors.html">Factors</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/sets.html">Sets</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/combinatorics.html">Combinatorics</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/matrix.html">Matrices</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/strings.html">Character strings</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/timeDate.html">Time and date</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown1" role="button" aria-expanded="false">Descriptive</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown1">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerDescriptive.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/sumProdRange.html">Sum, product, and range of data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/mean.html">The mean and other location measures</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/variance.html">Variance, robust spread measures, skewness, and kurtosis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/correlation.html">Covariance, correlation, association for continuous variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/matrixStatistics.html">Descriptive statistics for data in matrices</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/frequencies.html">Frequency tables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/association.html">Association for unordered categorical variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/associationOrder.html">Association for ordered categorical variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/interRaterICC.html">Inter-rater-reliability and intra-class-correlation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/aggregate.html">Aggregate data vectors by group</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/missingData.html">Deal with missing data</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown2" role="button" aria-expanded="false">Data Frames</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown2">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerData_Frames.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dataFrames.html">Create and analyze data frames</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfImportExport.html">Data import and export</a>
+                  
+                    <div class="nav-header">Data wrangling base R</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfTransform.html">Choose names, variables, cases</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfSplitMerge.html">Split and combine data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfReshape.html">Reshape data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfAggregate.html">Aggregate data frames</a>
+                    
+                    <div class="nav-header">Data wrangling dplyr tidyr</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfTransform_tidy.html">Choose names, variables, cases</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfSplitMerge_tidy.html">Split and combine data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfReshape_tidy.html">Reshape data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfAggregate_tidy.html">Aggregate data frames</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown3" role="button" aria-expanded="false">Univariate</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown3">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerUnivariate.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Regression Models</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regression.html">Multiple linear regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionRobPen.html">Robust and penalized regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionModMed.html">Moderation and mediation</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionLogistic.html">Logistic regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionOrdinal.html">Ordinal regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionMultinom.html">Multinomial regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionPoisson.html">Poisson regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/logLinear.html">Log-linear models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionDiag.html">Regression diagnostics</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/crossvalidation.html">Crossvalidation</a>
+                    
+                    <div class="nav-header">Survival analysis</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalKM.html">Kaplan-Meier-estimate</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalCoxPH.html">Cox proportional hazards</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalParametric.html">Parametric proportional hazards</a>
+                    
+                    <div class="nav-header">t Tests</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/tTest.html">t-tests</a>
+                    
+                    <div class="nav-header">ANOVA</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaCRp.html">One-way ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaCRFpq.html">Two-way ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/ancova.html">Analysis of covariance</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaRBp.html">One-way repeated-measures ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaRBFpq.html">Two-way repeated-measures ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSPFpq.html">Two-way split-plot ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSPFpqr.html">Three-way split-plot ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaMixed.html">Mixed effects models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSStypes.html">Sum of squares type I, II, and III</a>
+                    
+                    <div class="nav-header">General Topics</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/normality.html">Assess normality</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/varianceHom.html">Assess variance homogeneity</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown4" role="button" aria-expanded="false">Nonparametric</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown4">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerNonparametric.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Classical nonparametric tests</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npWilcoxon.html">Location 1,2 groups (Sign, Wilcoxon signed-rank, Wilcoxon-Mann-Whitney)</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npKruskalFriedman.html">Location 3+ groups (Kruskal-Wallis, linear-by-linear, Friedman, Page)</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npBinomial.html">Binomial and chi^2 for proportions</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npRuns.html">Runs</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/association.html">Association for unordered categorical variables</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/associationOrder.html">Association for ordered categorical variables</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npCochran.html">Cochran-Q</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npBowker.html">Bowker</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npMcNemar.html">McNemar</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npStuartMaxwell.html">Stuart-Maxwell for marginal homogeneity</a>
+                    
+                    <div class="nav-header">Resampling methods</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingPerm.html">Permutation tests</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBoot.html">Nonparametric bootstrapping</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootStrat.html">Stratified nonparametric bootstrapping</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootALM.html">Nonparametric bootstrapping linear models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootParam.html">Parametric bootstrapping</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown5" role="button" aria-expanded="false">Multivariate</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown5">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerMultivariate.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/linearAlgebra.html">Linear algebra calculations</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multPCA.html">Principal components analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multFA.html">Factor analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multFApoly.html">Factor analysis for ordinal data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multMDS.html">Multidimensional scaling</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multRegression.html">Multivariate multiple regression</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multHotelling.html">Hotelling's T^2-test</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multMANOVA.html">Multivariate analysis of variance</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multLDA.html">Linear discriminant analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/normality.html">Assess multivariate normality</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown active">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown6" role="button" aria-expanded="false">Diagrams</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown6">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerDiagrams.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Diagram basics</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagDevice.html">Graphics devices</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagScatter.html">Scatter plots and line diagrams</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagFormat.html">Customize diagrams: Formatting</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagAddElements.html">Customize diagrams: Add elements</a>
+                    
+                    <div class="nav-header">Specific diagrams</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagCategorical.html">Diagrams for categorical data</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagDistributions.html">Visualize univariate and bivariate distributions</a>
+                    
+                      <a class="dropdown-item active" href="http://dwoll.de/rexrepos/posts/diagMultivariate.html">Diagrams for multivariate data</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagBounding.html">Convex hull, (minimum) bounding box, minimum enclosing ellipse, and minimum enclosing circle</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagSplines.html">Linear interpolation, polynomial smoothing, and splines</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagMultiple.html">Multiple diagrams per graphics device</a>
+                    
+                    <div class="nav-header">Diagrams ggplot2</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_types.html">Diagram types with the ggplot2 package</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_aes.html">Color, line type, and point shape in ggplot2 diagrams</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_format.html">Format ggplot2 diagrams</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown7" role="button" aria-expanded="false">Numerical</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown7">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerNumerical.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numRoot.html">Root finding</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numIntegrate.html">Numerical integration and differentiation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numOptimize.html">Numerical optimization</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown8" role="button" aria-expanded="false">Workflow</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown8">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerWorkflow.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/rerWorkflowJN.html">Build websites with R and nanoc or Jekyll</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/rerWorkflowWP.html">Build websites with R and WordPress</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+        </ul>
+      </div> <!-- /navbar-collapse -->
+    </div> <!-- /container-fluid -->
+    </nav>
+    <!-- ### navbar include ### ends -->
+
+    <div class="container-fluid" id="top">
+      <div class="row">
+      <!-- ### top include ends ### -->
+
+        <div class="col-sm-4 col-md-2 dw_sidebar">
+          <!-- ### rerPostList include starts ### -->
+
+<ul class="nav flex-column">
+
+<li class="nav-header">Diagram basics</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagDevice.html">Graphics devices</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagScatter.html">Scatter plots and line diagrams</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagFormat.html">Customize diagrams: Formatting</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagAddElements.html">Customize diagrams: Add elements</a></li>
+
+
+<li class="nav-header">Specific diagrams</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagCategorical.html">Diagrams for categorical data</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagDistributions.html">Visualize univariate and bivariate distributions</a></li>
+
+<li class="nav-item"><a class="nav-link active" href="http://dwoll.de/rexrepos/posts/diagMultivariate.html">Diagrams for multivariate data</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagBounding.html">Convex hull, (minimum) bounding box, minimum enclosing ellipse, and minimum enclosing circle</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagSplines.html">Linear interpolation, polynomial smoothing, and splines</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagMultiple.html">Multiple diagrams per graphics device</a></li>
+
+
+<li class="nav-header">Diagrams ggplot2</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagGgplot_types.html">Diagram types with the ggplot2 package</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagGgplot_aes.html">Color, line type, and point shape in ggplot2 diagrams</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagGgplot_format.html">Format ggplot2 diagrams</a></li>
+
+
+</ul>
+
+<!-- ### rerPostList include ends ### -->
+
+          <hr />
+          <!-- ### rerCategTagList include starts ### -->
+    <ul class="nav flex-column">
+      <li class="dropdown-header">Tags</li>
+      
+      <li><ul class="nav nav-list">
+        
+        <li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/tags.html#Diagrams-ref">Diagrams</a></li>
+        
+      </ul></li>
+      
+    </ul>
+    <!-- ### rerCategTagList include ends ### -->
+
+        </div> <!-- /col-sm-4 col-md-2 -->
+
+        <div class="col-sm-8 col-md-10 dw_main">
+          <h1>Diagrams for multivariate data</h1>
+          <div class="markdown-toc">
+<ul><li><a href="#todo">TODO</a></li><li><a href="#install-required-packages">Install required packages</a></li><li><a href="#d-data">3-D data</a><ul><li><a href="#contour-plots">Contour plots</a></li><li><a href="#bubble-plot-et-c.">Bubble plot et c.</a></li><li><a href="#d-grid-plot">3-D grid plot</a></li><li><a href="#interactive-3-d-scatter-plot">Interactive 3-D scatter plot</a></li></ul></li><li><a href="#conditioning-plots">Conditioning plots</a></li><li><a href="#scatterplot-matrices">Scatterplot matrices</a></li><li><a href="#heatmap">Heatmap</a></li><li><a href="#correlation-matrix-plot">Correlation matrix plot</a></li><li><a href="#useful-packages">Useful packages</a></li><li><a href="#detach-automatically-loaded-packages-if-possible">Detach (automatically) loaded packages (if possible)</a></li><li><a href="#get-the-article-source-from-github">Get the article source from GitHub</a></li></ul>
+</div>
+<h2 id="todo">TODO</h2><ul><li><a href="http://cran.r-project.org/package=psych"><code>psych</code></a> <code>cor.plot()</code></li></ul><h2 id="install-required-packages">Install required packages</h2><p><a href="http://cran.r-project.org/package=car"><code>car</code></a>, <a href="http://cran.r-project.org/package=ellipse"><code>ellipse</code></a>, <a href="http://cran.r-project.org/package=lattice"><code>lattice</code></a>, <a href="http://cran.r-project.org/package=mvtnorm"><code>mvtnorm</code></a>, <a href="http://cran.r-project.org/package=rgl"><code>rgl</code></a></p><div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>wants &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;ellipse&quot;</span>, <span class="st">&quot;lattice&quot;</span>, <span class="st">&quot;mvtnorm&quot;</span>, <span class="st">&quot;rgl&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>has   &lt;-<span class="st"> </span>wants <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(<span class="kw">installed.packages</span>())</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="cf">if</span>(<span class="kw">any</span>(<span class="op">!</span>has)) <span class="kw">install.packages</span>(wants[<span class="op">!</span>has])</span></code></pre></div><h2 id="d-data">3-D data</h2><h3 id="contour-plots">Contour plots</h3><div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>mu    &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>sigma &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.6</span>, <span class="fl">0.6</span>, <span class="dv">1</span>), <span class="dt">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>rng   &lt;-<span class="st"> </span><span class="fl">2.5</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>N     &lt;-<span class="st"> </span><span class="dv">50</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>X     &lt;-<span class="st"> </span><span class="kw">seq</span>(mu[<span class="dv">1</span>]<span class="op">-</span>rng<span class="op">*</span>sigma[<span class="dv">1</span>, <span class="dv">1</span>], mu[<span class="dv">1</span>]<span class="op">+</span>rng<span class="op">*</span>sigma[<span class="dv">1</span>, <span class="dv">1</span>], <span class="dt">length.out=</span>N)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>Y     &lt;-<span class="st"> </span><span class="kw">seq</span>(mu[<span class="dv">2</span>]<span class="op">-</span>rng<span class="op">*</span>sigma[<span class="dv">2</span>, <span class="dv">2</span>], mu[<span class="dv">2</span>]<span class="op">+</span>rng<span class="op">*</span>sigma[<span class="dv">2</span>, <span class="dv">2</span>], <span class="dt">length.out=</span>N)</span></code></pre></div><div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">library</span>(mvtnorm)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>genZ &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) { <span class="kw">dmvnorm</span>(<span class="kw">cbind</span>(x, y), mu, sigma) }</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>matZ &lt;-<span class="st"> </span><span class="kw">outer</span>(X, Y, <span class="dt">FUN=</span><span class="st">&quot;genZ&quot;</span>)</span></code></pre></div><div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">contour</span>(X, Y, matZ, <span class="dt">main=</span><span class="st">&quot;Contours for 2D-normal density&quot;</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagMultivariate01-1.png" alt="" /><figcaption>plot of chunk rerDiagMultivariate01</figcaption></figure><div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">filled.contour</span>(X, Y, matZ, <span class="dt">main=</span><span class="st">&quot;Colored contours for 2D-normal density&quot;</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagMultivariate01-2.png" alt="" /><figcaption>plot of chunk rerDiagMultivariate01</figcaption></figure><h3 id="bubble-plot-et-c.">Bubble plot et c.</h3><div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>N      &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>age    &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dv">30</span>, <span class="dv">8</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>sport  &lt;-<span class="st"> </span><span class="kw">abs</span>(<span class="op">-</span><span class="fl">0.25</span><span class="op">*</span>age <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dv">60</span>, <span class="dv">40</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>weight &lt;-<span class="st"> </span><span class="fl">-0.3</span><span class="op">*</span>age <span class="fl">-0.4</span><span class="op">*</span>sport <span class="op">+</span><span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>wScale &lt;-<span class="st"> </span>(weight<span class="op">-</span><span class="kw">min</span>(weight)) <span class="op">*</span><span class="st"> </span>(<span class="fl">0.8</span> <span class="op">/</span><span class="st"> </span><span class="kw">abs</span>(<span class="kw">diff</span>(<span class="kw">range</span>(weight)))) <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a><span class="kw">symbols</span>(age, sport, <span class="dt">circles=</span>wScale, <span class="dt">inch=</span><span class="fl">0.6</span>, <span class="dt">fg=</span><span class="ot">NULL</span>, <span class="dt">bg=</span><span class="kw">rainbow</span>(N),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>        <span class="dt">main=</span><span class="st">&quot;Weight against age and sport&quot;</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagMultivariate02-1.png" alt="" /><figcaption>plot of chunk rerDiagMultivariate02</figcaption></figure><p>See <code>sunflowerplot()</code> and <code>stars()</code> for altenative approaches.</p><h3 id="d-grid-plot">3-D grid plot</h3><div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">par</span>(<span class="dt">cex.main=</span><span class="fl">1.4</span>, <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">persp</span>(X, Y, matZ, <span class="dt">xlab=</span><span class="st">&quot;x&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;y&quot;</span>, <span class="dt">zlab=</span><span class="st">&quot;Density&quot;</span>, <span class="dt">theta=</span><span class="dv">5</span>, <span class="dt">phi=</span><span class="dv">35</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>      <span class="dt">main=</span><span class="st">&quot;2D-normal probability density&quot;</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagMultivariate03-1.png" alt="" /><figcaption>plot of chunk rerDiagMultivariate03</figcaption></figure><h3 id="interactive-3-d-scatter-plot">Interactive 3-D scatter plot</h3><div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">library</span>(rgl)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>vecX &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">seq</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dt">length.out=</span><span class="dv">10</span>), <span class="dt">times=</span><span class="dv">10</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>vecY &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">seq</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dt">length.out=</span><span class="dv">10</span>),  <span class="dt">each=</span><span class="dv">10</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>vecZ &lt;-<span class="st"> </span>vecX<span class="op">*</span>vecY</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a><span class="kw">plot3d</span>(vecX, vecY, vecZ, <span class="dt">main=</span><span class="st">&quot;3D Scatterplot&quot;</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>       <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">type=</span><span class="st">&quot;h&quot;</span>, <span class="dt">aspect=</span><span class="ot">TRUE</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a><span class="kw">spheres3d</span>(vecX, vecY, vecZ, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">radius=</span><span class="dv">2</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a><span class="kw">grid3d</span>(<span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y+&quot;</span>, <span class="st">&quot;z&quot;</span>))</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagMultivariate04-1.png" alt="" /><figcaption>plot of chunk rerDiagMultivariate04</figcaption></figure><div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">demo</span>(rgl)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="kw">example</span>(persp3d)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="co"># not shown</span></span></code></pre></div><h2 id="conditioning-plots">Conditioning plots</h2><div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>Njk    &lt;-<span class="st"> </span><span class="dv">25</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>P      &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>Q      &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>IQ     &lt;-<span class="st"> </span><span class="kw">rnorm</span>(P<span class="op">*</span>Q<span class="op">*</span>Njk, <span class="dt">mean=</span><span class="dv">100</span>, <span class="dt">sd=</span><span class="dv">15</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>height &lt;-<span class="st"> </span><span class="kw">rnorm</span>(P<span class="op">*</span>Q<span class="op">*</span>Njk, <span class="dt">mean=</span><span class="dv">175</span>, <span class="dt">sd=</span><span class="dv">7</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a>IV1    &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;control&quot;</span>, <span class="st">&quot;treatment&quot;</span>), <span class="dt">each=</span>Q<span class="op">*</span>Njk))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a>IV2    &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>), <span class="dt">times=</span>P<span class="op">*</span>Njk))</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a>myDf   &lt;-<span class="st"> </span><span class="kw">data.frame</span>(IV1, IV2, IQ, height)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a><span class="kw">coplot</span>(IQ <span class="op">~</span><span class="st"> </span>height <span class="op">|</span><span class="st"> </span>IV1<span class="op">*</span>IV2, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">data=</span>myDf)</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagMultivariate06-1.png" alt="" /><figcaption>plot of chunk rerDiagMultivariate06</figcaption></figure><div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">library</span>(lattice)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>res &lt;-<span class="st"> </span><span class="kw">histogram</span>(IQ <span class="op">~</span><span class="st"> </span>height <span class="op">|</span><span class="st"> </span>IV1<span class="op">*</span>IV2, <span class="dt">data=</span>myDf,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>                 <span class="dt">main=</span><span class="st">&quot;Histograms per group&quot;</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a><span class="kw">print</span>(res)</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagMultivariate07-1.png" alt="" /><figcaption>plot of chunk rerDiagMultivariate07</figcaption></figure><h2 id="scatterplot-matrices">Scatterplot matrices</h2><div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>N      &lt;-<span class="st"> </span><span class="dv">20</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>P      &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>IV     &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;CG&quot;</span>, <span class="st">&quot;T&quot;</span>), <span class="dt">each=</span>N<span class="op">/</span>P)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>age    &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">18</span><span class="op">:</span><span class="dv">35</span>, N, <span class="dt">replace=</span><span class="ot">TRUE</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a>IQ     &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">rnorm</span>(N, <span class="dt">mean=</span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">115</span>), <span class="dt">each=</span>N<span class="op">/</span>P), <span class="dt">sd=</span><span class="dv">15</span>))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a>rating &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="fl">0.4</span><span class="op">*</span>IQ <span class="op">-</span><span class="st"> </span><span class="dv">30</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dv">0</span>, <span class="dv">10</span>), <span class="dv">1</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a>score  &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="op">-</span><span class="fl">0.3</span><span class="op">*</span>IQ <span class="op">+</span><span class="st"> </span><span class="fl">0.7</span><span class="op">*</span>age <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dv">0</span>, <span class="dv">8</span>), <span class="dv">1</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a>mvDf   &lt;-<span class="st"> </span><span class="kw">data.frame</span>(IV, age, IQ, rating, score)</span></code></pre></div><div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">pairs</span>(mvDf[<span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;IQ&quot;</span>, <span class="st">&quot;rating&quot;</span>, <span class="st">&quot;score&quot;</span>)], <span class="dt">main=</span><span class="st">&quot;Scatter plot matrix&quot;</span>,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>      <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)[<span class="kw">unclass</span>(mvDf<span class="op">$</span>IV)])</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagMultivariate08-1.png" alt="" /><figcaption>plot of chunk rerDiagMultivariate08</figcaption></figure><div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a>myHist &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) { <span class="kw">par</span>(<span class="dt">new=</span><span class="ot">TRUE</span>); <span class="kw">hist</span>(x, ..., <span class="dt">main=</span><span class="st">&quot;&quot;</span>) }</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a>myEll  &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, <span class="dt">nSegments=</span><span class="dv">100</span>, <span class="dt">rad=</span><span class="dv">1</span>, ...) {</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a>    splLL &lt;-<span class="st"> </span><span class="kw">split</span>(<span class="kw">data.frame</span>(x, y), mvDf<span class="op">$</span>IV)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>    CG &lt;-<span class="st"> </span><span class="kw">data.matrix</span>(splLL<span class="op">$</span>CG)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>    TT &lt;-<span class="st"> </span><span class="kw">data.matrix</span>(splLL<span class="op">$</span>T)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a>    <span class="kw">library</span>(car)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a>    <span class="kw">dataEllipse</span>(CG, <span class="dt">level=</span><span class="fl">0.5</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>,  <span class="dt">center.pch=</span><span class="dv">4</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a>                <span class="dt">plot.points=</span><span class="ot">FALSE</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a>    <span class="kw">dataEllipse</span>(TT, <span class="dt">level=</span><span class="fl">0.5</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">center.pch=</span><span class="dv">4</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a>                <span class="dt">plot.points=</span><span class="ot">FALSE</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true"></a>}</span></code></pre></div><div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="kw">pairs</span>(mvDf[<span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;IQ&quot;</span>, <span class="st">&quot;rating&quot;</span>, <span class="st">&quot;score&quot;</span>)], <span class="dt">diag.panel=</span>myHist,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a>      <span class="dt">upper.panel=</span>myEll, <span class="dt">main=</span><span class="st">&quot;Scatter plot matrix&quot;</span>, <span class="dt">pch=</span><span class="dv">16</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a>      <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)[<span class="kw">unclass</span>(mvDf<span class="op">$</span>IV)])</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagMultivariate09-1.png" alt="" /><figcaption>plot of chunk rerDiagMultivariate09</figcaption></figure><h2 id="heatmap">Heatmap</h2><p>Illustrating the correlation matrix of several variables.</p><div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="kw">library</span>(mvtnorm)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a>N &lt;-<span class="st"> </span><span class="dv">200</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>P &lt;-<span class="st"> </span><span class="dv">8</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>Q &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>Lambda &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">round</span>(<span class="kw">runif</span>(P<span class="op">*</span>Q, <span class="dt">min=</span><span class="op">-</span><span class="fl">0.9</span>, <span class="dt">max=</span><span class="fl">0.9</span>), <span class="dv">1</span>), <span class="dt">nrow=</span>P)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a>FF &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(N, <span class="dt">mean=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>),   <span class="dt">sigma=</span><span class="kw">diag</span>(Q))</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a>E  &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(N, <span class="dt">mean=</span><span class="kw">rep</span>(<span class="dv">0</span>, P), <span class="dt">sigma=</span><span class="kw">diag</span>(P)<span class="op">*</span><span class="fl">0.3</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a>X  &lt;-<span class="st"> </span>FF <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(Lambda) <span class="op">+</span><span class="st"> </span>E</span></code></pre></div><div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a>corMat &lt;-<span class="st"> </span><span class="kw">cor</span>(X)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a><span class="kw">rownames</span>(corMat) &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;X&quot;</span>, <span class="dv">1</span><span class="op">:</span>P, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a><span class="kw">colnames</span>(corMat) &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;X&quot;</span>, <span class="dv">1</span><span class="op">:</span>P, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a><span class="kw">round</span>(corMat, <span class="dv">2</span>)</span></code></pre></div><pre><code>      X1    X2    X3    X4    X5    X6    X7    X8
+X1  1.00 -0.37  0.17  0.11 -0.11 -0.34 -0.04 -0.43
+X2 -0.37  1.00 -0.13  0.11 -0.05  0.57 -0.17  0.39
+X3  0.17 -0.13  1.00  0.63 -0.62 -0.03 -0.51 -0.44
+X4  0.11  0.11  0.63  1.00 -0.79  0.13 -0.64 -0.40
+X5 -0.11 -0.05 -0.62 -0.79  1.00 -0.12  0.64  0.45
+X6 -0.34  0.57 -0.03  0.13 -0.12  1.00 -0.28  0.38
+X7 -0.04 -0.17 -0.51 -0.64  0.64 -0.28  1.00  0.23
+X8 -0.43  0.39 -0.44 -0.40  0.45  0.38  0.23  1.00</code></pre><div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="kw">image</span>(corMat, <span class="dt">axes=</span><span class="ot">FALSE</span>, <span class="dt">main=</span><span class="kw">paste</span>(<span class="st">&quot;Correlation matrix of&quot;</span>, P, <span class="st">&quot;variables&quot;</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a><span class="kw">axis</span>(<span class="dt">side=</span><span class="dv">1</span>, <span class="dt">at=</span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span>P), <span class="dt">labels=</span><span class="kw">rownames</span>(corMat))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a><span class="kw">axis</span>(<span class="dt">side=</span><span class="dv">2</span>, <span class="dt">at=</span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span>P), <span class="dt">labels=</span><span class="kw">colnames</span>(corMat))</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagMultivariate10-1.png" alt="" /><figcaption>plot of chunk rerDiagMultivariate10</figcaption></figure><p>See <code>heatmap()</code> for a heatmap including dendograms added to the plot sides and correlation for an alternative approach to visualize correlation matrices.</p><h2 id="correlation-matrix-plot">Correlation matrix plot</h2><div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="kw">library</span>(ellipse)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a><span class="kw">plotcorr</span>(corMat, <span class="dt">type=</span><span class="st">&quot;lower&quot;</span>, <span class="dt">diag=</span><span class="ot">FALSE</span>, <span class="dt">main=</span><span class="st">&quot;Bivariate correlations&quot;</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagMultivariate11-1.png" alt="" /><figcaption>plot of chunk rerDiagMultivariate11</figcaption></figure><h2 id="useful-packages">Useful packages</h2><ul><li>See package <a href="http://cran.r-project.org/package=tourr"><code>tourr</code></a> for an alternative to visualizing high-dimensional data.</li><li>Packages <a href="http://cran.r-project.org/package=ggplot2"><code>ggplot2</code></a> and <a href="http://cran.r-project.org/package=lattice"><code>lattice</code></a> provide their own graphics system and many functions for multi-panel plots.</li><li>Packages <a href="http://cran.r-project.org/package=rggobi"><code>rggobi</code></a>, and <a href="http://cran.r-project.org/package=playwith"><code>playwith</code></a> also create interactive diagrams.</li><li>Packages <a href="http://cran.r-project.org/package=googleVis"><code>googleVis</code></a>, <a href="http://cran.r-project.org/package=ggvis"><code>ggvis</code></a>, and <a href="http://rcharts.io/"><code>rCharts</code></a> create online interactive diagrams based on JavaScript libraries.</li></ul><h2 id="detach-automatically-loaded-packages-if-possible">Detach (automatically) loaded packages (if possible)</h2><div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>car))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>ellipse))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>mvtnorm))</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>rgl))</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>lattice))</span></code></pre></div><h2 id="get-the-article-source-from-github">Get the article source from GitHub</h2><p><a href="https://github.com/dwoll/RExRepos/raw/master/Rmd/diagMultivariate.Rmd">R markdown</a> - <a href="https://github.com/dwoll/RExRepos/raw/master/md/diagMultivariate.md">markdown</a> - <a href="https://github.com/dwoll/RExRepos/raw/master/R/diagMultivariate.R">R code</a> - <a href="https://github.com/dwoll/RExRepos/">all posts</a></p>
+        </div> <!-- /col-sm-8 col-md-10 -->
+      </div> <!--/row-->
+
+      <div class="row">
+        <div class="col toplink">
+          <!-- ### toplink include starts ### -->
+        <p class="toplink">
+          <span class="toplink"><a href="#top"><img src="http://dwoll.de/rexrepos/content/assets/img/cup-sm.png" width=23 height=14 /> top</a></span>
+        </p>
+        <!-- ### toplink include ends ### -->
+
+        </div> <!--/col-->
+      </div> <!--/row-->
+
+      <div class="row">
+        <div class="col footer">
+          <!-- ### footer include starts ### -->
+
+<footer>
+  &copy; 2020
+  Daniel Wollschlaeger -
+  
+  licensed under CC-BY-SA <a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="http://dwoll.de/rexrepos/content/assets/img/cc-by-sa80x15.png" width="80" height="15" alt="Creative Commons BY-SA" /></a>
+  
+</footer>
+
+<!-- ### footer include ends ### -->
+
+        </div> <!-- /col footer -->
+      </div> <!-- /row -->
+    </div><!-- /container-fluid -->
+<!-- ### bottom include starts ### -->
+    <!-- ### JavaScript include starts ### -->
+    <script src="http://dwoll.de/rexrepos/content/assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+    MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }};
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <!-- ### JavaScript include ends ### -->
+
+  </body>
+</html>
+

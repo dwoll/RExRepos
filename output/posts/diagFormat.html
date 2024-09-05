@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Customize diagrams: Formatting</title>
+    <meta name="author" content="Daniel Wollschlaeger">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="http://dwoll.de/rexrepos/content/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="http://dwoll.de/rexrepos/content/assets/css/style.css" rel="stylesheet" type="text/css" media="all">
+    <link href="http://dwoll.de/rexrepos/content/assets/css/syntax.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+
+  <body>
+    <!-- ### navbar include starts ### -->
+    <nav class="navbar navbar-expand-md fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="http://dwoll.de/rexrepos/index.html">RExRepos</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+    
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown0" role="button" aria-expanded="false">R Basics</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown0">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerR_Basics.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/gui.html">R user interfaces</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/helpDocs.html">Getting help and documentation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/workspace.html">Exploring the workspace</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/packages.html">Add-on packages</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/arithmeticLogic.html">Arithmetic and logic</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/vector.html">Vectors</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/generateData.html">Generate systematic and random data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/transformData.html">Variable transformations</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/recode.html">Recode variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/factors.html">Factors</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/sets.html">Sets</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/combinatorics.html">Combinatorics</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/matrix.html">Matrices</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/strings.html">Character strings</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/timeDate.html">Time and date</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown1" role="button" aria-expanded="false">Descriptive</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown1">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerDescriptive.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/sumProdRange.html">Sum, product, and range of data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/mean.html">The mean and other location measures</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/variance.html">Variance, robust spread measures, skewness, and kurtosis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/correlation.html">Covariance, correlation, association for continuous variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/matrixStatistics.html">Descriptive statistics for data in matrices</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/frequencies.html">Frequency tables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/association.html">Association for unordered categorical variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/associationOrder.html">Association for ordered categorical variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/interRaterICC.html">Inter-rater-reliability and intra-class-correlation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/aggregate.html">Aggregate data vectors by group</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/missingData.html">Deal with missing data</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown2" role="button" aria-expanded="false">Data Frames</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown2">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerData_Frames.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dataFrames.html">Create and analyze data frames</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfImportExport.html">Data import and export</a>
+                  
+                    <div class="nav-header">Data wrangling base R</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfTransform.html">Choose names, variables, cases</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfSplitMerge.html">Split and combine data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfReshape.html">Reshape data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfAggregate.html">Aggregate data frames</a>
+                    
+                    <div class="nav-header">Data wrangling dplyr tidyr</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfTransform_tidy.html">Choose names, variables, cases</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfSplitMerge_tidy.html">Split and combine data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfReshape_tidy.html">Reshape data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfAggregate_tidy.html">Aggregate data frames</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown3" role="button" aria-expanded="false">Univariate</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown3">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerUnivariate.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Regression Models</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regression.html">Multiple linear regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionRobPen.html">Robust and penalized regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionModMed.html">Moderation and mediation</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionLogistic.html">Logistic regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionOrdinal.html">Ordinal regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionMultinom.html">Multinomial regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionPoisson.html">Poisson regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/logLinear.html">Log-linear models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionDiag.html">Regression diagnostics</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/crossvalidation.html">Crossvalidation</a>
+                    
+                    <div class="nav-header">Survival analysis</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalKM.html">Kaplan-Meier-estimate</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalCoxPH.html">Cox proportional hazards</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalParametric.html">Parametric proportional hazards</a>
+                    
+                    <div class="nav-header">t Tests</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/tTest.html">t-tests</a>
+                    
+                    <div class="nav-header">ANOVA</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaCRp.html">One-way ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaCRFpq.html">Two-way ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/ancova.html">Analysis of covariance</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaRBp.html">One-way repeated-measures ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaRBFpq.html">Two-way repeated-measures ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSPFpq.html">Two-way split-plot ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSPFpqr.html">Three-way split-plot ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaMixed.html">Mixed effects models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSStypes.html">Sum of squares type I, II, and III</a>
+                    
+                    <div class="nav-header">General Topics</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/normality.html">Assess normality</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/varianceHom.html">Assess variance homogeneity</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown4" role="button" aria-expanded="false">Nonparametric</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown4">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerNonparametric.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Classical nonparametric tests</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npWilcoxon.html">Location 1,2 groups (Sign, Wilcoxon signed-rank, Wilcoxon-Mann-Whitney)</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npKruskalFriedman.html">Location 3+ groups (Kruskal-Wallis, linear-by-linear, Friedman, Page)</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npBinomial.html">Binomial and chi^2 for proportions</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npRuns.html">Runs</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/association.html">Association for unordered categorical variables</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/associationOrder.html">Association for ordered categorical variables</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npCochran.html">Cochran-Q</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npBowker.html">Bowker</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npMcNemar.html">McNemar</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npStuartMaxwell.html">Stuart-Maxwell for marginal homogeneity</a>
+                    
+                    <div class="nav-header">Resampling methods</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingPerm.html">Permutation tests</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBoot.html">Nonparametric bootstrapping</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootStrat.html">Stratified nonparametric bootstrapping</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootALM.html">Nonparametric bootstrapping linear models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootParam.html">Parametric bootstrapping</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown5" role="button" aria-expanded="false">Multivariate</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown5">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerMultivariate.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/linearAlgebra.html">Linear algebra calculations</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multPCA.html">Principal components analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multFA.html">Factor analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multFApoly.html">Factor analysis for ordinal data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multMDS.html">Multidimensional scaling</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multRegression.html">Multivariate multiple regression</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multHotelling.html">Hotelling's T^2-test</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multMANOVA.html">Multivariate analysis of variance</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multLDA.html">Linear discriminant analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/normality.html">Assess multivariate normality</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown active">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown6" role="button" aria-expanded="false">Diagrams</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown6">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerDiagrams.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Diagram basics</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagDevice.html">Graphics devices</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagScatter.html">Scatter plots and line diagrams</a>
+                    
+                      <a class="dropdown-item active" href="http://dwoll.de/rexrepos/posts/diagFormat.html">Customize diagrams: Formatting</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagAddElements.html">Customize diagrams: Add elements</a>
+                    
+                    <div class="nav-header">Specific diagrams</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagCategorical.html">Diagrams for categorical data</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagDistributions.html">Visualize univariate and bivariate distributions</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagMultivariate.html">Diagrams for multivariate data</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagBounding.html">Convex hull, (minimum) bounding box, minimum enclosing ellipse, and minimum enclosing circle</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagSplines.html">Linear interpolation, polynomial smoothing, and splines</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagMultiple.html">Multiple diagrams per graphics device</a>
+                    
+                    <div class="nav-header">Diagrams ggplot2</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_types.html">Diagram types with the ggplot2 package</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_aes.html">Color, line type, and point shape in ggplot2 diagrams</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_format.html">Format ggplot2 diagrams</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown7" role="button" aria-expanded="false">Numerical</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown7">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerNumerical.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numRoot.html">Root finding</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numIntegrate.html">Numerical integration and differentiation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numOptimize.html">Numerical optimization</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown8" role="button" aria-expanded="false">Workflow</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown8">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerWorkflow.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/rerWorkflowJN.html">Build websites with R and nanoc or Jekyll</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/rerWorkflowWP.html">Build websites with R and WordPress</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+        </ul>
+      </div> <!-- /navbar-collapse -->
+    </div> <!-- /container-fluid -->
+    </nav>
+    <!-- ### navbar include ### ends -->
+
+    <div class="container-fluid" id="top">
+      <div class="row">
+      <!-- ### top include ends ### -->
+
+        <div class="col-sm-4 col-md-2 dw_sidebar">
+          <!-- ### rerPostList include starts ### -->
+
+<ul class="nav flex-column">
+
+<li class="nav-header">Diagram basics</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagDevice.html">Graphics devices</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagScatter.html">Scatter plots and line diagrams</a></li>
+
+<li class="nav-item"><a class="nav-link active" href="http://dwoll.de/rexrepos/posts/diagFormat.html">Customize diagrams: Formatting</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagAddElements.html">Customize diagrams: Add elements</a></li>
+
+
+<li class="nav-header">Specific diagrams</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagCategorical.html">Diagrams for categorical data</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagDistributions.html">Visualize univariate and bivariate distributions</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagMultivariate.html">Diagrams for multivariate data</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagBounding.html">Convex hull, (minimum) bounding box, minimum enclosing ellipse, and minimum enclosing circle</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagSplines.html">Linear interpolation, polynomial smoothing, and splines</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagMultiple.html">Multiple diagrams per graphics device</a></li>
+
+
+<li class="nav-header">Diagrams ggplot2</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagGgplot_types.html">Diagram types with the ggplot2 package</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagGgplot_aes.html">Color, line type, and point shape in ggplot2 diagrams</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/diagGgplot_format.html">Format ggplot2 diagrams</a></li>
+
+
+</ul>
+
+<!-- ### rerPostList include ends ### -->
+
+          <hr />
+          <!-- ### rerCategTagList include starts ### -->
+    <ul class="nav flex-column">
+      <li class="dropdown-header">Tags</li>
+      
+      <li><ul class="nav nav-list">
+        
+        <li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/tags.html#Diagrams-ref">Diagrams</a></li>
+        
+      </ul></li>
+      
+    </ul>
+    <!-- ### rerCategTagList include ends ### -->
+
+        </div> <!-- /col-sm-4 col-md-2 -->
+
+        <div class="col-sm-8 col-md-10 dw_main">
+          <h1>Customize diagrams: Formatting</h1>
+          <div class="markdown-toc">
+<ul><li><a href="#todo">TODO</a></li><li><a href="#install-required-packages">Install required packages</a></li><li><a href="#formatting-elements-for-all-kinds-of-diagrams">Formatting elements for all kinds of diagrams</a><ul><li><a href="#plot-symbols-and-line-types">Plot symbols and line types</a></li><li><a href="#diagram-title-axis-labels-axis-limits-aspect-ratio">Diagram title, axis labels, axis limits, aspect ratio</a></li></ul></li><li><a href="#setting-parameters-with-par">Setting parameters with <code>par()</code></a></li><li><a href="#colors">Colors</a><ul><li><a href="#default-palette-and-other-palette-choices">Default palette and other palette choices</a></li><li><a href="#rgb-colors-and-transparency">RGB colors and transparency</a></li><li><a href="#other-color-spaces">Other color spaces</a></li><li><a href="#color-palettes-with-rcolorbrewer">Color palettes with <code>RColorBrewer</code></a></li></ul></li><li><a href="#useful-packages">Useful packages</a></li><li><a href="#detach-automatically-loaded-packages-if-possible">Detach (automatically) loaded packages (if possible)</a></li><li><a href="#get-the-article-source-from-github">Get the article source from GitHub</a></li></ul>
+</div>
+<h2 id="todo">TODO</h2><ul><li>link to diagAddElements -&gt; <code>axis()</code>, diagMultiple</li></ul><h2 id="install-required-packages">Install required packages</h2><p><a href="http://cran.r-project.org/package=RColorBrewer"><code>RColorBrewer</code></a></p><div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>wants &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>has   &lt;-<span class="st"> </span>wants <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(<span class="kw">installed.packages</span>())</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="cf">if</span>(<span class="kw">any</span>(<span class="op">!</span>has)) <span class="kw">install.packages</span>(wants[<span class="op">!</span>has])</span></code></pre></div><h2 id="formatting-elements-for-all-kinds-of-diagrams">Formatting elements for all kinds of diagrams</h2><p>Nearly all R base diagrams come with a shared set of options to control typical diagram elements like the title, axis labels and limits, or the type of plot symbol. They are illustrated here using the <code>plot()</code> function for simple scatter plots.</p><h3 id="plot-symbols-and-line-types">Plot symbols and line types</h3><p>Plot symbols are chosen with option <code>pch</code>.</p><div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>X &lt;-<span class="st"> </span><span class="kw">row</span>(<span class="kw">matrix</span>(<span class="kw">numeric</span>(<span class="dv">6</span><span class="op">*</span><span class="dv">5</span>), <span class="dt">nrow=</span><span class="dv">6</span>, <span class="dt">ncol=</span><span class="dv">5</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>Y &lt;-<span class="st"> </span><span class="kw">col</span>(<span class="kw">matrix</span>(<span class="kw">numeric</span>(<span class="dv">6</span><span class="op">*</span><span class="dv">5</span>), <span class="dt">nrow=</span><span class="dv">6</span>, <span class="dt">ncol=</span><span class="dv">5</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">5</span>, <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">6</span>), <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, <span class="dt">xlab=</span><span class="ot">NA</span>, <span class="dt">ylab=</span><span class="ot">NA</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>     <span class="dt">axes=</span><span class="ot">FALSE</span>, <span class="dt">main=</span><span class="st">&quot;Data symbols&quot;</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="kw">points</span>(X[<span class="dv">1</span><span class="op">:</span><span class="dv">26</span>], Y[<span class="dv">1</span><span class="op">:</span><span class="dv">26</span>], <span class="dt">pch=</span><span class="dv">0</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">bg=</span><span class="st">&quot;gray&quot;</span>, <span class="dt">cex=</span><span class="dv">3</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="kw">text</span>(X[<span class="dv">1</span><span class="op">:</span><span class="dv">26</span>]<span class="op">-</span><span class="fl">0.3</span>, Y[<span class="dv">1</span><span class="op">:</span><span class="dv">26</span>], <span class="dt">labels=</span><span class="dv">0</span><span class="op">:</span><span class="dv">25</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="kw">text</span>(<span class="fl">0.2</span>, <span class="dv">3</span>, <span class="dt">labels=</span><span class="st">&quot;symbols for pch&quot;</span>, <span class="dt">srt=</span><span class="dv">90</span>, <span class="dt">cex=</span><span class="fl">1.2</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagFormat01-1.png" alt="" /><figcaption>plot of chunk rerDiagFormat01</figcaption></figure><p>Line types are chosen with option <code>lty</code>, line widths with option <code>lwd</code>, and round vs. square line ends with <code>lend</code>.</p><div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>X &lt;-<span class="st"> </span><span class="kw">row</span>(<span class="kw">matrix</span>(<span class="kw">numeric</span>(<span class="dv">6</span><span class="op">*</span><span class="dv">12</span>), <span class="dt">nrow=</span><span class="dv">6</span>, <span class="dt">ncol=</span><span class="dv">12</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>Y &lt;-<span class="st"> </span><span class="kw">col</span>(<span class="kw">matrix</span>(<span class="kw">numeric</span>(<span class="dv">6</span><span class="op">*</span><span class="dv">12</span>), <span class="dt">nrow=</span><span class="dv">6</span>, <span class="dt">ncol=</span><span class="dv">12</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">6</span>, <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">12</span>, <span class="dt">length.out=</span><span class="dv">7</span>), <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, <span class="dt">axes=</span><span class="ot">FALSE</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="kw">matlines</span>(X[ , <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>],  Y[ , <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>],  <span class="dt">lty=</span><span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">lend=</span><span class="dv">0</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="kw">matlines</span>(X[ , <span class="dv">7</span><span class="op">:</span><span class="dv">12</span>], Y[ , <span class="dv">7</span><span class="op">:</span><span class="dv">12</span>], <span class="dt">lty=</span><span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">lend=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a><span class="co">## add annotations</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a><span class="kw">text</span>(<span class="kw">rep</span>(<span class="fl">0.7</span>, <span class="dv">12</span>), Y[<span class="dv">1</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>], <span class="dt">labels=</span><span class="kw">c</span>(<span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dv">6</span><span class="op">:</span><span class="dv">1</span>))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a><span class="kw">text</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dt">labels=</span><span class="st">&quot;line types: lty, line widths: lwd&quot;</span>, <span class="dt">srt=</span><span class="dv">90</span>, <span class="dt">cex=</span><span class="fl">1.2</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a><span class="kw">text</span>(<span class="fl">0.32</span>, <span class="dv">9</span>, <span class="dt">labels=</span><span class="st">&quot;line ending: lend=1&quot;</span>, <span class="dt">srt=</span><span class="dv">90</span>, <span class="dt">cex=</span><span class="fl">1.2</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a><span class="kw">text</span>(<span class="fl">0.32</span>, <span class="dv">3</span>, <span class="dt">labels=</span><span class="st">&quot;line ending: lend=0&quot;</span>, <span class="dt">srt=</span><span class="dv">90</span>, <span class="dt">cex=</span><span class="fl">1.2</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagFormat02-1.png" alt="" /><figcaption>plot of chunk rerDiagFormat02</figcaption></figure><h3 id="diagram-title-axis-labels-axis-limits-aspect-ratio">Diagram title, axis labels, axis limits, aspect ratio</h3><div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>N &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dv">100</span>, <span class="dv">15</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>y &lt;-<span class="st"> </span><span class="fl">0.3</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dv">0</span>, <span class="dv">7</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="kw">plot</span>(x, y, <span class="dt">main=</span><span class="st">&quot;Scatter plot&quot;</span>, <span class="dt">sub=</span><span class="st">&quot;aspect ratio = 1&quot;</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>     <span class="dt">xlab=</span><span class="st">&quot;x axis&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;y axis&quot;</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>     <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">60</span>, <span class="dv">140</span>), <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagFormat03-1.png" alt="" /><figcaption>plot of chunk rerDiagFormat03</figcaption></figure><h2 id="setting-parameters-with-par">Setting parameters with <code>par()</code></h2><p>Formatting details of a diagram can also be controlled with a call to <code>par()</code> before a diagram is opened. Some aspects can be set both with <code>par()</code>, and with the diagram function - e.g., with options to <code>plot()</code>. These include (see <code>?par</code> for explanations):</p><ul><li><code>cex</code>, <code>cex.axis</code>, <code>cex.main</code>, <code>cex.lab</code> for the size of plot symbols, axis labels and diagram title</li><li><code>col</code> for the color of plot symbols</li><li><code>font</code>, <code>family</code> for the font of the diagram annotations</li><li><code>las</code> for the orientation of axis labels</li><li><code>lend</code>, <code>lty</code>, <code>lwd</code>, <code>pch</code> for the style of lines and plot symbols</li><li><code>xaxs</code>, <code>yaxs</code> for the precise axis limits</li><li><code>xaxt</code>, <code>yaxt</code> for the presence of axes</li></ul><p>Other aspects can only be set in <code>par()</code>. These include: <code>bt</code>, <code>mar</code>, <code>oma</code>, <code>xlog</code>, <code>ylog</code>. The return value of <code>par()</code> is a list with the old value for the changed option. When it is saved, it can later be passed as an option to <code>par()</code> to reset the option for the current graphics device to its previous value.</p><div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">col=</span><span class="st">&quot;gray60&quot;</span>, <span class="dt">family=</span><span class="st">&quot;serif&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">1</span>), <span class="dt">pch=</span><span class="dv">16</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="dt">main=</span><span class="st">&quot;Changed formatting&quot;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="kw">par</span>(op)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="dt">main=</span><span class="st">&quot;Standard format&quot;</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagFormat04-1.png" alt="" /><figcaption>plot of chunk rerDiagFormat04</figcaption></figure><h2 id="colors">Colors</h2><h3 id="default-palette-and-other-palette-choices">Default palette and other palette choices</h3><div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>N &lt;-<span class="st"> </span><span class="dv">6</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>(colDef &lt;-<span class="st"> </span><span class="kw">palette</span>()[<span class="dv">1</span><span class="op">:</span>N])</span></code></pre></div><pre><code>[1] &quot;black&quot;   &quot;red&quot;     &quot;green3&quot;  &quot;blue&quot;    &quot;cyan&quot;    &quot;magenta&quot;</code></pre><div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>(colAll &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">colors</span>(), N, <span class="dt">replace=</span><span class="ot">FALSE</span>))</span></code></pre></div><pre><code>[1] &quot;gray33&quot;         &quot;khaki2&quot;         &quot;mistyrose1&quot;     &quot;darkslategray1&quot;
+[5] &quot;royalblue4&quot;     &quot;mediumorchid&quot;  </code></pre><div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>colRain &lt;-<span class="st"> </span><span class="kw">rainbow</span>(N)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>colTopo &lt;-<span class="st"> </span><span class="kw">topo.colors</span>(N)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>colCm   &lt;-<span class="st"> </span><span class="kw">cm.colors</span>(N)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>colHeat &lt;-<span class="st"> </span><span class="kw">heat.colors</span>(N)</span></code></pre></div><div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>len    &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span>N</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>xLeft  &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">seq</span>(<span class="dv">0</span>,   <span class="dv">1</span><span class="op">-</span>len, <span class="dt">by=</span>len), <span class="dt">times=</span>N)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>yBot   &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">seq</span>(<span class="dv">0</span>,   <span class="dv">1</span><span class="op">-</span>len, <span class="dt">by=</span>len),  <span class="dt">each=</span>N)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>xRight &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">seq</span>(len, <span class="dv">1</span>,     <span class="dt">by=</span>len), <span class="dt">times=</span>N)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>yTop   &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">seq</span>(len, <span class="dv">1</span>,     <span class="dt">by=</span>len),  <span class="dt">each=</span>N)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a><span class="kw">plot</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">axes=</span><span class="ot">FALSE</span>, <span class="dt">xlab=</span><span class="ot">NA</span>, <span class="dt">ylab=</span><span class="ot">NA</span>, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a>     <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">main=</span><span class="st">&quot;Colors&quot;</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a><span class="kw">rect</span>(xLeft, yBot, xRight, yTop, <span class="dt">border=</span><span class="ot">NA</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a>     <span class="dt">col=</span><span class="kw">c</span>(colDef, colAll, colRain, colTopo, colCm, colHeat))</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true"></a><span class="kw">par</span>(<span class="dt">xpd=</span><span class="ot">NA</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true"></a><span class="kw">text</span>(<span class="op">-</span><span class="fl">0.05</span>, <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span><span class="op">-</span>len, <span class="dt">length.out=</span>N) <span class="op">+</span><span class="st"> </span>len<span class="op">/</span><span class="dv">2</span>, <span class="dt">adj=</span><span class="dv">1</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true"></a>     <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;default&quot;</span>, <span class="st">&quot;sample&quot;</span>, <span class="st">&quot;rainbow&quot;</span>, <span class="st">&quot;topo&quot;</span>, <span class="st">&quot;cm&quot;</span>, <span class="st">&quot;heat&quot;</span>))</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagFormat05-1.png" alt="" /><figcaption>plot of chunk rerDiagFormat05</figcaption></figure><h3 id="rgb-colors-and-transparency">RGB colors and transparency</h3><div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">rgb</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span></code></pre></div><pre><code>[1] &quot;#00FFFF&quot;</code></pre><div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="kw">rgb</span>(<span class="kw">t</span>(<span class="kw">col2rgb</span>(<span class="st">&quot;red&quot;</span>)<span class="op">/</span><span class="dv">255</span>))</span></code></pre></div><pre><code>[1] &quot;#FF0000&quot;</code></pre><div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="kw">rgb</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.5</span>)</span></code></pre></div><pre><code>[1] &quot;#FF000080&quot;</code></pre><div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a>N  &lt;-<span class="st"> </span><span class="dv">150</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a>xx &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dv">100</span>, <span class="dv">15</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a>yy &lt;-<span class="st"> </span><span class="fl">0.4</span><span class="op">*</span>xx <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a><span class="kw">plot</span>(xx, yy, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex=</span><span class="fl">3.5</span>, <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.3</span>))</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a><span class="kw">points</span>(xx<span class="dv">-20</span>, yy<span class="dv">-20</span>, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex=</span><span class="fl">3.5</span>, <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.3</span>))</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a><span class="kw">points</span>(xx<span class="op">+</span><span class="dv">20</span>, yy<span class="dv">-20</span>, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex=</span><span class="fl">3.5</span>, <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="fl">0.3</span>))</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagFormat06-1.png" alt="" /><figcaption>plot of chunk rerDiagFormat06</figcaption></figure><h3 id="other-color-spaces">Other color spaces</h3><div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="kw">hsv</span>(<span class="fl">0.1666</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span></code></pre></div><pre><code>[1] &quot;#FFFF00&quot;</code></pre><div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="kw">rgb2hsv</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">nrow=</span><span class="dv">3</span>))</span></code></pre></div><pre><code>         [,1]
+h 0.500000000
+s 1.000000000
+v 0.003921569</code></pre><div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="kw">hcl</span>(<span class="dt">h=</span><span class="dv">120</span>, <span class="dt">c=</span><span class="dv">35</span>, <span class="dt">l=</span><span class="dv">85</span>)</span></code></pre></div><pre><code>[1] &quot;#BBDEB1&quot;</code></pre><div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="kw">gray</span>(<span class="fl">0.5</span>)</span></code></pre></div><pre><code>[1] &quot;#808080&quot;</code></pre><h3 id="color-palettes-with-rcolorbrewer">Color palettes with <code>RColorBrewer</code></h3><div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a>N &lt;-<span class="st"> </span><span class="dv">6</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true"></a><span class="kw">library</span>(RColorBrewer)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true"></a>(bPal &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(N, <span class="st">&quot;Blues&quot;</span>))</span></code></pre></div><pre><code>[1] &quot;#EFF3FF&quot; &quot;#C6DBEF&quot; &quot;#9ECAE1&quot; &quot;#6BAED6&quot; &quot;#3182BD&quot; &quot;#08519C&quot;</code></pre><div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a><span class="kw">colorRampPalette</span>(bPal)(<span class="dv">15</span>)</span></code></pre></div><pre><code> [1] &quot;#EFF3FF&quot; &quot;#E0EAF9&quot; &quot;#D1E1F3&quot; &quot;#C3D9EE&quot; &quot;#B4D3E9&quot; &quot;#A6CDE4&quot; &quot;#96C6DF&quot;
+ [8] &quot;#84BCDB&quot; &quot;#72B2D7&quot; &quot;#5EA4D0&quot; &quot;#4994C7&quot; &quot;#3585BE&quot; &quot;#2574B3&quot; &quot;#1662A7&quot;
+[15] &quot;#08519C&quot;</code></pre><div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a>b1 &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">brewer.pal</span>(N, <span class="st">&quot;Reds&quot;</span>))(N)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true"></a>b2 &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">brewer.pal</span>(N, <span class="st">&quot;Greens&quot;</span>))(N)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true"></a>b3 &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">brewer.pal</span>(N, <span class="st">&quot;BuGn&quot;</span>))(N)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true"></a>b4 &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">brewer.pal</span>(N, <span class="st">&quot;BrBG&quot;</span>))(N)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true"></a>b5 &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">brewer.pal</span>(N, <span class="st">&quot;OrRd&quot;</span>))(N)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true"></a>b6 &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">brewer.pal</span>(N, <span class="st">&quot;Accent&quot;</span>))(N)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true"></a>len    &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span>N</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true"></a>xLeft  &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">seq</span>(<span class="dv">0</span>,   <span class="dv">1</span><span class="op">-</span>len, <span class="dt">by=</span>len), <span class="dt">times=</span>N)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true"></a>yBot   &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">seq</span>(<span class="dv">0</span>,   <span class="dv">1</span><span class="op">-</span>len, <span class="dt">by=</span>len),  <span class="dt">each=</span>N)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true"></a>xRight &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">seq</span>(len, <span class="dv">1</span>,     <span class="dt">by=</span>len), <span class="dt">times=</span>N)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true"></a>yTop   &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">seq</span>(len, <span class="dv">1</span>,     <span class="dt">by=</span>len),  <span class="dt">each=</span>N)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true"></a></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true"></a><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>)</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true"></a><span class="kw">plot</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">axes=</span><span class="ot">FALSE</span>, <span class="dt">xlab=</span><span class="ot">NA</span>, <span class="dt">ylab=</span><span class="ot">NA</span>, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true"></a>     <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">main=</span><span class="st">&quot;Colors&quot;</span>)</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true"></a><span class="kw">rect</span>(xLeft, yBot, xRight, yTop, <span class="dt">border=</span><span class="ot">NA</span>,</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true"></a>     <span class="dt">col=</span><span class="kw">c</span>(b1, b2, b3, b4, b5, b6))</span></code></pre></div><figure><img src="../content/assets/figure/rerDiagFormat07-1.png" alt="" /><figcaption>plot of chunk rerDiagFormat07</figcaption></figure><h2 id="useful-packages">Useful packages</h2><p>Package <a href="http://cran.r-project.org/package=colorspace"><code>colorspace</code></a> provides more functions for converting between different color spaces. The <a href="http://research.stowers-institute.org/efg/R/Color/Chart/">R color chart</a> gives a very nice overview of colors available in R.</p><h2 id="detach-automatically-loaded-packages-if-possible">Detach (automatically) loaded packages (if possible)</h2><div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>RColorBrewer))</span></code></pre></div><h2 id="get-the-article-source-from-github">Get the article source from GitHub</h2><p><a href="https://github.com/dwoll/RExRepos/raw/master/Rmd/diagFormat.Rmd">R markdown</a> - <a href="https://github.com/dwoll/RExRepos/raw/master/md/diagFormat.md">markdown</a> - <a href="https://github.com/dwoll/RExRepos/raw/master/R/diagFormat.R">R code</a> - <a href="https://github.com/dwoll/RExRepos/">all posts</a></p>
+        </div> <!-- /col-sm-8 col-md-10 -->
+      </div> <!--/row-->
+
+      <div class="row">
+        <div class="col toplink">
+          <!-- ### toplink include starts ### -->
+        <p class="toplink">
+          <span class="toplink"><a href="#top"><img src="http://dwoll.de/rexrepos/content/assets/img/cup-sm.png" width=23 height=14 /> top</a></span>
+        </p>
+        <!-- ### toplink include ends ### -->
+
+        </div> <!--/col-->
+      </div> <!--/row-->
+
+      <div class="row">
+        <div class="col footer">
+          <!-- ### footer include starts ### -->
+
+<footer>
+  &copy; 2020
+  Daniel Wollschlaeger -
+  
+  licensed under CC-BY-SA <a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="http://dwoll.de/rexrepos/content/assets/img/cc-by-sa80x15.png" width="80" height="15" alt="Creative Commons BY-SA" /></a>
+  
+</footer>
+
+<!-- ### footer include ends ### -->
+
+        </div> <!-- /col footer -->
+      </div> <!-- /row -->
+    </div><!-- /container-fluid -->
+<!-- ### bottom include starts ### -->
+    <!-- ### JavaScript include starts ### -->
+    <script src="http://dwoll.de/rexrepos/content/assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+    MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }};
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <!-- ### JavaScript include ends ### -->
+
+  </body>
+</html>
+

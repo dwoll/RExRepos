@@ -233,7 +233,9 @@ summary(aov(Y ~ Xw1*Xw2 + Error(id/(Xw1*Xw2)), data=d2))
 
 ```{r}
 anova(lme(Y ~ Xw1*Xw2,
-          random=list(id=pdBlocked(list(~1, pdIdent(~Xw1-1), pdIdent(~Xw2-1)))),
+          random=list(id=pdBlocked(list(pdIdent(~1),
+                                        pdIdent(~Xw1-1),
+                                        pdIdent(~Xw2-1)))),
           method="ML", data=d2))
 ```
 
@@ -241,7 +243,9 @@ Assume compound symmetry
 
 ```{r}
 anova(lme(Y ~ Xw1*Xw2,
-          random=list(id=pdBlocked(list(~1, pdCompSymm(~Xw1-1), pdCompSymm(~Xw2-1)))),
+          random=list(id=pdBlocked(list(pdIdent(~1),
+                                        pdCompSymm(~Xw1-1),
+                                        pdCompSymm(~Xw2-1)))),
           method="ML", data=d2))
 ```
 
@@ -379,7 +383,9 @@ summary(aov(Y ~ Xb1*Xw1*Xw2 + Error(id/(Xw1*Xw2)), data=d2))
 
 ```{r}
 anova(lme(Y ~ Xb1*Xw1*Xw2,
-          random=list(id=pdBlocked(list(~1, pdIdent(~Xw1-1), pdIdent(~Xw2-1)))),
+          random=list(id=pdBlocked(list(pdIdent(~1),
+                                        pdIdent(~Xw1-1),
+                                        pdIdent(~Xw2-1)))),
           method="ML", data=d2))
 ```
 
@@ -387,7 +393,9 @@ Assume compound symmetry
 
 ```{r}
 anova(lme(Y ~ Xb1*Xw1*Xw2,
-          random=list(id=pdBlocked(list(~1, pdCompSymm(~Xw1-1), pdCompSymm(~Xw2-1)))),
+          random=list(id=pdBlocked(list(pdIdent(~1),
+                                        pdCompSymm(~Xw1-1),
+                                        pdCompSymm(~Xw2-1)))),
           method="ML", data=d2))
 ```
 
@@ -415,7 +423,9 @@ No explicit assumption of compound symmetry
 
 ```{r}
 anova(lme(Y ~ Xb1*Xb2*Xw1*Xw2,
-          random=list(id=pdBlocked(list(~1, pdIdent(~Xw1-1), pdIdent(~Xw2-1)))),
+          random=list(id=pdBlocked(list(pdIdent(~1),
+                                        pdIdent(~Xw1-1),
+                                        pdIdent(~Xw2-1)))),
           method="ML", data=d2))
 ```
 
@@ -423,7 +433,9 @@ Assume compound symmetry
 
 ```{r}
 anova(lme(Y ~ Xb1*Xb2*Xw1*Xw2,
-          random=list(id=pdBlocked(list(~1, pdCompSymm(~Xw1-1), pdCompSymm(~Xw2-1)))),
+          random=list(id=pdBlocked(list(pdIdent(~1),
+                                        pdCompSymm(~Xw1-1),
+                                        pdCompSymm(~Xw2-1)))),
           method="ML", data=d2))
 ```
 

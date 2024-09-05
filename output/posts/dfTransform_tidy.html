@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Choose names, variables, cases - dplyr</title>
+    <meta name="author" content="Daniel Wollschlaeger">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="http://dwoll.de/rexrepos/content/assets/css_new/bootstrap_lumen.min.css" rel="stylesheet" type="text/css">
+    <link href="http://dwoll.de/rexrepos/content/assets/css_new/style.css" rel="stylesheet" type="text/css" media="all">
+    <link href="http://dwoll.de/rexrepos/content/assets/css_new/syntax.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+
+  <body>
+    <!-- ### navbar include starts ### -->
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"     aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="http://dwoll.de/rexrepos/index.html">RExRepos</a>
+    
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdown0" role="button" aria-haspopup="true" aria-expanded="false">R Basics</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown0">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerR_Basics.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/gui.html">R user interfaces</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/helpDocs.html">Getting help and documentation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/workspace.html">Exploring the workspace</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/packages.html">Add-on packages</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/arithmeticLogic.html">Arithmetic and logic</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/vector.html">Vectors</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/generateData.html">Generate systematic and random data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/transformData.html">Variable transformations</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/recode.html">Recode variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/factors.html">Factors</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/sets.html">Sets</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/combinatorics.html">Combinatorics</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/matrix.html">Matrices</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/strings.html">Character strings</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/timeDate.html">Time and date</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdown1" role="button" aria-haspopup="true" aria-expanded="false">Descriptive</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown1">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerDescriptive.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/sumProdRange.html">Sum, product, and range of data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/mean.html">The mean and other location measures</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/variance.html">Variance, robust spread measures, skewness, and kurtosis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/correlation.html">Covariance, correlation, association for continuous variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/matrixStatistics.html">Descriptive statistics for data in matrices</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/frequencies.html">Frequency tables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/association.html">Association for unordered categorical variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/associationOrder.html">Association for ordered categorical variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/interRaterICC.html">Inter-rater-reliability and intra-class-correlation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/aggregate.html">Aggregate data vectors by group</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/missingData.html">Deal with missing data</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown active">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdown2" role="button" aria-haspopup="true" aria-expanded="false">Data Frames</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown2">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerData_Frames.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dataFrames.html">Create and analyze data frames</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfImportExport.html">Data import and export</a>
+                  
+                    <div class="nav-header">Data wrangling base R</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfTransform.html">Choose names, variables, cases</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfSplitMerge.html">Split and combine data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfReshape.html">Reshape data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfAggregate.html">Aggregate data frames</a>
+                    
+                    <div class="nav-header">Data wrangling dplyr tidyr</div>
+                    
+                      <a class="dropdown-item active" href="http://dwoll.de/rexrepos/posts/dfTransform_tidy.html">Choose names, variables, cases</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfSplitMerge_tidy.html">Split and combine data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfReshape_tidy.html">Reshape data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfAggregate_tidy.html">Aggregate data frames</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdown3" role="button" aria-haspopup="true" aria-expanded="false">Univariate</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown3">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerUnivariate.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Regression Models</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regression.html">Multiple linear regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionRobPen.html">Robust and penalized regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionModMed.html">Moderation and mediation</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionLogistic.html">Logistic regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionOrdinal.html">Ordinal regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionMultinom.html">Multinomial regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionPoisson.html">Poisson regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/logLinear.html">Log-linear models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionDiag.html">Regression diagnostics</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/crossvalidation.html">Crossvalidation</a>
+                    
+                    <div class="nav-header">Survival analysis</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalKM.html">Kaplan-Meier-estimate</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalCoxPH.html">Cox proportional hazards</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalParametric.html">Parametric proportional hazards</a>
+                    
+                    <div class="nav-header">t Tests</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/tTest.html">t-tests</a>
+                    
+                    <div class="nav-header">ANOVA</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaCRp.html">One-way ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaCRFpq.html">Two-way ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/ancova.html">Analysis of covariance</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaRBp.html">One-way repeated-measures ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaRBFpq.html">Two-way repeated-measures ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSPFpq.html">Two-way split-plot ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSPFpqr.html">Three-way split-plot ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaMixed.html">Mixed effects models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSStypes.html">Sum of squares type I, II, and III</a>
+                    
+                    <div class="nav-header">General Topics</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/normality.html">Assess normality</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/varianceHom.html">Assess variance homogeneity</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdown4" role="button" aria-haspopup="true" aria-expanded="false">Nonparametric</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown4">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerNonparametric.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Classical nonparametric tests</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npWilcoxon.html">Location 1,2 groups (Sign, Wilcoxon signed-rank, Wilcoxon-Mann-Whitney)</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npKruskalFriedman.html">Location 3+ groups (Kruskal-Wallis, linear-by-linear, Friedman, Page)</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npBinomial.html">Binomial and chi^2 for proportions</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npRuns.html">Runs</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/association.html">Association for unordered categorical variables</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/associationOrder.html">Association for ordered categorical variables</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npCochran.html">Cochran-Q</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npBowker.html">Bowker</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npMcNemar.html">McNemar</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npStuartMaxwell.html">Stuart-Maxwell for marginal homogeneity</a>
+                    
+                    <div class="nav-header">Resampling methods</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingPerm.html">Permutation tests</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBoot.html">Nonparametric bootstrapping</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootStrat.html">Stratified nonparametric bootstrapping</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootALM.html">Nonparametric bootstrapping linear models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootParam.html">Parametric bootstrapping</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdown5" role="button" aria-haspopup="true" aria-expanded="false">Multivariate</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown5">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerMultivariate.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/linearAlgebra.html">Linear algebra calculations</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multPCA.html">Principal components analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multFA.html">Factor analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multFApoly.html">Factor analysis for ordinal data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multMDS.html">Multidimensional scaling</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multRegression.html">Multivariate multiple regression</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multHotelling.html">Hotelling's T^2-test</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multMANOVA.html">Multivariate analysis of variance</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multLDA.html">Linear discriminant analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/normality.html">Assess multivariate normality</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdown6" role="button" aria-haspopup="true" aria-expanded="false">Diagrams</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown6">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerDiagrams.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Diagram basics</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagDevice.html">Graphics devices</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagScatter.html">Scatter plots and line diagrams</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagFormat.html">Customize diagrams: Formatting</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagAddElements.html">Customize diagrams: Add elements</a>
+                    
+                    <div class="nav-header">Specific diagrams</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagCategorical.html">Diagrams for categorical data</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagDistributions.html">Visualize univariate and bivariate distributions</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagMultivariate.html">Diagrams for multivariate data</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagBounding.html">Convex hull, (minimum) bounding box, minimum enclosing circle</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagSplines.html">Linear interpolation, polynomial smoothing, and splines</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagMultiple.html">Multiple diagrams per graphics device</a>
+                    
+                    <div class="nav-header">Diagrams ggplot2</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_types.html">Diagram types with the ggplot2 package</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_aes.html">Color, line type, and point shape in ggplot2 diagrams</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_format.html">Format ggplot2 diagrams</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdown7" role="button" aria-haspopup="true" aria-expanded="false">Numerical</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown7">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerNumerical.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numRoot.html">Root finding</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numIntegrate.html">Numerical integration and differentiation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numOptimize.html">Numerical optimization</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdown8" role="button" aria-haspopup="true" aria-expanded="false">Workflow</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown8">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerWorkflow.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/rerWorkflowJN.html">Build websites with R and nanoc or Jekyll</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/rerWorkflowWP.html">Build websites with R and WordPress</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+        </ul>
+      </div> <!-- /navbar-collapse -->
+    </nav>
+    <!-- ### navbar include ### ends -->
+
+    <div class="container-fluid" id="top">
+      <div class="row">
+      <!-- ### top include ends ### -->
+
+        <div class="col-sm-4 col-md-2 dw_sidebar">
+          <!-- ### rerPostList include starts ### -->
+
+<ul class="nav flex-column">
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/dataFrames.html">Create and analyze data frames</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/dfImportExport.html">Data import and export</a></li>
+
+<li class="nav-header">Data wrangling base R</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/dfTransform.html">Choose names, variables, cases</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/dfSplitMerge.html">Split and combine data frames</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/dfReshape.html">Reshape data frames</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/dfAggregate.html">Aggregate data frames</a></li>
+
+
+<li class="nav-header">Data wrangling dplyr tidyr</li>
+
+<li class="nav-item"><a class="nav-link active" href="http://dwoll.de/rexrepos/posts/dfTransform_tidy.html">Choose names, variables, cases</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/dfSplitMerge_tidy.html">Split and combine data frames</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/dfReshape_tidy.html">Reshape data frames</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/dfAggregate_tidy.html">Aggregate data frames</a></li>
+
+
+</ul>
+
+<!-- ### rerPostList include ends ### -->
+
+          <hr />
+          <!-- ### rerCategTagList include starts ### -->
+    <ul class="nav flex-column">
+      <li class="dropdown-header">Tags</li>
+      
+      <li><ul class="nav nav-list">
+        
+        <li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/tags.html#DataFrames-ref">DataFrames</a></li>
+        
+      </ul></li>
+      
+    </ul>
+    <!-- ### rerCategTagList include ends ### -->
+
+        </div> <!-- /col-sm-4 col-md-2 -->
+
+        <div class="col-sm-8 col-md-10 dw_main">
+          <h1>Choose names, variables, cases - dplyr</h1>
+          <div class="markdown-toc">
+<ul><li><a href="#install-required-packages">Install required packages</a></li><li><a href="#todo">TODO</a></li><li><a href="#simulate-data">Simulate data</a></li><li><a href="#rename-variables">Rename variables</a><ul><li><a href="#specify-new-and-old-names-explicitly">Specify new and old names explicitly</a></li><li><a href="#specify-new-and-old-name-programmatically">Specify new and old name programmatically</a></li></ul></li><li><a href="#select-variables">Select variables</a><ul><li><a href="#select-by-full-name">Select by full name</a></li><li><a href="#select-by-name-pattern">Select by name pattern</a></li><li><a href="#select-by-data-type">Select by data type</a></li><li><a href="#select-by-logical-combination-of-characteristics">Select by logical combination of characteristics</a></li><li><a href="#de-select-variables">De-select variables</a></li></ul></li><li><a href="#select-cases">Select cases</a><ul><li><a href="#by-explicitly-stating-matching-criteria">By explicitly stating matching criteria</a></li><li><a href="#programmatically-stating-matching-criteria">Programmatically stating matching criteria</a></li></ul></li><li><a href="#change-data-frame-variables">Change data frame variables</a><ul><li><a href="#explicitly">Explicitly</a></li><li><a href="#programmatically">Programmatically</a></li></ul></li><li><a href="#change-order-of-rows">Change order of rows</a></li><li><a href="#change-order-of-variables">Change order of variables</a></li><li><a href="#detach-automatically-loaded-packages-if-possible">Detach (automatically) loaded packages (if possible)</a></li><li><a href="#get-the-article-source-from-github">Get the article source from GitHub</a></li></ul>
+</div>
+<h2 id="install-required-packages">Install required packages</h2><p><a href="https://cran.r-project.org/package=dplyr"><code>dplyr</code></a>, <a href="https://cran.r-project.org/package=forcats"><code>forcats</code></a></p><div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">wants &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;forcats&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" title="2">has   &lt;-<span class="st"> </span>wants <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(<span class="kw">installed.packages</span>())</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="cf">if</span>(<span class="kw">any</span>(<span class="op">!</span>has)) <span class="kw">install.packages</span>(wants[<span class="op">!</span>has])</a></code></pre></div><h2 id="todo">TODO</h2><ul><li>link to strings for <code>grep()</code>, dfSplitMerge, dfReshape</li></ul><h2 id="simulate-data">Simulate data</h2><div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb2-2" title="2">N      &lt;-<span class="st"> </span><span class="dv">12</span></a>
+<a class="sourceLine" id="cb2-3" title="3">sex    &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>), N, <span class="dt">replace=</span><span class="ot">TRUE</span>), <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>))</a>
+<a class="sourceLine" id="cb2-4" title="4">group  &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">sample</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;CG&quot;</span>, <span class="st">&quot;WL&quot;</span>, <span class="st">&quot;T&quot;</span>), <span class="dv">4</span>), N, <span class="dt">replace=</span><span class="ot">FALSE</span>), <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;CG&quot;</span>, <span class="st">&quot;WL&quot;</span>, <span class="st">&quot;T&quot;</span>))</a>
+<a class="sourceLine" id="cb2-5" title="5">age    &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">18</span><span class="op">:</span><span class="dv">35</span>, N, <span class="dt">replace=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb2-6" title="6">IQ     &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">rnorm</span>(N, <span class="dt">mean=</span><span class="dv">100</span>, <span class="dt">sd=</span><span class="dv">15</span>))</a>
+<a class="sourceLine" id="cb2-7" title="7">rating &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">runif</span>(N, <span class="dt">min=</span><span class="dv">0</span>, <span class="dt">max=</span><span class="dv">6</span>))</a>
+<a class="sourceLine" id="cb2-8" title="8">(myDf1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">id=</span><span class="dv">1</span><span class="op">:</span>N, sex, group, age, IQ, rating))</a></code></pre></div><pre><code>   id sex group age  IQ rating
+1   1   f     T  25  95      5
+2   2   f     T  24  84      5
+3   3   f    CG  27  99      3
+4   4   m    WL  26 116      5
+5   5   f     T  21  98      4
+6   6   m    WL  31  83      4
+7   7   m    CG  34  88      0
+8   8   m    CG  28 110      3
+9   9   f     T  24  95      1
+10 10   f    WL  29  80      2
+11 11   m    CG  32  91      4
+12 12   m    WL  27  98      2</code></pre><h2 id="rename-variables">Rename variables</h2><h3 id="specify-new-and-old-names-explicitly">Specify new and old names explicitly</h3><div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb4-2" title="2">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="st">    </span><span class="kw">rename</span>(<span class="dt">score=</span>rating,</a>
+<a class="sourceLine" id="cb4-4" title="4">           <span class="dt">fac=</span>group)</a></code></pre></div><pre><code>   id sex fac age  IQ score
+1   1   f   T  25  95     5
+2   2   f   T  24  84     5
+3   3   f  CG  27  99     3
+4   4   m  WL  26 116     5
+5   5   f   T  21  98     4
+6   6   m  WL  31  83     4
+7   7   m  CG  34  88     0
+8   8   m  CG  28 110     3
+9   9   f   T  24  95     1
+10 10   f  WL  29  80     2
+11 11   m  CG  32  91     4
+12 12   m  WL  27  98     2</code></pre><h3 id="specify-new-and-old-name-programmatically">Specify new and old name programmatically</h3><p>Make all names lower case that start with ‘i’ or ‘I’</p><div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="st">    </span><span class="kw">rename_with</span>(tolower, <span class="kw">matches</span>(<span class="st">&quot;^i.+&quot;</span>))</a></code></pre></div><pre><code>   id sex group age  iq rating
+1   1   f     T  25  95      5
+2   2   f     T  24  84      5
+3   3   f    CG  27  99      3
+4   4   m    WL  26 116      5
+5   5   f     T  21  98      4
+6   6   m    WL  31  83      4
+7   7   m    CG  34  88      0
+8   8   m    CG  28 110      3
+9   9   f     T  24  95      1
+10 10   f    WL  29  80      2
+11 11   m    CG  32  91      4
+12 12   m    WL  27  98      2</code></pre><p>Prefix all <code>character</code> variables with <code>fac_</code></p><div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="st">    </span><span class="kw">rename_with</span>(<span class="op">~</span><span class="kw">paste0</span>(<span class="st">&quot;fac_&quot;</span>, .), <span class="kw">where</span>(is.character))</a></code></pre></div><pre><code>   id sex group age  IQ rating
+1   1   f     T  25  95      5
+2   2   f     T  24  84      5
+3   3   f    CG  27  99      3
+4   4   m    WL  26 116      5
+5   5   f     T  21  98      4
+6   6   m    WL  31  83      4
+7   7   m    CG  34  88      0
+8   8   m    CG  28 110      3
+9   9   f     T  24  95      1
+10 10   f    WL  29  80      2
+11 11   m    CG  32  91      4
+12 12   m    WL  27  98      2</code></pre><p>Make all variable names upper case</p><div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="st">    </span><span class="kw">rename_with</span>(toupper)</a></code></pre></div><pre><code>   ID SEX GROUP AGE  IQ RATING
+1   1   f     T  25  95      5
+2   2   f     T  24  84      5
+3   3   f    CG  27  99      3
+4   4   m    WL  26 116      5
+5   5   f     T  21  98      4
+6   6   m    WL  31  83      4
+7   7   m    CG  34  88      0
+8   8   m    CG  28 110      3
+9   9   f     T  24  95      1
+10 10   f    WL  29  80      2
+11 11   m    CG  32  91      4
+12 12   m    WL  27  98      2</code></pre><h2 id="select-variables">Select variables</h2><h3 id="select-by-full-name">Select by full name</h3><div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb12-2" title="2">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="st">    </span><span class="kw">select</span>(group, IQ)</a></code></pre></div><pre><code>   group  IQ
+1      T  95
+2      T  84
+3     CG  99
+4     WL 116
+5      T  98
+6     WL  83
+7     CG  88
+8     CG 110
+9      T  95
+10    WL  80
+11    CG  91
+12    WL  98</code></pre><h3 id="select-by-name-pattern">Select by name pattern</h3><div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="st">    </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;^i.+&quot;</span>))</a></code></pre></div><pre><code>   id  IQ
+1   1  95
+2   2  84
+3   3  99
+4   4 116
+5   5  98
+6   6  83
+7   7  88
+8   8 110
+9   9  95
+10 10  80
+11 11  91
+12 12  98</code></pre><h3 id="select-by-data-type">Select by data type</h3><div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="st">    </span><span class="kw">select</span>(<span class="kw">where</span>(is.numeric))</a></code></pre></div><pre><code>   id age  IQ rating
+1   1  25  95      5
+2   2  24  84      5
+3   3  27  99      3
+4   4  26 116      5
+5   5  21  98      4
+6   6  31  83      4
+7   7  34  88      0
+8   8  28 110      3
+9   9  24  95      1
+10 10  29  80      2
+11 11  32  91      4
+12 12  27  98      2</code></pre><h3 id="select-by-logical-combination-of-characteristics">Select by logical combination of characteristics</h3><div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-2" title="2"><span class="st">    </span><span class="kw">select</span>(<span class="op">!</span><span class="kw">where</span>(is.numeric) <span class="op">&amp;</span><span class="st"> </span><span class="kw">starts_with</span>(<span class="st">&quot;g&quot;</span>))</a></code></pre></div><pre><code>   group
+1      T
+2      T
+3     CG
+4     WL
+5      T
+6     WL
+7     CG
+8     CG
+9      T
+10    WL
+11    CG
+12    WL</code></pre><h3 id="de-select-variables">De-select variables</h3><div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-2" title="2"><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>sex, <span class="op">-</span><span class="kw">matches</span>(<span class="st">&quot;a.+&quot;</span>))</a></code></pre></div><pre><code>   id group  IQ
+1   1     T  95
+2   2     T  84
+3   3    CG  99
+4   4    WL 116
+5   5     T  98
+6   6    WL  83
+7   7    CG  88
+8   8    CG 110
+9   9     T  95
+10 10    WL  80
+11 11    CG  91
+12 12    WL  98</code></pre><div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb22-2" title="2"><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>(group<span class="op">:</span>IQ))</a></code></pre></div><pre><code>   id sex rating
+1   1   f      5
+2   2   f      5
+3   3   f      3
+4   4   m      5
+5   5   f      4
+6   6   m      4
+7   7   m      0
+8   8   m      3
+9   9   f      1
+10 10   f      2
+11 11   m      4
+12 12   m      2</code></pre><h2 id="select-cases">Select cases</h2><h3 id="by-explicitly-stating-matching-criteria">By explicitly stating matching criteria</h3><p>Matching all criteria simultaneously - logical AND</p><div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-2" title="2"><span class="st">    </span><span class="kw">filter</span>(group <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;CG&quot;</span>, <span class="st">&quot;WL&quot;</span>),</a>
+<a class="sourceLine" id="cb24-3" title="3">           id <span class="op">&gt;</span><span class="st"> </span>rating,</a>
+<a class="sourceLine" id="cb24-4" title="4">           IQ <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span>)</a></code></pre></div><pre><code>  id sex group age  IQ rating
+1  8   m    CG  28 110      3
+2 11   m    CG  32  91      4
+3 12   m    WL  27  98      2</code></pre><p>Matching some criteria - logical OR</p><div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb26-2" title="2"><span class="st">    </span><span class="kw">filter</span>((IQ <span class="op">&lt;</span><span class="st"> </span><span class="dv">90</span>) <span class="op">|</span><span class="st"> </span>(IQ <span class="op">&gt;</span><span class="st"> </span><span class="dv">110</span>))</a></code></pre></div><pre><code>  id sex group age  IQ rating
+1  2   f     T  24  84      5
+2  4   m    WL  26 116      5
+3  6   m    WL  31  83      4
+4  7   m    CG  34  88      0
+5 10   f    WL  29  80      2</code></pre><p>By row number</p><div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb28-2" title="2"><span class="st">    </span><span class="kw">slice</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">7</span>)</a></code></pre></div><pre><code>  id sex group age IQ rating
+1  5   f     T  21 98      4
+2  6   m    WL  31 83      4
+3  7   m    CG  34 88      0</code></pre><p>Drop duplicate rows</p><div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb30-2" title="2"><span class="st">    </span><span class="kw">select</span>(sex, group) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb30-3" title="3"><span class="st">    </span><span class="kw">distinct</span>()</a></code></pre></div><pre><code>  sex group
+1   f     T
+2   f    CG
+3   m    WL
+4   m    CG
+5   f    WL</code></pre><div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb32-2" title="2"><span class="st">    </span><span class="kw">distinct</span>(sex, group)</a></code></pre></div><pre><code>  sex group
+1   f     T
+2   f    CG
+3   m    WL
+4   m    CG
+5   f    WL</code></pre><p>Count distinct rows</p><div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb34-2" title="2"><span class="st">    </span><span class="kw">n_distinct</span>()</a></code></pre></div><pre><code>[1] 12</code></pre><h3 id="programmatically-stating-matching-criteria">Programmatically stating matching criteria</h3><p>Add some missing values to data frame first</p><div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1">getNA &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">prob=</span><span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.3</span>)) {</a>
+<a class="sourceLine" id="cb36-2" title="2">    NAval &lt;-<span class="st"> </span>x[<span class="kw">length</span>(x) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb36-3" title="3">    <span class="kw">if_else</span>(<span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="kw">length</span>(x), <span class="dt">replace=</span><span class="ot">TRUE</span>, <span class="dt">prob=</span>prob), x, NAval)</a>
+<a class="sourceLine" id="cb36-4" title="4">}</a>
+<a class="sourceLine" id="cb36-5" title="5"></a>
+<a class="sourceLine" id="cb36-6" title="6"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb36-7" title="7">myDf1NA &lt;-<span class="st"> </span>myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb36-8" title="8"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">group=</span><span class="kw">getNA</span>(group),</a>
+<a class="sourceLine" id="cb36-9" title="9">           <span class="dt">age=</span><span class="kw">getNA</span>(age),</a>
+<a class="sourceLine" id="cb36-10" title="10">           <span class="dt">IQ=</span><span class="kw">getNA</span>(IQ),</a>
+<a class="sourceLine" id="cb36-11" title="11">           <span class="dt">rating=</span><span class="kw">getNA</span>(rating))</a>
+<a class="sourceLine" id="cb36-12" title="12"></a>
+<a class="sourceLine" id="cb36-13" title="13">myDf1NA</a></code></pre></div><pre><code>   id sex group age  IQ rating
+1   1   f     T  25  95     NA
+2   2   f  &lt;NA&gt;  24  NA      5
+3   3   f    CG  27  99      3
+4   4   m  &lt;NA&gt;  NA 116      5
+5   5   f  &lt;NA&gt;  21  98      4
+6   6   m    WL  31  83      4
+7   7   m    CG  34  NA      0
+8   8   m  &lt;NA&gt;  NA  NA      3
+9   9   f     T  NA  95      1
+10 10   f    WL  29  NA      2
+11 11   m  &lt;NA&gt;  32  91      4
+12 12   m    WL  NA  98      2</code></pre><p>Show only cases with all missings in variables “from group to IQ”</p><div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1">myDf1NA <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb38-2" title="2"><span class="st">    </span><span class="kw">filter</span>(<span class="kw">across</span>(group<span class="op">:</span>IQ, is.na))</a></code></pre></div><pre><code>  id sex group age IQ rating
+1  8   m  &lt;NA&gt;  NA NA      3</code></pre><p>Show only cases with uneven values on all numeric variables</p><div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1">myDf1NA <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb40-2" title="2"><span class="st">    </span><span class="kw">filter</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.numeric), <span class="op">~</span><span class="st"> </span>(. <span class="op">%%</span><span class="st"> </span><span class="dv">2</span>) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>))</a></code></pre></div><pre><code>  id sex group age IQ rating
+1  3   f    CG  27 99      3</code></pre><h2 id="change-data-frame-variables">Change data frame variables</h2><h3 id="explicitly">Explicitly</h3><p>Add new variables or overwrite existing variables in <code>mutate()</code></p><div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb42-2" title="2"><span class="kw">library</span>(forcats)</a>
+<a class="sourceLine" id="cb42-3" title="3"></a>
+<a class="sourceLine" id="cb42-4" title="4">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb42-5" title="5"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">married=</span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="kw">n</span>(), <span class="dt">replace=</span><span class="ot">TRUE</span>))</a></code></pre></div><pre><code>   id sex group age  IQ rating married
+1   1   f     T  25  95      5    TRUE
+2   2   f     T  24  84      5    TRUE
+3   3   f    CG  27  99      3   FALSE
+4   4   m    WL  26 116      5    TRUE
+5   5   f     T  21  98      4    TRUE
+6   6   m    WL  31  83      4    TRUE
+7   7   m    CG  34  88      0    TRUE
+8   8   m    CG  28 110      3   FALSE
+9   9   f     T  24  95      1   FALSE
+10 10   f    WL  29  80      2    TRUE
+11 11   m    CG  32  91      4   FALSE
+12 12   m    WL  27  98      2    TRUE</code></pre><div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb44-2" title="2"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">group=</span><span class="kw">fct_collapse</span>(group, <span class="dt">CG_WL=</span><span class="kw">c</span>(<span class="st">&quot;CG&quot;</span>, <span class="st">&quot;WL&quot;</span>)),</a>
+<a class="sourceLine" id="cb44-3" title="3">           <span class="dt">ratingSq=</span>rating<span class="op">^</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb44-4" title="4">           <span class="dt">ratingSqZ=</span><span class="kw">scale</span>(ratingSq))</a></code></pre></div><pre><code>   id sex group age  IQ rating ratingSq  ratingSqZ
+1   1   f     T  25  95      5       25  1.3359593
+2   2   f     T  24  84      5       25  1.3359593
+3   3   f CG_WL  27  99      3        9 -0.3740686
+4   4   m CG_WL  26 116      5       25  1.3359593
+5   5   f     T  21  98      4       16  0.3740686
+6   6   m CG_WL  31  83      4       16  0.3740686
+7   7   m CG_WL  34  88      0        0 -1.3359593
+8   8   m CG_WL  28 110      3        9 -0.3740686
+9   9   f     T  24  95      1        1 -1.2290825
+10 10   f CG_WL  29  80      2        4 -0.9084523
+11 11   m CG_WL  32  91      4       16  0.3740686
+12 12   m CG_WL  27  98      2        4 -0.9084523</code></pre><p>Conditional changes to variables</p><div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb46-2" title="2"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">age_even=</span><span class="kw">if_else</span>((age <span class="op">%%</span><span class="st"> </span><span class="dv">2</span>) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>),</a>
+<a class="sourceLine" id="cb46-3" title="3">           <span class="dt">sex_IQ=</span><span class="kw">case_when</span>(</a>
+<a class="sourceLine" id="cb46-4" title="4">               ((sex <span class="op">==</span><span class="st"> &quot;f&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(IQ <span class="op">&lt;</span><span class="st">  </span><span class="dv">100</span>)) <span class="op">~</span><span class="st"> &quot;female_lo&quot;</span>,</a>
+<a class="sourceLine" id="cb46-5" title="5">               ((sex <span class="op">==</span><span class="st"> &quot;f&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(IQ <span class="op">&gt;=</span><span class="st"> </span><span class="dv">100</span>)) <span class="op">~</span><span class="st"> &quot;female_hi&quot;</span>,</a>
+<a class="sourceLine" id="cb46-6" title="6">               ((sex <span class="op">==</span><span class="st"> &quot;m&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(IQ <span class="op">&lt;</span><span class="st">  </span><span class="dv">100</span>)) <span class="op">~</span><span class="st"> &quot;male_lo&quot;</span>,</a>
+<a class="sourceLine" id="cb46-7" title="7">               ((sex <span class="op">==</span><span class="st"> &quot;m&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(IQ <span class="op">&gt;=</span><span class="st"> </span><span class="dv">100</span>)) <span class="op">~</span><span class="st"> &quot;male_hi&quot;</span>,</a>
+<a class="sourceLine" id="cb46-8" title="8">               <span class="ot">TRUE</span>                         <span class="op">~</span><span class="st"> &quot;other&quot;</span>))</a></code></pre></div><pre><code>   id sex group age  IQ rating age_even    sex_IQ
+1   1   f     T  25  95      5    FALSE female_lo
+2   2   f     T  24  84      5     TRUE female_lo
+3   3   f    CG  27  99      3    FALSE female_lo
+4   4   m    WL  26 116      5     TRUE   male_hi
+5   5   f     T  21  98      4    FALSE female_lo
+6   6   m    WL  31  83      4    FALSE   male_lo
+7   7   m    CG  34  88      0     TRUE   male_lo
+8   8   m    CG  28 110      3     TRUE   male_hi
+9   9   f     T  24  95      1     TRUE female_lo
+10 10   f    WL  29  80      2    FALSE female_lo
+11 11   m    CG  32  91      4     TRUE   male_lo
+12 12   m    WL  27  98      2    FALSE   male_lo</code></pre><p>Recode special values to missing (<code>NA</code>)</p><div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1">myDf9999           &lt;-<span class="st"> </span>myDf1</a>
+<a class="sourceLine" id="cb48-2" title="2">myDf9999<span class="op">$</span>IQ[<span class="dv">2</span>]     &lt;-<span class="st"> </span><span class="dv">9999</span></a>
+<a class="sourceLine" id="cb48-3" title="3">myDf9999<span class="op">$</span>rating[<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">9999</span></a>
+<a class="sourceLine" id="cb48-4" title="4"></a>
+<a class="sourceLine" id="cb48-5" title="5">(myDfNA &lt;-<span class="st"> </span>myDf9999 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb48-6" title="6"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">IQ=</span><span class="kw">na_if</span>(IQ, <span class="dv">9999</span>),</a>
+<a class="sourceLine" id="cb48-7" title="7">           <span class="dt">rating=</span><span class="kw">na_if</span>(rating, <span class="dv">9999</span>)))</a></code></pre></div><pre><code>   id sex group age  IQ rating
+1   1   f     T  25  95      5
+2   2   f     T  24  NA      5
+3   3   f    CG  27  99     NA
+4   4   m    WL  26 116      5
+5   5   f     T  21  98      4
+6   6   m    WL  31  83      4
+7   7   m    CG  34  88      0
+8   8   m    CG  28 110      3
+9   9   f     T  24  95      1
+10 10   f    WL  29  80      2
+11 11   m    CG  32  91      4
+12 12   m    WL  27  98      2</code></pre><p>Drop missing values</p><div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1">myDfNA <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb50-2" title="2"><span class="st">    </span><span class="kw">na.omit</span>()</a></code></pre></div><pre><code>   id sex group age  IQ rating
+1   1   f     T  25  95      5
+4   4   m    WL  26 116      5
+5   5   f     T  21  98      4
+6   6   m    WL  31  83      4
+7   7   m    CG  34  88      0
+8   8   m    CG  28 110      3
+9   9   f     T  24  95      1
+10 10   f    WL  29  80      2
+11 11   m    CG  32  91      4
+12 12   m    WL  27  98      2</code></pre><h3 id="programmatically">Programmatically</h3><div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb52-2" title="2"><span class="st">    </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.numeric),</a>
+<a class="sourceLine" id="cb52-3" title="3">                  <span class="op">~</span><span class="kw">scale</span>(., <span class="dt">center=</span><span class="ot">TRUE</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>)))</a></code></pre></div><pre><code>     id sex group        age     IQ     rating
+1  -5.5   f     T -2.3333333   0.25  1.8333333
+2  -4.5   f     T -3.3333333 -10.75  1.8333333
+3  -3.5   f    CG -0.3333333   4.25 -0.1666667
+4  -2.5   m    WL -1.3333333  21.25  1.8333333
+5  -1.5   f     T -6.3333333   3.25  0.8333333
+6  -0.5   m    WL  3.6666667 -11.75  0.8333333
+7   0.5   m    CG  6.6666667  -6.75 -3.1666667
+8   1.5   m    CG  0.6666667  15.25 -0.1666667
+9   2.5   f     T -3.3333333   0.25 -2.1666667
+10  3.5   f    WL  1.6666667 -14.75 -1.1666667
+11  4.5   m    CG  4.6666667  -3.75  0.8333333
+12  5.5   m    WL -0.3333333   3.25 -1.1666667</code></pre><div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb54-2" title="2"><span class="st">    </span><span class="kw">mutate</span>(<span class="kw">across</span>(age<span class="op">:</span>IQ, <span class="kw">list</span>(<span class="dt">ctr=</span><span class="op">~</span><span class="kw">scale</span>(., <span class="dt">center=</span><span class="ot">TRUE</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>),</a>
+<a class="sourceLine" id="cb54-3" title="3">                               <span class="dt">scl=</span><span class="op">~</span><span class="kw">scale</span>(., <span class="dt">center=</span><span class="ot">FALSE</span>, <span class="dt">scale=</span><span class="ot">TRUE</span>))))</a></code></pre></div><pre><code>   id sex group age  IQ rating    age_ctr   age_scl IQ_ctr    IQ_scl
+1   1   f     T  25  95      5 -2.3333333 0.8683335   0.25 0.9544135
+2   2   f     T  24  84      5 -3.3333333 0.8336002 -10.75 0.8439025
+3   3   f    CG  27  99      3 -0.3333333 0.9378002   4.25 0.9945994
+4   4   m    WL  26 116      5 -1.3333333 0.9030668  21.25 1.1653891
+5   5   f     T  21  98      4 -6.3333333 0.7294001   3.25 0.9845529
+6   6   m    WL  31  83      4  3.6666667 1.0767335 -11.75 0.8338560
+7   7   m    CG  34  88      0  6.6666667 1.1809336  -6.75 0.8840883
+8   8   m    CG  28 110      3  0.6666667 0.9725335  15.25 1.1051104
+9   9   f     T  24  95      1 -3.3333333 0.8336002   0.25 0.9544135
+10 10   f    WL  29  80      2  1.6666667 1.0072669 -14.75 0.8037166
+11 11   m    CG  32  91      4  4.6666667 1.1114669  -3.75 0.9142277
+12 12   m    WL  27  98      2 -0.3333333 0.9378002   3.25 0.9845529</code></pre><div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb56-2" title="2"><span class="st">    </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">everything</span>(), getNA))</a></code></pre></div><pre><code>   id  sex group age  IQ rating
+1   1 &lt;NA&gt;     T  NA  95      5
+2   2    f     T  24  84      5
+3   3    f  &lt;NA&gt;  27  NA      3
+4   4    m  &lt;NA&gt;  26 116      5
+5  NA    f  &lt;NA&gt;  21  98      4
+6   6    m    WL  31  NA     NA
+7  NA    m    CG  34  NA      0
+8  NA    m    CG  NA 110      3
+9  NA    f     T  24  95      1
+10 10    f    WL  NA  NA      2
+11 NA    m    CG  NA  91      4
+12 12 &lt;NA&gt;    WL  27  98     NA</code></pre><h2 id="change-order-of-rows">Change order of rows</h2><p>Ascending</p><div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb58-2" title="2"><span class="st">    </span><span class="kw">arrange</span>(rating)</a></code></pre></div><pre><code>   id sex group age  IQ rating
+1   7   m    CG  34  88      0
+2   9   f     T  24  95      1
+3  10   f    WL  29  80      2
+4  12   m    WL  27  98      2
+5   3   f    CG  27  99      3
+6   8   m    CG  28 110      3
+7   5   f     T  21  98      4
+8   6   m    WL  31  83      4
+9  11   m    CG  32  91      4
+10  1   f     T  25  95      5
+11  2   f     T  24  84      5
+12  4   m    WL  26 116      5</code></pre><p>Descending</p><div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb60-2" title="2"><span class="st">    </span><span class="kw">arrange</span>(group, <span class="kw">desc</span>(IQ))</a></code></pre></div><pre><code>   id sex group age  IQ rating
+1   8   m    CG  28 110      3
+2   3   f    CG  27  99      3
+3  11   m    CG  32  91      4
+4   7   m    CG  34  88      0
+5   4   m    WL  26 116      5
+6  12   m    WL  27  98      2
+7   6   m    WL  31  83      4
+8  10   f    WL  29  80      2
+9   5   f     T  21  98      4
+10  1   f     T  25  95      5
+11  9   f     T  24  95      1
+12  2   f     T  24  84      5</code></pre><h2 id="change-order-of-variables">Change order of variables</h2><p>Move to front</p><div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb62-2" title="2"><span class="st">    </span><span class="kw">select</span>(group, age, <span class="kw">everything</span>())</a></code></pre></div><pre><code>   group age id sex  IQ rating
+1      T  25  1   f  95      5
+2      T  24  2   f  84      5
+3     CG  27  3   f  99      3
+4     WL  26  4   m 116      5
+5      T  21  5   f  98      4
+6     WL  31  6   m  83      4
+7     CG  34  7   m  88      0
+8     CG  28  8   m 110      3
+9      T  24  9   f  95      1
+10    WL  29 10   f  80      2
+11    CG  32 11   m  91      4
+12    WL  27 12   m  98      2</code></pre><p>Specify position directly</p><div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1">myDf1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb64-2" title="2"><span class="st">    </span><span class="kw">relocate</span>(group, <span class="dt">.after=</span>rating)</a></code></pre></div><pre><code>   id sex age  IQ rating group
+1   1   f  25  95      5     T
+2   2   f  24  84      5     T
+3   3   f  27  99      3    CG
+4   4   m  26 116      5    WL
+5   5   f  21  98      4     T
+6   6   m  31  83      4    WL
+7   7   m  34  88      0    CG
+8   8   m  28 110      3    CG
+9   9   f  24  95      1     T
+10 10   f  29  80      2    WL
+11 11   m  32  91      4    CG
+12 12   m  27  98      2    WL</code></pre><h2 id="detach-automatically-loaded-packages-if-possible">Detach (automatically) loaded packages (if possible)</h2><div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1"><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>dplyr))</a>
+<a class="sourceLine" id="cb66-2" title="2"><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>forcats))</a></code></pre></div><h2 id="get-the-article-source-from-github">Get the article source from GitHub</h2><p><a href="https://github.com/dwoll/RExRepos/raw/master/Rmd/dfTransform_tidy.Rmd">R markdown</a> - <a href="https://github.com/dwoll/RExRepos/raw/master/md/dfTransform_tidy.md">markdown</a> - <a href="https://github.com/dwoll/RExRepos/raw/master/R/dfTransform_tidy.R">R code</a> - <a href="https://github.com/dwoll/RExRepos/">all posts</a></p>
+        </div> <!-- /col-sm-8 col-md-10 -->
+      </div> <!--/row-->
+
+      <div class="row">
+        <div class="col toplink">
+          <!-- ### toplink include starts ### -->
+        <p class="toplink">
+          <span class="toplink"><a href="#top"><img src="http://dwoll.de/rexrepos/content/assets/img/cup-sm.png" width=23 height=14 /> top</a></span>
+        </p>
+        <!-- ### toplink include ends ### -->
+
+        </div> <!--/col-->
+      </div> <!--/row-->
+
+      <div class="row">
+        <div class="col footer">
+          <!-- ### footer include starts ### -->
+
+<footer>
+  &copy; 2020
+  Daniel Wollschlaeger -
+  
+  licensed under CC-BY-SA <a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="http://dwoll.de/rexrepos/content/assets/img/cc-by-sa80x15.png" width="80" height="15"alt="Creative Commons BY-SA" /></a>
+  
+</footer>
+
+<!-- ### footer include ends ### -->
+
+        </div> <!-- /col footer -->
+      </div> <!-- /row -->
+    </div><!-- /container-fluid -->
+<!-- ### bottom include starts ### -->
+    <!-- ### JavaScript include starts ### -->
+    <script src="http://dwoll.de/rexrepos/content/assets/js_new/jquery.slim.min.js"></script>
+    <script src="http://dwoll.de/rexrepos/content/assets/js_new/bootstrap.bundle.min.js"></script>
+    <script>
+    MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }};
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <!-- ### JavaScript include ends ### -->
+
+  </body>
+</html>
+

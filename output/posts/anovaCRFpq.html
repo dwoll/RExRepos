@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Two-way ANOVA (CRF-pq design)</title>
+    <meta name="author" content="Daniel Wollschlaeger">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="http://dwoll.de/rexrepos/content/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="http://dwoll.de/rexrepos/content/assets/css/style.css" rel="stylesheet" type="text/css" media="all">
+    <link href="http://dwoll.de/rexrepos/content/assets/css/syntax.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+
+  <body>
+    <!-- ### navbar include starts ### -->
+    <nav class="navbar navbar-expand-md fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="http://dwoll.de/rexrepos/index.html">RExRepos</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+    
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown0" role="button" aria-expanded="false">R Basics</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown0">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerR_Basics.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/gui.html">R user interfaces</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/helpDocs.html">Getting help and documentation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/workspace.html">Exploring the workspace</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/packages.html">Add-on packages</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/arithmeticLogic.html">Arithmetic and logic</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/vector.html">Vectors</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/generateData.html">Generate systematic and random data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/transformData.html">Variable transformations</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/recode.html">Recode variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/factors.html">Factors</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/sets.html">Sets</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/combinatorics.html">Combinatorics</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/matrix.html">Matrices</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/strings.html">Character strings</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/timeDate.html">Time and date</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown1" role="button" aria-expanded="false">Descriptive</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown1">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerDescriptive.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/sumProdRange.html">Sum, product, and range of data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/mean.html">The mean and other location measures</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/variance.html">Variance, robust spread measures, skewness, and kurtosis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/correlation.html">Covariance, correlation, association for continuous variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/matrixStatistics.html">Descriptive statistics for data in matrices</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/frequencies.html">Frequency tables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/association.html">Association for unordered categorical variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/associationOrder.html">Association for ordered categorical variables</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/interRaterICC.html">Inter-rater-reliability and intra-class-correlation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/aggregate.html">Aggregate data vectors by group</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/missingData.html">Deal with missing data</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown2" role="button" aria-expanded="false">Data Frames</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown2">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerData_Frames.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dataFrames.html">Create and analyze data frames</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfImportExport.html">Data import and export</a>
+                  
+                    <div class="nav-header">Data wrangling base R</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfTransform.html">Choose names, variables, cases</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfSplitMerge.html">Split and combine data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfReshape.html">Reshape data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfAggregate.html">Aggregate data frames</a>
+                    
+                    <div class="nav-header">Data wrangling dplyr tidyr</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfTransform_tidy.html">Choose names, variables, cases</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfSplitMerge_tidy.html">Split and combine data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfReshape_tidy.html">Reshape data frames</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/dfAggregate_tidy.html">Aggregate data frames</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown active">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown3" role="button" aria-expanded="false">Univariate</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown3">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerUnivariate.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Regression Models</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regression.html">Multiple linear regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionRobPen.html">Robust and penalized regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionModMed.html">Moderation and mediation</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionLogistic.html">Logistic regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionOrdinal.html">Ordinal regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionMultinom.html">Multinomial regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionPoisson.html">Poisson regression</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/logLinear.html">Log-linear models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/regressionDiag.html">Regression diagnostics</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/crossvalidation.html">Crossvalidation</a>
+                    
+                    <div class="nav-header">Survival analysis</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalKM.html">Kaplan-Meier-estimate</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalCoxPH.html">Cox proportional hazards</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/survivalParametric.html">Parametric proportional hazards</a>
+                    
+                    <div class="nav-header">t Tests</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/tTest.html">t-tests</a>
+                    
+                    <div class="nav-header">ANOVA</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaCRp.html">One-way ANOVA</a>
+                    
+                      <a class="dropdown-item active" href="http://dwoll.de/rexrepos/posts/anovaCRFpq.html">Two-way ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/ancova.html">Analysis of covariance</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaRBp.html">One-way repeated-measures ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaRBFpq.html">Two-way repeated-measures ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSPFpq.html">Two-way split-plot ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSPFpqr.html">Three-way split-plot ANOVA</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaMixed.html">Mixed effects models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/anovaSStypes.html">Sum of squares type I, II, and III</a>
+                    
+                    <div class="nav-header">General Topics</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/normality.html">Assess normality</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/varianceHom.html">Assess variance homogeneity</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown4" role="button" aria-expanded="false">Nonparametric</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown4">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerNonparametric.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Classical nonparametric tests</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npWilcoxon.html">Location 1,2 groups (Sign, Wilcoxon signed-rank, Wilcoxon-Mann-Whitney)</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npKruskalFriedman.html">Location 3+ groups (Kruskal-Wallis, linear-by-linear, Friedman, Page)</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npBinomial.html">Binomial and chi^2 for proportions</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npRuns.html">Runs</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/association.html">Association for unordered categorical variables</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/associationOrder.html">Association for ordered categorical variables</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npCochran.html">Cochran-Q</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npBowker.html">Bowker</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npMcNemar.html">McNemar</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/npStuartMaxwell.html">Stuart-Maxwell for marginal homogeneity</a>
+                    
+                    <div class="nav-header">Resampling methods</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingPerm.html">Permutation tests</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBoot.html">Nonparametric bootstrapping</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootStrat.html">Stratified nonparametric bootstrapping</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootALM.html">Nonparametric bootstrapping linear models</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/resamplingBootParam.html">Parametric bootstrapping</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown5" role="button" aria-expanded="false">Multivariate</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown5">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerMultivariate.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/linearAlgebra.html">Linear algebra calculations</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multPCA.html">Principal components analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multFA.html">Factor analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multFApoly.html">Factor analysis for ordinal data</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multMDS.html">Multidimensional scaling</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multRegression.html">Multivariate multiple regression</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multHotelling.html">Hotelling's T^2-test</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multMANOVA.html">Multivariate analysis of variance</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/multLDA.html">Linear discriminant analysis</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/normality.html">Assess multivariate normality</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown6" role="button" aria-expanded="false">Diagrams</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown6">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerDiagrams.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <div class="nav-header">Diagram basics</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagDevice.html">Graphics devices</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagScatter.html">Scatter plots and line diagrams</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagFormat.html">Customize diagrams: Formatting</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagAddElements.html">Customize diagrams: Add elements</a>
+                    
+                    <div class="nav-header">Specific diagrams</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagCategorical.html">Diagrams for categorical data</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagDistributions.html">Visualize univariate and bivariate distributions</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagMultivariate.html">Diagrams for multivariate data</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagBounding.html">Convex hull, (minimum) bounding box, minimum enclosing ellipse, and minimum enclosing circle</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagSplines.html">Linear interpolation, polynomial smoothing, and splines</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagMultiple.html">Multiple diagrams per graphics device</a>
+                    
+                    <div class="nav-header">Diagrams ggplot2</div>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_types.html">Diagram types with the ggplot2 package</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_aes.html">Color, line type, and point shape in ggplot2 diagrams</a>
+                    
+                      <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/diagGgplot_format.html">Format ggplot2 diagrams</a>
+                    
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown7" role="button" aria-expanded="false">Numerical</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown7">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerNumerical.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numRoot.html">Root finding</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numIntegrate.html">Numerical integration and differentiation</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/numOptimize.html">Numerical optimization</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdown8" role="button" aria-expanded="false">Workflow</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown8">
+              <a class="dropdown-item" href="http://dwoll.de/rexrepos/rerWorkflow.html">Overview</a>
+              <div class="dropdown-divider"></div>
+              
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/rerWorkflowJN.html">Build websites with R and nanoc or Jekyll</a>
+                  
+                    <a class="dropdown-item" href="http://dwoll.de/rexrepos/posts/rerWorkflowWP.html">Build websites with R and WordPress</a>
+                  
+            </div> <!-- /dropdown-menu -->
+          </li>
+          
+        </ul>
+      </div> <!-- /navbar-collapse -->
+    </div> <!-- /container-fluid -->
+    </nav>
+    <!-- ### navbar include ### ends -->
+
+    <div class="container-fluid" id="top">
+      <div class="row">
+      <!-- ### top include ends ### -->
+
+        <div class="col-sm-4 col-md-2 dw_sidebar">
+          <!-- ### rerPostList include starts ### -->
+
+<ul class="nav flex-column">
+
+<li class="nav-header">Regression Models</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/regression.html">Multiple linear regression</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/regressionRobPen.html">Robust and penalized regression</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/regressionModMed.html">Moderation and mediation</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/regressionLogistic.html">Logistic regression</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/regressionOrdinal.html">Ordinal regression</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/regressionMultinom.html">Multinomial regression</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/regressionPoisson.html">Poisson regression</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/logLinear.html">Log-linear models</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/regressionDiag.html">Regression diagnostics</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/crossvalidation.html">Crossvalidation</a></li>
+
+
+<li class="nav-header">Survival analysis</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/survivalKM.html">Kaplan-Meier-estimate</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/survivalCoxPH.html">Cox proportional hazards</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/survivalParametric.html">Parametric proportional hazards</a></li>
+
+
+<li class="nav-header">t Tests</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/tTest.html">t-tests</a></li>
+
+
+<li class="nav-header">ANOVA</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/anovaCRp.html">One-way ANOVA</a></li>
+
+<li class="nav-item"><a class="nav-link active" href="http://dwoll.de/rexrepos/posts/anovaCRFpq.html">Two-way ANOVA</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/ancova.html">Analysis of covariance</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/anovaRBp.html">One-way repeated-measures ANOVA</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/anovaRBFpq.html">Two-way repeated-measures ANOVA</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/anovaSPFpq.html">Two-way split-plot ANOVA</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/anovaSPFpqr.html">Three-way split-plot ANOVA</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/anovaMixed.html">Mixed effects models</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/anovaSStypes.html">Sum of squares type I, II, and III</a></li>
+
+
+<li class="nav-header">General Topics</li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/normality.html">Assess normality</a></li>
+
+<li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/posts/varianceHom.html">Assess variance homogeneity</a></li>
+
+
+</ul>
+
+<!-- ### rerPostList include ends ### -->
+
+          <hr />
+          <!-- ### rerCategTagList include starts ### -->
+    <ul class="nav flex-column">
+      <li class="dropdown-header">Tags</li>
+      
+      <li><ul class="nav nav-list">
+        
+        <li class="nav-item"><a class="nav-link" href="http://dwoll.de/rexrepos/tags.html#ANOVA-ref">ANOVA</a></li>
+        
+      </ul></li>
+      
+    </ul>
+    <!-- ### rerCategTagList include ends ### -->
+
+        </div> <!-- /col-sm-4 col-md-2 -->
+
+        <div class="col-sm-8 col-md-10 dw_main">
+          <h1>Two-way ANOVA (CRF-pq design)</h1>
+          <div class="markdown-toc">
+<ul><li><a href="#todo">TODO</a></li><li><a href="#install-required-packages">Install required packages</a></li><li><a href="#crf-pq-anova">CRF-<span class="math inline">\(pq\)</span> ANOVA</a><ul><li><a href="#using-aov-ss-type-i">Using <code>aov()</code> (SS type I)</a></li><li><a href="#using-anova-from-package-car-ss-type-ii-or-iii">Using <code>Anova()</code> from package <code>car</code> (SS type II or III)</a></li><li><a href="#plot-marginal-and-cell-means">Plot marginal and cell means</a></li></ul></li><li><a href="#effect-size-estimate-partial-hateta_p2">Effect size estimate: partial <span class="math inline">\(\hat{\eta}_{p}^{2}\)</span></a></li><li><a href="#simple-effects">Simple effects</a></li><li><a href="#planned-comparisons">Planned comparisons</a><ul><li><a href="#main-effects-only">Main effects only</a></li><li><a href="#cell-comparisons-using-the-associated-one-way-anova">Cell comparisons using the associated one-way ANOVA</a></li><li><a href="#post-hoc-scheffe-tests-using-the-associated-one-way-anova">Post-hoc Scheffe tests using the associated one-way ANOVA</a></li><li><a href="#post-hoc-scheffe-tests-for-marginal-means">Post-hoc Scheffe tests for marginal means</a></li></ul></li><li><a href="#assess-test-assumptions">Assess test assumptions</a><ul><li><a href="#normality">Normality</a></li><li><a href="#variance-homogeneity">Variance homogeneity</a></li></ul></li><li><a href="#detach-automatically-loaded-packages-if-possible">Detach (automatically) loaded packages (if possible)</a></li><li><a href="#get-the-article-source-from-github">Get the article source from GitHub</a></li></ul>
+</div>
+<h2 id="todo">TODO</h2><ul><li>link to anovaSStypes, normality, varianceHom, regressionDiag</li><li>use <code>model.tables()</code></li></ul><h2 id="install-required-packages">Install required packages</h2><p><a href="http://cran.r-project.org/package=car"><code>car</code></a>, <a href="http://cran.r-project.org/package=DescTools"><code>DescTools</code></a>, <a href="http://cran.r-project.org/package=multcomp"><code>multcomp</code></a>, <a href="http://cran.r-project.org/package=phia"><code>phia</code></a></p><div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>wants &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;DescTools&quot;</span>, <span class="st">&quot;multcomp&quot;</span>, <span class="st">&quot;phia&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>has   &lt;-<span class="st"> </span>wants <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(<span class="kw">installed.packages</span>())</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="cf">if</span>(<span class="kw">any</span>(<span class="op">!</span>has)) <span class="kw">install.packages</span>(wants[<span class="op">!</span>has])</span></code></pre></div><h2 id="crf-pq-anova">CRF-<span class="math inline">\(pq\)</span> ANOVA</h2><h3 id="using-aov-ss-type-i">Using <code>aov()</code> (SS type I)</h3><div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>Njk  &lt;-<span class="st"> </span><span class="dv">8</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>P    &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>Q    &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>muJK &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">-1</span>), Njk), <span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>), Njk), <span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), Njk))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>dfCRFpq &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">IV1=</span><span class="kw">factor</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>P, <span class="dt">times=</span>Njk<span class="op">*</span>Q)),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>                      <span class="dt">IV2=</span><span class="kw">factor</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>Q,  <span class="dt">each=</span>Njk<span class="op">*</span>P)),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>                      <span class="dt">DV =</span><span class="kw">rnorm</span>(Njk<span class="op">*</span>P<span class="op">*</span>Q, muJK, <span class="dv">2</span>))</span></code></pre></div><div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>dfCRFpq<span class="op">$</span>IVcomb &lt;-<span class="st"> </span><span class="kw">interaction</span>(dfCRFpq<span class="op">$</span>IV1, dfCRFpq<span class="op">$</span>IV2)</span></code></pre></div><div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>aovCRFpq &lt;-<span class="st"> </span><span class="kw">aov</span>(DV <span class="op">~</span><span class="st"> </span>IV1<span class="op">*</span>IV2, <span class="dt">data=</span>dfCRFpq)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="kw">summary</span>(aovCRFpq)</span></code></pre></div><pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+IV1          1  15.75   15.75   4.371 0.042644 *  
+IV2          2  73.95   36.98  10.259 0.000236 ***
+IV1:IV2      2  10.62    5.31   1.474 0.240669    
+Residuals   42 151.38    3.60                     
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre><h3 id="using-anova-from-package-car-ss-type-ii-or-iii">Using <code>Anova()</code> from package <code>car</code> (SS type II or III)</h3><p>Since this design has equal cell sizes, all SS types give the same result.</p><div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="co"># change contrasts for SS type III</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>fitIII &lt;-<span class="st"> </span><span class="kw">lm</span>(DV <span class="op">~</span><span class="st"> </span>IV1 <span class="op">+</span><span class="st"> </span>IV2 <span class="op">+</span><span class="st"> </span>IV1<span class="op">:</span>IV2, <span class="dt">data=</span>dfCRFpq,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>             <span class="dt">contrasts=</span><span class="kw">list</span>(<span class="dt">IV1=</span>contr.sum, <span class="dt">IV2=</span>contr.sum))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="kw">library</span>(car)                           <span class="co"># for Anova()</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a><span class="kw">Anova</span>(fitIII, <span class="dt">type=</span><span class="st">&quot;III&quot;</span>)</span></code></pre></div><pre><code>Anova Table (Type III tests)
+
+Response: DV
+             Sum Sq Df F value    Pr(&gt;F)    
+(Intercept) 114.229  1 31.6922 1.352e-06 ***
+IV1          15.755  1  4.3711 0.0426439 *  
+IV2          73.951  2 10.2587 0.0002356 ***
+IV1:IV2      10.624  2  1.4737 0.2406692    
+Residuals   151.381 42                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre><h3 id="plot-marginal-and-cell-means">Plot marginal and cell means</h3><div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">plot.design</span>(DV <span class="op">~</span><span class="st"> </span>IV1<span class="op">*</span>IV2, <span class="dt">data=</span>dfCRFpq, <span class="dt">main=</span><span class="st">&quot;Marginal means&quot;</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerAnovaCRFpq01-1.png" alt="" /><figcaption>plot of chunk rerAnovaCRFpq01</figcaption></figure><div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">interaction.plot</span>(dfCRFpq<span class="op">$</span>IV1, dfCRFpq<span class="op">$</span>IV2, dfCRFpq<span class="op">$</span>DV,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>                 <span class="dt">main=</span><span class="st">&quot;Cell means&quot;</span>, <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>), <span class="dt">lwd=</span><span class="dv">2</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerAnovaCRFpq01-2.png" alt="" /><figcaption>plot of chunk rerAnovaCRFpq01</figcaption></figure><h2 id="effect-size-estimate-partial-hateta_p2">Effect size estimate: partial <span class="math inline">\(\hat{\eta}_{p}^{2}\)</span></h2><div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">library</span>(DescTools)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="kw">EtaSq</span>(aovCRFpq, <span class="dt">type=</span><span class="dv">1</span>)</span></code></pre></div><pre><code>Error in EtaSq.lm(aovCRFpq, type = 1): konnte Funktion &quot;is&quot; nicht finden</code></pre><h2 id="simple-effects">Simple effects</h2><div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">library</span>(phia)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="kw">testInteractions</span>(aovCRFpq, <span class="dt">fixed=</span><span class="st">&quot;IV2&quot;</span>, <span class="dt">across=</span><span class="st">&quot;IV1&quot;</span>, <span class="dt">adjustment=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div><pre><code>F Test: 
+P-value adjustment method: none
+             Value Df Sum of Sq      F  Pr(&gt;F)  
+1          1.96713  1    15.478 4.2944 0.04441 *
+2          1.64183  1    10.782 2.9915 0.09105 .
+3         -0.17151  1     0.118 0.0326 0.85749  
+Residuals          42   151.381                 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre><div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="kw">testInteractions</span>(aovCRFpq, <span class="dt">fixed=</span><span class="st">&quot;IV1&quot;</span>, <span class="dt">across=</span><span class="st">&quot;IV2&quot;</span>, <span class="dt">adjustment=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div><pre><code>F Test: 
+P-value adjustment method: none
+             IV21    IV22 Df Sum of Sq      F    Pr(&gt;F)    
+1         -1.7098 -1.5508  2    14.276 1.9804 0.1506926    
+2         -3.8484 -3.3641  2    70.299 9.7520 0.0003321 ***
+Residuals                 42   151.381                     
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre><h2 id="planned-comparisons">Planned comparisons</h2><h3 id="main-effects-only">Main effects only</h3><h4 id="free-comparisons-of-marginal-means">Free comparisons of marginal means</h4><div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a>cMat &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="st">&quot;c1&quot;</span>=<span class="kw">c</span>( <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>, <span class="dv">-1</span>),</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a>              <span class="st">&quot;c2&quot;</span>=<span class="kw">c</span>(  <span class="dv">-1</span>,   <span class="dv">0</span>,  <span class="dv">1</span>))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a><span class="kw">library</span>(multcomp)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a><span class="kw">summary</span>(<span class="kw">glht</span>(aovCRFpq, <span class="dt">linfct=</span><span class="kw">mcp</span>(<span class="dt">IV2=</span>cMat), <span class="dt">alternative=</span><span class="st">&quot;two.sided&quot;</span>),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a>        <span class="dt">test=</span><span class="kw">adjusted</span>(<span class="st">&quot;bonferroni&quot;</span>))</span></code></pre></div><pre><code>
+     Simultaneous Tests for General Linear Hypotheses
+
+Multiple Comparisons of Means: User-defined Contrasts
+
+
+Fit: aov(formula = DV ~ IV1 * IV2, data = dfCRFpq)
+
+Linear Hypotheses:
+        Estimate Std. Error t value Pr(&gt;|t|)
+c1 == 0  -1.6303     0.8221  -1.983    0.108
+c2 == 0   1.7098     0.9493   1.801    0.158
+(Adjusted p values reported -- bonferroni method)</code></pre><h4 id="tukey-simultaneous-confidence-intervals">Tukey simultaneous confidence intervals</h4><p>Fit model without interaction that is ignored by Tukey’s HSD.</p><div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a>aovCRF &lt;-<span class="st"> </span><span class="kw">aov</span>(DV <span class="op">~</span><span class="st"> </span>IV1 <span class="op">+</span><span class="st"> </span>IV2, <span class="dt">data=</span>dfCRFpq)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="kw">TukeyHSD</span>(aovCRF, <span class="dt">which=</span><span class="st">&quot;IV2&quot;</span>)</span></code></pre></div><pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = DV ~ IV1 + IV2, data = dfCRFpq)
+
+$IV2
+         diff        lwr      upr     p adj
+2-1 0.3216154 -1.3238577 1.967089 0.8838220
+3-1 2.7790779  1.1336047 4.424551 0.0005109
+3-2 2.4574624  0.8119893 4.102936 0.0021302</code></pre><p>Using <code>glht()</code> from package <code>multcomp</code>.</p><div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="kw">library</span>(multcomp)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a>tukey &lt;-<span class="st"> </span><span class="kw">glht</span>(aovCRF, <span class="dt">linfct=</span><span class="kw">mcp</span>(<span class="dt">IV2=</span><span class="st">&quot;Tukey&quot;</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a><span class="kw">summary</span>(tukey)</span></code></pre></div><pre><code>
+     Simultaneous Tests for General Linear Hypotheses
+
+Multiple Comparisons of Means: Tukey Contrasts
+
+
+Fit: aov(formula = DV ~ IV1 + IV2, data = dfCRFpq)
+
+Linear Hypotheses:
+           Estimate Std. Error t value Pr(&gt;|t|)    
+2 - 1 == 0   0.3216     0.6784   0.474 0.883804    
+3 - 1 == 0   2.7791     0.6784   4.096 0.000521 ***
+3 - 2 == 0   2.4575     0.6784   3.622 0.002147 ** 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+(Adjusted p values reported -- single-step method)</code></pre><div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="kw">confint</span>(tukey)</span></code></pre></div><pre><code>
+     Simultaneous Confidence Intervals
+
+Multiple Comparisons of Means: Tukey Contrasts
+
+
+Fit: aov(formula = DV ~ IV1 + IV2, data = dfCRFpq)
+
+Quantile = 2.4264
+95% family-wise confidence level
+ 
+
+Linear Hypotheses:
+           Estimate lwr     upr    
+2 - 1 == 0  0.3216  -1.3245  1.9677
+3 - 1 == 0  2.7791   1.1330  4.4252
+3 - 2 == 0  2.4575   0.8114  4.1035</code></pre><h3 id="cell-comparisons-using-the-associated-one-way-anova">Cell comparisons using the associated one-way ANOVA</h3><div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a>(aovCRFpqA &lt;-<span class="st"> </span><span class="kw">aov</span>(DV <span class="op">~</span><span class="st"> </span>IVcomb, <span class="dt">data=</span>dfCRFpq))</span></code></pre></div><pre><code>Call:
+   aov(formula = DV ~ IVcomb, data = dfCRFpq)
+
+Terms:
+                  IVcomb Residuals
+Sum of Squares  100.3295  151.3812
+Deg. of Freedom        5        42
+
+Residual standard error: 1.898503
+Estimated effects may be unbalanced</code></pre><div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a>cntrMat &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="st">&quot;c1&quot;</span>=<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>,  <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">-1</span><span class="op">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>),</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a>                 <span class="st">&quot;c2&quot;</span>=<span class="kw">c</span>(   <span class="dv">0</span>,    <span class="dv">0</span>,   <span class="dv">-1</span>,   <span class="dv">0</span>,   <span class="dv">1</span>,   <span class="dv">0</span>),</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a>                 <span class="st">&quot;c3&quot;</span>=<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>, <span class="dv">-1</span><span class="op">/</span><span class="dv">2</span>,  <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>))</span></code></pre></div><div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a><span class="kw">library</span>(multcomp)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true"></a><span class="kw">summary</span>(<span class="kw">glht</span>(aovCRFpqA, <span class="dt">linfct=</span><span class="kw">mcp</span>(<span class="dt">IVcomb=</span>cntrMat), <span class="dt">alternative=</span><span class="st">&quot;greater&quot;</span>),</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true"></a>        <span class="dt">test=</span><span class="kw">adjusted</span>(<span class="st">&quot;none&quot;</span>))</span></code></pre></div><pre><code>
+     Simultaneous Tests for General Linear Hypotheses
+
+Multiple Comparisons of Means: User-defined Contrasts
+
+
+Fit: aov(formula = DV ~ IVcomb, data = dfCRFpq)
+
+Linear Hypotheses:
+        Estimate Std. Error t value  Pr(&gt;t)   
+c1 &lt;= 0 -0.04422    0.58130  -0.076 0.53014   
+c2 &lt;= 0  1.55080    0.94925   1.634 0.05490 . 
+c3 &lt;= 0  1.55035    0.58130   2.667 0.00541 **
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+(Adjusted p values reported -- none method)</code></pre><h3 id="post-hoc-scheffe-tests-using-the-associated-one-way-anova">Post-hoc Scheffe tests using the associated one-way ANOVA</h3><div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a><span class="kw">library</span>(DescTools)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true"></a><span class="kw">ScheffeTest</span>(aovCRFpqA, <span class="dt">which=</span><span class="st">&quot;IVcomb&quot;</span>, <span class="dt">contrasts=</span><span class="kw">t</span>(cntrMat))</span></code></pre></div><pre><code>
+  Posthoc multiple comparisons of means : Scheffe Test 
+    95% family-wise confidence level
+
+$IVcomb
+                               diff     lwr.ci   upr.ci   pval    
+2.1,2.2,1.3,2.3-1.1,1.2 -0.04422288 -2.0736407 1.985195 1.0000    
+1.3-1.2                  1.55079557 -1.7632298 4.864821 0.7494    
+1.2,2.2,1.3,2.3-1.1,2.1  1.55034667 -0.4790711 3.579764 0.2360    
+
+---
+Signif. codes: 0 `***&#39; 0.001 `**&#39; 0.01 `*&#39; 0.05 `.&#39; 0.1 ` &#39; 1</code></pre><h3 id="post-hoc-scheffe-tests-for-marginal-means">Post-hoc Scheffe tests for marginal means</h3><div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a><span class="kw">library</span>(DescTools)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true"></a><span class="kw">ScheffeTest</span>(aovCRFpq, <span class="dt">which=</span><span class="st">&quot;IV2&quot;</span>, <span class="dt">contrasts=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>))</span></code></pre></div><pre><code>
+  Posthoc multiple comparisons of means : Scheffe Test 
+    95% family-wise confidence level
+
+$IV2
+          diff     lwr.ci   upr.ci   pval    
+2,3-1 1.550347 -0.4790711 3.579764 0.2360    
+
+---
+Signif. codes: 0 `***&#39; 0.001 `**&#39; 0.01 `*&#39; 0.05 `.&#39; 0.1 ` &#39; 1</code></pre><h2 id="assess-test-assumptions">Assess test assumptions</h2><h3 id="normality">Normality</h3><div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a>Estud &lt;-<span class="st"> </span><span class="kw">rstudent</span>(aovCRFpq)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a><span class="kw">qqnorm</span>(Estud, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="dv">2</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true"></a><span class="kw">qqline</span>(Estud, <span class="dt">col=</span><span class="st">&quot;gray60&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerAnovaCRFpq02-1.png" alt="" /><figcaption>plot of chunk rerAnovaCRFpq02</figcaption></figure><div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a><span class="kw">shapiro.test</span>(Estud)</span></code></pre></div><pre><code>
+    Shapiro-Wilk normality test
+
+data:  Estud
+W = 0.9771, p-value = 0.4655</code></pre><h3 id="variance-homogeneity">Variance homogeneity</h3><div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true"></a><span class="kw">plot</span>(Estud <span class="op">~</span><span class="st"> </span>dfCRFpq<span class="op">$</span>IVcomb, <span class="dt">main=</span><span class="st">&quot;Residuals per group&quot;</span>)</span></code></pre></div><figure><img src="../content/assets/figure/rerAnovaCRFpq03-1.png" alt="" /><figcaption>plot of chunk rerAnovaCRFpq03</figcaption></figure><div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a><span class="kw">library</span>(car)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true"></a><span class="kw">leveneTest</span>(aovCRFpq)</span></code></pre></div><pre><code>Levene&#39;s Test for Homogeneity of Variance (center = median)
+      Df F value Pr(&gt;F)
+group  5   0.048 0.9985
+      42               </code></pre><h2 id="detach-automatically-loaded-packages-if-possible">Detach (automatically) loaded packages (if possible)</h2><div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>phia))</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>car))</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>multcomp))</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>survival))</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>mvtnorm))</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>splines))</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>TH.data))</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true"></a><span class="kw">try</span>(<span class="kw">detach</span>(package<span class="op">:</span>DescTools))</span></code></pre></div><h2 id="get-the-article-source-from-github">Get the article source from GitHub</h2><p><a href="https://github.com/dwoll/RExRepos/raw/master/Rmd/anovaCRFpq.Rmd">R markdown</a> - <a href="https://github.com/dwoll/RExRepos/raw/master/md/anovaCRFpq.md">markdown</a> - <a href="https://github.com/dwoll/RExRepos/raw/master/R/anovaCRFpq.R">R code</a> - <a href="https://github.com/dwoll/RExRepos/">all posts</a></p>
+        </div> <!-- /col-sm-8 col-md-10 -->
+      </div> <!--/row-->
+
+      <div class="row">
+        <div class="col toplink">
+          <!-- ### toplink include starts ### -->
+        <p class="toplink">
+          <span class="toplink"><a href="#top"><img src="http://dwoll.de/rexrepos/content/assets/img/cup-sm.png" width=23 height=14 /> top</a></span>
+        </p>
+        <!-- ### toplink include ends ### -->
+
+        </div> <!--/col-->
+      </div> <!--/row-->
+
+      <div class="row">
+        <div class="col footer">
+          <!-- ### footer include starts ### -->
+
+<footer>
+  &copy; 2020
+  Daniel Wollschlaeger -
+  
+  licensed under CC-BY-SA <a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="http://dwoll.de/rexrepos/content/assets/img/cc-by-sa80x15.png" width="80" height="15" alt="Creative Commons BY-SA" /></a>
+  
+</footer>
+
+<!-- ### footer include ends ### -->
+
+        </div> <!-- /col footer -->
+      </div> <!-- /row -->
+    </div><!-- /container-fluid -->
+<!-- ### bottom include starts ### -->
+    <!-- ### JavaScript include starts ### -->
+    <script src="http://dwoll.de/rexrepos/content/assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+    MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }};
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <!-- ### JavaScript include ends ### -->
+
+  </body>
+</html>
+

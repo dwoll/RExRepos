@@ -13,16 +13,16 @@ Build websites with R and nanoc or Jekyll
 Workflow for static site generators
 -------------------------
 
-Using static website generators (SSG) like [nanoc](https://nanoc.ws/), [Jekyll](https://jekyllrb.com/), or [Hugo](https://gohugo.io/) to automatically build a website based on [R markdown](https://rmarkdown.rstudio.com/) documents currently requires dealing with a couple of technical details.
+Using static website generators (SSG) like [nanoc](https://nanoc.app/), [Jekyll](https://jekyllrb.com/), or [Hugo](https://gohugo.io/) to automatically build a website based on [R markdown](https://rmarkdown.rstudio.com/) documents currently requires dealing with a couple of technical details.
 
- * The first step of the workflow requires [`knitr`](http://yihui.name/knitr/) to turn the R markdown documents into regular markdown. I use an [R script](https://github.com/dwoll/RExRepos/blob/master/dwKnit.R) that gets called from a [Makefile](https://github.com/dwoll/RExRepos/blob/master/Rmd/Makefile).
- * The plain markdown files are then processed into regular HTML by the SSG. This is done by a markdown engine - popular choices are [pandoc](https://pandoc.org/), [kramdown](https://kramdown.gettalong.org/), and [Redcarpet](https://github.com/vmg/redcarpet/). Unfortunately, not all engines are supported out-of-the-box by nanoc and Jekyll. Also unfortunately, the engines have slightly different behavior and feature sets when it comes to markdown extensions.
+ * The first step of the workflow requires [`knitr`](https://yihui.org/knitr/) to turn the R markdown documents into regular markdown. I use an [R script](https://github.com/dwoll/RExRepos/blob/master/dwKnit.R) that gets called from a [Makefile](https://github.com/dwoll/RExRepos/blob/master/Rmd/Makefile).
+ * The plain markdown files are then processed into regular HTML by the SSG. This is done by a markdown engine - popular choices are [pandoc](https://pandoc.org/) and [Redcarpet](https://github.com/vmg/redcarpet/). Unfortunately, not all engines are supported out-of-the-box by nanoc and Jekyll. Also unfortunately, the engines have slightly different behavior and feature sets when it comes to markdown extensions.
  * SSGs require markdown files with [YAML front matter](https://yaml.org/) that describes the type of layout, post title, categories and tags. `knitr` ignores YAML front matter in R markdown files, so this is fine.
 
 Setup for nanoc
 -------------------------
 
-This website is currently (2020) built with [nanoc](http://nanoc.ws/) (version 4.11.0, compatibility options for working with nanoc3 config), using Ruby (version 2.7.0). The design uses the [Bootstrap framework](https://getbootstrap.com/) (version 4.5.3). As a markdown engine, I use pandoc (version 2.5) because it provides
+This website is currently (2024) built with [nanoc](http://nanoc.app/) (version 4.12.5, compatibility options for working with nanoc3 config), using Ruby (version 3.0.2). The design uses the [Bootstrap framework](https://getbootstrap.com/) (version 5.3.3). As a markdown engine, I use pandoc (version 2.9) because it provides
 
  * automatical creation of a table-of-contents
  * [MathJax](https://www.mathjax.org/) support for great math rendering based on \(\LaTeX\) syntax
@@ -43,7 +43,7 @@ Setup for Jekyll
 A website like this could also be built with [Jekyll](https://jekyllrb.com/). However, Jekyll is less suited for building a navigation structure as it does not let you use embedded Ruby in templates (like nanoc does). The best choice for a markdown engine currently seems to be [kramdown](http://kramdown.rubyforge.org/). Using Jekyll with kramdown has some extra requirements:
 
  * Call `knitr::render_jekyll()` before you knit an R markdown file to plain markdown. This embeds code snippets in curly braces - kramdown doesn't support fenced code blocks with backticks (knitr's default).
- * kramdown natively supports [MathJax](http://www.mathjax.org/). However, it needs double dollar signs as inline math delimiters instead of single dollar signs. Double dollar signs are normally reserved for display math. If you use single dollar signs with kramdown, inline math underscores are erroneously interpreted as markdown emphasis syntax (and not subscripts).
+ * kramdown natively supports [MathJax](https://www.mathjax.org/). However, it needs double dollar signs as inline math delimiters instead of single dollar signs. Double dollar signs are normally reserved for display math. If you use single dollar signs with kramdown, inline math underscores are erroneously interpreted as markdown emphasis syntax (and not subscripts).
  * kramdown supports automatical generation of a table-of-contents, but needs a toc-placeholder.
  * Jekyll can also use [Redcarpet](https://github.com/vmg/redcarpet) which supports fenced code blocks, inline math with single dollar signs and has an option to turn off inline emphasis. Redcarpet supports automatical creation of a table of contents, but Jekyll - in 2013 - did not implement the two necessary rendering passes.
  * Posts cannot contain double braces as these are delimiters for Jekyll's template engine [Liquid](https://github.com/Shopify/liquid/wiki). Unfortunately, double braces are valid R output, e.g., from package `sets`. You have to replace them before running Jekyll.
@@ -56,6 +56,4 @@ Other solutions
 
  * [Blogdown chapter 2: Hugo](https://bookdown.org/yihui/blogdown/hugo.html)
 
-A new R package for building entire websites based on R markdown files is [`distill`](https://rstudio.github.io/distill/)
-
- * [(Re-)introducing Distill for R Markdown](https://blog.rstudio.com/2020/12/07/distill/)
+A new package for building entire websites based on files in syntax very similar to R markdown files is [`Quarto`](https://quarto.org/)

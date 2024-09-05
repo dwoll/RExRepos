@@ -164,7 +164,9 @@ cmh_test(tab3, distribution=approximate(nresample=9999))
 Useful packages
 -------------------------
 
-Package [`riskyr`](https://CRAN.R-project.org/package=riskyr) provides many analysis methods for confusion tables, including sensitivity, specificity, relative risk, etc.
+ * Package [`riskyr`](https://CRAN.R-project.org/package=riskyr) provides many analysis methods for confusion tables, including sensitivity, specificity, relative risk, etc.
+ * Package [`exact2x2`](https://CRAN.R-project.org/package=exact2x2) addresses the issue that p-values and confidence interval boundaries in some base-R functions such as `fisher.test()` may not always be consistent. It also provides unconditional tests when margins are not fixed, such as the Boschloo test.
+ * Package [`contingencytables`](https://CRAN.R-project.org/package=contingencytables) provides many more options to analyze contingency tables.
 
 Detach (automatically) loaded packages (if possible)
 -------------------------

@@ -99,12 +99,6 @@ library(MASS)
 # not shown
 ```
 
-Profile likelihood based confidence intervals (need to use `MASS:::confint.polr()` instead of `confint()` since other packages are loaded, and method is masked).
-
-```{r}
-exp(MASS:::confint.polr(polrFit))
-```
-
 ### Using `clm()` from package `ordinal`
 
 Model \(\text{logit}(p(Y \leq g)) = \beta_{0_{g}} - (\beta_{1} X_{1} + \dots + \beta_{p} X_{p}) \quad(g = 1, \ldots, k-1)\)
@@ -140,7 +134,7 @@ head(categHat)
 ```
 
 ```{r results='hide'}
-predict(clmFit, type="class")
+predict(clmFit,  type="class")
 predict(polrFit, type="class")
 # not shown
 ```
@@ -213,18 +207,30 @@ sumOrd   <- summary(vglmFit)
 (coefOrd <- coef(sumOrd))
 ```
 
-Profile likelihood confidence intervals
-
-```{r}
-VGAM::confint(vglmFit, method="profile")
-```
-
-Tests for other models.
+Tests for other models
 
 ```{r eval=FALSE}
 summary(polrFit)
 summary(clmFit)
 # not shown
+```
+
+Profile likelihood based confidence intervals
+
+```{r}
+(vglm_ci <- VGAM::confint(vglmFit, method="profile"))
+```
+
+CIs for ORs
+
+```{r}
+vglm_ci[!grepl("Intercept", rownames(vglm_ci)), ]
+```
+
+For `MASS::polr()` need to use `MASS:::confint.polr()` instead of `confint()` since other packages are loaded, and method is masked.
+
+```{r}
+exp(MASS:::confint.polr(polrFit))
 ```
 
 ### Model comparisons - likelihood-ratio tests
@@ -248,13 +254,15 @@ Test assumption of proportional odds (=parallel logits)
 
 ### Using `vglm()` from package `VGAM`
 
-```{r}
+```{r, eval=FALSE}
 vglmP  <- vglm(Yord ~ X1 + X2, family=cumulative(parallel=TRUE,  reverse=TRUE),
               data=dfOrd)
 
-# vglmNP <- vglm(Yord ~ X1 + X2, family=cumulative(parallel=FALSE, reverse=TRUE),
-#                data=dfOrd)
-# VGAM::lrtest(vglmP, vglmNP)
+vglmNP <- vglm(Yord ~ X1 + X2, family=cumulative(parallel=FALSE, reverse=TRUE),
+              data=dfOrd)
+
+VGAM::lrtest(vglmP, vglmNP)
+# not shown
 ```
 
 ### Using `clm()` from package `ordinal`
