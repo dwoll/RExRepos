@@ -11,7 +11,7 @@ The examples assume a reader who is already familiar with the statistical underp
 
 ### Reproducible documents
 
-The posts on this site were created automatically from [R markdown](https://rmarkdown.rstudio.com/) documents, using a workflow that makes use of [knitr](https://yihui.name/knitr/), the static site generator [nanoc](https://nanoc.ws/), and the [Bootstrap framework](https://getbootstrap.com/). For details, see this [page explaining the workflow](<%= @config[:base_url] %>/posts/rerWorkflowJN.html). This website, including all examples (R markdown, markdown, and plain R code files), is [available on GitHub](https://github.com/dwoll/RExRepos). The repository also contains the Makefiles and an R-script necessary for automatically building the website.
+The posts on this site were created automatically from [R markdown](https://rmarkdown.rstudio.com/) documents, using a workflow that makes use of [`knitr`](https://yihui.name/knitr/), the static site generator [`nanoc`](https://nanoc.ws/), and the [Bootstrap framework](https://getbootstrap.com/). For details, see this [page explaining the workflow](<%= @config[:base_url] %>/posts/rerWorkflowJN.html). This website, including all examples (R markdown, markdown, and plain R code files), is [available on GitHub](https://github.com/dwoll/RExRepos). The repository also contains the Makefiles and an R-script necessary for automatically building the website.
 
 All content on this site is licensed under the [Creative Commons BY-SA](https://creativecommons.org/licenses/by-sa/4.0/) license.
 
@@ -25,7 +25,7 @@ All content on this site is licensed under the [Creative Commons BY-SA](https://
  - [Multivariate methods](<%= @config[:base_url] %>/rerMultivariate.html)
  - [Diagrams](<%= @config[:base_url] %>/rerDiagrams.html)
 
-The examples mostly come from my [book](http://www.dwoll.de/r/gddmr.php), and are currently bare-bones R code.
+The examples mostly come from my [book](https://www.dwoll.de/r/gddmr.php), and are currently bare-bones R code.
 
 Some methods within the intended scope of this repository are currently missing:
 
@@ -35,4 +35,4 @@ Some methods within the intended scope of this repository are currently missing:
 
 Contributed examples are very welcome, please contact me if you would like to add your code to this repository.
 
-[Daniel Wollschlaeger](http://www.dwoll.de/)
+[Daniel Wollschlaeger](https://dwoll.de/)

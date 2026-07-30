@@ -107,22 +107,23 @@ Not limited to just two dependent samples.
 ### Using package `coin`
 
 ```{r}
-N      <- 12
-id     <- factor(rep(1:N, times=2))
-DVpre  <- rnorm(N, 100, 20)
-DVpost <- rnorm(N, 110, 20)
-tDepDf <- data.frame(DV=c(DVpre, DVpost),
-                     IV=factor(rep(0:1, each=N), labels=c("pre", "post")))
+N       <- 12
+id      <- factor(rep(1:N, times=2))
+DVpre   <- rnorm(N, 100, 20)
+DVpost  <- rnorm(N, 110, 20)
+tDepDfW <- data.frame(DVpre, DVpost)          # wide format
+tDepDfL <- data.frame(DV=c(DVpre, DVpost),    # long format
+                      IV=factor(rep(0:1, each=N), labels=c("pre", "post")))
 ```
 
 ```{r}
 library(coin)
 oneway_test(DV ~ IV | id, alternative="less", distribution=approximate(nresample=9999),
-            data=tDepDf)
+            data=tDepDfL)
 ```
 
 ```{r}
-t.test(DV ~ IV, alternative="less", paired=TRUE, data=tDepDf)$p.value
+t.test(Pair(DVpre, DVpost) ~ 1, alternative="less", data=tDepDfW)$p.value
 ```
 
 ### Manual exact test

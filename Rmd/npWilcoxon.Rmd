@@ -102,28 +102,29 @@ Two dependent samples
 ### Sign-test
 
 ```{r}
-N      <- 20
-DVpre  <- rnorm(N, mean= 95, sd=15)
-DVpost <- rnorm(N, mean=100, sd=15)
-wDepDf <- data.frame(id=factor(rep(1:N, times=2)),
-                     DV=c(DVpre, DVpost),
-                     IV=factor(rep(0:1, each=N), labels=c("pre", "post")))
+N       <- 20
+DVpre   <- rnorm(N, mean= 95, sd=15)
+DVpost  <- rnorm(N, mean=100, sd=15)
+wDepDfW <- data.frame(DVpre, DVpost)                  # wide format
+wDepDfL <- data.frame(id=factor(rep(1:N, times=2)),   # long format
+                      DV=c(DVpre, DVpost),
+                      IV=factor(rep(0:1, each=N), labels=c("pre", "post")))
 ```
 
 Two-sided test
 
 ```{r}
 medH0  <- 0
-DVdiff <- aggregate(DV ~ id, FUN=diff, data=wDepDf)
+DVdiff <- DVpre-DVpost
 
 library(DescTools)
-SignTest(DVdiff$DV, mu=medH0)
+SignTest(DVdiff, mu=medH0)
 ```
 
 ### Wilcoxon signed rank test
 
 ```{r}
-wilcox.test(DV ~ IV, alternative="less", paired=TRUE, data=wDepDf)
+wilcox.test(Pair(DVpre, DVpost) ~ 1, alternative="less", data=wDepDfW)
 ```
 
 Using package `coin`
@@ -131,14 +132,7 @@ Using package `coin`
 ```{r}
 library(coin)
 wilcoxsign_test(DV ~ IV | id, alternative="less",
-                distribution="exact", data=wDepDf)
-```
-
-Based on data in wide format
-
-```{r eval=FALSE}
-# requires R version >= 4.0.0
-wilcox.test(Pair(DVpre, DVpost) ~ 1, alternative="less")
+                distribution="exact", data=wDepDfL)
 ```
 
 ### van der Waerden normal scores test
@@ -146,7 +140,7 @@ wilcox.test(Pair(DVpre, DVpost) ~ 1, alternative="less")
 ```{r}
 library(coin)
 normal_test(DV ~ IV | id, alternative="less",
-            distribution=approximate(nresample=9999), data=wDepDf)
+            distribution=approximate(nresample=9999), data=wDepDfL)
 ```
 
 ### Fisher-Pitman permutation test with untransformed response values
@@ -154,7 +148,7 @@ normal_test(DV ~ IV | id, alternative="less",
 ```{r}
 library(coin)
 oneway_test(DV ~ IV | id, distribution=approximate(nresample=9999),
-            data=wDepDf)
+            data=wDepDfL)
 ```
 
 Detach (automatically) loaded packages (if possible)

@@ -84,16 +84,16 @@ Compared to the standard user interface that is already included with R, there a
 
 ### For working with R commands
 
- - [RStudio](http://www.rstudio.org/) integrated development environment: Cross platform (Windows, MacOS, Linux), great support for the [workflow for these posts](<%= @config[:base_url] %>/posts/rerWorkflowJN.html), my preferred choice
- - [Eclipse](http://www.eclipse.org/eclipse) integrated development environment with [StatET](http://www.walware.de/goto/statet) plugin: Cross platform (Windows, MacOS, Linux), powerful, visual debugging support, somewhat complicated to set up ([installation instructions](http://www.catherinedalzell.ca/wp-content/uploads/2012/09/Installing-R-Sweave-and-Eclipse-on-Windows.pdf)), somewhat sluggish on older computers
- - [Architect](http://www.openanalytics.eu/architect) by OpenAnalytics: Combines Eclipse and StatET into a pre-configured bundle that removes the complicated Eclipse configuration
- - [TinnR](http://sourceforge.net/projects/tinn-r) text editor with good support for communicating with R: Windows only
- - [Emacs](http://www.gnu.org/software/emacs/) / [XEmacs](http://www.xemacs.org/) text editor with [Emacs Speaks Statistics](http://ess.r-project.org/) add-on: Cross platform (Windows, MacOS, Linux), very powerful, somewhat hard to learn
+ - [RStudio](https://posit.co/download/rstudio-desktop/) integrated development environment (IDE): Cross platform (Windows, MacOS, Linux), great support for the [workflow for these posts](<%= @config[:base_url] %>/posts/rerWorkflowJN.html), my preferred choice
+ - [Positron](https://positron.posit.co/) integrated development environment (IDE): Cross platform (Windows, MacOS, Linux), great support for the [workflow for these posts](<%= @config[:base_url] %>/posts/rerWorkflowJN.html), my preferred choice
+ - [Eclipse](https://www.eclipse.org/eclipse/) IDE with [StatET](https://eclipse.org/statet/) plugin: Cross platform (Windows, MacOS, Linux), powerful, visual debugging support
+ - [Bio7](https://bio7.org/) another customization of the Eclipse IDE for working with R
+ - [Emacs](https://www.gnu.org/software/emacs/) / [XEmacs](https://www.xemacs.org/) text editor with [Emacs Speaks Statistics](https://ess.r-project.org/) add-on: Cross platform (Windows, MacOS, Linux), very powerful, hard to learn
 
 ### Graphical front-ends for R functions
 
- - [Rcmdr](http://socserv.mcmaster.ca/jfox/Misc/Rcmdr/): R Commander - A Basic-Statistics GUI for R based on Java
- - [RKWard](http://rkward.sourceforge.net/) graphical user interface to R: Linux and limited Windows support
+ - [Jamovi](https://www.jamovi.org/): Graphical statistical spreadsheet based on R
+ - [RKWard](https://rkward.kde.org/): Graphical user interface to R: Linux and limited Windows support
 
 Get the article source from GitHub
 ----------------------------------------------

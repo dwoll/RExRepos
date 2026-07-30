@@ -10,17 +10,6 @@ tags: [Nonparametric, ClassicalNonparametric]
 Bowker-test
 =========================
 
-Install required packages
--------------------------
-
-[`coin`](https://cran.r-project.org/package=coin)
-
-```{r}
-wants <- c("coin")
-has   <- wants %in% rownames(installed.packages())
-if(any(!has)) install.packages(wants[!has])
-```
-
 Bowker test
 -------------------------
 
@@ -38,19 +27,4 @@ addmargins(cTab)
 
 ```{r}
 mcnemar.test(cTab)
-```
-
-### Using `symmetry_test()` from package `coin`
-
-```{r}
-library(coin)
-symmetry_test(cTab, teststat="quad", distribution=approximate(nresample=9999))
-```
-
-Detach (automatically) loaded packages (if possible)
--------------------------
-
-```{r}
-try(detach(package:coin))
-try(detach(package:survival))
 ```

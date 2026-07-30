@@ -54,7 +54,8 @@ Robust spread measures
 
 ```{r}
 library(DescTools)
-ageWins <- Winsorize(age, probs=c(0.2, 0.8))
+border  <- quantile(age, probs=c(0.2, 0.8))
+ageWins <- Winsorize(age, val=border)
 var(ageWins)
 sd(ageWins)
 ```

@@ -10,7 +10,7 @@ The articles on this website were generated from R markdown files - plain text d
 
  - [R markdown](https://rmarkdown.rstudio.com/): text formatting with integrated [R](https://www.r-project.org/) commands
  - R package [`knitr`](https://yihui.name/knitr/) from Yihui Xie: convert R markdown to markdown
- - Integrated development environment [RStudio](https://www.rstudio.org/): great support for knitr and markdown
+ - Integrated development environment [RStudio](https://posit.co/products/open-source/rstudio): great support for knitr and markdown
 
 Build websites using static site generators
 ----------------

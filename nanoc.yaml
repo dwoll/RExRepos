@@ -78,8 +78,8 @@ watcher:
   notify_on_compilation_success: true
   notify_on_compilation_failure: true
 
- # The base URL for this site. This is required for XML sitemap generation. 
-base_url: "http://dwoll.de/rexrepos"
+ # The base URL for this site. This is required for XML sitemap generation.
+base_url: "https://dwoll.de/rexrepos"
 #base_url: "http://localhost:3000"
 #base_url: "http://localhost/rexrepos"
 

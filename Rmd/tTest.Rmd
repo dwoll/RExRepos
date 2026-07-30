@@ -93,19 +93,11 @@ Two-sample \(t\)-test for dependent samples
 N      <- 20
 DVpre  <- rnorm(N, mean=90,  sd=15)
 DVpost <- rnorm(N, mean=100, sd=15)
-tDepDf <- data.frame(DV=c(DVpre, DVpost),
-                     IV=factor(rep(0:1, each=N), labels=c("pre", "post")))
+tDepDf <- data.frame(DVpre, DVpost)
 ```
 
 ```{r}
-t.test(DV ~ IV, alternative="less", paired=TRUE, data=tDepDf)
-```
-
-Based on data in wide format
-
-```{r eval=FALSE}
-# requires R version >= 4.0.0
-t.test(Pair(DVpre, DVpost) ~ 1, alternative="less")
+t.test(Pair(DVpre, DVpost) ~ 1, alternative="less", data=tDepDf)
 ```
 
 Equivalent: one-sample t-test for variable built of pair-wise differences
@@ -118,7 +110,7 @@ t.test(DVdiff, alternative="less")
 ### Effect size estimate (Cohen's \(d\))
 
 ```{r}
-cohens_d(DV ~ IV, paired=TRUE, data=tDepDf)
+cohens_d(DVdiff)
 ```
 
 Detach (automatically) loaded packages (if possible)

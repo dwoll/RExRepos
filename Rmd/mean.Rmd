@@ -100,7 +100,8 @@ mean(age, trim=0.2)
 
 ```{r}
 library(DescTools)
-(ageWins <- Winsorize(age, probs=c(0.2, 0.8)))
+border   <- quantile(age, probs=c(0.2, 0.8))
+(ageWins <- Winsorize(age, val=border))
 mean(ageWins)
 ```
 
